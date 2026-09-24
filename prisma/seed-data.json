@@ -1,0 +1,663 @@
+[
+  {
+    "name": "Human Archive",
+    "one_liner": "human embodied intelligence data",
+    "locations": [
+      "San Francisco",
+      "Global"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/humanarchive",
+    "website": "https://www.humanarchive.ai/",
+    "notes": "Official board on Ashby; also listed on YC jobs. Ops presence spans SF and India/China manufacturing."
+  },
+  {
+    "name": "Taste Labs",
+    "one_liner": "data and infrastructure for taste",
+    "locations": [
+      "San Francisco",
+      "Remote"
+    ],
+    "careers_url": "https://tastelabs.com/careers",
+    "website": "https://tastelabs.com/",
+    "notes": null
+  },
+  {
+    "name": "NewCore",
+    "one_liner": "security-focused identity platform",
+    "locations": [
+      "Tel Aviv"
+    ],
+    "careers_url": "https://newcore.com/careers",
+    "website": "https://newcore.com/",
+    "notes": null
+  },
+  {
+    "name": "Prosper AI",
+    "one_liner": "AI voice agents for healthcare",
+    "locations": [
+      "New York City",
+      "Barcelona",
+      "Madrid"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/prosper-ai",
+    "website": "https://www.getprosper.ai/",
+    "notes": "NYC HQ and Barcelona office strongly confirmed; Madrid retained from source list but less visible on public job posts."
+  },
+  {
+    "name": "Broccoli AI",
+    "one_liner": "AI platform for home services",
+    "locations": [
+      "Lehi",
+      "Remote"
+    ],
+    "careers_url": "https://www.broccoli.com/careers",
+    "website": "https://www.broccoli.com/",
+    "notes": "Most roles listed as Lehi, Utah (hybrid/onsite)."
+  },
+  {
+    "name": "Dominion Dynamics",
+    "one_liner": "autonomy and sensing for defense",
+    "locations": [
+      "Ottawa",
+      "Toronto"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/Dominion%20Dynamics",
+    "website": "https://www.defendthedominion.com/",
+    "notes": "dominion-dynamics.com redirects to defendthedominion.com; no /careers on site—Ashby is the jobs board."
+  },
+  {
+    "name": "Norm Law",
+    "one_liner": "AI-native law firm",
+    "locations": [
+      "New York City",
+      "London"
+    ],
+    "careers_url": "https://www.normlaw.com/careers",
+    "website": "https://www.normlaw.com/",
+    "notes": "Related to Norm Ai (separate Ashby board jobs.ashbyhq.com/norm-ai); Norm Law attorney roles use jobs.ashbyhq.com/normlaw."
+  },
+  {
+    "name": "Corgi",
+    "one_liner": "AI-native insurance for startups",
+    "locations": [
+      "San Francisco",
+      "United States"
+    ],
+    "careers_url": "https://www.corgi.insure/careers",
+    "website": "https://www.corgi.insure/",
+    "notes": "Disambiguate from other 'Corgi' products; this is corgi.insure (YC Corgi Insurance)."
+  },
+  {
+    "name": "Vision Lab",
+    "one_liner": "industrial data layer for robotics",
+    "locations": [
+      "SF Bay Area",
+      "Bangkok"
+    ],
+    "careers_url": "https://thevisionlab.ai/careers",
+    "website": "https://thevisionlab.ai/",
+    "notes": null
+  },
+  {
+    "name": "microagi",
+    "one_liner": "robotics deployment platform",
+    "locations": [
+      "Munich",
+      "Zurich",
+      "London",
+      "New York City"
+    ],
+    "careers_url": "https://www.microagi.ai/careers",
+    "website": "https://www.microagi.ai/",
+    "notes": "Public materials emphasize Munich/Zurich/London; NYC retained from source list."
+  },
+  {
+    "name": "Conduct",
+    "one_liner": "AI operating system for SAP",
+    "locations": [
+      "London"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/conduct",
+    "website": "https://conduct.ai/",
+    "notes": "conduct.ai/careers redirects to About; Ashby is the open-roles board."
+  },
+  {
+    "name": "Probook",
+    "one_liner": "AI operating system for home services",
+    "locations": [
+      "New York City"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/probook",
+    "website": "https://www.probook.ai/",
+    "notes": "No /careers path on company site (404); Ashby is official."
+  },
+  {
+    "name": "Hilbert",
+    "one_liner": "growth infrastructure for B2C teams",
+    "locations": [
+      "San Francisco",
+      "Global"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/hilberts",
+    "website": "https://hilberts.ai/",
+    "notes": "Company site careers path redirects to Ashby (hilberts.ai). Not Hilbert Capital/other Hilberts."
+  },
+  {
+    "name": "XDOF",
+    "one_liner": "models for robotics",
+    "locations": [
+      "San Mateo",
+      "Jakarta"
+    ],
+    "careers_url": "https://www.xdof.ai/careers",
+    "website": "https://www.xdof.ai/",
+    "notes": null
+  },
+  {
+    "name": "Wispr Flow",
+    "one_liner": "voice dictation platform",
+    "locations": [
+      "San Francisco",
+      "New York City"
+    ],
+    "careers_url": "https://wisprflow.ai/careers",
+    "website": "https://wisprflow.ai/",
+    "notes": null
+  },
+  {
+    "name": "Cogent",
+    "one_liner": "autonomous vulnerability management",
+    "locations": [
+      "San Francisco",
+      "Remote",
+      "New York City"
+    ],
+    "careers_url": "https://www.cogent.com/company/careers",
+    "website": "https://www.cogent.com/",
+    "notes": "Also Ashby at jobs.ashbyhq.com/cogent-security. Disambiguate from other Cogent firms."
+  },
+  {
+    "name": "TENEX.AI",
+    "one_liner": "AI-native managed detection and response",
+    "locations": [
+      "United States"
+    ],
+    "careers_url": "https://tenex.ai/careers/open-positions/",
+    "website": "https://tenex.ai/",
+    "notes": "Also Ashby jobs.ashbyhq.com/tenex. HQ mentions include Sarasota FL; US multi-office."
+  },
+  {
+    "name": "Amperos",
+    "one_liner": "AI insurance revenue recovery",
+    "locations": [
+      "New York City",
+      "India",
+      "Remote"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/amperos",
+    "website": "https://www.amperos.com/",
+    "notes": "Company /careers is an About-page anchor; Ashby lists roles. India retained from source; public postings skew NYC."
+  },
+  {
+    "name": "Telepatia",
+    "one_liner": "AI healthcare in clinical workflows",
+    "locations": [
+      "LATAM"
+    ],
+    "careers_url": "https://www.telepatia.ai/careers",
+    "website": "https://www.telepatia.ai/",
+    "notes": "Careers path resolves to localized /pt/careers; roles also on Ashby."
+  },
+  {
+    "name": "viktor.com",
+    "one_liner": "AI employee in Slack",
+    "locations": [
+      "Warsaw",
+      "EU"
+    ],
+    "careers_url": "https://viktor.com/careers",
+    "website": "https://viktor.com/",
+    "notes": "Not VIKTOR.ai (parametric engineering platform). This is the Slack/Teams AI employee."
+  },
+  {
+    "name": "Aaru",
+    "one_liner": "behavior simulation platform",
+    "locations": [
+      "Singapore",
+      "New York City",
+      "San Francisco"
+    ],
+    "careers_url": "https://aaru.com/careers",
+    "website": "https://aaru.com/",
+    "notes": null
+  },
+  {
+    "name": "Poetic",
+    "one_liner": "automates complex business processes",
+    "locations": [
+      "San Francisco",
+      "New York City"
+    ],
+    "careers_url": "https://poetic.com/careers",
+    "website": "https://poetic.com/",
+    "notes": null
+  },
+  {
+    "name": "Runlayer",
+    "one_liner": "visibility and control for AI agents",
+    "locations": [
+      "New York City",
+      "San Francisco",
+      "Remote"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/runlayer",
+    "website": "https://www.runlayer.com/",
+    "notes": "Company /careers redirects to About#careers section; Ashby is the job board."
+  },
+  {
+    "name": "AfterQuery",
+    "one_liner": "data solutions for model training",
+    "locations": [
+      "San Francisco",
+      "Remote"
+    ],
+    "careers_url": "https://www.afterquery.com/careers",
+    "website": "https://www.afterquery.com/",
+    "notes": null
+  },
+  {
+    "name": "Armadin",
+    "one_liner": "AI agents for cybersecurity risk",
+    "locations": [
+      "Palo Alto",
+      "Remote"
+    ],
+    "careers_url": "https://www.armadin.com/careers",
+    "website": "https://www.armadin.com/",
+    "notes": "Most postings emphasize in-person Palo Alto."
+  },
+  {
+    "name": "Tessera Labs",
+    "one_liner": "ERP transformations",
+    "locations": [
+      "San Francisco",
+      "New York City",
+      "Remote"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/tessera-labs",
+    "website": "https://www.tesseralabs.ai/",
+    "notes": "No /careers on marketing site; Ashby is official. Also appears on a16z job board."
+  },
+  {
+    "name": "Warp",
+    "one_liner": "AI-native payroll and compliance",
+    "locations": [
+      "New York City"
+    ],
+    "careers_url": "https://www.warp.co/careers",
+    "website": "https://www.warp.co/",
+    "notes": "CRITICAL disambiguation: this is Warp payroll (warp.co / joinwarp.com), NOT Warp terminal (warp.dev)."
+  },
+  {
+    "name": "duvo.ai",
+    "one_liner": "AI operations automation",
+    "locations": [
+      "EU",
+      "UK",
+      "US"
+    ],
+    "careers_url": "https://www.duvo.ai/careers",
+    "website": "https://www.duvo.ai/",
+    "notes": null
+  },
+  {
+    "name": "Monaco",
+    "one_liner": "AI revenue platform for sales",
+    "locations": [
+      "San Francisco"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/monaco",
+    "website": "https://www.monaco.com/",
+    "notes": "No /careers path on monaco.com (404); Ashby is official. Name collision with Monaco destination/finance brands."
+  },
+  {
+    "name": "Simile",
+    "one_liner": "AI simulation of human behavior",
+    "locations": [
+      "New York City",
+      "San Francisco"
+    ],
+    "careers_url": "https://www.simile.com/careers",
+    "website": "https://www.simile.com/",
+    "notes": "simile.ai redirects to simile.com; careers redirects to Ashby jobs.ashbyhq.com/simile."
+  },
+  {
+    "name": "Freehand",
+    "one_liner": "autonomous AI for spend management",
+    "locations": [
+      "United States",
+      "India",
+      "San Francisco"
+    ],
+    "careers_url": "https://www.freehand.ai/career",
+    "website": "https://www.freehand.ai/",
+    "notes": "Official path is singular /career (not /careers). Disambiguate from InVision Freehand whiteboarding."
+  },
+  {
+    "name": "Bobyard",
+    "one_liner": "AI takeoff and estimating software",
+    "locations": [
+      "San Francisco"
+    ],
+    "careers_url": "https://www.bobyard.com/careers",
+    "website": "https://www.bobyard.com/",
+    "notes": null
+  },
+  {
+    "name": "Higgsfield AI",
+    "one_liner": "AI video and image generation",
+    "locations": [
+      "San Francisco",
+      "Global"
+    ],
+    "careers_url": "https://higgsfield.ai/careers",
+    "website": "https://higgsfield.ai/",
+    "notes": "Careers path redirects to Ashby jobs.ashbyhq.com/higgsfieldai; many roles also Almaty/global."
+  },
+  {
+    "name": "Brain Co.",
+    "one_liner": "agent-native OS for regulated institutions",
+    "locations": [
+      "San Francisco",
+      "Global"
+    ],
+    "careers_url": "https://brain.co/careers",
+    "website": "https://brain.co/",
+    "notes": "Careers redirects to Ashby jobs.ashbyhq.com/brainco. Disambiguate from BrainCo (neurotech/education)."
+  },
+  {
+    "name": "Serval",
+    "one_liner": "help desk management and automation",
+    "locations": [
+      "San Francisco",
+      "New York City",
+      "Remote",
+      "London"
+    ],
+    "careers_url": "https://www.serval.com/careers",
+    "website": "https://www.serval.com/",
+    "notes": "Also Ashby jobs.ashbyhq.com/serval."
+  },
+  {
+    "name": "Mind Robotics",
+    "one_liner": "intelligent robotics for industrial applications",
+    "locations": [
+      "Palo Alto",
+      "Las Vegas"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/mindrobotics",
+    "website": "https://www.mindrobotics.com/",
+    "notes": null
+  },
+  {
+    "name": "Fleet Artificial Intelligence",
+    "one_liner": "simulation training gyms for AI agents",
+    "locations": [
+      "New York City",
+      "San Francisco",
+      "Remote"
+    ],
+    "careers_url": "https://www.fleetai.com/careers",
+    "website": "https://www.fleetai.com/",
+    "notes": "Also known as Fleet / Fleet AI."
+  },
+  {
+    "name": "White Circle",
+    "one_liner": "monitoring and optimizing AI interactions",
+    "locations": [
+      "Paris",
+      "Remote"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/whitecircle",
+    "website": "https://whitecircle.com/",
+    "notes": "Ashby board; roles also list London hybrid."
+  },
+  {
+    "name": "GridCARE",
+    "one_liner": "grid capacity for AI data centers",
+    "locations": [
+      "Redwood City",
+      "Remote"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/gridcare",
+    "website": "https://www.gridcare.ai/",
+    "notes": null
+  },
+  {
+    "name": "Klir",
+    "one_liner": "software for water and wastewater utilities",
+    "locations": [
+      "Remote",
+      "Global"
+    ],
+    "careers_url": "https://www.klir.com/careers",
+    "website": "https://www.klir.com/",
+    "notes": "Also lists roles via Rippling ATS (ats.rippling.com/klir)."
+  },
+  {
+    "name": "Bespoke Labs",
+    "one_liner": "data and RL environment curation",
+    "locations": [
+      "Mountain View",
+      "Remote"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/bespokelabs",
+    "website": "https://bespokelabs.ai/",
+    "notes": null
+  },
+  {
+    "name": "OpenArt AI",
+    "one_liner": "generative AI image creation and editing",
+    "locations": [
+      "SF Bay Area"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/openart",
+    "website": "https://openart.ai/",
+    "notes": null
+  },
+  {
+    "name": "fonio.ai",
+    "one_liner": "AI telephone assistant for calls",
+    "locations": [
+      "Vienna",
+      "Remote"
+    ],
+    "careers_url": "https://www.fonio.ai/en/careers",
+    "website": "https://www.fonio.ai/",
+    "notes": "Also has Ashby board jobs.ashbyhq.com/fonio."
+  },
+  {
+    "name": "Phonely",
+    "one_liner": "AI phone support system",
+    "locations": [
+      "San Francisco",
+      "Remote"
+    ],
+    "careers_url": "https://www.phonely.ai/careers",
+    "website": "https://www.phonely.ai/",
+    "notes": "Also Ashby jobs.ashbyhq.com/phonely."
+  },
+  {
+    "name": "Mercor",
+    "one_liner": "talent and workforce platform",
+    "locations": [
+      "San Francisco"
+    ],
+    "careers_url": "https://www.mercor.com/careers/",
+    "website": "https://www.mercor.com/",
+    "notes": "Also Ashby jobs.ashbyhq.com/mercor."
+  },
+  {
+    "name": "Inertia",
+    "one_liner": "fusion energy via modular lasers",
+    "locations": [
+      "SF Bay Area"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/inertia",
+    "website": "https://inertia.com/",
+    "notes": "Commercial fusion company (Livermore / Bay Area); common name."
+  },
+  {
+    "name": "Hark",
+    "one_liner": "advanced personal intelligence",
+    "locations": [
+      "United States"
+    ],
+    "careers_url": "https://job-boards.greenhouse.io/hark",
+    "website": "https://hark.com/",
+    "notes": "Greenhouse board; company site hark.com."
+  },
+  {
+    "name": "Revspot",
+    "one_liner": "AI lead generation for B2C",
+    "locations": [
+      "Bengaluru"
+    ],
+    "careers_url": "https://revspot.ai/careers",
+    "website": "https://revspot.ai/",
+    "notes": null
+  },
+  {
+    "name": "Bolna",
+    "one_liner": "voice AI for Indian languages",
+    "locations": [
+      "Bengaluru"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/bolna",
+    "website": "https://www.bolna.ai/",
+    "notes": "Also listed on jobs.gem.com/bolna."
+  },
+  {
+    "name": "Ollama",
+    "one_liner": "local LLM deployment and management",
+    "locations": [
+      "Palo Alto"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/ollama",
+    "website": "https://ollama.com/",
+    "notes": null
+  },
+  {
+    "name": "Parallel Web Systems",
+    "one_liner": "web API for AI applications",
+    "locations": [
+      "Palo Alto",
+      "San Francisco"
+    ],
+    "careers_url": "https://parallel.ai/careers",
+    "website": "https://parallel.ai/",
+    "notes": "Also Ashby jobs.ashbyhq.com/parallel."
+  },
+  {
+    "name": "Nscale",
+    "one_liner": "GPU cloud for AI",
+    "locations": [
+      "London",
+      "San Francisco",
+      "Houston",
+      "Seattle",
+      "New York City",
+      "Remote"
+    ],
+    "careers_url": "https://www.nscale.com/careers",
+    "website": "https://www.nscale.com/",
+    "notes": "Also Greenhouse job-boards.eu.greenhouse.io/nscaleoperationsukltd."
+  },
+  {
+    "name": "Cowboy Space",
+    "one_liner": "space-based solar power satellites",
+    "locations": [
+      "San Carlos"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/cowboyspace",
+    "website": "https://www.cowboyspace.com/",
+    "notes": "Formerly Aetherflux."
+  },
+  {
+    "name": "Prometheus",
+    "one_liner": "AI for the physical economy",
+    "locations": [
+      "San Francisco",
+      "London",
+      "Zurich"
+    ],
+    "careers_url": null,
+    "website": "https://prometheus.ai/",
+    "notes": "Stealth Project Prometheus; domain exists but no verified public careers board — careers_url left null."
+  },
+  {
+    "name": "Fundamental",
+    "one_liner": "predictive analytics for enterprises",
+    "locations": [
+      "Remote"
+    ],
+    "careers_url": "https://fundamental.tech/careers",
+    "website": "https://fundamental.tech/",
+    "notes": "Also Ashby jobs.ashbyhq.com/fundamental."
+  },
+  {
+    "name": "Fluidstack",
+    "one_liner": "GPU cloud for AI training",
+    "locations": [
+      "Austin",
+      "New York City",
+      "Global"
+    ],
+    "careers_url": "https://fluidstack.io/jobs",
+    "website": "https://fluidstack.io/",
+    "notes": null
+  },
+  {
+    "name": "Strala",
+    "one_liner": "AI-driven claims processing",
+    "locations": [
+      "San Francisco"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/strala-ai",
+    "website": "https://strala.ai/",
+    "notes": null
+  },
+  {
+    "name": "Jetson",
+    "one_liner": "all-electric heat pump systems",
+    "locations": [
+      "Denver",
+      "San Jose",
+      "Remote"
+    ],
+    "careers_url": "https://jetsonhome.com/us/careers",
+    "website": "https://jetsonhome.com/",
+    "notes": "Jetson Home; Greenhouse job-boards.greenhouse.io/jetsonhome. Not NVIDIA Jetson."
+  },
+  {
+    "name": "Pillar",
+    "one_liner": "platform for the construction industry",
+    "locations": [
+      "North America",
+      "Tel Aviv"
+    ],
+    "careers_url": null,
+    "website": null,
+    "notes": "Common name collision (Milan Pillar.it, Pillar Security, Pillar Tech, etc.); could not confidently match North America/Tel Aviv construction platform — left null."
+  },
+  {
+    "name": "Gimlet Labs",
+    "one_liner": "serverless AI inference platform",
+    "locations": [
+      "San Francisco"
+    ],
+    "careers_url": "https://jobs.ashbyhq.com/gimlet",
+    "website": "https://gimletlabs.ai/",
+    "notes": null
+  }
+]

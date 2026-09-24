@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id         String   @id @default(cuid())
+  name       String
+  slug       String   @unique
+  oneLiner   String?
+  website    String?
+  careersUrl String?
+  locations  String   // JSON array string for SQLite
+  source     String   @default("curated")
+  sourceUrl  String?
+  notes      String?
+  listedAt   DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  city        String
+  country     String?
+  startsAt    DateTime
+  endAt       DateTime?
+  url         String?
+  category    String    @default("ai_meetup")
+  description String?
+  source      String    @default("curated")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
