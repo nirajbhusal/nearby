@@ -27,6 +27,8 @@ jobs:
           node-version: "22"
           cache: npm
 
+      # Fails with 404 until a repo admin sets Pages → Source to GitHub Actions.
+      # enablement requires a token with administration:write, not GITHUB_TOKEN.
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

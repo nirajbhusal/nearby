@@ -47,8 +47,18 @@ This writes the site to `out/`. Pushing to `main` runs
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml), which uploads
 `out/` and deploys it with GitHub Pages (Actions source).
 
-If the first deploy does not start, enable Pages once in the repo settings:
-**Settings → Pages → Build and deployment → Source: GitHub Actions**.
+### First-time GitHub Pages setup
+
+Pages is not enabled until someone with admin access turns it on. The Actions
+workflow cannot do that itself (`actions/configure-pages` only reads an existing
+Pages site unless a token with `administration:write` is provided).
+
+1. Open **Settings → Pages → Build and deployment**.
+2. Set **Source** to **GitHub Actions**.
+3. Re-run the failed **Deploy to GitHub Pages** workflow (or push to `main` again).
+
+After that, every push to `main` publishes
+[https://nirajbhusal.github.io/nearby/](https://nirajbhusal.github.io/nearby/).
 
 ## Try the nearby flow
 
