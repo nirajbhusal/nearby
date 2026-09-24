@@ -1,8 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import type { NearbyResult } from "@/lib/nearby";
-import type { EventDTO, NearbyEvent } from "@/lib/events";
+import { useCallback, useSyncExternalStore, useState } from "react";
+import { loadCompanies, loadEvents } from "@/lib/catalog";
+import { rankNearby, type NearbyResult } from "@/lib/nearby";
+import {
+  rankNearbyEvents,
+  upcomingEvents,
+  type EventDTO,
+  type NearbyEvent,
+} from "@/lib/events";
 import { RecommendationRow } from "@/components/RecommendationRow";
 import { SketchPin } from "@/components/illustrations/SketchPin";
 import { CityHorizon } from "@/components/illustrations/CityHorizon";
@@ -58,6 +64,18 @@ function placeLabel(place: string | null | undefined): string {
   return city || trimmed;
 }
 
+const EMPTY_UPCOMING: EventDTO[] = [];
+let upcomingSnapshot: EventDTO[] | null = null;
+
+function subscribeUpcoming() {
+  return () => {};
+}
+
+function getUpcomingSnapshot(): EventDTO[] {
+  upcomingSnapshot ??= upcomingEvents(loadEvents(), 5);
+  return upcomingSnapshot;
+}
+
 function EventRow({ event }: { event: NearbyEvent | EventDTO }) {
   const label = "nearnessLabel" in event ? event.nearnessLabel : undefined;
   return (
@@ -94,61 +112,32 @@ function EventRow({ event }: { event: NearbyEvent | EventDTO }) {
 export function NearbyFinder() {
   const [place, setPlace] = useState("");
   const [intent, setIntent] = useState("");
-  const [loading, setLoading] = useState(false);
   const [geoBusy, setGeoBusy] = useState(false);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<NearbyResult | null>(null);
-  const [upcoming, setUpcoming] = useState<EventDTO[]>([]);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/api/events?limit=5");
-        if (!res.ok) return;
-        const data = (await res.json()) as { events?: EventDTO[] };
-        if (!cancelled && Array.isArray(data.events)) {
-          setUpcoming(data.events);
-        }
-      } catch {
-        // quiet strip is optional
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const upcoming = useSyncExternalStore(
+    subscribeUpcoming,
+    getUpcomingSnapshot,
+    () => EMPTY_UPCOMING
+  );
 
   const findNearby = useCallback(
-    async (placeOverride?: string) => {
+    (placeOverride?: string) => {
       const p = (placeOverride ?? place).trim();
       const i = intent.trim();
       if (!p && !i) {
         setError("Tell us a place, or a role you’re looking for.");
         return;
       }
-      setLoading(true);
       setError(null);
-      try {
-        const res = await fetch("/api/nearby", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ place: p, intent: i || undefined }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          setError(data.error ?? "Something went wrong.");
-          setResult(null);
-          return;
-        }
-        setResult(data as NearbyResult);
-      } catch {
-        setError("Couldn’t reach Nearby. Try again.");
-        setResult(null);
-      } finally {
-        setLoading(false);
-      }
+      const jobResult = rankNearby(loadCompanies(), p, i || undefined);
+      const eventResult = rankNearbyEvents(loadEvents(), p);
+      setResult({
+        ...jobResult,
+        events: eventResult.events,
+        eventsSummary: eventResult.eventsSummary,
+      });
     },
     [place, intent]
   );
@@ -169,7 +158,7 @@ export function NearbyFinder() {
         setGeoBusy(false);
         if (label) {
           setPlace(label);
-          void findNearby(label);
+          findNearby(label);
         } else {
           setGeoError(
             "Couldn’t name your city — type one below (e.g. San Francisco)."
@@ -207,7 +196,7 @@ export function NearbyFinder() {
           className="mx-auto max-w-lg space-y-4 text-left"
           onSubmit={(e) => {
             e.preventDefault();
-            void findNearby();
+            findNearby();
           }}
         >
           <div className="space-y-2">
@@ -256,10 +245,9 @@ export function NearbyFinder() {
 
           <button
             type="submit"
-            disabled={loading}
-            className="w-full rounded-xl bg-[var(--graphite)] px-5 py-4 text-base font-medium text-[var(--paper)] transition hover:bg-[var(--accent)] disabled:opacity-60"
+            className="w-full rounded-xl bg-[var(--graphite)] px-5 py-4 text-base font-medium text-[var(--paper)] transition hover:bg-[var(--accent)]"
           >
-            {loading ? "Looking nearby…" : "Find nearby"}
+            Find nearby
           </button>
         </form>
 

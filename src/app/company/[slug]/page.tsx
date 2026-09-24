@@ -1,20 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
-import { toCompanyDTO } from "@/lib/companies";
+import { getCompanyBySlug, loadCompanies } from "@/lib/catalog";
 import { SketchPin } from "@/components/illustrations/SketchPin";
 import { JobIcon } from "@/components/illustrations/JobIcon";
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return loadCompanies().map((company) => ({ slug: company.slug }));
+}
 
 type Params = Promise<{ slug: string }>;
 
 export default async function CompanyPage({ params }: { params: Params }) {
   const { slug } = await params;
-  const row = await prisma.company.findUnique({ where: { slug } });
-  if (!row) notFound();
-
-  const company = toCompanyDTO(row);
+  const company = getCompanyBySlug(slug);
+  if (!company) notFound();
 
   return (
     <main className="mx-auto w-full max-w-xl flex-1 px-4 py-16 sm:px-6 sm:py-20">
