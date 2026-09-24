@@ -1,3 +1,5 @@
+import { phraseOverlaps } from "@/lib/place-match";
+
 export type EventDTO = {
   id: string;
   title: string;
@@ -79,9 +81,7 @@ function cityMatchScore(
   if (!place.trim()) return { score: 0, label: "" };
   const tokens = placeTokens(place);
   const c = normalize(city);
-  const matched = tokens.some(
-    (t) => c === t || c.includes(t) || t.includes(c)
-  );
+  const matched = tokens.some((t) => phraseOverlaps(c, t));
   if (matched) {
     const display = place.split(",")[0]?.trim() || place.trim();
     return { score: 100, label: `Near ${display}` };

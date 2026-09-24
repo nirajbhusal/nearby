@@ -1,5 +1,6 @@
 import type { CompanyDTO } from "@/lib/companies";
 import type { NearbyEvent } from "@/lib/events";
+import { phraseOverlaps } from "@/lib/place-match";
 
 export type NearbyRecommendation = Omit<CompanyDTO, "source" | "sourceUrl"> & {
   score: number;
@@ -62,7 +63,7 @@ function locationScore(locations: string[], place: string): {
   const tokens = placeTokens(place);
   const locs = locations.map(normalize);
   const cityMatch = locs.some((l) =>
-    tokens.some((t) => l.includes(t) || t.includes(l))
+    tokens.some((t) => phraseOverlaps(l, t))
   );
   const remote = locs.some(
     (l) => l.includes("remote") || l.includes("global")
