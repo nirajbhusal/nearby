@@ -70,33 +70,31 @@ field-verified.
 | `learn.json` | 27 places to learn AI, with programs |
 | `events.json` | 63 tech and AI events |
 | `places.json` | City, district, and province centroids used for search |
-| `nomad-cities.json` | Digital nomad cities. Only sourced figures are filled in |
+| `nomad-cities.json` | Kathmandu and Pokhara: sourced stats, coworking, and cafés |
+| `nomad-stays.json` | Verified stays and best areas to live. Excluded candidates stay in the file and are not shown |
 
-### Nomad city schema
+### Nomad cities and stays
 
-`nomad-cities.json` is a `{ "cities": NomadCity[] }` document. The TypeScript
-types live in `src/lib/nepal/nomad.ts`. Each city has `slug`, `name`,
-`province`, `lat`, `lng`, a short `blurb`, a `stats` array, a `season` note,
-an `ookla` outbound link (label and URL only — no Speedtest figures), and
-these sections:
+`nomad-cities.json` lists each city with a short introduction, Nomads.com
+stats, coworking spaces, and cafés. Every coworking space and café has an
+`id`. Shared visa, SIM, season, and tip notes sit under `nepal`. Ookla is an
+outbound link only — the page does not print Speedtest figures. Types for the
+view the pages use live in `src/lib/nepal/nomad.ts`.
 
-- `coworking`, `cafes`, `neighbourhoods` — place arrays, with `badges`
-- `visa`, `sim`, `tips` — note arrays
-
-Every stat, place, and note needs `source`, `sourceUrl` (or `null`), and
-`asOf`. Extra citations sit in `also`. A `listed` badge means the place was
-found only on a listing site. A `stale` badge means the write-up may be
-outdated. Leave a section empty rather than adding an unsourced number.
+`nomad-stays.json` is the stay list those pages render: area, type, features,
+a price only when the source states one, and distances to the coworking and
+café ids. Leave a stay or a price out rather than adding an unsourced one.
 
 Nomads.com figures shown in the app, labeled “Source: Nomads.com, as of 26 Sep 2026”.
-The ranking changes daily:
+The ranking changes daily. The app uses the city-table values:
 
-- Kathmandu: rank #12, cost for a nomad USD 906/month (city card)
-- Pokhara: rank #60, cost for a nomad USD 1,027/month (city card)
+- Kathmandu: rank #12, cost for a nomad USD 908/month. Nomads.com cross-link cards on the same site show $906.
+- Pokhara: rank #60, cost for a nomad USD 1,030/month. The page description and cross-link cards show $1,027.
 
-Credits: OpenStreetMap contributors (map tiles, and some station coordinates);
-public operator directories; official company, campus, and organizer pages.
-Office coordinates in the jobs set are city centroids. Station access is often
+Credits: OpenStreetMap contributors (map tiles, and some station and stay
+coordinates); public operator directories; official company, campus, and
+organizer pages. A company office is a building or street point, an area, or
+still the city centre, and the jobs map marks which. Station access is often
 unknown — the UI says to call ahead instead of assuming a charger is public.
 
 ## Stack
