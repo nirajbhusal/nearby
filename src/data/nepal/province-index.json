@@ -1,14 +1,14 @@
 {
-  "source": "geoBoundaries NPL ADM1 (gbOpen, 2020), Douglas-Peucker simplified",
-  "sourceUrl": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/NPL/ADM1/geoBoundaries-NPL-ADM1_simplified.geojson",
-  "license": "CC BY 3.0 IGO",
-  "licenseNote": "geoBoundaries redistributes Survey Department of Nepal and OCHA FISS boundaries. The gbOpen ADM1 file is licensed CC BY 3.0 IGO.",
+  "source": "Survey Department of Nepal, official political map of 18 May 2020 (Lipulekh, Kalapani, Limpiyadhura), National GeoPortal province polygons, simplified to 0.0015\u00b0",
+  "sourceUrl": "https://nationalgeoportal.gov.np",
+  "license": "Survey Department of Nepal",
+  "licenseNote": "Province and country outlines follow the Government of Nepal map issued on 18 May 2020, including the northwest tip at Limpiyadhura. They are the National GeoPortal province polygons published by the Survey Department, lightly simplified for the web map. OpenStreetMap admin lines are not drawn.",
   "nepal": {
     "bbox": [
-      80.0586,
-      26.3478,
-      88.2014,
-      30.4473
+      80.0601,
+      26.3474,
+      88.2041,
+      30.4672
     ]
   },
   "provinces": [
@@ -19,10 +19,10 @@
       "lat": 27.2105,
       "lng": 87.272,
       "bbox": [
-        86.1559,
-        26.3478,
-        88.2014,
-        28.1087
+        86.1586,
+        26.3474,
+        88.2041,
+        28.1128
       ]
     },
     {
@@ -32,10 +32,10 @@
       "lat": 26.9306,
       "lng": 85.6895,
       "bbox": [
-        84.4839,
-        26.4225,
-        87.0134,
-        27.463
+        84.4863,
+        26.422,
+        87.017,
+        27.4629
       ]
     },
     {
@@ -45,10 +45,10 @@
       "lat": 27.6786,
       "lng": 85.4705,
       "bbox": [
-        83.9245,
-        26.9191,
-        86.5728,
-        28.3863
+        83.9208,
+        26.9188,
+        86.5752,
+        28.3857
       ]
     },
     {
@@ -58,10 +58,10 @@
       "lat": 28.4091,
       "lng": 84.0498,
       "bbox": [
-        82.8774,
-        27.4378,
-        85.1884,
-        29.3287
+        82.8793,
+        27.4376,
+        85.2003,
+        29.331
       ]
     },
     {
@@ -71,10 +71,10 @@
       "lat": 28.0514,
       "lng": 82.6867,
       "bbox": [
-        81.0646,
-        27.3315,
-        84.0285,
-        28.8672
+        81.0609,
+        27.33,
+        84.0306,
+        28.8691
       ]
     },
     {
@@ -84,10 +84,10 @@
       "lat": 29.2535,
       "lng": 82.2823,
       "bbox": [
-        80.9811,
-        28.1511,
-        83.6804,
-        30.4473
+        80.9827,
+        28.1509,
+        83.6825,
+        30.4459
       ]
     },
     {
@@ -97,10 +97,10 @@
       "lat": 29.3249,
       "lng": 80.9403,
       "bbox": [
-        80.0586,
-        28.3945,
-        81.8039,
-        30.2467
+        80.0601,
+        28.3944,
+        81.81,
+        30.4672
       ]
     }
   ]

@@ -32,12 +32,12 @@ export default function AboutPage() {
           public, Nearby says so and asks you to call ahead.
         </p>
         <p>
-          Map tiles are © OpenStreetMap contributors, via OpenFreeMap. Province
-          outlines are geoBoundaries ADM1 for Nepal (2020), © geoBoundaries,
-          licensed CC BY 3.0 IGO. The Survey Department of Nepal and OCHA FISS
-          compiled those boundaries. Each charger is placed in a province by a
-          point-in-polygon test against them. Station coordinates come from
-          public operator directories and OpenStreetMap. Company offices are
+          Map tiles are © OpenStreetMap contributors, via OpenFreeMap. The
+          country outline and the seven province lines are the Survey Department
+          of Nepal map issued on 18 May 2020, including Lipulekh, Kalapani and
+          Limpiyadhura. OpenStreetMap’s own country line is not drawn. Each
+          charger keeps the province named in its public directory. Station
+          coordinates come from public operator directories and OpenStreetMap. Company offices are
           a building or street point, an area, or still the city centre. The
           jobs map marks which. Nomad stays, areas, and figures are credited
           on the city page, each with the date it was current.
