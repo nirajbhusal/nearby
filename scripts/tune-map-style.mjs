@@ -1,14 +1,16 @@
 /**
  * Hand-built OpenMapTiles styles for OpenFreeMap.
- * About 16 layers: land, water, a four-step road stack, buildings only from z16,
- * a dim mask outside Nepal, province lines, and English city/town/major-road labels.
- * Tiles and glyphs stay on OpenFreeMap. No API key, no POI icons, no park polygons.
+ * Land, water, a four-step road stack, buildings only from z16, a dim mask outside
+ * the official 2020 Nepal outline, that outline plus province lines, and English
+ * city/town/major-road labels. The basemap `boundary` layer is not used, so
+ * OpenStreetMap admin lines never draw. Tiles and glyphs stay on OpenFreeMap.
  */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const outDir = path.join(process.cwd(), "public", "map");
 const provincesPath = path.join(process.cwd(), "src/data/nepal/province-boundaries.json");
+const outlinePath = path.join(process.cwd(), "src/data/nepal/nepal-outline.geojson");
 
 const DARK = {
   land: "#0b0d0f",
@@ -22,6 +24,7 @@ const DARK = {
   label: "rgba(245, 245, 247, 0.72)",
   halo: "#0b0d0f",
   line: "rgba(255, 255, 255, 0.28)",
+  outline: "rgba(255, 255, 255, 0.92)",
   mask: "#050607",
 };
 
@@ -37,6 +40,7 @@ const LIGHT = {
   label: "rgba(28, 28, 30, 0.78)",
   halo: "#f4f2ee",
   line: "rgba(60, 60, 67, 0.35)",
+  outline: "rgba(28, 24, 20, 0.88)",
   mask: "#d9d6d0",
 };
 
@@ -57,44 +61,7 @@ function width(stops) {
   return ["interpolate", ["exponential", 1.4], ["zoom"], ...stops];
 }
 
-/** Farthest vertex in each direction, so the mask follows Nepal instead of a box. */
-function silhouette(features, buckets = 72) {
-  const points = [];
-  const walk = (coords) => {
-    if (typeof coords[0] === "number") points.push(coords);
-    else coords.forEach(walk);
-  };
-  for (const feature of features) walk(feature.geometry.coordinates);
-  let sx = 0;
-  let sy = 0;
-  for (const [x, y] of points) {
-    sx += x;
-    sy += y;
-  }
-  const cx = sx / points.length;
-  const cy = sy / points.length;
-  const best = new Map();
-  for (const [x, y] of points) {
-    const ang = Math.atan2(y - cy, x - cx);
-    const key = Math.round(((ang + Math.PI) / (Math.PI * 2)) * buckets) % buckets;
-    const dist = (x - cx) ** 2 + (y - cy) ** 2;
-    const prev = best.get(key);
-    if (!prev || dist > prev.dist) best.set(key, { dist, x, y });
-  }
-  const ring = [...best.keys()]
-    .sort((a, b) => a - b)
-    .map((key) => {
-      const point = best.get(key);
-      const dx = point.x - cx;
-      const dy = point.y - cy;
-      const len = Math.hypot(dx, dy) || 1;
-      return [Number((point.x + (dx / len) * 0.12).toFixed(4)), Number((point.y + (dy / len) * 0.12).toFixed(4))];
-    });
-  ring.push(ring[0]);
-  return ring;
-}
-
-function style(palette, name, nepal, provinces, mask) {
+function style(palette, name, nepal, provinces, outline, mask) {
   const label = {
     "text-font": ["Noto Sans Regular"],
     "text-field": nameField(),
@@ -107,6 +74,7 @@ function style(palette, name, nepal, provinces, mask) {
     sources: {
       openmaptiles: { type: "vector", url: "https://tiles.openfreemap.org/planet" },
       "nepal-provinces": { type: "geojson", data: provinces },
+      "nepal-outline": { type: "geojson", data: outline },
       "nepal-mask": { type: "geojson", data: mask },
     },
     glyphs: "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
@@ -195,10 +163,16 @@ function style(palette, name, nepal, provinces, mask) {
         paint: { "fill-color": palette.mask, "fill-opacity": 0.82 },
       },
       {
+        id: "country-outline",
+        type: "line",
+        source: "nepal-outline",
+        paint: { "line-color": palette.outline, "line-width": ["interpolate", ["linear"], ["zoom"], 4, 1.5, 8, 2.4] },
+      },
+      {
         id: "province-boundary",
         type: "line",
         source: "nepal-provinces",
-        paint: { "line-color": palette.line, "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.6, 8, 1.25] },
+        paint: { "line-color": palette.line, "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.45, 8, 0.9], "line-opacity": 0.7 },
       },
       {
         id: "road-label",
@@ -240,8 +214,9 @@ function style(palette, name, nepal, provinces, mask) {
 }
 
 const provinces = JSON.parse(await readFile(provincesPath, "utf8"));
-const ring = silhouette(provinces.features);
-const nepal = { type: "Polygon", coordinates: [ring] };
+const outline = JSON.parse(await readFile(outlinePath, "utf8"));
+const nepal = outline.features[0].geometry;
+const ring = nepal.coordinates[0];
 const mask = {
   type: "FeatureCollection",
   features: [
@@ -267,8 +242,9 @@ const mask = {
 
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, "nepal-provinces.geojson"), JSON.stringify(provinces));
+await writeFile(path.join(outDir, "nepal-outline.geojson"), JSON.stringify(outline));
 await writeFile(path.join(outDir, "nepal-mask.geojson"), JSON.stringify(mask));
-await writeFile(path.join(outDir, "style-dark.json"), JSON.stringify(style(DARK, "Nearby Dark", nepal, provinces, mask)));
-await writeFile(path.join(outDir, "style-light.json"), JSON.stringify(style(LIGHT, "Nearby Light", nepal, provinces, mask)));
+await writeFile(path.join(outDir, "style-dark.json"), JSON.stringify(style(DARK, "Nearby Dark", nepal, provinces, outline, mask)));
+await writeFile(path.join(outDir, "style-light.json"), JSON.stringify(style(LIGHT, "Nearby Light", nepal, provinces, outline, mask)));
 const dark = JSON.parse(await readFile(path.join(outDir, "style-dark.json"), "utf8"));
 console.log(`wrote hand-built map styles (${dark.layers.length} layers)`);

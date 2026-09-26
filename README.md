@@ -70,6 +70,8 @@ field-verified.
 | `learn.json` | 27 places to learn AI, with programs |
 | `events.json` | 63 tech and AI events |
 | `places.json` | City, district, and province centroids used for search |
+| `province-boundaries.json` | Seven provinces from the Survey Department of Nepal official map of 18 May 2020, including Lipulekh, Kalapani and Limpiyadhura. Source: National GeoPortal province polygons (`https://nationalgeoportal.gov.np`), simplified to 0.0015°. |
+| `nepal-outline.geojson` | The same official country outline, used for the mask outside Nepal and the country fit |
 | `nomad-cities.json` | Kathmandu and Pokhara: sourced stats, coworking, and cafés |
 | `nomad-stays.json` | Verified stays and best areas to live. Excluded candidates stay in the file and are not shown |
 

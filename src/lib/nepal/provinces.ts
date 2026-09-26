@@ -53,8 +53,8 @@ export const MAJOR_CITIES = [
 ] as const;
 
 /**
- * Counts come from the station index after a point-in-polygon check against
- * geoBoundaries ADM1. The stored province names matched that test for every station.
+ * Counts come from the province named on each station in the directory.
+ * The map outline is the Survey Department’s official 2020 boundary.
  */
 export const provinceRecords: ProvinceRecord[] = index.provinces.map((province) => ({
   ...province,

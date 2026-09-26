@@ -113,7 +113,7 @@ export default function ChargeMap({
       maxZoom: 18,
       attributionControl: {
         compact: true,
-        customAttribution: "Province boundaries © geoBoundaries (CC BY 3.0 IGO)",
+        customAttribution: "Boundary © Survey Department of Nepal, official map 2020",
       },
       dragRotate: false,
       pitchWithRotate: false,
