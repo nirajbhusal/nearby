@@ -6,7 +6,7 @@ import { ViewTransition } from "react";
 import { Briefcase, Calendar, House, User, Zap } from "lucide-react";
 import { Wordmark } from "@/components/brand/Logo";
 import { InstallBridge } from "@/components/InstallPrompt";
-import { AvatarFace, ProfileAvatar } from "@/components/ProfileAvatar";
+import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
 import { ThemeSync } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
@@ -26,6 +26,7 @@ const DESKTOP = [
   { href: "/events", label: "Events" },
   { href: "/learn", label: "Learn" },
   { href: "/nomad", label: "Nomad" },
+  { href: "/profile", label: "Profile" },
 ] as const;
 
 function active(pathname: string, href: string): boolean {
@@ -67,13 +68,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           ))}
         </nav>
-        <ProfileAvatar current={onProfile} />
       </header>
       <div className="mobile-bar glass-bar">
         <Link href="/" className="brand">
           <Wordmark />
         </Link>
-        <ProfileAvatar current={onProfile} />
       </div>
       <ViewTransition
         default="none"

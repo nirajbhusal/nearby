@@ -116,11 +116,11 @@ export function phoneHref(phone: string | null | undefined): string | null {
 }
 
 export function googleMapsDir(lat: number, lng: number): string {
-  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
 }
 
 export function appleMapsDir(lat: number, lng: number): string {
-  return `https://maps.apple.com/?daddr=${lat},${lng}`;
+  return `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
 }
 
 export function ktmDay(date: Date): string {

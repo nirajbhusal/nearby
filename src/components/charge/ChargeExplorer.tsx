@@ -493,23 +493,20 @@ export function ChargeExplorer() {
   }).filter((chip) => chip.count > 0);
   const call = selected ? phoneHref(selected.phone) : null;
   const caution = selected ? stationCaution(selected.name, selected.caution) : null;
+  const viewToggle = (
+    <ViewToggle
+      label="Charger view"
+      value={state.view}
+      options={[
+        { id: "map", label: "Map" },
+        { id: "cards", label: "Cards" },
+      ]}
+      onChange={(id) => replace({ view: id === "cards" ? "cards" : "map" })}
+    />
+  );
 
-  return (
-    <div className={cards ? "charge-cards-page" : "charge-stage"}>
-      <h1 className="sr-only">EV chargers in Nepal</h1>
-      {cards ? null : (
-        <ChargeMap
-          stations={mapStations}
-          origin={origin}
-          frame={frame}
-          selectedId={selected?.id ?? null}
-          showYou={origin.kind === "geolocation"}
-          onSelect={selectStation}
-        />
-      )}
-
+  const searchPanel = (
       <div className="charge-search" ref={searchRef}>
-        <div className="charge-search-top">
         <form
           role="search"
           onSubmit={(event) => {
@@ -535,7 +532,10 @@ export function ChargeExplorer() {
               setSearchOpen(true);
               setHighlight(0);
             }}
-            onFocus={() => setSearchOpen(true)}
+            onFocus={() => {
+              setSearchOpen(true);
+              if (!cards && snap !== "full") setSnap("full");
+            }}
             onKeyDown={(event) => {
               if (event.key === "ArrowDown") {
                 event.preventDefault();
@@ -548,20 +548,12 @@ export function ChargeExplorer() {
               }
             }}
           />
-          <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
-            <LocateIcon />
-          </button>
+          {cards ? (
+            <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
+              <LocateIcon />
+            </button>
+          ) : null}
         </form>
-        <ViewToggle
-          label="Charger view"
-          value={state.view}
-          options={[
-            { id: "map", label: "Map" },
-            { id: "cards", label: "Cards" },
-          ]}
-          onChange={(id) => replace({ view: id === "cards" ? "cards" : "map" })}
-        />
-        </div>
         <div className="scope-row" role="group" aria-label="Scope">
           <button
             type="button"
@@ -654,8 +646,34 @@ export function ChargeExplorer() {
         ) : null}
       </div>
 
+  );
+
+  return (
+    <div className={cards ? "charge-cards-page" : "charge-stage"}>
+      <h1 className="sr-only">EV chargers in Nepal</h1>
+      {cards ? null : (
+        <ChargeMap
+          stations={mapStations}
+          origin={origin}
+          frame={frame}
+          selectedId={selected?.id ?? null}
+          showYou={origin.kind === "geolocation"}
+          onSelect={selectStation}
+        />
+      )}
+      {cards ? null : (
+        <button type="button" className="locate-float" onClick={locate} aria-label="Chargers near me">
+          <LocateIcon />
+        </button>
+      )}
+      <button type="button" className="view-float" onClick={() => replace({ view: cards ? "map" : "cards" })}>
+        {cards ? "Map" : "Cards"}
+      </button>
+
       {cards ? (
         <div className="charge-card-board">
+          <div className="cards-toggle">{viewToggle}</div>
+          {searchPanel}
           <div className="filter-row" role="group" aria-label="Charger filters">
             <FilterChips
               fast={state.fast}
@@ -716,6 +734,7 @@ export function ChargeExplorer() {
         >
           <span className="sheet-grab" />
         </button>
+        <div className="panel-tools">{viewToggle}</div>
 
         {selected ? (
           <StationSheet
@@ -733,6 +752,7 @@ export function ChargeExplorer() {
           />
         ) : (
           <>
+            {searchPanel}
             <div className="sheet-summary">
               <p aria-live="polite">{summary}</p>
               {filterCount > 0 ? (
@@ -762,19 +782,6 @@ export function ChargeExplorer() {
                 }}
               />
             </div>
-            {count > 0 ? (
-              <ul className="peek-list station-list">
-                {visible.slice(0, 3).map((station) => (
-                  <StationListItem
-                    key={station.id}
-                    station={station}
-                    fits={stationFitsEv(station, profile)}
-                    showDistance={showDistance}
-                    onSelect={selectStation}
-                  />
-                ))}
-              </ul>
-            ) : null}
             <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">

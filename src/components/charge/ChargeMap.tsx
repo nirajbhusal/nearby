@@ -33,8 +33,8 @@ function applyFrame(map: MlMap, frame: MapFrame) {
     const wide = window.innerWidth >= 1024;
     map.fitBounds(new LngLatBounds([west, south], [east, north]), {
       padding: wide
-        ? { top: 72, right: 40, bottom: 40, left: 400 }
-        : { top: 118, right: 18, bottom: country ? 408 : 168, left: 18 },
+        ? { top: 72, right: 72, bottom: 40, left: 420 }
+        : { top: 88, right: 56, bottom: country ? 300 : 280, left: 20 },
       duration: 0,
       maxZoom: country ? 6.6 : 11,
     });
@@ -42,6 +42,9 @@ function applyFrame(map: MlMap, frame: MapFrame) {
   }
   map.jumpTo({ center: [frame.lng, frame.lat], zoom: frame.zoom });
 }
+
+const BOLT =
+  '<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M13.2 2.2 4.4 13.4h6.2l-.8 8.4 9.8-12.2h-6.6l.2-7.4z"/></svg>';
 
 function speedClass(speed: string): string {
   if (speed === "fast" || speed === "slow") return speed;
@@ -189,7 +192,7 @@ export default function ChargeMap({
         if (pin.kind === "cluster") {
           const hot = pin.fast >= pin.count / 2 && pin.fast > 0;
           const element = pinButton(
-            `<span class="map-cluster${hot ? " is-fast" : ""}">${pin.count}</span>`,
+            `<span class="ev-cluster${hot ? " is-fast" : ""}">${pin.count}</span>`,
             `${pin.count} chargers`,
           );
           element.addEventListener("click", (event) => {
@@ -209,7 +212,7 @@ export default function ChargeMap({
         const active = station.id === selectedId;
         const hint = zoom >= 14 ? pinHint(station) : "";
         const element = pinButton(
-          `<span class="map-pin-row${active ? " is-active" : ""}"><span class="map-dot speed-${speedClass(station.speed)}"></span>${
+          `<span class="ev-pin-row${active ? " is-active" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}">${BOLT}</span>${
             hint ? `<span class="map-pin-kw">${hint}</span>` : ""
           }</span>`,
           station.name,
