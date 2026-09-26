@@ -13,17 +13,15 @@ export function ensureMapWorker(): void {
 }
 
 
-/** Key-free MapLibre styles from OpenFreeMap. No account, no API key. */
-const STYLES: Record<MapTheme, string> = {
-  dark: "https://tiles.openfreemap.org/styles/dark",
-  light: "https://tiles.openfreemap.org/styles/positron",
-};
-
+/**
+ * OpenFreeMap Liberty, retuned at build time into public/map.
+ * Tiles, sprites, and glyphs stay on OpenFreeMap. No API key.
+ */
 export function readMapTheme(): MapTheme {
   if (typeof document === "undefined") return "dark";
   return document.documentElement.dataset.theme === "light" ? "light" : "dark";
 }
 
 export function mapStyleUrl(theme: MapTheme): string {
-  return STYLES[theme];
+  return `${BASE_PATH}/map/style-${theme}.json`;
 }
