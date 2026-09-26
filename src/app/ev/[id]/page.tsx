@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { notFound } from "next/navigation";
 import { BookingSlot } from "@/components/nepal/BookingSlot";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";

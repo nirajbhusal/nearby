@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useSyncExternalStore } from "react";
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { EventsPanel } from "@/components/nepal/EventsPanel";
 import { JobsPanel } from "@/components/nepal/JobsPanel";

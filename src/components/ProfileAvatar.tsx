@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { User } from "lucide-react";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";

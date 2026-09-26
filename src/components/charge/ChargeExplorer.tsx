@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Suspense, use, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { BASE_PATH } from "@/lib/base-path";
 import { readChargeState, writeChargeSearch, type ChargeState } from "@/lib/nepal/charge-query";
 import {
@@ -256,7 +256,15 @@ export function ChargeExplorer() {
   }
   const [searchOpen, setSearchOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
-  const [snap, setSnap] = useState<Snap>(selected ? "half" : "peek");
+  const urlSnap: Snap = state.sheet ?? (selected ? "half" : "peek");
+  const snapKey = `${state.sheet ?? ""}|${state.station ?? ""}`;
+  const snapKeyRef = useRef(snapKey);
+  const [snap, setSnapState] = useState<Snap>(urlSnap);
+  useEffect(() => {
+    if (snapKeyRef.current === snapKey) return;
+    snapKeyRef.current = snapKey;
+    setSnapState(urlSnap);
+  }, [snapKey, urlSnap]);
   const [geoMessage, setGeoMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [networkOpen, setNetworkOpen] = useState(false);
@@ -266,6 +274,14 @@ export function ChargeExplorer() {
   useEffect(() => {
     stateRef.current = state;
   });
+
+  function setSnap(next: Snap) {
+    setSnapState(next);
+    const fallback: Snap = stateRef.current.station ? "half" : "peek";
+    const sheet = next === fallback ? null : next;
+    if ((stateRef.current.sheet ?? null) === sheet) return;
+    replace({ sheet });
+  }
 
   function replace(partial: Partial<ChargeState>) {
     const next = { ...stateRef.current, ...partial };
@@ -359,8 +375,9 @@ export function ChargeExplorer() {
     rememberPlace(hit.label);
     setSearchOpen(false);
     setDraft(hit.label);
-    setSnap("peek");
+    setSnapState("peek");
     replace({
+      sheet: null,
       q: hit.label,
       province: null,
       lat: null,
@@ -374,8 +391,9 @@ export function ChargeExplorer() {
   function chooseProvince(slug: string) {
     setSearchOpen(false);
     setDraft("");
-    setSnap("peek");
+    setSnapState("peek");
     replace({
+      sheet: null,
       province: slug,
       q: "",
       lat: null,
@@ -389,8 +407,9 @@ export function ChargeExplorer() {
   function chooseNepal() {
     setSearchOpen(false);
     setDraft("");
-    setSnap("peek");
+    setSnapState("peek");
     replace({
+      sheet: null,
       province: null,
       q: "",
       lat: null,
@@ -408,9 +427,9 @@ export function ChargeExplorer() {
   }
 
   function selectStation(id: string) {
-    setSnap("half");
+    setSnapState("half");
     setSearchOpen(false);
-    replace({ station: id });
+    replace({ station: id, sheet: null });
   }
 
   function togglePlug(id: PlugFilter) {
@@ -755,8 +774,8 @@ export function ChargeExplorer() {
             caution={caution}
             copied={copied}
             onBack={() => {
-              setSnap("half");
-              replace({ station: null });
+              setSnapState("half");
+              replace({ station: null, sheet: "half" });
             }}
             onShare={() => shareStation(selected)}
           />

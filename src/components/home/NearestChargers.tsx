@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { Zap } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
 import { SaveButton } from "@/components/SaveButton";

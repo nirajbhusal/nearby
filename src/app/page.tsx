@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { BookOpen, Briefcase, Calendar, Compass, Info, Zap } from "lucide-react";
 import { HomeSearch } from "@/components/home/HomeSearch";
 import { NepalMapSlot } from "@/components/home/NepalMapSlot";
@@ -45,7 +45,7 @@ export default function HomePage() {
     <main className="home">
       <section className="home-hero">
         <DayGreeting />
-        <h1 className="font-display hero-title">Nepal, within reach.</h1>
+        <h1 className="font-display hero-title">Everything near you, in one place.</h1>
         <p className="lede">Chargers, tech jobs, events and places to learn, all near you.</p>
         <HomeSearch />
         <div className="hero-actions">
