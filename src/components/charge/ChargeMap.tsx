@@ -5,7 +5,7 @@ import { Map as MlMap, Marker, NavigationControl } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { pinHint, type NearbyStation } from "@/lib/nepal/ev";
 import { clusterStations } from "@/components/charge/cluster";
-import { mapStyleUrl, readMapTheme } from "@/lib/map-style";
+import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 
 type Props = {
   stations: NearbyStation[];
@@ -57,6 +57,7 @@ export default function ChargeMap({
     let alive = true;
     let onTheme: (() => void) | null = null;
 
+    ensureMapWorker();
     const theme = readMapTheme();
     map = new MlMap({
       container: holder,

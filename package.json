@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/write-sw.mjs",
+    "build": "node scripts/copy-map-worker.mjs && next build && node scripts/write-sw.mjs",
     "start": "next start",
     "lint": "eslint",
     "seed": "tsx prisma/seed.ts",

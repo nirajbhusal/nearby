@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { LngLatBounds, Map as MlMap, Marker, NavigationControl, Popup } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { mapStyleUrl, readMapTheme } from "@/lib/map-style";
+import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 
 export type NomadPin = {
   name: string;
@@ -25,6 +25,7 @@ export default function NomadMap({ pins }: Props) {
     let alive = true;
     let onTheme: (() => void) | null = null;
 
+    ensureMapWorker();
     const first = pins[0];
     map = new MlMap({
       container: holder,
