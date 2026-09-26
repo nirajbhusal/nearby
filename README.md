@@ -76,21 +76,23 @@ field-verified.
 
 `nomad-cities.json` is a `{ "cities": NomadCity[] }` document. The TypeScript
 types live in `src/lib/nepal/nomad.ts`. Each city has `slug`, `name`,
-`province`, `lat`, `lng`, a `stats` array, and these sections:
+`province`, `lat`, `lng`, a short `blurb`, a `stats` array, a `season` note,
+an `ookla` outbound link (label and URL only — no Speedtest figures), and
+these sections:
 
-- `internet` — a stat, or `null`
-- `bestSeason` — a note, or `null`
-- `coworking`, `cafes`, `neighbourhoods` — place arrays
-- `visa`, `sim` — a note, or `null`
-- `tips` — note array
+- `coworking`, `cafes`, `neighbourhoods` — place arrays, with `badges`
+- `visa`, `sim`, `tips` — note arrays
 
 Every stat, place, and note needs `source`, `sourceUrl` (or `null`), and
-`asOf`. Leave a section empty rather than adding an unsourced number.
+`asOf`. Extra citations sit in `also`. A `listed` badge means the place was
+found only on a listing site. A `stale` badge means the write-up may be
+outdated. Leave a section empty rather than adding an unsourced number.
 
-Current figures, both credited “Source: Nomads.com (nomads.com), as of Sep 2026”:
+Nomads.com figures shown in the app, labeled “Source: Nomads.com, as of 26 Sep 2026”.
+The ranking changes daily:
 
-- Kathmandu: Nomads.com rank #11, cost for a nomad about USD 906/month
-- Pokhara: Nomads.com rank #61, cost for a nomad about USD 1,027/month
+- Kathmandu: rank #12, cost for a nomad USD 906/month (city card)
+- Pokhara: rank #60, cost for a nomad USD 1,027/month (city card)
 
 Credits: OpenStreetMap contributors (map tiles, and some station coordinates);
 public operator directories; official company, campus, and organizer pages.

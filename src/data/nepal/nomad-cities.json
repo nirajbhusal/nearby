@@ -6,32 +6,1027 @@
       "province": "Bagmati",
       "lat": 27.70884,
       "lng": 85.32289,
+      "blurb": "Nepal's capital sits at about 1,400 m in the Kathmandu Valley, with Lalitpur (Patan) across the Bagmati.",
+      "blurbSource": {
+        "source": "Wikivoyage – Kathmandu",
+        "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+        "asOf": "26 Sep 2026"
+      },
       "stats": [
         {
           "id": "rank",
           "label": "Nomads.com rank",
-          "value": "#11",
-          "source": "Nomads.com (nomads.com)",
-          "sourceUrl": "https://nomads.com",
-          "asOf": "Sep 2026"
+          "value": "#12",
+          "note": "The ranking changes daily.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
         },
         {
           "id": "cost",
           "label": "Cost for a nomad",
           "value": "USD 906/month",
-          "source": "Nomads.com (nomads.com)",
-          "sourceUrl": "https://nomads.com",
-          "asOf": "Sep 2026"
+          "note": "Nomads.com city card on 26 Sep 2026.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "internet",
+          "label": "Internet",
+          "value": "27 Mbps",
+          "note": "Nomads.com crowd average, labeled Slow on the city page.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "safety",
+          "label": "Safety",
+          "value": "Okay",
+          "note": null,
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "aqi",
+          "label": "Air quality",
+          "value": "86 US AQI",
+          "note": "Annual average on Nomads.com.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "places",
+          "label": "Places to work",
+          "value": "Great",
+          "note": null,
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "power",
+          "label": "Power grid",
+          "value": "Bad",
+          "note": null,
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "season",
+          "label": "Best season",
+          "value": "Oct–Dec",
+          "note": null,
+          "source": "Wikivoyage – Nepal",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Nepal",
+          "asOf": "26 Sep 2026",
+          "also": []
         }
       ],
-      "internet": null,
-      "bestSeason": null,
-      "coworking": [],
-      "cafes": [],
-      "neighbourhoods": [],
-      "visa": null,
-      "sim": null,
-      "tips": []
+      "season": {
+        "title": "When to go",
+        "body": "October–December (autumn, per Wikivoyage Nepal) About 1,400 m elevation. Average summer temperature 28–30 °C, average winter 10.1 °C; about 65% of rainfall falls June–August; about 1,400 mm annual rainfall (Wikivoyage). Nomads.com monthly median rainfall peaks at 665 mm in August and is 2–29 mm Nov–Mar. Nomads.com AQI data shows October–May as the worst air-quality months, so the dry season has worse air than the monsoon.",
+        "source": "Wikivoyage – Kathmandu",
+        "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+        "asOf": "26 Sep 2026",
+        "also": [
+          {
+            "source": "Wikivoyage – Nepal",
+            "sourceUrl": "https://en.wikivoyage.org/wiki/Nepal",
+            "asOf": "26 Sep 2026"
+          },
+          {
+            "source": "Nomads.com – Kathmandu",
+            "sourceUrl": "https://nomads.com/kathmandu",
+            "asOf": "26 Sep 2026"
+          }
+        ]
+      },
+      "ookla": {
+        "label": "See Ookla Speedtest Global Index",
+        "url": "https://www.speedtest.net/global-index/nepal"
+      },
+      "coworking": [
+        {
+          "name": "Raya Space",
+          "area": "Maharajgunj",
+          "note": "NPR 1,400/day · NPR 25,000/month Official price list covers private rooms only (Founders' Room Rs 1,800/day; Executive Room Rs 1,600/day; Meeting Hall Rs 1,000/hour). No hot-desk price shown.…",
+          "url": "https://rayaspace.com/",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Raya Space – official site",
+          "sourceUrl": "https://rayaspace.com/",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Coworker.com listing – Raya Space",
+              "sourceUrl": "https://www.coworker.com/nepal/kathmandu/raya-space",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Regus – Chhaya Centre",
+          "area": "Thamel",
+          "note": "24/7 access for private office and dedicated cowork customers Day coworking: 'Please call us'.",
+          "url": "https://www.regus.com/en/np/11051",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Regus – Chhaya Centre",
+          "sourceUrl": "https://www.regus.com/en/np/11051",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Regus – IT Plaza",
+          "area": "Kamaladi",
+          "note": "NPR 2,900/day 24/7 access for private office and dedicated cowork customers",
+          "url": "https://www.regus.com/en/np/5893",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Regus – IT Plaza",
+          "sourceUrl": "https://www.regus.com/en/np/5893",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Regus – Maharajgunj Plaza",
+          "area": "Maharajgunj",
+          "note": "24/7 access for private office and dedicated cowork customers Day coworking: 'Please call us'. Regus Kathmandu city page lists 'Dedicated coworking desk – Prices from NPR 500 per person per day' across its 4 Kathmandu cent…",
+          "url": "https://www.regus.com/en/np/10894",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Regus – Maharajgunj Plaza",
+          "sourceUrl": "https://www.regus.com/en/np/10894",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Regus – Trade Tower Kathmandu",
+          "area": "Thapathali (Regus groups it under Buddhanagar)",
+          "note": "NPR 2,500/day 24/7 access for private office and dedicated cowork customers Regus 'from' price, dynamic; an earlier search-index snapshot of the same page showed NPR 2,900.",
+          "url": "https://www.regus.com/en/np/2192",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Regus – Trade Tower Kathmandu",
+          "sourceUrl": "https://www.regus.com/en/np/2192",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "rem.work",
+          "area": "Kamalpokhari",
+          "note": "Official site lists shared desks, dedicated desks, private offices, meeting rooms and virtual offices but no prices.…",
+          "url": "https://rem.work/",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "rem.work – official site",
+          "sourceUrl": "https://rem.work/",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "rem.work – Membership",
+              "sourceUrl": "https://rem.work/membership",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Coworker.com listing – Rem.work HQ",
+              "sourceUrl": "https://www.coworker.com/nepal/kathmandu/remwork-hq",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            }
+          ]
+        },
+        {
+          "name": "Thamel Nomads (co-working hostel)",
+          "area": "Thamel",
+          "note": "Hostel with a co-working space: 'Ultra-fast internet connectivity with backup routers', standing desks, built-in bar. Site FAQ asks whether non-guests can use the space but the answer was not readable.…",
+          "url": "https://www.thamelnomads.com/coworking",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "stale"
+          ],
+          "source": "Thamel Nomads – Co-working",
+          "sourceUrl": "https://www.thamelnomads.com/coworking",
+          "asOf": "2023",
+          "also": []
+        },
+        {
+          "name": "Work Around",
+          "area": "Kalopul area (per Nabin Gaire); OSM street: Dharma Bhakta Marga",
+          "note": "NPR 50/hour Mo-Su 09:00-20:00 (OSM) Hourly charge is from the OSM tag last edited 2023-09-09 — stale; verify. Coworker listing (36 reviews, most 2019) maps it to Jayabageshwori Marg.",
+          "url": "https://www.openstreetmap.org/node/8333114877",
+          "lat": 27.71189,
+          "lng": 85.33858,
+          "badges": [
+            "stale"
+          ],
+          "source": "OpenStreetMap node 8333114877 (Work Around)",
+          "sourceUrl": "https://www.openstreetmap.org/node/8333114877",
+          "asOf": "9 Sep 2023",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (office=coworking / amenity=coworking_space, Nepal bbox)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Coworker.com listing – Work Around",
+              "sourceUrl": "https://www.coworker.com/nepal/kathmandu/work-around",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            }
+          ]
+        },
+        {
+          "name": "Bikalpa Art Center",
+          "area": "Pulchowk, Lalitpur",
+          "note": "Garden coworking with on-site BAC Art Café (15% member discount per listing). Latest review seen 2018 — stale.",
+          "url": "https://www.coworker.com/nepal/kathmandu/bikalapa-art-center",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed",
+            "stale"
+          ],
+          "source": "Coworker.com listing – Bikalapa art Center",
+          "sourceUrl": "https://www.coworker.com/nepal/kathmandu/bikalapa-art-center",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Kausimaa",
+          "area": "Kupondole, Lalitpur",
+          "note": "Terrace coworking with 'steady WiFi', unlimited tea/coffee, mini library, printing (per listing).",
+          "url": "https://www.coworker.com/nepal/lalitpur/kausimaa",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "Coworker.com listing – Kausimaa",
+          "sourceUrl": "https://www.coworker.com/nepal/lalitpur/kausimaa",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "ME10",
+          "area": "Naxal",
+          "note": "Space shared with a London-based accounting firm (per listing). Only review dated 01.12.2019 — stale.",
+          "url": "https://www.coworker.com/nepal/kathmandu/me10",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed",
+            "stale"
+          ],
+          "source": "Coworker.com listing – ME10",
+          "sourceUrl": "https://www.coworker.com/nepal/kathmandu/me10",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "rem.work @ Vivanta Hotel",
+          "area": "Jhamsikhel, Lalitpur",
+          "note": "Sunday to Friday, 10 a.m. to 6 p.m. (listing) Satellite venue listed on Coworker; not mentioned on rem.work's current site — may be discontinued.",
+          "url": "https://www.coworker.com/nepal/lalitpur/remworkvivanta-hotel",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed",
+            "stale"
+          ],
+          "source": "Coworker.com listing – rem.work@Vivanta Hotel",
+          "sourceUrl": "https://www.coworker.com/nepal/lalitpur/remworkvivanta-hotel",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "The 100",
+          "area": "Baneshwor (Coworker) / Jhamsikhel (Nabin Gaire) – conflicting",
+          "note": "Renovated old house; most recent Coworker review dated 17.07.2026. Nabin Gaire (2026-07-29) lists 'The 100 (Jhamsikhel) — 24/7 access with fast WiFi and monthly memberships'. Confirm location.",
+          "url": "https://www.coworker.com/nepal/kathmandu/the-100",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "Coworker.com listing – The 100",
+          "sourceUrl": "https://www.coworker.com/nepal/kathmandu/the-100",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            }
+          ]
+        },
+        {
+          "name": "Tumbaha~Laya",
+          "area": "Thamel",
+          "note": "USD 3/day · USD 55/month Mon-Fri 10:00-19:00; Sat-Sun closed (Coworkbooking) Coworker lists it under Lalitpur with map label '12 Tunthi Marg' while describing it as 'Located in Thamel' — location conflict;…",
+          "url": "https://www.coworkbooking.com/asia/nepal/kathmandu/tumbaha-laya",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "Coworkbooking – Tumbaha~Laya",
+          "sourceUrl": "https://www.coworkbooking.com/asia/nepal/kathmandu/tumbaha-laya",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Coworker.com listing – Tumbaha~Laya",
+              "sourceUrl": "https://www.coworker.com/nepal/lalitpur/tumbahalaya",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "workland cowork center",
+          "area": "Buddhanagar & Thapagaun",
+          "note": "Listing mentions shared spaces, private cabins, reading rooms and an EV charger. No reviews.",
+          "url": "https://www.coworker.com/nepal/kathmandu/workland-cowork-center",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "Coworker.com listing – workland cowork center",
+          "sourceUrl": "https://www.coworker.com/nepal/kathmandu/workland-cowork-center",
+          "asOf": "26 Sep 2026",
+          "also": []
+        }
+      ],
+      "cafes": [
+        {
+          "name": "Bodhi Books & Bakes",
+          "area": "Tangal",
+          "note": "Comfortable nooks … a favorite for slower, contemplative work. It runs noticeably quieter than the bigger chains. Hours listed: Mo-Su 10:00-22:00 (OSM)",
+          "url": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "lat": 27.71626,
+          "lng": 85.33055,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Café Soma (Baluwatar)",
+          "area": "Baluwatar",
+          "note": "OSM node 3391516598 'Café Soma', Baluwatar: internet_access=wlan Hours listed: Mo-Su 07:30-20:00 (OSM) Evidence is the OSM Wi-Fi tag only.",
+          "url": "https://overpass-api.de/api/interpreter",
+          "lat": 27.72752,
+          "lng": 85.33066,
+          "badges": [],
+          "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+          "sourceUrl": "https://overpass-api.de/api/interpreter",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Café Soma (Jhamsikhel)",
+          "area": "Jhamsikhel",
+          "note": "Wi-Fi: good — 30–50 Mbps; Power: plenty",
+          "url": "https://www.facebook.com/cafesoma",
+          "lat": 27.67867,
+          "lng": 85.31045,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": [
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            },
+            {
+              "source": "Lost With Purpose – Cafes with fast wifi for digital nomads in and around Kathmandu",
+              "sourceUrl": "https://www.lostwithpurpose.com/digital-nomads-thamel/",
+              "asOf": "15 Jul 2021"
+            },
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Caffe Concerto",
+          "area": "Lazimpat",
+          "note": "Wi-Fi: moderate — 20–40 Mbps; Power: limited, ask for a seat near the wall",
+          "url": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": []
+        },
+        {
+          "name": "Coffee Pasal",
+          "area": "Multiple branches (Tiny Living reviews Pulchowk)",
+          "note": "A reliable local chain with multiple branches … Best for: Predictable, no-surprises work sessions",
+          "url": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": [
+            {
+              "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+              "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+              "asOf": "14 Jun 2026"
+            }
+          ]
+        },
+        {
+          "name": "Garden Kitchen",
+          "area": "Boudha",
+          "note": "Stupa-adjacent … Wi-Fi: moderate — 15–30 Mbps … Best for: the half-day work session",
+          "url": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": []
+        },
+        {
+          "name": "Himalayan Java – Lazimpat (Bluebird Mall)",
+          "area": "Lazimpat",
+          "note": "The Lazimpat branch inside Bluebird Mall is particularly well-suited to focused work",
+          "url": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": []
+        },
+        {
+          "name": "Himalayan Java – Tridevi Marg",
+          "area": "Thamel / Tridevi Marg",
+          "note": "Wi-Fi: good — 30–60 Mbps when not crowded, drops to 10–15 Mbps at lunch rush; Power: outlets at most window seats Coordinates matched to the OSM node by name and street; confirm it is the Tridevi Marg branch.",
+          "url": "https://himalayanjava.com/",
+          "lat": 27.71415,
+          "lng": 85.3139,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": [
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            },
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Karma Coffee",
+          "area": "Jhamsikhel / Sanepa",
+          "note": "Wi-Fi: fast — 60–120 Mbps, holds well even when full; Power: outlets at most tables Hours listed: Mo-Fr 09:00-19:00; Sa 09:00-17:00 (OSM) Tiny Living calls the Sanepa café the flagship; OSM places this branch on Jhamel Road. Coordinates are for the OSM node.",
+          "url": "https://karmacoffee.com.np/",
+          "lat": 27.67749,
+          "lng": 85.31141,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": [
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            },
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Mitho Restaurant",
+          "area": "Central Kathmandu (per source)",
+          "note": "Plug points are limited here, but the internet speed consistently outperforms nearby competitors.",
+          "url": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": []
+        },
+        {
+          "name": "Saturday Cafe",
+          "area": "Boudha",
+          "note": "Wi-Fi: moderate — 20–35 Mbps … Best for: the patient 3-hour writing block",
+          "url": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": []
+        },
+        {
+          "name": "The Hub / Kar.ma Coffee @ HUB",
+          "area": "Thamel (Jyatha)",
+          "note": "long tables built with power outlets in mind. WiFi speeds here have been reported above 80 Mbps Hours listed: Mo-Su 08:00-20:00 (OSM) Match between Nabin Gaire's 'The Hub (Central Thamel)' and the OSM 'Kar.ma Coffee @ HUB' node is probable, not confirmed.",
+          "url": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "lat": 27.71348,
+          "lng": 85.31234,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Top of the World Coffee",
+          "area": "Jhamsikhel",
+          "note": "Top of the World offers electric sockets at most tables and a solid, dependable internet connection. Hours listed: Mo-Su 09:00-20:00 (OSM)",
+          "url": "https://www.topoftheworldcoffee.com/",
+          "lat": 27.68066,
+          "lng": 85.31046,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Ujamaa Coffee (Ujama Koffie & Bakery with Library)",
+          "area": "Sankhamul",
+          "note": "Known locally as a hub for IT professionals and remote workers who need long, interruption-free stretches. Hours listed: Mo-Su 06:30-20:30 (OSM)",
+          "url": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "lat": 27.68443,
+          "lng": 85.33337,
+          "badges": [],
+          "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+          "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+          "asOf": "29 Jul 2026",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Yala Mandala",
+          "area": "Pulchowk, Lalitpur",
+          "note": "Wi-Fi: good in the indoor section — 25–45 Mbps; weaker in the garden … Best for: the stay-from-09:30-to-18:00 work day",
+          "url": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": []
+        },
+        {
+          "name": "Kairos Cafe",
+          "area": "Jhamsikhel / Patan",
+          "note": "their wifi is excellent! … They also offer a separate and more quiet working space upstairs if you need to focus. Blog evidence dates from 2017 (updated 2021); blog noted 'closed on weekends'.",
+          "url": "https://www.lostwithpurpose.com/digital-nomads-thamel/",
+          "lat": 27.67514,
+          "lng": 85.31045,
+          "badges": [
+            "stale"
+          ],
+          "source": "Lost With Purpose – Cafes with fast wifi for digital nomads in and around Kathmandu",
+          "sourceUrl": "https://www.lostwithpurpose.com/digital-nomads-thamel/",
+          "asOf": "15 Jul 2021",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "The Café with No Name",
+          "area": "Thamel",
+          "note": "Pros: Fastest wifi in Thamel, good cheap coffee, craft beer; Cons: Not many outlets Blog evidence dates from 2017 (updated 2021).",
+          "url": "https://www.lostwithpurpose.com/digital-nomads-thamel/",
+          "lat": 27.71494,
+          "lng": 85.31063,
+          "badges": [
+            "stale"
+          ],
+          "source": "Lost With Purpose – Cafes with fast wifi for digital nomads in and around Kathmandu",
+          "sourceUrl": "https://www.lostwithpurpose.com/digital-nomads-thamel/",
+          "asOf": "15 Jul 2021",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        }
+      ],
+      "neighbourhoods": [
+        {
+          "name": "Thamel",
+          "area": null,
+          "note": "Kathmandu's backpacker district: 'a maze of alleys crammed with handicraft shops, guest houses, and cafés' whose core is traffic-free (Wikivoyage). Wikivoyage notes virtually all tourist accommodation is in Thamel; Nomadista calls it loud and busy but central.",
+          "url": "https://en.wikivoyage.org/wiki/Kathmandu/West",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Kathmandu/West (Thamel)",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu/West",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nomadista – Kathmandu city guide",
+              "sourceUrl": "https://nomadista.org/city/kathmandu",
+              "asOf": "27 Mar 2026"
+            }
+          ]
+        },
+        {
+          "name": "Jhamsikhel / Sanepa (Lalitpur)",
+          "area": null,
+          "note": "A street in Jhamsikhel 'popular with expatriates and locals' is informally known as 'Jhamel' — 'much more chilled out' than Thamel (Wikivoyage Patan). Tiny Living calls Sanepa/Jhamsikhel/Pulchowk 'the single best remote-work cafe density in Kathmandu Valley'.",
+          "url": "https://en.wikivoyage.org/wiki/Patan",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Patan",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Patan",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+              "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+              "asOf": "14 Jun 2026"
+            },
+            {
+              "source": "Nomadista – Kathmandu city guide",
+              "sourceUrl": "https://nomadista.org/city/kathmandu",
+              "asOf": "27 Mar 2026"
+            }
+          ]
+        },
+        {
+          "name": "Patan Durbar area (Lalitpur)",
+          "area": null,
+          "note": "Patan, about 4 km from Thamel, is 'fast becoming an area of preference for those in the know looking for more space and less chaos'; many expatriate communities live there because INGOs and some embassies are located in Patan (Wikivoyage). Patan Durbar Square is a UNESCO World Heritage Site.",
+          "url": "https://en.wikivoyage.org/wiki/Patan",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Patan",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Patan",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Boudha (Boudhanath)",
+          "area": null,
+          "note": "East Kathmandu area around one of the largest Buddhist stupas in the world, surrounded by at least 29 Tibetan gompas; a UNESCO site since 1979 (Wikivoyage). Wikivoyage notes 'some good deals' on accommodation around Boudha; Nomadista describes a calm, international, spiritual vibe.",
+          "url": "https://en.wikivoyage.org/wiki/Kathmandu/East",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Kathmandu/East (Boudha)",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu/East",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nomadista – Kathmandu city guide",
+              "sourceUrl": "https://nomadista.org/city/kathmandu",
+              "asOf": "27 Mar 2026"
+            }
+          ]
+        },
+        {
+          "name": "Lazimpat",
+          "area": null,
+          "note": "Central Kathmandu's embassy and hotel strip: CIWEC travel clinic is 'Located centrally in Lazimpat, across from the British embassy' (Wikivoyage). Nabin Gaire recommends the Himalayan Java branch in Lazimpat's Bluebird Mall for focused work.",
+          "url": "https://en.wikivoyage.org/wiki/Kathmandu",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Kathmandu",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Wikivoyage – Kathmandu/Central",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu/Central",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            }
+          ]
+        },
+        {
+          "name": "Baluwatar",
+          "area": null,
+          "note": "Residential area that a rem.work listing describes as 'a peaceful residential area' surrounded by 'the Prime Ministers Quarter, Nepal Rashtriya Bank, the President’s resident and over 20 tea houses, cafes and restaurants'. Café Soma has a Baluwatar branch tagged with Wi-Fi on OSM.",
+          "url": "https://www.coworker.com/nepal/kathmandu/remwork-hq",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Coworker.com listing – Rem.work HQ",
+          "sourceUrl": "https://www.coworker.com/nepal/kathmandu/remwork-hq",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        }
+      ],
+      "visa": [
+        {
+          "title": "Proposed, not available",
+          "body": "A digital nomad visa has been proposed. The Kathmandu Post reported that the government's economic reform plan included a five-year multiple-entry visa, for people earning over USD 1,500 a month or holding USD 20,000 in the bank, with health insurance of at least USD 100,000. It was described as expected within a year. It is not available yet.",
+          "source": "The Kathmandu Post",
+          "sourceUrl": "https://kathmandupost.com/money/2025/05/28/nepal-eyes-tourism-economic-boost-with-new-digital-nomad-visa-policy",
+          "asOf": "28 May 2025",
+          "also": []
+        },
+        {
+          "title": "What you can use now",
+          "body": "As of 26 Sep 2026 the Department of Immigration lists no nomad or remote-work visa. Nomads use the tourist visa: 15 days USD 30, 30 days USD 50, or 90 days USD 125. Extensions are USD 3 per day, with a 15-day minimum, up to 150 days in a calendar year (January–December).",
+          "source": "Department of Immigration, Nepal",
+          "sourceUrl": "https://www.immigration.gov.np/visa-fees-and-documents",
+          "asOf": "24 Sep 2026",
+          "also": [
+            {
+              "source": "Department of Immigration, Nepal",
+              "sourceUrl": "https://www.immigration.gov.np/visa-information",
+              "asOf": "24 Sep 2026"
+            }
+          ]
+        }
+      ],
+      "sim": [
+        {
+          "title": "Ncell TouristPro",
+          "body": "7 days NPR 595, 14 days NPR 995, 28 days NPR 1,995. Ncell lists unlimited data and voice under a fair-usage policy. Its own pages disagree on the throttling threshold, so that limit is not stated as one number. Bring your original passport. Tourist plans are for non-Nepalese citizens, sold at the airport, Ncell centres, and online as an eSIM.",
+          "source": "Ncell",
+          "sourceUrl": "https://www.ncell.com.np/en/individual/tourist-sim",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "title": "Nepal Telecom",
+          "body": "A prepaid SIM is NPR 90 and includes a small starter allowance. Data packs on the official tariff include 5 GB for 7 days at NPR 109 and 20 GB for 30 days at NPR 399. No dedicated tourist pack was found. The registration form has a passport field for foreigners.",
+          "source": "Nepal Telecom",
+          "sourceUrl": "https://www.ntc.net.np/tariff/gsm-prepaid-service-tariff",
+          "asOf": "26 Sep 2026",
+          "also": []
+        }
+      ],
+      "tips": [
+        {
+          "title": "Power",
+          "body": "Scheduled load-shedding ended: NEA declared Nepal 'load-shedding free' from 14 May 2018 (domestic load-shedding had ended mid-April 2017).…",
+          "source": "The Himalayan Times – Nepal is totally load-shedding free",
+          "sourceUrl": "https://thehimalayantimes.com/business/nepal-is-totally-load-shedding-free",
+          "asOf": "14 May 2018",
+          "also": [
+            {
+              "source": "Nomads.com – Kathmandu",
+              "sourceUrl": "https://nomads.com/kathmandu",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+              "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+              "asOf": "4 Mar 2024"
+            },
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            }
+          ]
+        },
+        {
+          "title": "Cash and ATMs",
+          "body": "Nomads.com marks both cities 'No, cash only (esp. for foreigners)'. Wikivoyage: not all Thamel ATMs accept foreign cards and most that do charge Rs 650 per transaction; Standard Chartered and Nabil ATMs have the highest limit (Rs 35,000 per transaction).",
+          "source": "Nomads.com – Kathmandu",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "QR payments",
+          "body": "Since 28 Aug 2025, visitors using Alipay+ wallets (Alipay, KakaoPay, GCash, Touch 'n Go, AlipayHK, TrueMoney, Tinaba; 11+ countries including China, South Korea, Malaysia, Singapore, the Philippines, Thailand, Germany and Italy) can scan and pay at eSewa Business / Fonepay QR merchants. Indian visitors can pay the same QR codes with UPI apps (PhonePe, BHIM, Google Pay).…",
+          "source": "eSewa Blog – eSewa enables international payments via Fonepay & Alipay+",
+          "sourceUrl": "https://blog.esewa.com.np/alipay-on-esewa-business-qr",
+          "asOf": "28 Aug 2025",
+          "also": [
+            {
+              "source": "Techmandu – Fonepay, Alipay Plus launch QR payment for tourists in Nepal",
+              "sourceUrl": "https://techmandu.com/fonepay-alipay-plus-launch-qr-payment-for-tourists-in-nepal/",
+              "asOf": "30 Aug 2025"
+            },
+            {
+              "source": "eSewa Blog – Cross-border payment feature (Fonepay + NPCI)",
+              "sourceUrl": "https://blog.esewa.com.np/international-payment-in-nepal",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "Paying a visa fee",
+          "body": "DoI accepts ETA/visa-fee payment via mobile banking, ConnectIPS, eSewa, Khalti, debit/credit card, or at the TIA bank counter, and advises carrying some cash. A Way Abroad (Mar 2024) recommends bringing US dollars in cash for the on-arrival fee.",
+          "source": "Department of Immigration, Nepal – Visa Information",
+          "sourceUrl": "https://www.immigration.gov.np/visa-information",
+          "asOf": "24 Sep 2026",
+          "also": [
+            {
+              "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+              "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+              "asOf": "4 Mar 2024"
+            }
+          ]
+        },
+        {
+          "title": "Ride apps",
+          "body": "Wikivoyage: Pathao and Tootle work in Kathmandu and Pokhara but need a Nepali mobile number; inDrive supports international numbers (check the pickup pin). A 2025 Pokhara guide says inDrive only accepts cash. Nomads.com lists Sarathi as the 'Best taxi app'.",
+          "source": "Wikivoyage – Kathmandu",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara",
+              "sourceUrl": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+              "asOf": "5 Mar 2025"
+            },
+            {
+              "source": "Nomads.com – Kathmandu",
+              "sourceUrl": "https://nomads.com/kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "Air through the year",
+          "body": "Nomads.com monthly median AQI for Kathmandu is 'bad' Oct–May (107–158 US AQI) and cleanest Jun–Jul (16 and 9); annual average 86 US AQI. Pokhara's annual average is 44 US AQI, with 'bad' months Nov–Feb (102–126). Wikivoyage: Kathmandu air quality 'has been very poor since the 2015 earthquake, particularly around the ring road. Buying a dust mask is advisable.'",
+          "source": "Nomads.com – Kathmandu",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "SIM at the airport",
+          "body": "Tourist SIM counters are between immigration and customs at Tribhuvan International Airport (Wikivoyage); Ncell sells its TouristPro SIMs at TIA and offers tourist eSIMs online.",
+          "source": "Wikivoyage – Kathmandu",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Ncell – Tourist SIM & eSIM",
+              "sourceUrl": "https://www.ncell.com.np/en/individual/tourist-sim",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "Dashain and Tihar",
+          "body": "Tiny Living (2026): during Dashain (October) and Tihar (November), most independent cafés close for 2–10 days.",
+          "source": "Tiny Living – Best Cafes for Remote Work in Kathmandu (2026)",
+          "sourceUrl": "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+          "asOf": "14 Jun 2026",
+          "also": []
+        },
+        {
+          "title": "Tap water",
+          "body": "Nomads.com: tap water not drinkable in Kathmandu or Pokhara.",
+          "source": "Nomads.com – Kathmandu",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "pokhara",
@@ -39,32 +1034,601 @@
       "province": "Gandaki",
       "lat": 28.20967,
       "lng": 83.97864,
+      "blurb": "Pokhara sits beside Phewa Lake and is the usual start for Annapurna treks.",
+      "blurbSource": {
+        "source": "Wikivoyage – Pokhara",
+        "sourceUrl": "https://en.wikivoyage.org/wiki/Pokhara",
+        "asOf": "26 Sep 2026"
+      },
       "stats": [
         {
           "id": "rank",
           "label": "Nomads.com rank",
-          "value": "#61",
-          "source": "Nomads.com (nomads.com)",
-          "sourceUrl": "https://nomads.com",
-          "asOf": "Sep 2026"
+          "value": "#60",
+          "note": "The ranking changes daily.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
         },
         {
           "id": "cost",
           "label": "Cost for a nomad",
           "value": "USD 1,027/month",
-          "source": "Nomads.com (nomads.com)",
-          "sourceUrl": "https://nomads.com",
-          "asOf": "Sep 2026"
+          "note": "Nomads.com city card on 26 Sep 2026.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "internet",
+          "label": "Internet",
+          "value": "45 Mbps",
+          "note": "Nomads.com crowd average, labeled Good on the city page.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "safety",
+          "label": "Safety",
+          "value": "Good",
+          "note": null,
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "aqi",
+          "label": "Air quality",
+          "value": "44 US AQI",
+          "note": "Annual average on Nomads.com.",
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "places",
+          "label": "Places to work",
+          "value": "Bad",
+          "note": null,
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "power",
+          "label": "Power grid",
+          "value": "Bad",
+          "note": null,
+          "source": "Nomads.com",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "id": "season",
+          "label": "Best season",
+          "value": "Mar–May, Sep–Nov",
+          "note": null,
+          "source": "A Way Abroad",
+          "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "asOf": "4 Mar 2024",
+          "also": []
         }
       ],
-      "internet": null,
-      "bestSeason": null,
-      "coworking": [],
-      "cafes": [],
-      "neighbourhoods": [],
-      "visa": null,
-      "sim": null,
-      "tips": []
+      "season": {
+        "title": "When to go",
+        "body": "March–May or September–November (A Way Abroad, 2024) A Way Abroad: winter (Dec–Feb) gets cold; June–August is monsoon, with heavy rain, heat and humidity. Nomads.com monthly median rainfall: 261–444 mm/month May–Sep, under 45 mm Nov–Apr.",
+        "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+        "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+        "asOf": "4 Mar 2024",
+        "also": [
+          {
+            "source": "Nomads.com – Pokhara",
+            "sourceUrl": "https://nomads.com/pokhara",
+            "asOf": "26 Sep 2026"
+          },
+          {
+            "source": "Wikivoyage – Nepal",
+            "sourceUrl": "https://en.wikivoyage.org/wiki/Nepal",
+            "asOf": "26 Sep 2026"
+          }
+        ]
+      },
+      "ookla": {
+        "label": "See Ookla Speedtest Global Index",
+        "url": "https://www.speedtest.net/global-index/nepal"
+      },
+      "coworking": [
+        {
+          "name": "Pokhara Coworking Space",
+          "area": "Lakeside (Phewa Marga)",
+          "note": "NPR 500/day · NPR 10,000/month 24 hrs access (pre-booking required for night shift) Also Rs 100/hour and Rs 3,000/week hot desk; single cabin Rs 600/day or Rs 15,000/month; monitor rental Rs 500/day. Advertises high-speed internet, power backup, AC, printer/scanner, IT equipment rental. Coworker's 'pokhara coworking & coliving space' (also Phewa Marga;…",
+          "url": "https://pokharacoworking.com/",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Pokhara Coworking Space – official site",
+          "sourceUrl": "https://pokharacoworking.com/",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Pokhara Coworking Space – Pricing",
+              "sourceUrl": "https://pokharacoworking.com/pricing/",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Coworker.com listing – pokhara coworking & coliving space",
+              "sourceUrl": "https://www.coworker.com/nepal/pokhara/pokhara-coworking-coliving-space",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "BROWNDESK co-working space",
+          "area": "Bishal Marga",
+          "note": "Meeting room, mini library, rooftop chill-out space, musical café (per listing). Latest review 25.08.2021.",
+          "url": "https://www.coworker.com/nepal/pokhara/browndesk-co-working-space",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "Coworker.com listing – BROWNDESK co-working space",
+          "sourceUrl": "https://www.coworker.com/nepal/pokhara/browndesk-co-working-space",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Gyan Hub",
+          "area": "Janapriya Marga",
+          "note": "Latest reviews seen 2019 — stale.",
+          "url": "https://www.coworker.com/nepal/pokhara/gyan-hub",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed",
+            "stale"
+          ],
+          "source": "Coworker.com listing – Gyan Hub",
+          "sourceUrl": "https://www.coworker.com/nepal/pokhara/gyan-hub",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Nomad Basecamp (coliving + coworking)",
+          "area": "Lakeside – about 10 minutes' walk from the lakeside, on a hill (per listing)",
+          "note": "Coliving retreat with private ensuite rooms, fiber Wi-Fi, air-conditioned coworking space, rooftop terrace; bills itself as organiser of 'Nepal's first and largest festival for digital nomads'.…",
+          "url": "https://www.officespace.com/en/np/office-rental/pokhara/18909-lakeside-rd",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "OfficeSpace.com – Nomad Basecamp, Lakeside Rd, Pokhara",
+          "sourceUrl": "https://www.officespace.com/en/np/office-rental/pokhara/18909-lakeside-rd",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "BookRetreats – 14 Day Digital Nomad Coliving and Summit (Nomad Basecamp Nepal)",
+              "sourceUrl": "https://bookretreats.com/r/14-day-digital-nomad-coliving-and-summit-in-breathtaking-nepal",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Nucleus Co-Working Office",
+          "area": "Parsyang",
+          "note": "Startup-oriented space (~3,000 sq ft, ~5 startups per listing). No reviews.",
+          "url": "https://www.coworker.com/nepal/pokhara/nucleus-co-working-office",
+          "lat": null,
+          "lng": null,
+          "badges": [
+            "listed"
+          ],
+          "source": "Coworker.com listing – Nucleus Co- Working Office",
+          "sourceUrl": "https://www.coworker.com/nepal/pokhara/nucleus-co-working-office",
+          "asOf": "26 Sep 2026",
+          "also": []
+        }
+      ],
+      "cafes": [
+        {
+          "name": "AM/PM Organic Cafe",
+          "area": "Lakeside",
+          "note": "OSM node 3166136487: internet_access=wlan, internet_access:fee=no Evidence is the OSM Wi-Fi tag only.",
+          "url": "https://www.ampmorganiccafe.com/",
+          "lat": 28.20584,
+          "lng": 83.96144,
+          "badges": [],
+          "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+          "sourceUrl": "https://overpass-api.de/api/interpreter",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Cafe Camelia",
+          "area": "Lakeside",
+          "note": "Their excellent coffee, great atmosphere, and the rare luxury of air conditioning make it a haven for digital nomads OfficeSpace.com mentions 'Cafe Camellia' near Nomad Basecamp on Lakeside Road.",
+          "url": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+          "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "asOf": "4 Mar 2024",
+          "also": [
+            {
+              "source": "OfficeSpace.com – Nomad Basecamp, Lakeside Rd, Pokhara",
+              "sourceUrl": "https://www.officespace.com/en/np/office-rental/pokhara/18909-lakeside-rd",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Cafe De Himalayas",
+          "area": "Pokhara",
+          "note": "They also have a super extensive coffee menu, plenty of places to sit, outlets, and strong wifi.",
+          "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara",
+          "sourceUrl": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+          "asOf": "5 Mar 2025",
+          "also": []
+        },
+        {
+          "name": "Coffee Culture",
+          "area": "New Road",
+          "note": "Best coffee place: coffee culture",
+          "url": "https://nomads.com/pokhara",
+          "lat": 28.22097,
+          "lng": 83.98735,
+          "badges": [],
+          "source": "Nomads.com – Pokhara",
+          "sourceUrl": "https://nomads.com/pokhara",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+              "sourceUrl": "https://overpass-api.de/api/interpreter",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "name": "Himalayan Java (Pokhara branches)",
+          "area": "Pokhara (multiple)",
+          "note": "There are tons of locations around the town, and you can go knowing that they'll have comfy seats, wifi, and outlets.",
+          "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara",
+          "sourceUrl": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+          "asOf": "5 Mar 2025",
+          "also": []
+        },
+        {
+          "name": "Linger Cafe and Bakery",
+          "area": "Lakeside",
+          "note": "OSM node 6444315585: internet_access=wlan Hours listed: Tu-Su 08:00-20:30 (OSM) Evidence is the OSM Wi-Fi tag only.",
+          "url": "http://lingerpokhara.com/",
+          "lat": 28.20629,
+          "lng": 83.96195,
+          "badges": [],
+          "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+          "sourceUrl": "https://overpass-api.de/api/interpreter",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Little Windows",
+          "area": "Pokhara",
+          "note": "the internet is fast and reliable, and the vibe is just great.",
+          "url": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+          "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "asOf": "4 Mar 2024",
+          "also": []
+        },
+        {
+          "name": "Lumima",
+          "area": "Lakeside (on the lake)",
+          "note": "They also have wifi, outlets, and a vegan food menu. This is ideal for someone who is looking for somewhere quiet and picturesque to spend the day.",
+          "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara",
+          "sourceUrl": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+          "asOf": "5 Mar 2025",
+          "also": []
+        },
+        {
+          "name": "Organic Java Coffee House",
+          "area": "Lakeside (Hallanchowk)",
+          "note": "OSM node 4201550389: internet_access=wlan Hours listed: Mo-Su 06:30-20:00 (OSM) Evidence is the OSM Wi-Fi tag only.",
+          "url": "https://overpass-api.de/api/interpreter",
+          "lat": 28.21371,
+          "lng": 83.95858,
+          "badges": [],
+          "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+          "sourceUrl": "https://overpass-api.de/api/interpreter",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Silk Road",
+          "area": "Lakeside (lake view)",
+          "note": "It’s quiet, has a beautiful lake view, and the ambiance is just perfect for knuckling down to work.",
+          "url": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+          "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "asOf": "4 Mar 2024",
+          "also": []
+        },
+        {
+          "name": "The Coffee",
+          "area": "Lakeside (8th Street, Gaurighat Marg)",
+          "note": "OSM node 4062811738: internet_access=wlan Hours listed: Mo-Su 08:00-22:00 (OSM) Evidence is the OSM Wi-Fi tag only.",
+          "url": "http://www.facebook.com/thecoffeenepal",
+          "lat": 28.20627,
+          "lng": 83.96104,
+          "badges": [],
+          "source": "OpenStreetMap via Overpass API (amenity=cafe with internet_access, Kathmandu/Lalitpur and Pokhara Lakeside bboxes)",
+          "sourceUrl": "https://overpass-api.de/api/interpreter",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "The Juicery Cafe",
+          "area": "Lakeside (in front of Phewa Lake)",
+          "note": "go to cafes, like The Juicery Cafe or Vegan Way where remote workers usually hang out",
+          "url": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+          "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+          "asOf": "4 Mar 2024",
+          "also": []
+        }
+      ],
+      "neighbourhoods": [
+        {
+          "name": "Lakeside",
+          "area": null,
+          "note": "Where most visitors stay, along Phewa (Fewa) Lake; Wikivoyage says the lakeside strip 'now feels more like Khao San Road' and is the best place for live music. A Way Abroad (2024) suggests any place within a 20-minute walk of Phewa Lake is a good base.",
+          "url": "https://en.wikivoyage.org/wiki/Pokhara",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Pokhara",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Pokhara",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+              "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+              "asOf": "4 Mar 2024"
+            }
+          ]
+        },
+        {
+          "name": "Damside",
+          "area": null,
+          "note": "Tourist area by Phewa Lake (Wikivoyage lists hotels and restaurants on Damside Marg/Damside Rd); Wikivoyage: 'Virtually all tourist accommodations are in Lakeside and Damside, near Phewa Lake.'",
+          "url": "https://en.wikivoyage.org/wiki/Pokhara",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Pokhara",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Pokhara",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "name": "Sarangkot",
+          "area": null,
+          "note": "Hill above the lake, known for sunrise views of the Annapurna range. Wikivoyage: around 12 guesthouses uphill 'offer better views and less air pollution, but are much more expensive'; they are a 20-minute walk uphill on gravel from the Sarangkot taxi stand.",
+          "url": "https://en.wikivoyage.org/wiki/Pokhara",
+          "lat": null,
+          "lng": null,
+          "badges": [],
+          "source": "Wikivoyage – Pokhara",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Pokhara",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+              "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+              "asOf": "4 Mar 2024"
+            },
+            {
+              "source": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara",
+              "sourceUrl": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+              "asOf": "5 Mar 2025"
+            }
+          ]
+        }
+      ],
+      "visa": [
+        {
+          "title": "Proposed, not available",
+          "body": "A digital nomad visa has been proposed. The Kathmandu Post reported that the government's economic reform plan included a five-year multiple-entry visa, for people earning over USD 1,500 a month or holding USD 20,000 in the bank, with health insurance of at least USD 100,000. It was described as expected within a year. It is not available yet.",
+          "source": "The Kathmandu Post",
+          "sourceUrl": "https://kathmandupost.com/money/2025/05/28/nepal-eyes-tourism-economic-boost-with-new-digital-nomad-visa-policy",
+          "asOf": "28 May 2025",
+          "also": []
+        },
+        {
+          "title": "What you can use now",
+          "body": "As of 26 Sep 2026 the Department of Immigration lists no nomad or remote-work visa. Nomads use the tourist visa: 15 days USD 30, 30 days USD 50, or 90 days USD 125. Extensions are USD 3 per day, with a 15-day minimum, up to 150 days in a calendar year (January–December).",
+          "source": "Department of Immigration, Nepal",
+          "sourceUrl": "https://www.immigration.gov.np/visa-fees-and-documents",
+          "asOf": "24 Sep 2026",
+          "also": [
+            {
+              "source": "Department of Immigration, Nepal",
+              "sourceUrl": "https://www.immigration.gov.np/visa-information",
+              "asOf": "24 Sep 2026"
+            }
+          ]
+        }
+      ],
+      "sim": [
+        {
+          "title": "Ncell TouristPro",
+          "body": "7 days NPR 595, 14 days NPR 995, 28 days NPR 1,995. Ncell lists unlimited data and voice under a fair-usage policy. Its own pages disagree on the throttling threshold, so that limit is not stated as one number. Bring your original passport. Tourist plans are for non-Nepalese citizens, sold at the airport, Ncell centres, and online as an eSIM.",
+          "source": "Ncell",
+          "sourceUrl": "https://www.ncell.com.np/en/individual/tourist-sim",
+          "asOf": "26 Sep 2026",
+          "also": []
+        },
+        {
+          "title": "Nepal Telecom",
+          "body": "A prepaid SIM is NPR 90 and includes a small starter allowance. Data packs on the official tariff include 5 GB for 7 days at NPR 109 and 20 GB for 30 days at NPR 399. No dedicated tourist pack was found. The registration form has a passport field for foreigners.",
+          "source": "Nepal Telecom",
+          "sourceUrl": "https://www.ntc.net.np/tariff/gsm-prepaid-service-tariff",
+          "asOf": "26 Sep 2026",
+          "also": []
+        }
+      ],
+      "tips": [
+        {
+          "title": "Power",
+          "body": "Scheduled load-shedding ended: NEA declared Nepal 'load-shedding free' from 14 May 2018 (domestic load-shedding had ended mid-April 2017).…",
+          "source": "The Himalayan Times – Nepal is totally load-shedding free",
+          "sourceUrl": "https://thehimalayantimes.com/business/nepal-is-totally-load-shedding-free",
+          "asOf": "14 May 2018",
+          "also": [
+            {
+              "source": "Nomads.com – Kathmandu",
+              "sourceUrl": "https://nomads.com/kathmandu",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara, Nepal",
+              "sourceUrl": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+              "asOf": "4 Mar 2024"
+            },
+            {
+              "source": "Nabin Gaire – Best Coffee Shops to Work in Kathmandu (2026 updated)",
+              "sourceUrl": "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/",
+              "asOf": "29 Jul 2026"
+            }
+          ]
+        },
+        {
+          "title": "Cash and ATMs",
+          "body": "Nomads.com marks both cities 'No, cash only (esp. for foreigners)'. Wikivoyage: not all Thamel ATMs accept foreign cards and most that do charge Rs 650 per transaction; Standard Chartered and Nabil ATMs have the highest limit (Rs 35,000 per transaction).",
+          "source": "Nomads.com – Kathmandu",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "QR payments",
+          "body": "Since 28 Aug 2025, visitors using Alipay+ wallets (Alipay, KakaoPay, GCash, Touch 'n Go, AlipayHK, TrueMoney, Tinaba; 11+ countries including China, South Korea, Malaysia, Singapore, the Philippines, Thailand, Germany and Italy) can scan and pay at eSewa Business / Fonepay QR merchants. Indian visitors can pay the same QR codes with UPI apps (PhonePe, BHIM, Google Pay).…",
+          "source": "eSewa Blog – eSewa enables international payments via Fonepay & Alipay+",
+          "sourceUrl": "https://blog.esewa.com.np/alipay-on-esewa-business-qr",
+          "asOf": "28 Aug 2025",
+          "also": [
+            {
+              "source": "Techmandu – Fonepay, Alipay Plus launch QR payment for tourists in Nepal",
+              "sourceUrl": "https://techmandu.com/fonepay-alipay-plus-launch-qr-payment-for-tourists-in-nepal/",
+              "asOf": "30 Aug 2025"
+            },
+            {
+              "source": "eSewa Blog – Cross-border payment feature (Fonepay + NPCI)",
+              "sourceUrl": "https://blog.esewa.com.np/international-payment-in-nepal",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "Ride apps",
+          "body": "Wikivoyage: Pathao and Tootle work in Kathmandu and Pokhara but need a Nepali mobile number; inDrive supports international numbers (check the pickup pin). A 2025 Pokhara guide says inDrive only accepts cash. Nomads.com lists Sarathi as the 'Best taxi app'.",
+          "source": "Wikivoyage – Kathmandu",
+          "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara",
+              "sourceUrl": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+              "asOf": "5 Mar 2025"
+            },
+            {
+              "source": "Nomads.com – Kathmandu",
+              "sourceUrl": "https://nomads.com/kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "Air through the year",
+          "body": "Nomads.com monthly median AQI for Kathmandu is 'bad' Oct–May (107–158 US AQI) and cleanest Jun–Jul (16 and 9); annual average 86 US AQI. Pokhara's annual average is 44 US AQI, with 'bad' months Nov–Feb (102–126). Wikivoyage: Kathmandu air quality 'has been very poor since the 2015 earthquake, particularly around the ring road. Buying a dust mask is advisable.'",
+          "source": "Nomads.com – Kathmandu",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            },
+            {
+              "source": "Wikivoyage – Kathmandu",
+              "sourceUrl": "https://en.wikivoyage.org/wiki/Kathmandu",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        },
+        {
+          "title": "Tap water",
+          "body": "Nomads.com: tap water not drinkable in Kathmandu or Pokhara.",
+          "source": "Nomads.com – Kathmandu",
+          "sourceUrl": "https://nomads.com/kathmandu",
+          "asOf": "26 Sep 2026",
+          "also": [
+            {
+              "source": "Nomads.com – Pokhara",
+              "sourceUrl": "https://nomads.com/pokhara",
+              "asOf": "26 Sep 2026"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
