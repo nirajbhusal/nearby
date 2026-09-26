@@ -35,10 +35,13 @@ function nearestOffice(origin: PlaceHit, company: NepalCompany): {
       bestDistance = distance;
     }
   }
-  const placeLabel = [best.city, best.district].filter(Boolean).join(", ");
+  const placeLabel =
+    best.city && best.district && best.city !== best.district
+      ? `${best.city}, ${best.district}`
+      : best.city || best.district || "Nepal";
   return {
     distanceKm: bestDistance,
-    placeLabel: placeLabel || "Nepal",
+    placeLabel,
     locatable: best,
   };
 }

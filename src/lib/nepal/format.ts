@@ -3,6 +3,29 @@ import type { EvPlug } from "@/lib/nepal/types";
 export const DATA_UPDATED_ISO = "2026-09-26";
 export const DATA_UPDATED_LABEL = "26 Sep 2026";
 
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export function formatUpdated(iso: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!match) return iso;
+  const month = MONTHS[Number(match[2]) - 1];
+  if (!month) return iso;
+  return `${Number(match[3])} ${month} ${match[1]}`;
+}
+
 export function formatKm(km: number): string {
   if (!Number.isFinite(km)) return "";
   if (km < 10) return `${km.toFixed(1)} km`;

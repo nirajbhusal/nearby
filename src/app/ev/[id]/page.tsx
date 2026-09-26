@@ -6,6 +6,7 @@ import { NavigateLinks } from "@/components/nepal/NavigateLinks";
 import { SketchPin } from "@/components/illustrations/SketchPin";
 import {
   accessCopy,
+  formatUpdated,
   phoneHref,
   speedLabel,
   stationCaution,
@@ -51,10 +52,7 @@ export default async function StationPage({ params }: { params: Params }) {
   const caution = stationCaution(station.name, station.notes);
   const call = phoneHref(station.phone);
   const backCity = station.city ? `/?q=${encodeURIComponent(station.city)}` : "/";
-  const updated = new Date(`${station.last_verified}T00:00:00+05:45`).toLocaleDateString(
-    "en-GB",
-    { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kathmandu" }
-  );
+  const updated = formatUpdated(station.last_verified);
 
   return (
     <main className="mx-auto w-full max-w-xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
