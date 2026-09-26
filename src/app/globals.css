@@ -216,6 +216,9 @@ body {
   background: var(--paper-deep);
   height: 100%;
   width: 100%;
+  /* Keep tile and marker panes (z-index 200–700) inside the map. */
+  z-index: 0;
+  isolation: isolate;
 }
 
 .leaflet-container img {
@@ -650,6 +653,11 @@ body:has(.charge-stage) {
   inset: 0;
 }
 
+.charge-map {
+  z-index: 0;
+  isolation: isolate;
+}
+
 .map-skeleton,
 .skeleton-line {
   background: linear-gradient(90deg, #e7e0d6 0%, #f6f1e8 45%, #e7e0d6 100%);
@@ -670,7 +678,7 @@ body:has(.charge-stage) {
 
 .charge-search {
   position: absolute;
-  z-index: 6;
+  z-index: 30;
   top: 0.7rem;
   left: 0.7rem;
   right: 0.7rem;
@@ -711,7 +719,7 @@ body:has(.charge-stage) {
 
 .charge-panel {
   position: absolute;
-  z-index: 5;
+  z-index: 20;
   left: 0.55rem;
   right: 0.55rem;
   bottom: calc(4.65rem + env(safe-area-inset-bottom));
@@ -724,7 +732,7 @@ body:has(.charge-stage) {
   box-shadow: 0 16px 40px rgba(42, 38, 34, 0.16);
 }
 
-.charge-panel[data-snap="peek"] { height: 6.6rem; }
+.charge-panel[data-snap="peek"] { height: 10.5rem; }
 .charge-panel[data-snap="half"] { height: min(48vh, 30rem); }
 .charge-panel[data-snap="full"] { height: calc(100% - 5.4rem - 4.7rem); }
 .charge-panel[data-mode="station"][data-snap="peek"] { height: 11.5rem; }
@@ -772,9 +780,10 @@ body:has(.charge-stage) {
 
 .filter-row {
   display: flex;
+  flex: none;
   gap: 0.4rem;
   overflow-x: auto;
-  padding-bottom: 0.55rem;
+  padding: 0 0.85rem 0.7rem;
 }
 
 .network-menu {
