@@ -32,17 +32,6 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
   const { event } = row;
   return (
     <article className="app-card">
-      <div className="card-tools">
-        <SaveButton
-          item={{
-            id: event.id,
-            kind: "event",
-            title: event.title,
-            subtitle: event.city ?? "",
-            href: event.url || "/events",
-          }}
-        />
-      </div>
       <h3>{event.title}</h3>
       <p className="card-sub">
         {[event.organizer, event.venue || event.city].filter(Boolean).join(" · ") || event.city}
@@ -70,11 +59,22 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
         {event.free === false ? <span className="meta-chip">Paid</span> : null}
       </div>
       {event.recurring && row.timing === "recurring" ? <p className="card-sub">{event.recurring}</p> : null}
-      {event.url ? (
-        <a href={event.url} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
-          {row.timing === "upcoming" ? "Register" : "Open"}
-        </a>
-      ) : null}
+      <div className="card-footer">
+        {event.url ? (
+          <a href={event.url} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
+            {row.timing === "upcoming" ? "Register" : "Open"}
+          </a>
+        ) : null}
+        <SaveButton
+          item={{
+            id: event.id,
+            kind: "event",
+            title: event.title,
+            subtitle: event.city ?? "",
+            href: event.url || "/events",
+          }}
+        />
+      </div>
     </article>
   );
 }
