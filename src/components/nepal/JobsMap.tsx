@@ -60,8 +60,11 @@ export default function JobsMap({ pins, selectedId, onSelect }: Props) {
         button.className = "map-pin-wrap";
         button.dataset.pin = pin.id;
         if (pin.id === selectedRef.current) button.classList.add("is-selected");
-        button.title = `${pin.label}, ${pin.roleCount} open roles`;
-        button.innerHTML = `<span class="map-cluster is-fast">${pin.roleCount}</span>`;
+        const roles = `${pin.roleCount} open role${pin.roleCount === 1 ? "" : "s"}`;
+        button.title = `${pin.label}. ${roles}`;
+        button.setAttribute("aria-label", `${pin.label}. ${roles}`);
+        const halo = pin.kind === "area" ? `<span class="pin-halo" aria-hidden="true"></span>` : "";
+        button.innerHTML = `${halo}<span class="map-cluster is-fast">${pin.roleCount}</span>`;
         button.addEventListener("click", (event) => {
           event.stopPropagation();
           onSelectRef.current(pin.id);
@@ -100,7 +103,7 @@ export default function JobsMap({ pins, selectedId, onSelect }: Props) {
       ref={holderRef}
       className="jobs-map"
       role="region"
-      aria-label={selectedId ? "Company offices, one selected" : "Company offices grouped by city"}
+      aria-label={selectedId ? "Company offices, one selected" : "Company offices"}
     />
   );
 }

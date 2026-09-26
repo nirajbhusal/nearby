@@ -1,0 +1,2579 @@
+{
+ "generated_at": "2026-09-26",
+ "timezone_note": "Dates are Asia/Kathmandu.",
+ "source_label": "curated",
+ "method": {
+  "summary": "Candidates from Wikivoyage Sleep sections, digital-nomad guides (Memoirs of Acacia, A Way Abroad, Tiny Living), web search and Hostelworld; each record verified on an official site or listing opened on 2026-09-26. Features/prices only where stated on a cited page. Coordinates from OSM (Overpass extract or Nominatim, 1 req/s with a descriptive User-Agent).",
+  "nearby_work": "Nearest 3 coworking spaces/cafés from nomad-cities.json by great-circle (haversine) distance. Work places without coordinates in nomad-cities.json were geocoded with Nominatim where a named or street match existed; each entry's work_point_geo states the precision. Distances are straight-line, not walking.",
+  "geo_precision": "building = OSM object for the property; street = street centroid; area = neighbourhood/locality point (approximate); null = not geocoded.",
+  "osm_extracts": [
+   "Overpass API (overpass.kumi.systems) tourism=* extract, OSM base 2026-05-31T22:37:44Z",
+   "Overpass API (overpass.kumi.systems) tourism=* extract, OSM base 2026-07-28T02:16:18Z"
+  ],
+  "osm_attribution": "© OpenStreetMap contributors, ODbL"
+ },
+ "cities": {
+  "kathmandu": {
+   "best_areas_to_live": [
+    {
+     "name": "Thamel",
+     "description": "Kathmandu's backpacker district: 'a maze of alleys crammed with handicraft shops, guest houses, and cafés' whose core is traffic-free (Wikivoyage). Wikivoyage notes virtually all tourist accommodation is in Thamel; Nomadista calls it loud and busy but central.",
+     "suits": [
+      "central",
+      "cafés",
+      "walkable traffic-free core",
+      "busy and loud"
+     ],
+     "center": {
+      "lat": 27.7166578,
+      "lng": 85.3127015,
+      "approximate": true,
+      "geo_source": "Nominatim: Thamel neighbourhood node (node/1349697740)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Kathmandu/West",
+      "https://en.wikivoyage.org/wiki/Kathmandu",
+      "https://nomadista.org/city/kathmandu"
+     ]
+    },
+    {
+     "name": "Jhamsikhel / Sanepa (Lalitpur)",
+     "description": "A street in Jhamsikhel 'popular with expatriates and locals' is informally known as 'Jhamel' — 'much more chilled out' than Thamel (Wikivoyage Patan). Tiny Living calls Sanepa/Jhamsikhel/Pulchowk 'the single best remote-work cafe density in Kathmandu Valley'.",
+     "suits": [
+      "cafés",
+      "quieter than Thamel",
+      "expat area",
+      "remote-work café density"
+     ],
+     "center": {
+      "lat": 27.6834,
+      "lng": 85.3048,
+      "approximate": true,
+      "geo_source": "Midpoint of Nominatim neighbourhood nodes Jhamsikhel (node/2313807795) and Sanepa (node/2313807942)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Patan",
+      "https://www.tinylivingapartments.com/blog/best-cafes-remote-work-kathmandu-2026",
+      "https://nomadista.org/city/kathmandu"
+     ]
+    },
+    {
+     "name": "Patan Durbar area (Lalitpur)",
+     "description": "Patan, about 4 km from Thamel, is 'fast becoming an area of preference for those in the know looking for more space and less chaos'; many expatriate communities live there because INGOs and some embassies are located in Patan (Wikivoyage). Patan Durbar Square is a UNESCO World Heritage Site.",
+     "suits": [
+      "heritage",
+      "more space, less chaos",
+      "expat/INGO community"
+     ],
+     "center": {
+      "lat": 27.6733988,
+      "lng": 85.3250562,
+      "approximate": true,
+      "geo_source": "Nominatim: Patan Durbar Square neighbourhood node (node/2230569085)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Patan",
+      "https://en.wikivoyage.org/wiki/Kathmandu"
+     ]
+    },
+    {
+     "name": "Boudha (Boudhanath)",
+     "description": "East Kathmandu area around one of the largest Buddhist stupas in the world, surrounded by at least 29 Tibetan gompas; a UNESCO site since 1979 (Wikivoyage). Wikivoyage notes 'some good deals' on accommodation around Boudha; Nomadista describes a calm, international, spiritual vibe.",
+     "suits": [
+      "calm",
+      "spiritual",
+      "good-value guesthouses"
+     ],
+     "center": {
+      "lat": 27.7213911,
+      "lng": 85.3620399,
+      "approximate": true,
+      "geo_source": "Nominatim: Boudhanath Stupa (way/56688296)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Kathmandu/East",
+      "https://en.wikivoyage.org/wiki/Kathmandu",
+      "https://nomadista.org/city/kathmandu"
+     ]
+    },
+    {
+     "name": "Lazimpat",
+     "description": "Central Kathmandu's embassy and hotel strip: CIWEC travel clinic is 'Located centrally in Lazimpat, across from the British embassy' (Wikivoyage). Nabin Gaire recommends the Himalayan Java branch in Lazimpat's Bluebird Mall for focused work.",
+     "suits": [
+      "central",
+      "embassy/hotel strip",
+      "walk to Thamel"
+     ],
+     "center": {
+      "lat": 27.7215082,
+      "lng": 85.3207646,
+      "approximate": true,
+      "geo_source": "Nominatim: Lazimpat neighbourhood node (node/1772109891)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Kathmandu",
+      "https://en.wikivoyage.org/wiki/Kathmandu/Central",
+      "https://nabingaire.com.np/best-coffee-shops-to-work-kathmandu/"
+     ]
+    },
+    {
+     "name": "Baluwatar",
+     "description": "Residential area that a rem.work listing describes as 'a peaceful residential area' surrounded by 'the Prime Ministers Quarter, Nepal Rashtriya Bank, the President’s resident and over 20 tea houses, cafes and restaurants'. Café Soma has a Baluwatar branch tagged with Wi-Fi on OSM.",
+     "suits": [
+      "quiet residential",
+      "cafés"
+     ],
+     "center": {
+      "lat": 27.7246028,
+      "lng": 85.3310167,
+      "approximate": true,
+      "geo_source": "Nominatim: Baluwatar neighbourhood node (node/1772109895)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://www.coworker.com/nepal/kathmandu/remwork-hq",
+      "https://overpass-api.de/api/interpreter"
+     ]
+    }
+   ],
+   "stays": [
+    {
+     "id": "ktm-stay-tiny-living-putalisadak",
+     "name": "Tiny Living Apartments (New Plaza, Putalisadak)",
+     "city": "Kathmandu",
+     "area": "Putalisadak",
+     "nearest_listed_neighborhood": "Lazimpat",
+     "type": "serviced_apartment",
+     "address": "New Plaza, Putalisadak (Lwohiti Galli), Kathmandu 44600",
+     "lat": 27.7073922,
+     "lng": 85.3223982,
+     "geo_precision": "area",
+     "geo_source": "Nominatim: Putalisadak Road (way/1200990066); exact building not in OSM",
+     "website": "https://www.tinylivingapartments.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "dedicated workspace",
+      "fibre wifi (80–150 Mbps tested, Ethernet)",
+      "inverter backup",
+      "monthly rates (20% long-stay discount)",
+      "kitchen",
+      "rooftop terrace (studio)"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "dedicated workspace",
+       "quote": "Real desk, ergonomic chair, monitor stand",
+       "url": "https://www.tinylivingapartments.com/monthly-stays"
+      },
+      {
+       "feature": "fibre wifi",
+       "quote": "Tested at 80–150 Mbps with an Ethernet drop",
+       "url": "https://www.tinylivingapartments.com/monthly-stays"
+      },
+      {
+       "feature": "monthly rates",
+       "quote": "10% off weekly stays, 20% off monthly stays",
+       "url": "https://www.tinylivingapartments.com/monthly-stays"
+      },
+      {
+       "feature": "inverter backup",
+       "quote": "inverter backup so the Wi-Fi and one lightbulb stay on",
+       "url": "https://www.tinylivingapartments.com/monthly-stays"
+      },
+      {
+       "feature": "rooftop terrace",
+       "quote": "Studio with rooftop terrace",
+       "url": "https://www.tinylivingapartments.com/monthly-stays"
+      }
+     ],
+     "price_note": {
+      "text": "Indicative monthly rates after 20% long-stay discount: studio with rooftop terrace NPR 95,000–125,000/month (USD 720–945); 2BR NPR 145,000–195,000/month (USD 1,100–1,475).",
+      "currency": "NPR",
+      "as_of": "2026-09-26",
+      "source": "https://www.tinylivingapartments.com/monthly-stays"
+     },
+     "why_nomads": "Its monthly-stay page says every apartment has a dedicated workspace, fibre Wi-Fi with Ethernet and inverter backup, with a built-in 20% monthly discount.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-rem-work",
+       "name": "rem.work",
+       "kind": "coworking",
+       "km": 0.35,
+       "work_point_geo": "area (Nominatim: Kamalpokhari neighbourhood node)"
+      },
+      {
+       "id": "ktm-cw-me10",
+       "name": "ME10",
+       "kind": "coworking",
+       "km": 0.85,
+       "work_point_geo": "area (Nominatim: Naxal locality node)"
+      },
+      {
+       "id": "ktm-cafe-himalayan-java-tridevi-marg",
+       "name": "Himalayan Java – Tridevi Marg",
+       "kind": "cafe",
+       "km": 1.12,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Operator also lists third-party apartments in other neighbourhoods; this record covers only its own three apartments on New Plaza, Putalisadak.",
+     "sources": [
+      {
+       "url": "https://www.tinylivingapartments.com/monthly-stays",
+       "label": "Tiny Living – Monthly stays",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.tinylivingapartments.com/",
+       "label": "Tiny Living – home (address)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "ktm-stay-zen-nest-thamel",
+     "name": "Zen Nest",
+     "city": "Kathmandu",
+     "area": "Thamel",
+     "nearest_listed_neighborhood": "Thamel",
+     "type": "coliving",
+     "address": "Chhetrapati, Thamel, Kathmandu",
+     "lat": 27.7112071,
+     "lng": 85.3086148,
+     "geo_precision": "area",
+     "geo_source": "Nominatim: Chhetrapati locality node (node/947910115); Zen Nest itself not in OSM",
+     "website": "https://zennestnepal.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "coliving",
+      "coworking on site",
+      "reliable wifi",
+      "in-house café"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "coliving + coworking",
+       "quote": "cozy co-living and vibrant co-working spaces for travelers, digital nomads",
+       "url": "https://zennestnepal.com/"
+      },
+      {
+       "feature": "reliable wifi",
+       "quote": "cozy workspaces, reliable Wi-Fi, and a like-minded community",
+       "url": "https://zennestnepal.com/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "The official site pitches it as a Thamel boutique hotel with co-living, co-working spaces and reliable Wi-Fi for digital nomads.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-the-hub-kar-ma-coffee-hub",
+       "name": "The Hub / Kar.ma Coffee @ HUB",
+       "kind": "cafe",
+       "km": 0.45,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-the-cafe-with-no-name",
+       "name": "The Café with No Name",
+       "kind": "cafe",
+       "km": 0.46,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-himalayan-java-tridevi-marg",
+       "name": "Himalayan Java – Tridevi Marg",
+       "kind": "cafe",
+       "km": 0.61,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Site shows '📍 Thamel, Kathmandu' and blog posts about choosing Chhetrapati; no street address published.",
+     "sources": [
+      {
+       "url": "https://zennestnepal.com/",
+       "label": "Zen Nest – official site",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "ktm-stay-nomad-hotel-lazimpat",
+     "name": "Nomad Hotel Lazimpat",
+     "city": "Kathmandu",
+     "area": "Lazimpat",
+     "nearest_listed_neighborhood": "Lazimpat",
+     "type": "hotel",
+     "address": "Lazimpat, Kathmandu",
+     "lat": 27.7201227,
+     "lng": 85.3205414,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/2041594257 (Nomad Hotel)",
+     "website": "https://nomad.com.np/",
+     "booking_urls": [],
+     "nomad_features": [
+      "serviced-apartment rooms with kitchenette",
+      "free wifi",
+      "designed for long stays"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "kitchenette apartments",
+       "quote": "Each of our 5 serviced apartment-style rooms is spacious, modern, and fully equipped with a kitchenette",
+       "url": "https://nomad.com.np/service-apartment-hotel-in-kathmandu"
+      },
+      {
+       "feature": "long stays",
+       "quote": "perfect for long stays, business trips",
+       "url": "https://nomad.com.np/service-apartment-hotel-in-kathmandu"
+      }
+     ],
+     "price_note": {
+      "text": "'Kathmandu Living' serviced apartment room: USD 85/night.",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "https://nomad.com.np/service-apartment-hotel-in-kathmandu"
+     },
+     "why_nomads": "Its 'Kathmandu Living' rooms are serviced apartment-style units with kitchenettes that the hotel says are meant for long stays.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-thamel-nomads",
+       "name": "Thamel Nomads (co-working hostel)",
+       "kind": "coworking",
+       "km": 0.87,
+       "work_point_geo": "building (OSM node 5679345321)"
+      },
+      {
+       "id": "ktm-cw-regus-chhaya-centre",
+       "name": "Regus – Chhaya Centre",
+       "kind": "coworking",
+       "km": 0.88,
+       "work_point_geo": "building (Nominatim: Chhaya Center, Thamel)"
+      },
+      {
+       "id": "ktm-cw-tumbaha-laya",
+       "name": "Tumbaha~Laya",
+       "kind": "coworking",
+       "km": 0.88,
+       "work_point_geo": "street (Nominatim: Amrit Marg (street centroid))"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://nomad.com.np/service-apartment-hotel-in-kathmandu",
+       "label": "Nomad Hotel – Kathmandu Living (service apartment)",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://nomad.com.np/",
+       "label": "Nomad Hotel – home",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/2041594257",
+       "label": "OSM node – Nomad Hotel",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-namaste-residence-lazimpat",
+     "name": "Namaste Residence",
+     "city": "Kathmandu",
+     "area": "Lazimpat",
+     "nearest_listed_neighborhood": "Lazimpat",
+     "type": "apartment",
+     "address": "Lazimpat, Kathmandu",
+     "lat": 27.7215082,
+     "lng": 85.3207646,
+     "geo_precision": "area",
+     "geo_source": "Nominatim: Lazimpat neighbourhood node (node/1772109891); building not in OSM",
+     "website": "https://namasteresidence.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "monthly rates",
+      "free wifi included",
+      "kitchen",
+      "rooftop terrace",
+      "solar power backup"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "monthly rates",
+       "quote": "Rent NPR 45,000/- per month",
+       "url": "https://namasteresidence.com/our-apartments/"
+      },
+      {
+       "feature": "wifi",
+       "quote": "Rent Includes: Free WIFI",
+       "url": "https://namasteresidence.com/our-apartments/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "We have spacious roof top with valley and mountain view",
+       "url": "https://namasteresidence.com/"
+      },
+      {
+       "feature": "power backup",
+       "quote": "solar power backup, can use your laptop, tv during power cut",
+       "url": "https://namasteresidence.com/our-apartments/"
+      }
+     ],
+     "price_note": {
+      "text": "1BK non-AC NPR 40,000/month; 1BK AC NPR 45,000/month; 2BHK AC NPR 75,000/month (includes Wi-Fi, utilities; excludes food, housekeeping, tax).",
+      "currency": "NPR",
+      "as_of": "2026-09-26",
+      "source": "https://namasteresidence.com/our-apartments/"
+     },
+     "why_nomads": "It rents 11 furnished apartments in Lazimpat by the month with Wi-Fi, utilities and a shared rooftop included.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-thamel-nomads",
+       "name": "Thamel Nomads (co-working hostel)",
+       "kind": "coworking",
+       "km": 0.92,
+       "work_point_geo": "building (OSM node 5679345321)"
+      },
+      {
+       "id": "ktm-cw-tumbaha-laya",
+       "name": "Tumbaha~Laya",
+       "kind": "coworking",
+       "km": 0.98,
+       "work_point_geo": "street (Nominatim: Amrit Marg (street centroid))"
+      },
+      {
+       "id": "ktm-cw-regus-chhaya-centre",
+       "name": "Regus – Chhaya Centre",
+       "kind": "coworking",
+       "km": 0.99,
+       "work_point_geo": "building (Nominatim: Chhaya Center, Thamel)"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://namasteresidence.com/our-apartments/",
+       "label": "Namaste Residence – Our apartments",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://namasteresidence.com/",
+       "label": "Namaste Residence – home",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "ktm-stay-maya-manor-hattisar",
+     "name": "Maya Manor Boutique Hotel (KGH Group)",
+     "city": "Kathmandu",
+     "area": "Hattisar",
+     "nearest_listed_neighborhood": "Lazimpat",
+     "type": "hotel",
+     "address": "Hattisar Road, Kathmandu 44600",
+     "lat": 27.7133717,
+     "lng": 85.3226575,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/5463262122 (hotel node tagged website=ktmgh.com/mayamanorhotel)",
+     "website": "https://mayamanorhotel.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "fibre wifi (up to 50 Mbps)",
+      "soundproof rooms",
+      "ergonomic desk setups",
+      "coworking areas (courtyard/lounge)",
+      "extended-stay packages"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "fibre wifi",
+       "quote": "High-speed fiber internet (up to 50 Mbps) in all rooms and common areas",
+       "url": "https://mayamanorhotel.com/work-friendly-hotel-in-kathmandu/"
+      },
+      {
+       "feature": "soundproof",
+       "quote": "Soundproof rooms to ensure silence and uninterrupted Zoom calls",
+       "url": "https://mayamanorhotel.com/work-friendly-hotel-in-kathmandu/"
+      },
+      {
+       "feature": "desks",
+       "quote": "Ergonomic chairs and desk setups",
+       "url": "https://mayamanorhotel.com/work-friendly-hotel-in-kathmandu/"
+      },
+      {
+       "feature": "coworking",
+       "quote": "Co-working spaces in our open courtyard or cozy indoor lounge",
+       "url": "https://mayamanorhotel.com/work-friendly-hotel-in-kathmandu/"
+      },
+      {
+       "feature": "long stay",
+       "quote": "We also offer extended stay packages",
+       "url": "https://mayamanorhotel.com/work-friendly-hotel-in-kathmandu/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "The hotel publishes a work-friendly page listing soundproof rooms, fibre internet up to 50 Mbps, ergonomic desks and courtyard co-working areas.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-rem-work",
+       "name": "rem.work",
+       "kind": "coworking",
+       "km": 0.38,
+       "work_point_geo": "area (Nominatim: Kamalpokhari neighbourhood node)"
+      },
+      {
+       "id": "ktm-cw-me10",
+       "name": "ME10",
+       "kind": "coworking",
+       "km": 0.6,
+       "work_point_geo": "area (Nominatim: Naxal locality node)"
+      },
+      {
+       "id": "ktm-cafe-bodhi-books-bakes",
+       "name": "Bodhi Books & Bakes",
+       "kind": "cafe",
+       "km": 0.84,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://mayamanorhotel.com/work-friendly-hotel-in-kathmandu/",
+       "label": "Maya Manor – Work friendly hotel in Kathmandu",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/5463262122",
+       "label": "OSM node – hotel (website ktmgh.com/mayamanorhotel)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-sagarmatha-apartment-sanepa",
+     "name": "Sagarmatha Apartment Bed & Breakfast",
+     "city": "Kathmandu",
+     "area": "Jhamsikhel / Sanepa (Lalitpur)",
+     "nearest_listed_neighborhood": "Jhamsikhel / Sanepa (Lalitpur)",
+     "type": "serviced_apartment",
+     "address": "424/36 Nirbhawan Marg, Ward No 3, Sanepa, Lalitpur",
+     "lat": 27.6811747,
+     "lng": 85.3067671,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/way/240797308 (Sagarmatha Apartment Bed & Breakfast)",
+     "website": "https://sagarmathaapartment.com/en-us/",
+     "booking_urls": [],
+     "nomad_features": [
+      "high-speed wifi",
+      "equipped kitchens",
+      "short- and long-term stays",
+      "housekeeping",
+      "meeting spaces"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "High‑speed Wi‑Fi and essential utilities",
+       "url": "https://sagarmathaapartment.com/en-us/"
+      },
+      {
+       "feature": "long stays",
+       "quote": "designed for both short‑term and long‑term stays",
+       "url": "https://sagarmathaapartment.com/en-us/"
+      },
+      {
+       "feature": "meeting spaces",
+       "quote": "Access to meeting spaces and fitness hall",
+       "url": "https://sagarmathaapartment.com/en-us/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "It offers fully furnished apartments with kitchens and high-speed Wi-Fi in Jhamsikhel/Sanepa, aimed at long-term guests.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-top-of-the-world-coffee",
+       "name": "Top of the World Coffee",
+       "kind": "cafe",
+       "km": 0.37,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-cafe-soma-jhamsikhel",
+       "name": "Café Soma (Jhamsikhel)",
+       "kind": "cafe",
+       "km": 0.46,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-karma-coffee",
+       "name": "Karma Coffee",
+       "kind": "cafe",
+       "km": 0.61,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://sagarmathaapartment.com/en-us/",
+       "label": "Sagarmatha Apartment – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/way/240797308",
+       "label": "OSM way – Sagarmatha Apartment Bed & Breakfast",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-hotel-harmony-jhamsikhel",
+     "name": "Hotel Harmony Bistro",
+     "city": "Kathmandu",
+     "area": "Jhamsikhel / Sanepa (Lalitpur)",
+     "nearest_listed_neighborhood": "Jhamsikhel / Sanepa (Lalitpur)",
+     "type": "hotel",
+     "address": "Arun Thapa Marga Chowk, Jhamsikhel, Lalitpur",
+     "lat": 27.6808591,
+     "lng": 85.3102932,
+     "geo_precision": "area",
+     "geo_source": "Nominatim: Arun Thapa Chok memorial (node/1945544350); hotel says it is a 5-min walk from the statue",
+     "website": "https://www.hotelharmonynepal.com/home",
+     "booking_urls": [],
+     "nomad_features": [
+      "high-speed wifi",
+      "weekly and monthly bookings",
+      "kitchen use (extra charge)",
+      "dorm, standard and deluxe rooms"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "High Speed Wi-Fi",
+       "url": "https://www.hotelharmonynepal.com/subpackage/standard-room"
+      },
+      {
+       "feature": "monthly",
+       "quote": "Guest can book rooms for 1 week, 15 days, 1 Month and more",
+       "url": "https://www.hotelharmonynepal.com/subpackage/standard-room"
+      },
+      {
+       "feature": "kitchen",
+       "quote": "Guest can also use kitchen on extra charge",
+       "url": "https://www.hotelharmonynepal.com/subpackage/standard-room"
+      }
+     ],
+     "price_note": {
+      "text": "Standard room, BB plan: single USD 22, double/twin USD 25, family USD 28 per night, exclusive of VAT.",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "https://www.hotelharmonynepal.com/subpackage/standard-room"
+     },
+     "why_nomads": "The room page lists high-speed Wi-Fi and says rooms can be booked for a week, 15 days, a month or longer, with kitchen access.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-top-of-the-world-coffee",
+       "name": "Top of the World Coffee",
+       "kind": "cafe",
+       "km": 0.03,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-cafe-soma-jhamsikhel",
+       "name": "Café Soma (Jhamsikhel)",
+       "kind": "cafe",
+       "km": 0.24,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-karma-coffee",
+       "name": "Karma Coffee",
+       "kind": "cafe",
+       "km": 0.39,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.hotelharmonynepal.com/subpackage/standard-room",
+       "label": "Hotel Harmony – Standard room",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.hotelharmonynepal.com/home",
+       "label": "Hotel Harmony – home (location)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "ktm-stay-cosy-nepal-patan",
+     "name": "Cosy Nepal",
+     "city": "Kathmandu",
+     "area": "Patan Durbar area (Lalitpur)",
+     "nearest_listed_neighborhood": "Patan Durbar area (Lalitpur)",
+     "type": "apartment",
+     "address": "Yatachhen House, Swotha Square, Ward 16, Old Patan, Lalitpur 44600",
+     "lat": 27.674825,
+     "lng": 85.3254103,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/5484835626 (tourism=apartment, website=cosynepal.com)",
+     "website": "https://cosynepal.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "short, medium and long-term stays",
+      "wifi (OSM internet_access=wlan)"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "long stays",
+       "quote": "accommodations in Old Patan and Lalitpur for short, medium and long term stays",
+       "url": "https://cosynepal.com/"
+      },
+      {
+       "feature": "wifi",
+       "quote": "internet_access=wlan",
+       "url": "https://www.openstreetmap.org/node/5484835626"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "It runs a portfolio of apartments in Old Patan bookable from 2 days to 3 months or longer, and publishes a guide for digital nomads in Patan.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-ujamaa-coffee",
+       "name": "Ujamaa Coffee (Ujama Koffie & Bakery with Library)",
+       "kind": "cafe",
+       "km": 1.32,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cw-kausimaa",
+       "name": "Kausimaa",
+       "kind": "coworking",
+       "km": 1.36,
+       "work_point_geo": "area (Nominatim: Kupondole neighbourhood node)"
+      },
+      {
+       "id": "ktm-cafe-karma-coffee",
+       "name": "Karma Coffee",
+       "kind": "cafe",
+       "km": 1.41,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Multiple apartments across Patan/Lalitpur; the coordinates are its Swotha Square office/apartment node.",
+     "sources": [
+      {
+       "url": "https://cosynepal.com/",
+       "label": "Cosy Nepal – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/5484835626",
+       "label": "OSM node – Cosy Nepal",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://en.wikivoyage.org/wiki/Patan",
+       "label": "Wikivoyage – Patan (Sleep)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-newa-chen-patan",
+     "name": "Newa Chén",
+     "city": "Kathmandu",
+     "area": "Patan Durbar area (Lalitpur)",
+     "nearest_listed_neighborhood": "Patan Durbar area (Lalitpur)",
+     "type": "guesthouse",
+     "address": "Kulimha Tole, Kobahal (Ka 9/657), Patan, Lalitpur",
+     "lat": 27.6753246,
+     "lng": 85.3261473,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/way/339714940 (Newa Chén)",
+     "website": "https://www.newachen.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "wifi (OSM internet_access=wlan)",
+      "courtyard garden"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "internet_access=wlan",
+       "url": "https://www.openstreetmap.org/way/339714940"
+      },
+      {
+       "feature": "courtyard",
+       "quote": "view on the beautiful inner courtyard and small garden",
+       "url": "https://www.newachen.com/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "A restored Newari house guesthouse about 150 m from Patan Durbar Square, tagged with Wi-Fi on OSM, in the quieter Patan area favoured by longer-stay visitors.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-ujamaa-coffee",
+       "name": "Ujamaa Coffee (Ujama Koffie & Bakery with Library)",
+       "kind": "cafe",
+       "km": 1.24,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cw-kausimaa",
+       "name": "Kausimaa",
+       "kind": "coworking",
+       "km": 1.35,
+       "work_point_geo": "area (Nominatim: Kupondole neighbourhood node)"
+      },
+      {
+       "id": "ktm-cafe-karma-coffee",
+       "name": "Karma Coffee",
+       "kind": "cafe",
+       "km": 1.47,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.newachen.com/",
+       "label": "Newa Chén – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/way/339714940",
+       "label": "OSM way – Newa Chén",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://en.wikivoyage.org/wiki/Patan",
+       "label": "Wikivoyage – Patan (Sleep)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-thamel-nomads",
+     "name": "Thamel Nomads",
+     "city": "Kathmandu",
+     "area": "Thamel",
+     "nearest_listed_neighborhood": "Thamel",
+     "type": "hostel",
+     "address": "83/12 Buddha Tole Marg, Thamel, Kathmandu 44600",
+     "lat": 27.7194885,
+     "lng": 85.3117228,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/5679345321 (Thamel Nomads)",
+     "website": "https://www.thamelnomads.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "coworking on site",
+      "fast internet with backup routers",
+      "standing desks",
+      "private rooms"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "coworking",
+       "quote": "A Co-working Hostel",
+       "url": "https://www.thamelnomads.com/"
+      },
+      {
+       "feature": "backup internet",
+       "quote": "Ultra-fast internet connectivity with backup routers",
+       "url": "https://www.thamelnomads.com/coworking"
+      },
+      {
+       "feature": "standing desks",
+       "quote": "Availability of standing desks",
+       "url": "https://www.thamelnomads.com/coworking"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "It bills itself as a co-working hostel with fast internet on backup routers and standing desks.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-tumbaha-laya",
+       "name": "Tumbaha~Laya",
+       "kind": "coworking",
+       "km": 0.41,
+       "work_point_geo": "street (Nominatim: Amrit Marg (street centroid))"
+      },
+      {
+       "id": "ktm-cw-regus-chhaya-centre",
+       "name": "Regus – Chhaya Centre",
+       "kind": "coworking",
+       "km": 0.48,
+       "work_point_geo": "building (Nominatim: Chhaya Center, Thamel)"
+      },
+      {
+       "id": "ktm-cafe-the-cafe-with-no-name",
+       "name": "The Café with No Name",
+       "kind": "cafe",
+       "km": 0.52,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": "ktm-cw-thamel-nomads",
+     "verification": "official_site",
+     "notes": "Also listed as a coworking space in nomad-cities.json (ktm-cw-thamel-nomads). Site footer '© 2023'; FAQ answers (e.g. long-term stays) not readable in static HTML.",
+     "sources": [
+      {
+       "url": "https://www.thamelnomads.com/",
+       "label": "Thamel Nomads – home",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.thamelnomads.com/coworking",
+       "label": "Thamel Nomads – Co-working",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/5679345321",
+       "label": "OSM node – Thamel Nomads",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-kgh-thamel",
+     "name": "KGH Thamel (Kathmandu Guest House)",
+     "city": "Kathmandu",
+     "area": "Thamel",
+     "nearest_listed_neighborhood": "Thamel",
+     "type": "hotel",
+     "address": "Saatghumti-16, Thamel, Kathmandu",
+     "lat": 27.7155833,
+     "lng": 85.310125,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/8697027809 (Kathmandu Guest House)",
+     "website": "https://ktmgh.com/kathmandu-guest-house/",
+     "booking_urls": [],
+     "nomad_features": [
+      "free high-speed wifi in rooms and public areas",
+      "garden courtyard",
+      "meeting halls",
+      "suite/apartment rooms",
+      "Himalayan Java café on site"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "free high-speed Wi-Fi in all rooms and public areas",
+       "url": "https://ktmgh.com/kathmandu-guest-house/"
+      },
+      {
+       "feature": "meeting",
+       "quote": "well-equipped meeting halls",
+       "url": "https://ktmgh.com/kathmandu-guest-house/"
+      },
+      {
+       "feature": "apartments",
+       "quote": "Standard, Deluxe, Heritage Suite & Apartment",
+       "url": "https://ktmgh.com/kathmandu-guest-house/"
+      },
+      {
+       "feature": "cafe",
+       "quote": "sip freshly brewed coffee at Himalayan Java",
+       "url": "https://ktmgh.com/kathmandu-guest-house/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "The hotel names digital nomads among its guests and offers free high-speed Wi-Fi throughout, a garden and an on-site Himalayan Java café in central Thamel.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-the-cafe-with-no-name",
+       "name": "The Café with No Name",
+       "kind": "cafe",
+       "km": 0.09,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cw-tumbaha-laya",
+       "name": "Tumbaha~Laya",
+       "kind": "coworking",
+       "km": 0.28,
+       "work_point_geo": "street (Nominatim: Amrit Marg (street centroid))"
+      },
+      {
+       "id": "ktm-cw-regus-chhaya-centre",
+       "name": "Regus – Chhaya Centre",
+       "kind": "coworking",
+       "km": 0.32,
+       "work_point_geo": "building (Nominatim: Chhaya Center, Thamel)"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://ktmgh.com/kathmandu-guest-house/",
+       "label": "KGH Thamel – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/8697027809",
+       "label": "OSM node – Kathmandu Guest House",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://en.wikivoyage.org/wiki/Kathmandu/West",
+       "label": "Wikivoyage – Kathmandu/West (Sleep)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-alobar1000",
+     "name": "Alobar1000 Hostel",
+     "city": "Kathmandu",
+     "area": "Thamel",
+     "nearest_listed_neighborhood": "Thamel",
+     "type": "hostel",
+     "address": "214 Kesarmahal Marg, Thamel, Kathmandu (official site); Hostelworld lists 101 Kaldhara Marg, Thamel-16",
+     "lat": 27.7156191,
+     "lng": 85.314336,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/5622234421 (Alobar1000)",
+     "website": "https://alobar1000.com/",
+     "booking_urls": [
+      "https://www.hostelworld.com/hostels/p/316509/alobar1000-hostel/"
+     ],
+     "nomad_features": [
+      "coworking space (Hostelworld facility)",
+      "meeting rooms",
+      "free wifi",
+      "library"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "coworking",
+       "quote": "Coworking Space",
+       "url": "https://www.hostelworld.com/hostels/p/316509/alobar1000-hostel/"
+      },
+      {
+       "feature": "meeting rooms",
+       "quote": "Meeting Rooms",
+       "url": "https://www.hostelworld.com/hostels/p/316509/alobar1000-hostel/"
+      },
+      {
+       "feature": "wifi",
+       "quote": "Free WiFi",
+       "url": "https://www.hostelworld.com/hostels/p/316509/alobar1000-hostel/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "Its Hostelworld listing includes a coworking space, meeting rooms and free Wi-Fi in a Thamel hostel.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-regus-chhaya-centre",
+       "name": "Regus – Chhaya Centre",
+       "kind": "coworking",
+       "km": 0.1,
+       "work_point_geo": "building (Nominatim: Chhaya Center, Thamel)"
+      },
+      {
+       "id": "ktm-cw-tumbaha-laya",
+       "name": "Tumbaha~Laya",
+       "kind": "coworking",
+       "km": 0.14,
+       "work_point_geo": "street (Nominatim: Amrit Marg (street centroid))"
+      },
+      {
+       "id": "ktm-cafe-himalayan-java-tridevi-marg",
+       "name": "Himalayan Java – Tridevi Marg",
+       "kind": "cafe",
+       "km": 0.17,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site+listing",
+     "notes": "Address conflict between official site (214 Kesarmahal Marg) and Hostelworld (101 Kaldhara Marg); coordinates follow the OSM node near Kesar Mahal Marg.",
+     "sources": [
+      {
+       "url": "https://alobar1000.com/",
+       "label": "Alobar1000 – official site (address)",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.hostelworld.com/hostels/p/316509/alobar1000-hostel/",
+       "label": "Hostelworld – Alobar1000 Hostel",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/5622234421",
+       "label": "OSM node – Alobar1000",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-flock-hostel",
+     "name": "Flock Hostel Kathmandu",
+     "city": "Kathmandu",
+     "area": "Thamel",
+     "nearest_listed_neighborhood": "Thamel",
+     "type": "hostel",
+     "address": "Paknajol, Kaldhara, Ward No-16, Peepalbot, Thamel, Kathmandu",
+     "lat": 27.7168351,
+     "lng": 85.3065203,
+     "geo_precision": "street",
+     "geo_source": "Nominatim: Kaldhara Marg (way/112655400); hostel not in OSM",
+     "website": "https://flockhostels.com/",
+     "booking_urls": [
+      "https://www.hostelworld.com/hostels/p/305711/flock-hostel-kathmandu/"
+     ],
+     "nomad_features": [
+      "workspace",
+      "superfast wifi",
+      "library",
+      "rooftop bar"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "workspace + wifi",
+       "quote": "communal lounge, library, workspace, and superfast Wi-Fi",
+       "url": "https://www.hostelworld.com/hostels/p/305711/flock-hostel-kathmandu/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "On our rooftop, NECTAR, our cocktail bar",
+       "url": "https://www.hostelworld.com/hostels/p/305711/flock-hostel-kathmandu/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "Hostelworld lists a workspace, library and 'superfast Wi-Fi' at this Thamel hostel, with guest stays recorded in September 2026.",
+     "nearby_work": [
+      {
+       "id": "ktm-cafe-the-cafe-with-no-name",
+       "name": "The Café with No Name",
+       "kind": "cafe",
+       "km": 0.46,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cw-thamel-nomads",
+       "name": "Thamel Nomads (co-working hostel)",
+       "kind": "coworking",
+       "km": 0.59,
+       "work_point_geo": "building (OSM node 5679345321)"
+      },
+      {
+       "id": "ktm-cw-tumbaha-laya",
+       "name": "Tumbaha~Laya",
+       "kind": "coworking",
+       "km": 0.64,
+       "work_point_geo": "street (Nominatim: Amrit Marg (street centroid))"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "listing",
+     "notes": "Official site (flockhostels.com) loads but content is script-rendered; details taken from Hostelworld. Zostel Kathmandu publishes the same street address (Paknajol, Ward 16, Kaldhara, PeepalBot).",
+     "sources": [
+      {
+       "url": "https://www.hostelworld.com/hostels/p/305711/flock-hostel-kathmandu/",
+       "label": "Hostelworld – Flock Hostel Kathmandu",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://flockhostels.com/",
+       "label": "Flock Hostels – official site",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at street precision"
+    },
+    {
+     "id": "ktm-stay-dragon-guesthouse-boudha",
+     "name": "Dragon Guesthouse",
+     "city": "Kathmandu",
+     "area": "Boudha (Boudhanath)",
+     "nearest_listed_neighborhood": "Boudha (Boudhanath)",
+     "type": "guesthouse",
+     "address": "Mahankal, Boudhanath, Kathmandu",
+     "lat": 27.7252906,
+     "lng": 85.3610347,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/3486820245 (Dragon Guesthouse)",
+     "website": "https://dragonguesthouse.info/",
+     "booking_urls": [],
+     "nomad_features": [
+      "free wifi",
+      "garden",
+      "stays of weeks or months welcome"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "Free WiFi",
+       "url": "https://dragonguesthouse.info/"
+      },
+      {
+       "feature": "long stays",
+       "quote": "home for our guests who often come to us every year to be our guest for some days, weeks and even months",
+       "url": "https://dragonguesthouse.info/"
+      }
+     ],
+     "price_note": {
+      "text": "Single NPR 1,300/night; double NPR 1,800/night (shared bath); double with attached bath NPR 3,500/night.",
+      "currency": "NPR",
+      "as_of": "2026-09-26",
+      "source": "https://dragonguesthouse.info/"
+     },
+     "why_nomads": "A quiet family guesthouse near Shechen Monastery with a garden and free Wi-Fi that says guests stay for weeks and even months.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-work-around",
+       "name": "Work Around",
+       "kind": "coworking",
+       "km": 2.67,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-cafe-soma-baluwatar",
+       "name": "Café Soma (Baluwatar)",
+       "kind": "cafe",
+       "km": 3.0,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-bodhi-books-bakes",
+       "name": "Bodhi Books & Bakes",
+       "kind": "cafe",
+       "km": 3.16,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://dragonguesthouse.info/",
+       "label": "Dragon Guesthouse – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/3486820245",
+       "label": "OSM node – Dragon Guesthouse",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://en.wikivoyage.org/wiki/Kathmandu/East",
+       "label": "Wikivoyage – Kathmandu/East (Sleep)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "ktm-stay-bodhi-guest-house-boudha",
+     "name": "Bodhi Guest House",
+     "city": "Kathmandu",
+     "area": "Boudha (Boudhanath)",
+     "nearest_listed_neighborhood": "Boudha (Boudhanath)",
+     "type": "guesthouse",
+     "address": "Boudha, Kathmandu (250 m from Boudhanath Stupa, next to Shechen Monastery)",
+     "lat": 27.7259211,
+     "lng": 85.3608326,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/13288946501 (Bodhi Guest House and Spa, website=bodhiguesthouse.com)",
+     "website": "https://www.bodhiguesthouse.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "24-hour wifi in every room",
+      "desk in rooms",
+      "rooftop",
+      "garden",
+      "24-hour power"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "Wi-Fi is available in every room, our rooftop and of course in our garden area",
+       "url": "https://www.bodhiguesthouse.com/"
+      },
+      {
+       "feature": "desk",
+       "quote": "Extras include a desk",
+       "url": "https://www.bodhiguesthouse.com/"
+      },
+      {
+       "feature": "power",
+       "quote": "24 Hrs power",
+       "url": "https://www.bodhiguesthouse.com/"
+      }
+     ],
+     "price_note": {
+      "text": "Standard room USD 7/night; Himalayan View USD 15/night; Shechen View USD 20/night (incl. breakfast).",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "https://www.bodhiguesthouse.com/"
+     },
+     "why_nomads": "It advertises free Wi-Fi in every room, garden and rooftop, a desk in rooms and 24-hour power, 250 m from Boudhanath Stupa.",
+     "nearby_work": [
+      {
+       "id": "ktm-cw-work-around",
+       "name": "Work Around",
+       "kind": "coworking",
+       "km": 2.69,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-cafe-soma-baluwatar",
+       "name": "Café Soma (Baluwatar)",
+       "kind": "cafe",
+       "km": 2.98,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "ktm-cafe-bodhi-books-bakes",
+       "name": "Bodhi Books & Bakes",
+       "kind": "cafe",
+       "km": 3.17,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.bodhiguesthouse.com/",
+       "label": "Bodhi Guest House – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/13288946501",
+       "label": "OSM node – Bodhi Guest House and Spa",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    }
+   ]
+  },
+  "pokhara": {
+   "best_areas_to_live": [
+    {
+     "name": "Lakeside",
+     "description": "Where most visitors stay, along Phewa (Fewa) Lake; Wikivoyage says the lakeside strip 'now feels more like Khao San Road' and is the best place for live music. A Way Abroad (2024) suggests any place within a 20-minute walk of Phewa Lake is a good base.",
+     "suits": [
+      "lake views",
+      "cafés",
+      "walkable",
+      "busy main strip"
+     ],
+     "center": {
+      "lat": 28.2131419,
+      "lng": 83.9572865,
+      "approximate": true,
+      "geo_source": "Nominatim: Lakeside Road (way/591300129) centroid"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Pokhara",
+      "https://www.findawayabroad.com/post/living-in-pokhara-nepal"
+     ]
+    },
+    {
+     "name": "Baidam (Lakeside East)",
+     "description": "OSM places most of the Lakeside strip in Baidam (Pokhara ward 6); Wikivoyage calls the southern end off Baidam Road 'Lakeside East'. Long-stay apartment operators here describe their side streets as quieter and 'tucked away from the busier streets' while still a short walk to Phewa Lake (Holiday Home Apartment, Montana Inn).",
+     "suits": [
+      "quieter side streets",
+      "monthly apartments",
+      "walk to the lake"
+     ],
+     "center": {
+      "lat": 28.2086644,
+      "lng": 83.9631086,
+      "approximate": true,
+      "geo_source": "Nominatim: Baidam suburb node (node/3404903233)"
+     },
+     "description_source": "written from the cited sources",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Pokhara",
+      "https://holidayhomeapartment.com/",
+      "https://montana.com.np/",
+      "https://nominatim.openstreetmap.org/"
+     ]
+    },
+    {
+     "name": "Khahare (North Lakeside)",
+     "description": "The north end of Lakeside around Khahare Chowk and Bangladi. Wikivoyage describes Khahare as 'north of lakeside' where slight elevation gives 'the most spectacular views to the lake'; Forest Lake Backpackers' Hostel describes Bangladi, 'at the north end of Lakeside', as having views of Fewa Lake.",
+     "suits": [
+      "lake views",
+      "quieter than central Lakeside",
+      "budget stays"
+     ],
+     "center": {
+      "lat": 28.2176447,
+      "lng": 83.9589687,
+      "approximate": true,
+      "geo_source": "Nominatim: Khahare chowk locality node (node/267656778)"
+     },
+     "description_source": "written from the cited sources",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Pokhara",
+      "https://www.hostelworld.com/hostels/p/281928/forest-lake-backpackers-hostel/"
+     ]
+    },
+    {
+     "name": "Sarangkot",
+     "description": "Hill above the lake, known for sunrise views of the Annapurna range. Wikivoyage: around 12 guesthouses uphill 'offer better views and less air pollution, but are much more expensive'; they are a 20-minute walk uphill on gravel from the Sarangkot taxi stand.",
+     "suits": [
+      "mountain views",
+      "quiet",
+      "cleaner air",
+      "far from cafés/coworking"
+     ],
+     "center": {
+      "lat": 28.2445218,
+      "lng": 83.9476542,
+      "approximate": true,
+      "geo_source": "Nominatim: Sarangkot village node (node/3485963129)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Pokhara",
+      "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+      "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad"
+     ]
+    },
+    {
+     "name": "Damside",
+     "description": "Tourist area by Phewa Lake (Wikivoyage lists hotels and restaurants on Damside Marg/Damside Rd); Wikivoyage: 'Virtually all tourist accommodations are in Lakeside and Damside, near Phewa Lake.'",
+     "suits": [
+      "by Phewa Lake",
+      "tourist accommodation area"
+     ],
+     "center": {
+      "lat": 28.1952806,
+      "lng": 83.9703918,
+      "approximate": true,
+      "geo_source": "Nominatim: Damside Chok roundabout (node/1241688542)"
+     },
+     "description_source": "nomad-cities.json neighbourhood text",
+     "sources": [
+      "https://en.wikivoyage.org/wiki/Pokhara"
+     ]
+    }
+   ],
+   "stays": [
+    {
+     "id": "pkr-stay-nomad-basecamp",
+     "name": "Nomad Basecamp (formerly Nomadhaus Nepal)",
+     "city": "Pokhara",
+     "area": "Lakeside",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "coliving",
+     "address": "Hillside ridge above Lakeside, beside Bar Peepal Resort, Lakeside Rd, Pokhara 33700",
+     "lat": 28.2131419,
+     "lng": 83.9572865,
+     "geo_precision": "area",
+     "geo_source": "Approximate: Lakeside Road centroid (Nominatim way/591300129). The site (beside Bar Peepal Resort, ~10 min walk from Phewa Lake) is not mapped in OSM.",
+     "website": "https://www.nomadhausnepal.com/",
+     "booking_urls": [
+      "https://bookmycoliving.com/property/nomad-basecamp-nepal-digital-nomad-coliving-and-summit-cmu0ux7mn0002l004k26ab1d0",
+      "https://bookretreats.com/r/14-day-digital-nomad-coliving-and-summit-in-breathtaking-nepal"
+     ],
+     "nomad_features": [
+      "coliving",
+      "coworking on site",
+      "high-speed fibre wifi",
+      "desks in rooms",
+      "monthly cohorts (30 days)",
+      "pool access"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "coworking + wifi",
+       "quote": "High-speed internet, desks and chairs, private bathrooms, co-working area",
+       "url": "https://www.nomadhausnepal.com/"
+      },
+      {
+       "feature": "fibre",
+       "quote": "high-speed fiber Wi-Fi, ergonomic coworking zones",
+       "url": "https://bookretreats.com/r/14-day-digital-nomad-coliving-and-summit-in-breathtaking-nepal"
+      },
+      {
+       "feature": "monthly",
+       "quote": "reserve your room for 30 days",
+       "url": "https://www.nomadhausnepal.com/"
+      }
+     ],
+     "price_note": {
+      "text": "30-day coliving: USD 699 (early bird) or USD 775 (last-minute), incl. breakfast; USD 399 deposit. BookMyColiving lists USD 699/month, bills included, min stay 2 weeks.",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "https://www.nomadhausnepal.com/"
+     },
+     "why_nomads": "A coliving retreat built for digital nomads with private rooms, desks, fibre Wi-Fi and a coworking area, sold in 30-day cohorts.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-little-windows",
+       "name": "Little Windows",
+       "kind": "cafe",
+       "km": 0.02,
+       "work_point_geo": "building (Nominatim: Little Windows, Lakeside Road)"
+      },
+      {
+       "id": "pkr-cafe-organic-java-coffee-house",
+       "name": "Organic Java Coffee House",
+       "kind": "cafe",
+       "km": 0.14,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 0.3,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      }
+     ],
+     "related_coworking_id": "pkr-cw-nomad-basecamp",
+     "verification": "official_site+listing",
+     "notes": "Runs as seasonal cohorts (site: primarily Dec, Jan, Feb, Aug, Sep; minimum group of 5–10). Also listed as coworking in nomad-cities.json (pkr-cw-nomad-basecamp). Coordinates are approximate (area).",
+     "sources": [
+      {
+       "url": "https://www.nomadhausnepal.com/",
+       "label": "Nomadhaus / Nomad Basecamp Nepal – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://bookmycoliving.com/property/nomad-basecamp-nepal-digital-nomad-coliving-and-summit-cmu0ux7mn0002l004k26ab1d0",
+       "label": "BookMyColiving – Nomad Basecamp Nepal",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://bookretreats.com/r/14-day-digital-nomad-coliving-and-summit-in-breathtaking-nepal",
+       "label": "BookRetreats – Nomad Basecamp coliving",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "pkr-stay-comfort-suites-apartment",
+     "name": "Comfort Suites Apartment",
+     "city": "Pokhara",
+     "area": "Lakeside",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "apartment",
+     "address": "Shree Krishna Marg (between Street 5 & 6), Lakeside, Pokhara",
+     "lat": null,
+     "lng": null,
+     "geo_precision": null,
+     "geo_source": "Not geocoded: Shree Krishna Marg / Street 5–6 not found in Nominatim",
+     "website": "https://gitagautam.com.np/",
+     "booking_urls": [],
+     "nomad_features": [
+      "fibre wifi with backup connection",
+      "private kitchen",
+      "monthly rates with long-stay discounts",
+      "rooftop terrace",
+      "remote-work ready"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "fibre + backup",
+       "quote": "Blazing-fast fibre WiFi with a backup connection",
+       "url": "https://gitagautam.com.np/"
+      },
+      {
+       "feature": "monthly",
+       "quote": "Daily, weekly, and monthly rates available with negotiable long-stay discounts",
+       "url": "https://gitagautam.com.np/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "unlimited access to our stunning panoramic rooftop terrace",
+       "url": "https://gitagautam.com.np/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "It markets itself to remote workers with fibre Wi-Fi plus a backup line, private kitchens and negotiable monthly rates, 5 minutes' walk from Fewa Lake.",
+     "nearby_work": [],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Site also mentions 'Street 45 via Pipal Tree' (likely directions). Lat/lng left null rather than guessed.",
+     "sources": [
+      {
+       "url": "https://gitagautam.com.np/",
+       "label": "Comfort Suites Apartment – official site",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": null
+    },
+    {
+     "id": "pkr-stay-new-pokhara-lodge",
+     "name": "New Pokhara Lodge",
+     "city": "Pokhara",
+     "area": "Baidam (Lakeside East)",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "guesthouse",
+     "address": "Lakeside, Pokhara (Baidam, ward 6)",
+     "lat": 28.2043326,
+     "lng": 83.9670578,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/978323043 (New Pokhara Lodge)",
+     "website": "https://www.pokharalodge.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "monthly rates",
+      "fast wifi",
+      "shared kitchen",
+      "garden"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "monthly",
+       "quote": "rates starting from just Rs 35,000 to 90,000 (US$ 250 – 810) per month",
+       "url": "https://www.pokharalodge.com/monthly-room-rent/"
+      },
+      {
+       "feature": "wifi",
+       "quote": "lightning-fast WiFi internet",
+       "url": "https://www.pokharalodge.com/monthly-room-rent/"
+      },
+      {
+       "feature": "kitchen",
+       "quote": "shared kitchen facility",
+       "url": "https://www.pokharalodge.com/monthly-room-rent/"
+      }
+     ],
+     "price_note": {
+      "text": "Monthly room rent Rs 35,000–90,000 (US$ 250–810) per month.",
+      "currency": "NPR",
+      "as_of": "2026-09-26",
+      "source": "https://www.pokharalodge.com/monthly-room-rent/"
+     },
+     "why_nomads": "It offers monthly room rentals with fast Wi-Fi and a shared kitchen in Lakeside.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-linger-cafe-and-bakery",
+       "name": "Linger Cafe and Bakery",
+       "kind": "cafe",
+       "km": 0.55,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-am-pm-organic-cafe",
+       "name": "AM/PM Organic Cafe",
+       "kind": "cafe",
+       "km": 0.58,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-the-coffee",
+       "name": "The Coffee",
+       "kind": "cafe",
+       "km": 0.63,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.pokharalodge.com/monthly-room-rent/",
+       "label": "New Pokhara Lodge – Monthly room rent",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/978323043",
+       "label": "OSM node – New Pokhara Lodge",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://en.wikivoyage.org/wiki/Pokhara",
+       "label": "Wikivoyage – Pokhara (Sleep)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-north-star-guest-house",
+     "name": "North Star Guest House",
+     "city": "Pokhara",
+     "area": "Lakeside",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "guesthouse",
+     "address": "Lakeside, Pokhara (street address not published)",
+     "lat": null,
+     "lng": null,
+     "geo_precision": null,
+     "geo_source": "Not geocoded: not found in OSM/Nominatim",
+     "website": "http://www.pokharaguesthouse.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "monthly rates",
+      "long-stay apartments with kitchenette",
+      "wifi",
+      "battery backup lights",
+      "rooftop areas",
+      "table and chairs in rooms"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "monthly",
+       "quote": "Our price for this apartment is USD$290 per month",
+       "url": "http://www.pokharaguesthouse.com/rooms-and-rates/apartments-and-long-stay-accommodation-in-pokhara/"
+      },
+      {
+       "feature": "kitchenette",
+       "quote": "double bed, en-suite, small balcony, kitchenette, dining area, WiFi",
+       "url": "http://www.pokharaguesthouse.com/rooms-and-rates/apartments-and-long-stay-accommodation-in-pokhara/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "two great roof top areas",
+       "url": "http://www.pokharaguesthouse.com/"
+      },
+      {
+       "feature": "table",
+       "quote": "wardrobe, table, chairs, battery backup lighting",
+       "url": "http://www.pokharaguesthouse.com/"
+      }
+     ],
+     "price_note": {
+      "text": "Long-stay room USD 150/month (+USD 50 deposit); rooftop deluxe room USD 220/month; apartment USD 290/month (+USD 100 deposit).",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "http://www.pokharaguesthouse.com/rooms-and-rates/apartments-and-long-stay-accommodation-in-pokhara/"
+     },
+     "why_nomads": "It has rooms and apartments purpose-built for stays of weeks to a year, with Wi-Fi, kitchenettes and published monthly prices.",
+     "nearby_work": [],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Prices are as shown on the page; page date not stated.",
+     "sources": [
+      {
+       "url": "http://www.pokharaguesthouse.com/rooms-and-rates/apartments-and-long-stay-accommodation-in-pokhara/",
+       "label": "North Star Guest House – Apartments and long-stay",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "http://www.pokharaguesthouse.com/",
+       "label": "North Star Guest House – home",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": null
+    },
+    {
+     "id": "pkr-stay-montana-inn",
+     "name": "Montana Inn",
+     "city": "Pokhara",
+     "area": "Baidam (Lakeside East)",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "serviced_apartment",
+     "address": "Street 45, Lakeside, Pokhara (official site); OSM: Street 38, Baidam",
+     "lat": 28.2086651,
+     "lng": 83.9649793,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/way/1526763624 (Montana Inn, building=apartments)",
+     "website": "https://montana.com.np/",
+     "booking_urls": [],
+     "nomad_features": [
+      "kitchen in every apartment",
+      "fast wifi",
+      "balcony",
+      "serviced apartments"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "kitchen + wifi",
+       "quote": "Each fully furnished apartment has a kitchen, balcony and fast WiFi",
+       "url": "https://montana.com.np/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "A family-run serviced-apartment complex where each furnished unit has a kitchen, balcony and fast Wi-Fi, a short walk from Phewa Lake.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-linger-cafe-and-bakery",
+       "name": "Linger Cafe and Bakery",
+       "kind": "cafe",
+       "km": 0.4,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-the-coffee",
+       "name": "The Coffee",
+       "kind": "cafe",
+       "km": 0.47,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-am-pm-organic-cafe",
+       "name": "AM/PM Organic Cafe",
+       "kind": "cafe",
+       "km": 0.47,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Street number differs between the official site (Street 45) and OSM (Street 38).",
+     "sources": [
+      {
+       "url": "https://montana.com.np/",
+       "label": "Montana Inn – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/way/1526763624",
+       "label": "OSM way – Montana Inn",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-holiday-home-apartment",
+     "name": "Holiday Home Apartment",
+     "city": "Pokhara",
+     "area": "Baidam (Lakeside East)",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "serviced_apartment",
+     "address": "Street 25, Lakeside-6, Dihikopatan, Pokhara",
+     "lat": 28.2086644,
+     "lng": 83.9631086,
+     "geo_precision": "area",
+     "geo_source": "Approximate: Baidam suburb node (node/3404903233); building not in OSM",
+     "website": "https://holidayhomeapartment.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "monthly rates",
+      "kitchen",
+      "wifi",
+      "rooftop views"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "monthly",
+       "quote": "Rs. 35,000 per month",
+       "url": "https://holidayhomeapartment.com/"
+      },
+      {
+       "feature": "wifi",
+       "quote": "Wi-Fi",
+       "url": "https://holidayhomeapartment.com/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "the rooftop offers views across Pokhara",
+       "url": "https://holidayhomeapartment.com/"
+      }
+     ],
+     "price_note": {
+      "text": "Apartments listed at Rs 35,000, Rs 40,000 and Rs 45,000 per month.",
+      "currency": "NPR",
+      "as_of": "2026-09-26",
+      "source": "https://holidayhomeapartment.com/"
+     },
+     "why_nomads": "Fully furnished serviced apartments for short and long stays with Wi-Fi and kitchens, 5 minutes' walk from Lakeside, priced by the month.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-linger-cafe-and-bakery",
+       "name": "Linger Cafe and Bakery",
+       "kind": "cafe",
+       "km": 0.29,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-the-coffee",
+       "name": "The Coffee",
+       "kind": "cafe",
+       "km": 0.33,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-am-pm-organic-cafe",
+       "name": "AM/PM Organic Cafe",
+       "kind": "cafe",
+       "km": 0.35,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://holidayhomeapartment.com/",
+       "label": "Holiday Home Apartment – official site",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "pkr-stay-silver-oaks-inn",
+     "name": "The Silver Oaks Inn",
+     "city": "Pokhara",
+     "area": "Lakeside",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "hotel",
+     "address": "Lalupate Marga, Lakeside, Pokhara",
+     "lat": 28.2125733,
+     "lng": 83.9599021,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/way/403265472 (Silver Oaks Inn)",
+     "website": "http://www.hotelpokhara.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "wifi",
+      "garden"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "Wi-Fi Access",
+       "url": "http://www.hotelpokhara.com/"
+      }
+     ],
+     "price_note": {
+      "text": "Rooms shown at USD 20, 25 and 30 per night.",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "http://www.hotelpokhara.com/"
+     },
+     "why_nomads": "A family-run Lakeside hotel set back from the road with a garden and Wi-Fi; Wikivoyage also notes free Wi-Fi and a desktop computer for guests.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-organic-java-coffee-house",
+       "name": "Organic Java Coffee House",
+       "kind": "cafe",
+       "km": 0.18,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-little-windows",
+       "name": "Little Windows",
+       "kind": "cafe",
+       "km": 0.28,
+       "work_point_geo": "building (Nominatim: Little Windows, Lakeside Road)"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 0.36,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "http://www.hotelpokhara.com/",
+       "label": "Silver Oaks Inn – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/way/403265472",
+       "label": "OSM way – Silver Oaks Inn",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://en.wikivoyage.org/wiki/Pokhara",
+       "label": "Wikivoyage – Pokhara (Sleep)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-the-mountain-house",
+     "name": "The Mountain House",
+     "city": "Pokhara",
+     "area": "Lakeside",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "guesthouse",
+     "address": "Street 17, Lakeside, Pokhara",
+     "lat": 28.2118694,
+     "lng": 83.959954,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/way/281421347 (The Mountain House, website=pokhara-guesthouse.com)",
+     "website": "https://pokhara-guesthouse.com/",
+     "booking_urls": [
+      "https://www.booking.com/hotel/np/the-mountain-house.html"
+     ],
+     "nomad_features": [
+      "high-speed wifi in every room",
+      "common spaces to work (garden, lobby, terraces)",
+      "rooftop yoga hall",
+      "balconies"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "complimentary high-speed Wi-Fi",
+       "url": "https://pokhara-guesthouse.com/"
+      },
+      {
+       "feature": "work spaces",
+       "quote": "Our garden, lobby, terraces and yoga hall offer the perfect spots to unwind, work",
+       "url": "https://pokhara-guesthouse.com/"
+      },
+      {
+       "feature": "nomad guide",
+       "quote": "The common area is a great place to ... catch up on some work",
+       "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad"
+      }
+     ],
+     "price_note": {
+      "text": "Standard room NPR 2,500; Deluxe room NPR 4,000 (unit not stated on page; listed under 'Our Rooms').",
+      "currency": "NPR",
+      "as_of": "2026-09-26",
+      "source": "https://pokhara-guesthouse.com/"
+     },
+     "why_nomads": "Recommended in a digital-nomad guide to Pokhara, it offers high-speed Wi-Fi in every room and common areas the owners describe as spots to work.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-organic-java-coffee-house",
+       "name": "Organic Java Coffee House",
+       "kind": "cafe",
+       "km": 0.24,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-little-windows",
+       "name": "Little Windows",
+       "kind": "cafe",
+       "km": 0.31,
+       "work_point_geo": "building (Nominatim: Little Windows, Lakeside Road)"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 0.43,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": "Booking.com URL resolved from the Memoirs of Acacia affiliate link; Booking.com page itself returned a bot check.",
+     "sources": [
+      {
+       "url": "https://pokhara-guesthouse.com/",
+       "label": "The Mountain House – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+       "label": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara (Mar 2025)",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/way/281421347",
+       "label": "OSM way – The Mountain House",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-forest-lake-backpackers",
+     "name": "Hotel Forest Lake Backpackers' Hostel",
+     "city": "Pokhara",
+     "area": "Khahare (North Lakeside)",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "hostel",
+     "address": "Lakeside, Bangladi (Khahare), North Lakeside, Pokhara",
+     "lat": 28.221996,
+     "lng": 83.9550688,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/5485594824 (Forest Lake)",
+     "website": null,
+     "booking_urls": [
+      "https://www.hostelworld.com/hostels/p/281928/forest-lake-backpackers-hostel/",
+      "https://www.booking.com/hotel/np/forest-lake-amp-backpackers-39-hostel.en-gb.html"
+     ],
+     "nomad_features": [
+      "strong wifi throughout",
+      "rooftop hangout",
+      "co-working friendly common areas"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "strong Wi-Fi throughout the building",
+       "url": "https://www.hostelworld.com/hostels/p/281928/forest-lake-backpackers-hostel/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "rooftop hangout area",
+       "url": "https://www.hostelworld.com/hostels/p/281928/forest-lake-backpackers-hostel/"
+      },
+      {
+       "feature": "coworking-friendly",
+       "quote": "plenty of co-working friendly areas such as their shared lounge, terrace, and restaurant",
+       "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "A digital-nomad guide to Pokhara recommends it as a non-party hostel with co-working-friendly lounge and terrace areas, and it advertises strong Wi-Fi throughout.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-the-juicery-cafe",
+       "name": "The Juicery Cafe",
+       "kind": "cafe",
+       "km": 0.24,
+       "work_point_geo": "building (Nominatim: The Juicery Cafe)"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 0.79,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      },
+      {
+       "id": "pkr-cafe-organic-java-coffee-house",
+       "name": "Organic Java Coffee House",
+       "kind": "cafe",
+       "km": 0.98,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "listing",
+     "notes": "No official website found; Hostelworld shows guest stays in Sept 2026.",
+     "sources": [
+      {
+       "url": "https://www.hostelworld.com/hostels/p/281928/forest-lake-backpackers-hostel/",
+       "label": "Hostelworld – Forest Lake Backpackers Hostel",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.memoirs-of-acacia.com/post/pokhara-nepal-digital-nomad",
+       "label": "Memoirs of Acacia – A Digital Nomad's Guide to Pokhara (Mar 2025)",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/5485594824",
+       "label": "OSM node – Forest Lake",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-zostel-pokhara",
+     "name": "Zostel Pokhara",
+     "city": "Pokhara",
+     "area": "Khahare (North Lakeside)",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "hostel",
+     "address": "Pokhara 18, Sedi Bagar, Lakeside, Pokhara 33700",
+     "lat": 28.2232089,
+     "lng": 83.952926,
+     "geo_precision": "area",
+     "geo_source": "Nominatim: Sedi Bagar locality node (node/3476013197); hostel not in OSM",
+     "website": "https://www.zostel.com/destination/pokhara/stay/zostel-pokhara-pkhh648",
+     "booking_urls": [
+      "https://www.hostelworld.com/hostels/p/283960/zostel-pokhara/"
+     ],
+     "nomad_features": [
+      "free wifi",
+      "rooftop lounge",
+      "lakeside café",
+      "private cottages"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "Free Wi-Fi",
+       "url": "https://www.zostel.com/destination/pokhara/stay/zostel-pokhara-pkhh648"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "rooftop lounge with panoramic lake views",
+       "url": "https://www.hostelworld.com/hostels/p/283960/zostel-pokhara/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "A branded hostel above north Lakeside with free Wi-Fi, a rooftop lounge and quiet garden areas; reviewers note it is slightly outside town.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-the-juicery-cafe",
+       "name": "The Juicery Cafe",
+       "kind": "cafe",
+       "km": 0.48,
+       "work_point_geo": "building (Nominatim: The Juicery Cafe)"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 1.02,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      },
+      {
+       "id": "pkr-cafe-little-windows",
+       "name": "Little Windows",
+       "kind": "cafe",
+       "km": 1.18,
+       "work_point_geo": "building (Nominatim: Little Windows, Lakeside Road)"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site+listing",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.zostel.com/destination/pokhara/stay/zostel-pokhara-pkhh648",
+       "label": "Zostel – Zostel Pokhara",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.hostelworld.com/hostels/p/283960/zostel-pokhara/",
+       "label": "Hostelworld – Zostel Pokhara",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    },
+    {
+     "id": "pkr-stay-haven-o-ganga",
+     "name": "Hotel Haven O'Ganga",
+     "city": "Pokhara",
+     "area": "Lakeside",
+     "nearest_listed_neighborhood": "Lakeside",
+     "type": "hotel",
+     "address": "Street No. 16, Lakeside, Pokhara",
+     "lat": 28.2108892,
+     "lng": 83.9600836,
+     "geo_precision": "building",
+     "geo_source": "https://www.openstreetmap.org/node/4457499189 (Hotel Haven 'O' Ganga, website=havenoganga.com)",
+     "website": "https://www.havenoganga.com/",
+     "booking_urls": [],
+     "nomad_features": [
+      "free wifi",
+      "rooftop terrace",
+      "private balconies"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi",
+       "quote": "Free Wi-Fi",
+       "url": "https://www.havenoganga.com/"
+      },
+      {
+       "feature": "rooftop",
+       "quote": "beautiful view from the rooftop terrace",
+       "url": "https://www.havenoganga.com/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "Recommended in A Way Abroad's digital-nomad guide as a place to land in central Lakeside; it offers free Wi-Fi and a rooftop terrace.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-organic-java-coffee-house",
+       "name": "Organic Java Coffee House",
+       "kind": "cafe",
+       "km": 0.35,
+       "work_point_geo": "as in nomad-cities.json"
+      },
+      {
+       "id": "pkr-cafe-little-windows",
+       "name": "Little Windows",
+       "kind": "cafe",
+       "km": 0.39,
+       "work_point_geo": "building (Nominatim: Little Windows, Lakeside Road)"
+      },
+      {
+       "id": "pkr-cafe-the-coffee",
+       "name": "The Coffee",
+       "kind": "cafe",
+       "km": 0.52,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.havenoganga.com/",
+       "label": "Haven O'Ganga – official site",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.findawayabroad.com/post/living-in-pokhara-nepal",
+       "label": "A Way Abroad – A Digital Nomad's Guide to Living in Pokhara",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/4457499189",
+       "label": "OSM node – Hotel Haven 'O' Ganga",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-superview-lodge-sarangkot",
+     "name": "Superview Lodge",
+     "city": "Pokhara",
+     "area": "Sarangkot",
+     "nearest_listed_neighborhood": "Sarangkot",
+     "type": "guesthouse",
+     "address": "Sarangkot Top Tole, Sarangkot, Pokhara",
+     "lat": 28.2446257,
+     "lng": 83.9487099,
+     "geo_precision": "building",
+     "geo_source": "Nominatim: Superview Lodge (node/9564214417)",
+     "website": "https://www.superview.com.np/",
+     "booking_urls": [],
+     "nomad_features": [
+      "wifi",
+      "working desk",
+      "terrace with mountain views"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi + desk",
+       "quote": "WiFi / Working Desk (room amenities)",
+       "url": "https://www.superview.com.np/rooms"
+      },
+      {
+       "feature": "terrace",
+       "quote": "Sunrise from our terrace",
+       "url": "https://www.superview.com.np/"
+      }
+     ],
+     "price_note": {
+      "text": "Rooms USD 40, 50, 85 and 105 per night + USD 5 breakfast per person.",
+      "currency": "USD",
+      "as_of": "2026-09-26",
+      "source": "https://www.superview.com.np/rooms"
+     },
+     "why_nomads": "A 10-room family lodge in Sarangkot whose rooms list Wi-Fi and a working desk, with Himalayan views away from Lakeside.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-the-juicery-cafe",
+       "name": "The Juicery Cafe",
+       "kind": "cafe",
+       "km": 2.78,
+       "work_point_geo": "building (Nominatim: The Juicery Cafe)"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 3.37,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      },
+      {
+       "id": "pkr-cafe-organic-java-coffee-house",
+       "name": "Organic Java Coffee House",
+       "kind": "cafe",
+       "km": 3.57,
+       "work_point_geo": "as in nomad-cities.json"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://www.superview.com.np/rooms",
+       "label": "Superview Lodge – Rooms",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.superview.com.np/",
+       "label": "Superview Lodge – home",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://www.openstreetmap.org/node/9564214417",
+       "label": "OSM node – Superview Lodge",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "stay coordinates at building precision"
+    },
+    {
+     "id": "pkr-stay-sarangkot-mountain-lodge",
+     "name": "Sarangkot Mountain Lodge",
+     "city": "Pokhara",
+     "area": "Sarangkot",
+     "nearest_listed_neighborhood": "Sarangkot",
+     "type": "hotel",
+     "address": "Sarangkot, Pokhara",
+     "lat": 28.2445218,
+     "lng": 83.9476542,
+     "geo_precision": "area",
+     "geo_source": "Approximate: Sarangkot village node (node/3485963129); lodge not in OSM",
+     "website": "https://barahi.com/properties/sarangkot-mountain-lodge/",
+     "booking_urls": [],
+     "nomad_features": [
+      "wifi",
+      "workplace in room",
+      "soundproofed walls",
+      "mountain-view balcony"
+     ],
+     "nomad_features_evidence": [
+      {
+       "feature": "wifi + workplace",
+       "quote": "WiFi / Workplace (Deluxe room amenities)",
+       "url": "https://barahi.com/hotel/deluxe-rooms/"
+      },
+      {
+       "feature": "soundproof",
+       "quote": "soundproofed walls",
+       "url": "https://barahi.com/hotel/deluxe-rooms/"
+      }
+     ],
+     "price_note": null,
+     "why_nomads": "Its deluxe rooms list Wi-Fi, a workplace and soundproofed walls, with Annapurna views from a private balcony at 1,600 m.",
+     "nearby_work": [
+      {
+       "id": "pkr-cafe-the-juicery-cafe",
+       "name": "The Juicery Cafe",
+       "kind": "cafe",
+       "km": 2.8,
+       "work_point_geo": "building (Nominatim: The Juicery Cafe)"
+      },
+      {
+       "id": "pkr-cafe-silk-road",
+       "name": "Silk Road",
+       "kind": "cafe",
+       "km": 3.39,
+       "work_point_geo": "building (Nominatim: Silk Road Bar and Restaurant, Lakeside Marg)"
+      },
+      {
+       "id": "pkr-cafe-little-windows",
+       "name": "Little Windows",
+       "kind": "cafe",
+       "km": 3.59,
+       "work_point_geo": "building (Nominatim: Little Windows, Lakeside Road)"
+      }
+     ],
+     "related_coworking_id": null,
+     "verification": "official_site",
+     "notes": null,
+     "sources": [
+      {
+       "url": "https://barahi.com/hotel/deluxe-rooms/",
+       "label": "Sarangkot Mountain Lodge – Deluxe rooms",
+       "as_of": "2026-09-26"
+      },
+      {
+       "url": "https://barahi.com/properties/sarangkot-mountain-lodge/",
+       "label": "Sarangkot Mountain Lodge – property page (Barahi)",
+       "as_of": "2026-09-26"
+      }
+     ],
+     "nearby_work_basis": "approximate: stay has area-level coordinates"
+    }
+   ]
+  }
+ },
+ "excluded_candidates": [
+  {
+   "name": "Casa Blanca Co-living (Lazimpat)",
+   "reason": "casanepal.com did not resolve / 504 on 2026-09-26; could not open a source."
+  },
+  {
+   "name": "Shechen Guest House (Boudha)",
+   "reason": "Official site returned 502; operating status not verified."
+  },
+  {
+   "name": "Summit Hotel (Kupondole)",
+   "reason": "summit-nepal.com now redirects to an unrelated site."
+  },
+  {
+   "name": "Sacred Valley Inn (Kathmandu/Pokhara)",
+   "reason": "sacredvalleyinn.com now serves unrelated French content."
+  },
+  {
+   "name": "Hotel Castle Resort (Pokhara)",
+   "reason": "pokharacastle.com redirects to an unrelated site."
+  },
+  {
+   "name": "Hotel Greenwich Village (Kupondole)",
+   "reason": "Official site timed out (504); not verified."
+  },
+  {
+   "name": "Himalaya Inn (Baluwatar)",
+   "reason": "Official site returned HTTP 500; no other openable source."
+  },
+  {
+   "name": "Hotel Tourist Residency (Pokhara)",
+   "reason": "Only a 2024 blog mention and OSM node; no official site and Booking/Agoda pages not readable — operating status unconfirmed."
+  },
+  {
+   "name": "Nomad Hotel Pokhara",
+   "reason": "nomadpokhara.com.np returned only a title; no readable details."
+  },
+  {
+   "name": "Zostel Kathmandu",
+   "reason": "Operating page exists but no nomad-specific features; publishes the same street address as Flock Hostel — left out pending clarification."
+  },
+  {
+   "name": "Banana Garden Lodge / Butterfly Lodge / Hotel Yeti (Pokhara)",
+   "reason": "Official sites timed out or errored; only Wikivoyage/OSM evidence."
+  },
+  {
+   "name": "Volunteer Society Nepal digital-nomad programme",
+   "reason": "Volunteer/homestay programme in Pepsi-Cola, not a bookable stay in the target areas."
+  }
+ ],
+ "gaps": [
+  "No verified stay in Baluwatar (candidates' sites down or Booking-only). Nearest verified options are in Lazimpat.",
+  "Booking.com and Agoda pages returned bot checks and were not used as sources."
+ ]
+}

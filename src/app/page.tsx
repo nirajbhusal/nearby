@@ -154,14 +154,16 @@ export default function HomePage() {
         </div>
         <div className="nomad-promo">
           {nomadCities.map((city) => {
-            const rank = city.stats.find((stat) => stat.id === "rank");
-            const cost = city.stats.find((stat) => stat.id === "cost");
+            const rank = city.reference.find((stat) => stat.label === "Nomads.com rank");
+            const cost = city.reference.find((stat) => stat.label === "Cost of living for nomad");
             return (
               <Link key={city.slug} href={`/nomad/${city.slug}`} className="promo-card">
                 <Compass size={18} aria-hidden />
                 <h3>{city.name}</h3>
-                <p>{rank?.value} · {cost?.value}</p>
-                <small>Source: Nomads.com, as of {rank?.asOf}. Ranking changes daily.</small>
+                <p>
+                  {rank?.value} · {cost?.value}
+                </p>
+                <small>Source: Nomads.com, as of 26 Sep 2026. Ranking changes daily.</small>
               </Link>
             );
           })}
