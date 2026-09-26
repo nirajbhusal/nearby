@@ -1,1 +1,3475 @@
-[{"slug":"khalti","name":"Khalti by IME","website":"https://khalti.com/","careers_url":"https://blog.khalti.com/careers/","category":"fintech","description":"NRB-licensed digital wallet and payment platform, now combined with IME Pay as IME Khalti Ltd.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Management Trainee","location":"Kathmandu, Nepal","url":"https://blog.khalti.com/career-job/management-trainee/","source":"official careers page","seen_date":"2026-09-26"},{"title":"PostgreSQL Database Administrator","location":null,"url":"https://blog.khalti.com/career-job/data-science-and-business-intelligence/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Customer Support Intern","location":null,"url":"https://blog.khalti.com/career-job/intern-customer-support-representative/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Khalti homepage","url":"https://khalti.com/"},{"name":"Khalti careers","url":"https://blog.khalti.com/careers/"},{"name":"Management Trainee posting","url":"https://blog.khalti.com/career-job/management-trainee/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"f1soft-group","name":"F1Soft Group","website":"https://f1soft.com/","careers_url":"https://career.f1soft.com/","category":"fintech","description":"Fintech group (F1Soft International, FoneNXT, Foneloan and others) with its innovation centre in Nepal.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Product Analyst (F1Soft International)","location":"F1Soft Tower, Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/product-analyst","source":"official careers page","seen_date":"2026-09-26"},{"title":"Product Owner (FoneNXT)","location":"F1Soft Tower, Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/product-owner","source":"official careers page","seen_date":"2026-09-26"},{"title":"Operational DBA and SQL Developer (FoneNXT)","location":"F1Soft Tower, Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/operational-dba-and-sql-developer","source":"official careers page","seen_date":"2026-09-26"},{"title":"Software Engineer - QA (FoneNXT)","location":"F1Soft Tower, Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/software-engineer-qa-fonenxt","source":"official careers page","seen_date":"2026-09-26"},{"title":"AI Engineer (FoneNXT)","location":null,"url":"https://career.f1soft.com/jobs/ai-engineer","source":"official careers page","seen_date":"2026-09-26"},{"title":"Business Analyst (FoneNXT)","location":null,"url":"https://career.f1soft.com/jobs/business-analyst-fonenxt","source":"official careers page","seen_date":"2026-09-26"},{"title":"Associate Software Engineer - QA (Foneloan)","location":null,"url":"https://career.f1soft.com/jobs/associate-software-engineer-qa","source":"official careers page","seen_date":"2026-09-26"},{"title":"Project Manager - Growth Team (F1Soft International)","location":null,"url":"https://career.f1soft.com/jobs/project-manager-f1group","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"F1Soft homepage","url":"https://f1soft.com/"},{"name":"F1Soft Group careers","url":"https://career.f1soft.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"esewa","name":"eSewa","website":"https://esewa.com.np/","careers_url":"https://career.f1soft.com/","category":"fintech","description":"Nepali digital wallet for online payments; part of F1Soft Group, which hires for it through the group careers portal.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Full Stack Developer","location":"Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/full-stack-developer1","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"},{"title":"Copywriter / Brand Storyteller","location":"Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/copywriter-brand-storyteller","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"},{"title":"Business Outreach Officer - Chitwan","location":"Chitwan, Nepal","url":"https://career.f1soft.com/jobs/business-outreach-officer-chitwan","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"},{"title":"Marketing Assistant - Nepalgunj","location":"Nepalgunj, Nepal","url":"https://career.f1soft.com/jobs/marketing-assistant-nepalgunj","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"}],"sources":[{"name":"eSewa homepage","url":"https://esewa.com.np/"},{"name":"F1Soft careers - eSewa Full Stack Developer","url":"https://career.f1soft.com/jobs/full-stack-developer1"},{"name":"F1Soft careers - Business Outreach Officer Chitwan","url":"https://career.f1soft.com/jobs/business-outreach-officer-chitwan"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"fonepay","name":"Fonepay","website":"https://fonepay.com/","careers_url":"https://fonepay.com/career","category":"fintech","description":"NRB-licensed payment system operator behind Fonepay QR, fund transfers, bill payments and cards.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Project Coordinator","location":null,"url":"https://fonepay.com/career/project-coordinator","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Fonepay homepage","url":"https://fonepay.com/"},{"name":"Fonepay careers","url":"https://fonepay.com/career"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"extensodata","name":"eXtensoData","website":"https://www.extensodata.com/","careers_url":"https://career.f1soft.com/","category":"ai-data","description":"Data engineering and analytics company in the F1Soft Group; hires through the group careers portal.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Data Engineer","location":"F1Soft Tower, Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/data-engineer-extensodata","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"},{"title":"Product Owner","location":"F1Soft Tower, Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/product-owner-extenso","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"}],"sources":[{"name":"F1Soft Group careers","url":"https://career.f1soft.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"nchl","name":"Nepal Clearing House Limited (NCHL)","website":"https://nchl.com.np/","careers_url":"https://vacancy.nchl.com.np/career/career.php","category":"fintech","description":"Operator of Nepal's national payment infrastructure, including connectIPS, RTGS, NEPALPAY QR and EFT.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"NCHL homepage","url":"https://nchl.com.np/"},{"name":"NCHL contact (Kamaladi, Kathmandu)","url":"https://nchl.com.np/contact-us/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"fusemachines","name":"Fusemachines","website":"https://fusemachines.com/","careers_url":"https://fusemachines.applytojob.com/apply","category":"ai-data","description":"AI products and solutions company that is hiring ML, MLOps and design roles in Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[{"title":"MLOps Engineer","location":"Kathmandu, Nepal","url":"https://fusemachines.applytojob.com/apply/ukb85E3mWQ/MLOps-Engineer","source":"official ATS (JazzHR)","seen_date":"2026-09-26"},{"title":"Red Hat System Administrator","location":"Kathmandu, Nepal","url":"https://fusemachines.applytojob.com/apply/zXkNa16BRv/Red-Hat-System-Administrator","source":"official ATS (JazzHR)","seen_date":"2026-09-26"},{"title":"Sr. ML Engineer","location":"Kathmandu, Nepal","url":"https://fusemachines.applytojob.com/apply/qwM2nheCPZ/Sr-ML-Engineer","source":"official ATS (JazzHR)","seen_date":"2026-09-26"},{"title":"Machine Learning Engineer","location":"Kathmandu, Nepal","url":"https://fusemachines.applytojob.com/apply/9vIpSQxR3D/Machine-Learning-Engineer","source":"official ATS (JazzHR)","seen_date":"2026-09-26"},{"title":"Sr. UI/UX Designer","location":"Kathmandu, Nepal","url":"https://fusemachines.applytojob.com/apply/CYDvfJqCBF/Sr-UIUX-Designer","source":"official ATS (JazzHR)","seen_date":"2026-09-26"}],"sources":[{"name":"Fusemachines careers (redirects to JazzHR board)","url":"https://www.fusemachines.com/careers/"},{"name":"Fusemachines job board","url":"https://fusemachines.applytojob.com/apply"},{"name":"Fusemachines homepage","url":"https://fusemachines.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"cloudfactory","name":"CloudFactory","website":"https://www.cloudfactory.com/","careers_url":"https://www.cloudfactory.com/careers","category":"ai-data","description":"AI data and human-in-the-loop company founded in Nepal in 2010.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[{"title":"Senior Software Engineer","location":"Kathmandu, Nepal","url":"https://apply.workable.com/j/520F8ECF19","source":"official ATS (Workable)","seen_date":"2026-09-26"},{"title":"Senior Frontend Engineer","location":"Kathmandu, Nepal","url":"https://apply.workable.com/j/C87269A482","source":"official ATS (Workable)","seen_date":"2026-09-26"},{"title":"MLOps Support Engineer","location":"Kathmandu, Nepal (remote-eligible)","url":"https://apply.workable.com/j/3C17B65C71","source":"official ATS (Workable)","seen_date":"2026-09-26"}],"sources":[{"name":"CloudFactory careers","url":"https://www.cloudfactory.com/careers"},{"name":"CloudFactory about (founded in Nepal)","url":"https://www.cloudfactory.com/about"},{"name":"CloudFactory Workable job feed","url":"https://apply.workable.com/api/v1/widget/accounts/cloudfactory"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"leapfrog-technology","name":"Leapfrog Technology","website":"https://www.lftechnology.com/","careers_url":"https://www.lftechnology.com/careers","category":"software-services","description":"Product engineering and AI/data services firm (500+ people) with an office on Charkhal Rd, Dillibazar, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[{"title":"Tech Lead, AI","location":"Kathmandu, Nepal","url":"https://career.lftechnology.com/o/tech-lead-ai","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"Senior Security Engineer","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/senior-security-engineer-1","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"Staff Manager (Engineering)","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/engineering-staff-manager","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"Solution Architect","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/solution-architect-2","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"SysOps Engineer","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/sysops-engineer","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"Senior Data Engineer","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/data-engineer-lftechnology","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"Senior Full-Stack Engineer- Golang","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/senior-full-stack-engineer-golang","source":"official ATS (Recruitee)","seen_date":"2026-09-26"},{"title":"Senior Full-Stack Developer","location":"Kathmandu, Nepal (hybrid)","url":"https://career.lftechnology.com/o/senior-full-stack-developer-3","source":"official ATS (Recruitee)","seen_date":"2026-09-26"}],"sources":[{"name":"Leapfrog careers","url":"https://www.lftechnology.com/careers"},{"name":"Leapfrog contact (Kathmandu office)","url":"https://www.lftechnology.com/contact"},{"name":"Leapfrog job feed","url":"https://career.lftechnology.com/api/offers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"growbydata","name":"GrowByData","website":"https://growbydata.com/","careers_url":"https://growbydata.com/career-overview/","category":"ai-data","description":"Search and AI-visibility intelligence company with offices in Boston and Kathmandu.","hq_city":"Kathmandu","global_hq":"Boston","offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[{"title":"Senior Data Analyst","location":"Kathmandu","url":"https://growbydata.com/career-overview/","source":"official careers page","seen_date":"2026-09-26"},{"title":"AI/ML Engineer","location":"Kathmandu","url":"https://growbydata.com/career-overview/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Senior Software Engineer – Data Platform","location":null,"url":"https://growbydata.com/career-overview/","source":"official careers page","seen_date":"2026-09-26"},{"title":"SEO Analyst","location":null,"url":"https://growbydata.com/career-overview/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"GrowByData careers (Boston US, Kathmandu Nepal, and Remote)","url":"https://growbydata.com/career-overview/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"docsumo","name":"Docsumo","website":"https://www.docsumo.com/","careers_url":"https://www.docsumo.com/careers","category":"ai-data","description":"AI document-processing company whose careers page lists Mumbai, Kathmandu, Bangalore and New York as locations.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[],"sources":[{"name":"Docsumo careers","url":"https://www.docsumo.com/careers"},{"name":"Docsumo Lever job feed (no Nepal-located roles on 2026-09-26)","url":"https://api.lever.co/v0/postings/docsumo?mode=json"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"treeleaf-technologies","name":"Treeleaf Technologies","website":"https://treeleaf.ai/","careers_url":null,"category":"ai-data","description":"AI company based in Sankhamul, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Treeleaf homepage","url":"https://treeleaf.ai/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"wiseyak","name":"Wiseyak","website":"https://wiseyak.com/","careers_url":"https://wiseyak.com/career/","category":"ai-data","description":"AI product company building voice-to-voice conversational agents and digital health solutions, based in Naxal, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Full Stack Developer & Future CTO","location":null,"url":"https://wiseyak.com/career/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Wiseyak homepage","url":"https://wiseyak.com/"},{"name":"Wiseyak careers","url":"https://wiseyak.com/career/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"lis-nepal","name":"LIS Nepal","website":"https://www.lisnepal.com.np/","careers_url":"https://www.lisnepal.com.np/career/","category":"ai-data","description":"BI, data warehousing and analytics IT firm in Manbhawan, Lalitpur; a member of Yomari Group.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"LIS Nepal homepage","url":"https://www.lisnepal.com.np/"},{"name":"LIS Nepal careers","url":"https://www.lisnepal.com.np/career/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"naamii","name":"NAAMII (Nepal Applied Mathematics and Informatics Institute for research)","website":"https://naamii.org/","careers_url":"https://naamii.org/careers-at-naamii","category":"research-nonprofit","description":"Registered non-profit AI centre of excellence (research, AI schools and training) located in Jwagal, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":false,"open_roles":[],"sources":[{"name":"NAAMII homepage","url":"https://naamii.org/"},{"name":"NAAMII careers (all listed roles closed on 2026-09-26)","url":"https://naamii.org/careers-at-naamii"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"verisk-nepal","name":"Verisk Nepal","website":"https://www.verisknepal.com.np/","careers_url":"https://www.verisk.com/company/careers/","category":"software-services","description":"Software development and IT service support centre for Verisk Analytics, at Prasiddhi Tower, Pulchowk, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Verisk Nepal homepage","url":"https://www.verisknepal.com.np/"},{"name":"Verisk careers","url":"https://www.verisk.com/company/careers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"cedar-gate-technologies","name":"Cedar Gate Technologies (formerly Deerwalk)","website":"https://www.cedargate.com/","careers_url":"https://www.cedargate.com/careers/","category":"healthtech","description":"US healthcare analytics company whose careers page says it has offices in the United States and Nepal; deerwalk.com now redirects to Cedar Gate.","hq_city":null,"global_hq":null,"offices":[{"city":null,"district":null,"lat":null,"lng":null,"geo_precision":null}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Cedar Gate careers","url":"https://www.cedargate.com/careers/"},{"name":"deerwalk.com redirect","url":"https://www.deerwalk.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"deerhold","name":"Deerhold","website":"https://www.deerhold.com/","careers_url":"https://www.deerhold.com/careers","category":"software-services","description":"Software services and data analytics company; its Nepal subsidiary, Deerhold Nepal Pvt Ltd, is in Siphal, Kathmandu.","hq_city":"Kathmandu","global_hq":"Burlington, MA","offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Deerhold careers","url":"https://www.deerhold.com/careers"},{"name":"Deerhold contact","url":"https://www.deerhold.com/contact-us"},{"name":"Why Deerhold","url":"https://www.deerhold.com/why-deerhold"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"guardsix","name":"Guardsix (formerly Logpoint)","website":"https://guardsix.com/","careers_url":"https://guardsix.com/join-us","category":"cybersecurity","description":"Cybersecurity company (logpoint.com now redirects here) with a Kathmandu office at Signature Platinum Tower, Pulchowk, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Guardsix careers","url":"https://guardsix.com/join-us"},{"name":"Guardsix contact","url":"https://guardsix.com/contact"},{"name":"logpoint.com careers redirect","url":"https://www.logpoint.com/en/careers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"braindigit","name":"Braindigit","website":"https://braindigit.com/","careers_url":"https://braindigit.com/Career","category":"software-services","description":"Software and digitisation company with offices in the UK, Australia and Nepal (Hunch Complex, Gyaneshwor, Kathmandu).","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Braindigit homepage","url":"https://braindigit.com/"},{"name":"Braindigit careers","url":"https://braindigit.com/Career"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"genese-solution","name":"Genese Solution","website":"https://www.genesesolution.com/","careers_url":"https://www.genesesolution.com/career/","category":"software-services","description":"Cloud, data, AI and cybersecurity consulting company with its Nepal office in Jhamsikhel, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[{"title":"Senior AI Technical Lead","location":null,"url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Senior Gen AI Engineer","location":"Remote","url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Data Engineer","location":null,"url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"DevSecOps Engineer","location":null,"url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Director | Cybersecurity","location":null,"url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Service Delivery Manager","location":null,"url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Senior Finance Officer","location":null,"url":"https://www.genesesolution.com/career/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Genese careers","url":"https://www.genesesolution.com/career/"},{"name":"Genese contact","url":"https://www.genesesolution.com/contact-us/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"javra-software","name":"Javra Software","website":"https://javra.com/","careers_url":"https://javra.com/careers","category":"software-services","description":"Netherlands-founded software company with an offshore office at Nakhu, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Javra homepage","url":"https://javra.com/"},{"name":"Javra careers","url":"https://javra.com/careers"},{"name":"Javra Frontend Developer (Nepal; deadline passed)","url":"https://javra.com/careers/frontend-developer"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"bajra-technologies","name":"Bajra Technologies","website":"https://bajratechnologies.com/","careers_url":"https://bajratechnologies.com/jobs","category":"software-services","description":"Software development and outsourcing company based in Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Data Entry and Annotation Specialist","location":null,"url":"https://bajratechnologies.com/jobs/detail/data-entry-and-annotation-specialist-355","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Bajra homepage","url":"https://bajratechnologies.com/"},{"name":"Bajra jobs","url":"https://bajratechnologies.com/jobs"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"insight-workshop","name":"Insight Workshop","website":"https://insightworkshop.io/","careers_url":"https://insightworkshop.io/careers","category":"software-services","description":"Software company with offices in Salt Lake City, Utah and Lalitpur, Nepal.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Insight Workshop homepage","url":"https://insightworkshop.io/"},{"name":"Insight Workshop careers","url":"https://insightworkshop.io/careers"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"ekbana","name":"EKbana Solutions","website":"https://ekbana.com/","careers_url":"https://careers.ekbana.com/","category":"software-services","description":"Web and mobile application development company (E.K. Solutions Pvt. Ltd.) in Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Mid-Level UI/UX Designer","location":"Jwagal, Lalitpur","url":"https://careers.ekbana.com/job/mid-level-uiux-designer","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"EKbana homepage","url":"https://ekbana.com/"},{"name":"EKbana careers","url":"https://careers.ekbana.com/"},{"name":"EKbana contact","url":"https://ekbana.com/contact"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"infodevelopers","name":"InfoDevelopers","website":"https://infodev.com.np/","careers_url":"https://infodev.com.np/careers","category":"software-services","description":"Banking and enterprise software company hiring in Sanepa (Lalitpur) and Itahari.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Sales Officer - Junior","location":"Sanepa, Nepal","url":"https://infodev.com.np/careers","source":"official careers page","seen_date":"2026-09-26"},{"title":"Sales Officer - Junior","location":"Itahari, Nepal","url":"https://infodev.com.np/careers","source":"official careers page","seen_date":"2026-09-26"},{"title":"Sales Officer - Enterprise","location":"Sanepa, Nepal","url":"https://infodev.com.np/careers","source":"official careers page","seen_date":"2026-09-26"},{"title":"Corporate Relationship Officer","location":"Sanepa, Nepal","url":"https://infodev.com.np/careers","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"InfoDevelopers homepage","url":"https://infodev.com.np/"},{"name":"InfoDevelopers careers","url":"https://infodev.com.np/careers"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"gurzu","name":"Gurzu","website":"https://gurzu.com/","careers_url":"https://smarthirepro.com/company/gurzu-inc/","category":"software-services","description":"AI-augmented software engineering company with US and Nepal delivery teams, located in Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Gurzu homepage","url":"https://gurzu.com/"},{"name":"Gurzu careers on SmartHire Pro (linked from gurzu.com)","url":"https://smarthirepro.com/company/gurzu-inc/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"proshore","name":"Proshore","website":"https://proshore.eu/","careers_url":"https://proshore.eu/careers","category":"software-services","description":"Dutch-Nepalese software delivery partner with offices in Eindhoven and Muni Bhairab Marg, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Proshore careers","url":"https://proshore.eu/careers"},{"name":"Proshore contact","url":"https://proshore.eu/contact"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"spiralogics","name":"Spiralogics","website":"https://www.spiralogics.com/","careers_url":"https://career.spiralogics.com/Home","category":"software-services","description":"Custom software development company based mainly in the US and Nepal, with its Kathmandu office at Sankhamul Tower, Baneshwor.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Spiralogics homepage","url":"https://www.spiralogics.com/"},{"name":"Spiralogics careers (no active openings)","url":"https://career.spiralogics.com/Home"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"aayulogic","name":"Aayulogic","website":"https://aayulogic.com/","careers_url":"https://aayulogic.com/careers/","category":"software-services","description":"Canadian-incorporated software company with its engineering hub in Chakupat, Lalitpur.","hq_city":"Lalitpur","global_hq":"Toronto","offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Client Support Intern","location":"Chakupat, Lalitpur, Nepal","url":"https://aayulogic.com/careers/client-support-intern/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Digital Marketing Intern","location":"Chakupat, Lalitpur, Nepal","url":"https://aayulogic.com/careers/digital-marketing-intern/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Business Development Intern","location":"Chakupat, Lalitpur, Nepal","url":"https://aayulogic.com/careers/business-development-intern/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Software Implementation and Support Officer (Non-Technical)","location":null,"url":"https://aayulogic.com/careers/software-implementation-support-officer/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Aayulogic homepage","url":"https://aayulogic.com/"},{"name":"Aayulogic careers","url":"https://aayulogic.com/careers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"ingrails","name":"inGrails","website":"https://www.ingrails.com/","careers_url":"https://www.ingrails.com/careers.php","category":"software-services","description":"Software, mobile and web development company (maker of Véda) based in Dhobighat, Lalitpur, with support offices in Pokhara and Itahari.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"},{"city":"Pokhara","district":"Kaski","lat":28.2096,"lng":83.9856,"geo_precision":"centroid"},{"city":"Itahari","district":"Sunsari","lat":26.663,"lng":87.274,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"PHP Developer","location":null,"url":"https://www.ingrails.com/careers.php","source":"official careers page","seen_date":"2026-09-26"},{"title":"Sales & Marketing Manager","location":null,"url":"https://www.ingrails.com/careers.php","source":"official careers page","seen_date":"2026-09-26"},{"title":"Salesperson","location":null,"url":"https://www.ingrails.com/careers.php","source":"official careers page","seen_date":"2026-09-26"},{"title":"Salesperson (Intern)","location":null,"url":"https://www.ingrails.com/careers.php","source":"official careers page","seen_date":"2026-09-26"},{"title":"Designer","location":null,"url":"https://www.ingrails.com/careers.php","source":"official careers page","seen_date":"2026-09-26"},{"title":"iOS Intern","location":null,"url":"https://www.ingrails.com/careers.php","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"inGrails careers","url":"https://www.ingrails.com/careers.php"},{"name":"inGrails contact (Lalitpur, Pokhara, Itahari)","url":"https://www.ingrails.com/contact.php"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"outcode-software","name":"OutCode Software","website":"https://www.outcodesoftware.com/","careers_url":"https://app.eddy.com/careers/outcodesoftware/","category":"software-services","description":"Software company with a Nepal branch on Ananda Bhairab Marg, Gyaneshwor, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"OutCode about us","url":"https://www.outcodesoftware.com/about-us"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"intuji","name":"Intuji","website":"https://intuji.com/","careers_url":"https://intuji.com/careers/","category":"software-services","description":"Digital product and customer-experience development company that is hiring in Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"DevOps Engineer","location":"Kathmandu, Nepal","url":"https://intuji.com/careers/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Intuji careers","url":"https://intuji.com/careers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"nectar-digit","name":"Nectar Digit","website":"https://nectardigit.com/","careers_url":"https://nectardigit.com/careers","category":"software-services","description":"IT solutions and digital marketing company headquartered in Sundhara, Kathmandu, with a US office.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Nectar Digit homepage","url":"https://nectardigit.com/"},{"name":"Nectar Digit careers","url":"https://nectardigit.com/careers"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"hazesoft","name":"Hazesoft","website":"https://hazesoft.co/","careers_url":"https://hazesoft.co/careers/","category":"software-services","description":"Dedicated senior development teams from HDL Group's Kathmandu studio.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Hazesoft homepage","url":"https://hazesoft.co/"},{"name":"Hazesoft careers (no roles listed)","url":"https://hazesoft.co/careers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"vrit-technologies","name":"Vrit Technologies","website":"https://www.vrittechnologies.com/","careers_url":"https://www.vrittechnologies.com/jobs","category":"software-services","description":"Software development company in Sankhamul, Baneshwor.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Vrit homepage","url":"https://www.vrittechnologies.com/"},{"name":"Vrit jobs","url":"https://www.vrittechnologies.com/jobs"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"code-himalaya","name":"Code Himalaya","website":"https://codehimalaya.com/","careers_url":"https://codehimalaya.com/careers/","category":"software-services","description":"Web/app development and staff-leasing company in Kupondole-10, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Code Himalaya homepage","url":"https://codehimalaya.com/"},{"name":"Code Himalaya careers","url":"https://codehimalaya.com/careers/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"cloco-nepal","name":"Cloco Nepal","website":"https://cloco.com.np/","careers_url":"https://cloco.com.np/careers","category":"software-services","description":"Nepal base of Japan-headquartered Cloco, located in Chakupat, Lalitpur.","hq_city":"Lalitpur","global_hq":"Japan","offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":true,"open_roles":[{"title":"Business Development Officer (Freelance)","location":"Lalitpur, Nepal (Remote)","url":"https://cloco.com.np/careers","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Cloco homepage","url":"https://cloco.com.np/"},{"name":"Cloco careers","url":"https://cloco.com.np/careers"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"eb-pearls","name":"EB Pearls","website":"https://ebpearls.com.au/","careers_url":"https://ebpearls.com.au/careers","category":"software-services","description":"Australian app and web development company; strategy and design sit in Sydney, and its Kathmandu (Kupondole) team handles engineering.","hq_city":"Kathmandu","global_hq":"Sydney","offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"UI UX Designer","location":"Kupondole, Kathmandu","url":"https://ebpearls.com.au/career/ux-ui-designer-nepal","source":"official careers page","seen_date":"2026-09-26"},{"title":"NodeJS Developer","location":"Kupondole, Kathmandu","url":"https://ebpearls.com.au/career/full-stack-nodejs-developer","source":"official careers page","seen_date":"2026-09-26"},{"title":"People Operations Associate","location":"Kupondole, Kathmandu","url":"https://ebpearls.com.au/career/people-operations-associate","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"EB Pearls careers","url":"https://ebpearls.com.au/careers"},{"name":"EB Pearls contact","url":"https://ebpearls.com.au/contact"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"butwal-technologies","name":"Butwal Technologies","website":"http://www.butwaltech.com/","careers_url":null,"category":"software-services","description":"Software, web and mobile development agency founded in 2009 at 575 B.P Path, Butwal, Rupandehi.","hq_city":"Butwal","global_hq":null,"offices":[{"city":"Butwal","district":"Rupandehi","lat":27.7006,"lng":83.4484,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Technical Writer","location":"Butwal","url":"http://www.butwaltech.com/","source":"official website (career section)","seen_date":"2026-09-26"},{"title":"Graphics and Video Editor","location":"Butwal","url":"http://www.butwaltech.com/","source":"official website (career section)","seen_date":"2026-09-26"},{"title":"Quality Assurance","location":"Butwal","url":"http://www.butwaltech.com/","source":"official website (career section)","seen_date":"2026-09-26"}],"sources":[{"name":"Butwal Technologies homepage","url":"http://www.butwaltech.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"iristech-innovation","name":"IrisTech Innovation","website":"https://iristechinnovation.com/","careers_url":null,"category":"software-services","description":"Software development company (web, mobile and AI) based in Bharatpur-10, Chitwan.","hq_city":"Bharatpur","global_hq":null,"offices":[{"city":"Bharatpur","district":"Chitwan","lat":27.6833,"lng":84.4333,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"IrisTech homepage","url":"https://iristechinnovation.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"delta-tech","name":"Delta Tech","website":"https://deltatechnepal.com/","careers_url":"https://careers.rkgolchha.com/","category":"software-services","description":"Software development and IT consultancy in Tinpaini, Biratnagar; part of the RK Golchha Group.","hq_city":"Biratnagar","global_hq":null,"offices":[{"city":"Biratnagar","district":"Morang","lat":26.4525,"lng":87.2718,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Delta Tech homepage","url":"https://deltatechnepal.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"prixa","name":"Prixa","website":"https://prixa.org/","careers_url":null,"category":"software-services","description":"Nepal-born technology group that builds and scales products; its site metadata lists Kathmandu, Nepal.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Prixa homepage","url":"https://prixa.org/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"itonics","name":"ITONICS","website":"https://www.itonics-innovation.com/","careers_url":"https://www.itonics-innovation.com/career","category":"saas-product","description":"Enterprise innovation-management SaaS company with offices in Berlin, Paris, Cape Town, Miami, Nuremberg and Anamnagar, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"ITONICS careers","url":"https://www.itonics-innovation.com/career"},{"name":"ITONICS contact","url":"https://www.itonics-innovation.com/contact"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"securitypal","name":"SecurityPal AI","website":"https://www.securitypalhq.com/","careers_url":"https://www.securitypalhq.com/careers","category":"cybersecurity","description":"Security-assurance and questionnaire company that is building its 'Silicon Peaks' team of security talent in Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"SecurityPal careers","url":"https://www.securitypalhq.com/careers"},{"name":"SecurityPal company page","url":"https://www.securitypalhq.com/company"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"nimble-infosys","name":"Nimble Infosys","website":"https://nimble.com.np/","careers_url":"https://career.nimble.com.np/","category":"saas-product","description":"HRMS, payroll and asset-management software company at Corporate Tower, Tinkune, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Nimble homepage","url":"https://nimble.com.np/"},{"name":"Nimble job portal (no vacancies)","url":"https://career.nimble.com.np/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"rigo-technologies","name":"Rigo (RigoHR)","website":"https://rigohr.com/","careers_url":null,"category":"saas-product","description":"HR and payroll software company (RigoHR) at Panipokhari, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"RigoHR homepage (rigonepal.com redirects here)","url":"https://rigohr.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"thulo","name":"Thulo","website":"https://thulo.com/","careers_url":null,"category":"saas-product","description":"All-in-one business software (POS, inventory and more) for Nepali SMEs.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"},{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Thulo homepage","url":"https://thulo.com/"},{"name":"Thulo contact (Jwagal, Lalitpur; Subidhanagar, Kathmandu)","url":"https://thulo.com/contact"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"sparrow-sms","name":"Sparrow SMS","website":"https://sparrowsms.com/","careers_url":"https://sparrowsms.com/careers/","category":"saas-product","description":"Bulk SMS, SMS API/OTP and WhatsApp/Viber business messaging provider in Nepal.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Sparrow SMS careers (no open vacancies)","url":"https://sparrowsms.com/careers/"},{"name":"Sparrow SMS about (Jwagal, Kupondole, Lalitpur)","url":"https://sparrowsms.com/about-us/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"hamro-patro","name":"Hamro Patro","website":"https://www.hamropatro.com/","careers_url":null,"category":"consumer-app","description":"Nepali calendar and lifestyle app (remittance, news, rashifal, forex) with its office in Siphal, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Hamro Patro homepage","url":"https://www.hamropatro.com/en"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"yatri-motorcycles","name":"Yatri Motorcycles","website":"https://yatrimotorcycles.com/","careers_url":"https://yatrimotorcycles.com/careers","category":"ev-mobility","description":"Electric motorcycle maker that designs, engineers and builds in Nepal, with its HQ in Budhanilkantha, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Software Engineering (Node.js)","location":"Kathmandu","url":"https://yatrimotorcycles.com/careers","source":"official careers page","seen_date":"2026-09-26"},{"title":"React Native Developer","location":"Kathmandu","url":"https://yatrimotorcycles.com/careers","source":"official careers page","seen_date":"2026-09-26"},{"title":"Associate Software Engineer","location":"Kathmandu","url":"https://s3.ap-south-1.amazonaws.com/yatri.static/careers/associate-swe.pdf","source":"official careers page","seen_date":"2026-09-26"},{"title":"Embedded Software Engineer","location":"Kathmandu","url":"https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Embedded_Software_Engineer.pdf","source":"official careers page","seen_date":"2026-09-26"},{"title":"Embedded Hardware Engineer","location":"Kathmandu","url":"https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Embedded_hardware_Engineer.pdf","source":"official careers page","seen_date":"2026-09-26"},{"title":"CAE Engineer","location":"Kathmandu","url":"https://s3.ap-south-1.amazonaws.com/yatri.static/careers/CAE+Engineer.pdf","source":"official careers page","seen_date":"2026-09-26"},{"title":"Instrumentation Test Engineer","location":"Kathmandu","url":"https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Instrumentation_Test_Engineer.pdf","source":"official careers page","seen_date":"2026-09-26"},{"title":"Transportation Designer","location":"Kathmandu","url":"https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Transportation_Designer.pdf","source":"official careers page","seen_date":"2026-09-26"},{"title":"Battery System Engineer","location":"Kathmandu","url":"https://yatrimotorcycles.com/careers","source":"official careers page","seen_date":"2026-09-26"},{"title":"Head of Finance","location":"Kathmandu","url":"https://yatrimotorcycles.com/careers","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Yatri careers (25 Kathmandu openings listed)","url":"https://yatrimotorcycles.com/careers"},{"name":"Yatri contact","url":"https://yatrimotorcycles.com/contact"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"pathao-nepal","name":"Pathao Nepal","website":"https://pathao.com/np/","careers_url":"https://careers.pathao.com/np/","category":"mobility","description":"Super-app for rides, food, parcel delivery and more in Nepal.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"},{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Front-End Development Intern","location":"Kathmandu / Lalitpur","url":"https://careers.pathao.com/np/blog/jobs/front-end-development-intern/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Pathao Nepal homepage","url":"https://pathao.com/np/"},{"name":"Pathao Careers Nepal","url":"https://careers.pathao.com/np/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"indrive-nepal","name":"inDrive (Nepal)","website":"https://indrive.com/","careers_url":"https://careers.indrive.com/vacancies/?position=&department=&country=Nepal","category":"mobility","description":"Global ride-hailing platform whose careers site lists Nepal as a hiring country.","hq_city":null,"global_hq":null,"offices":[{"city":null,"district":null,"lat":null,"lng":null,"geo_precision":null}],"remote_friendly":null,"open_roles":[{"title":"Legal Counsel","location":"Nepal (hybrid)","url":"https://careers.indrive.com/vacancies/?position=&department=&country=Nepal","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"inDrive careers - Nepal filter","url":"https://careers.indrive.com/vacancies/?position=&department=&country=Nepal"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"upaya","name":"Upaya City Cargo","website":"https://upaya.com.np/","careers_url":"https://upaya.com.np/career/","category":"logistics","description":"Logistics and delivery company (fulfilment, on-demand transport, house moving) with its head office in Thapagaun.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Senior QA Engineer / QA Lead","location":"Upaya Head Office","url":"https://upaya.com.np/jobs/senior-qa-engineer-qa-lead/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Product Engineering Lead","location":null,"url":"https://upaya.com.np/jobs/product-engineering-lead/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Associate Software Engineer","location":null,"url":"https://upaya.com.np/jobs/associate-software-engineer/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Branch Manager – Birgunj","location":"Birgunj","url":"https://upaya.com.np/jobs/branch-manager-birgunj/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Branch Associate – Birgunj","location":"Birgunj","url":"https://upaya.com.np/jobs/branch-associate-birgunj-2/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Upaya homepage","url":"https://upaya.com.np/"},{"name":"Upaya careers","url":"https://upaya.com.np/career/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"daraz-nepal","name":"Daraz Nepal","website":"https://www.daraz.com.np/","careers_url":"https://careers.daraz.com/","category":"e-commerce","description":"Online marketplace in Nepal operated by Daraz Kaymu Private Limited, based in Thapathali, Kathmandu (Ward 11).","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Daraz Nepal homepage","url":"https://www.daraz.com.np/"},{"name":"Daraz careers","url":"https://careers.daraz.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"hamrobazar","name":"Hamrobazar (Hamro Bazar Ventures)","website":"https://hamrobazaar.com/","careers_url":"https://career.f1soft.com/","category":"e-commerce","description":"Buy-and-sell classifieds marketplace in Nepal; an F1Soft Group company.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Business Development Officer","location":"Pulchowk, Lalitpur","url":"https://career.f1soft.com/jobs/business-development-officer-HB","source":"official careers page (F1Soft Group)","seen_date":"2026-09-26"}],"sources":[{"name":"Hamrobazar homepage","url":"https://hamrobazaar.com/"},{"name":"F1Soft careers - Hamro Bazar Ventures","url":"https://career.f1soft.com/jobs/business-development-officer-HB"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"jeevee","name":"Jeevee","website":"https://jeevee.com/","careers_url":null,"category":"e-commerce","description":"Online beauty, baby and health store run by Jeevee Health Pvt. Ltd., Lazimpat, Kathmandu.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Jeevee homepage","url":"https://jeevee.com/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"cheers","name":"Cheers","website":"https://cheers.com.np/","careers_url":null,"category":"e-commerce","description":"Online beverage store and delivery service in Nepal, with its address in Pulchowk, Lalitpur.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Cheers homepage","url":"https://cheers.com.np/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"vianet","name":"Vianet Communication","website":"https://www.vianet.com.np/","careers_url":"https://www.vianet.com.np/vacancy/","category":"telecom-isp","description":"Internet service provider at Prera Business Center, Jawalakhel, Lalitpur, with branches around Nepal.","hq_city":"Lalitpur","global_hq":null,"offices":[{"city":"Lalitpur","district":"Lalitpur","lat":27.6588,"lng":85.3247,"geo_precision":"centroid"},{"city":"Biratnagar","district":"Morang","lat":26.4525,"lng":87.2718,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[{"title":"Sales Officer - Reseller Sales","location":"Head Office","url":"https://www.vianet.com.np/vacancy/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Sales Coordinator – Bhaktapur","location":"Bhaktapur","url":"https://www.vianet.com.np/vacancy/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Sales Coordinator - Itahari Branch","location":"Itahari","url":"https://www.vianet.com.np/vacancy/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Branch Manager - Simara","location":"Simara","url":"https://www.vianet.com.np/vacancy/branch-manager-simara/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Enterprise Field/Desk Support – Biratnagar","location":"Biratnagar","url":"https://www.vianet.com.np/vacancy/biratnagar-enterprise-field-desk-support/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"Vianet homepage","url":"https://www.vianet.com.np/"},{"name":"Vianet vacancies","url":"https://www.vianet.com.np/vacancy/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"worldlink","name":"WorldLink Communications","website":"https://worldlink.com.np/","careers_url":"https://worldlink.com.np/career/","category":"telecom-isp","description":"Nepal's largest internet and network service provider, founded in 1995.","hq_city":null,"global_hq":null,"offices":[{"city":null,"district":null,"lat":null,"lng":null,"geo_precision":null}],"remote_friendly":null,"open_roles":[{"title":"MIS Officer","location":null,"url":"https://worldlink.com.np/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Content Developer","location":null,"url":"https://worldlink.com.np/career/content-developer/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Video Presenter/On-Camera Host","location":null,"url":"https://worldlink.com.np/career/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Branch Head","location":null,"url":"https://worldlink.com.np/career/branch-head/","source":"official careers page","seen_date":"2026-09-26"},{"title":"Marketing Intern","location":null,"url":"https://worldlink.com.np/career/","source":"official careers page","seen_date":"2026-09-26"}],"sources":[{"name":"WorldLink careers","url":"https://worldlink.com.np/career/"},{"name":"WorldLink organization","url":"https://worldlink.com.np/organization/"}],"source_label":"curated","last_verified":"2026-09-26"},{"slug":"classic-tech","name":"Classic Tech","website":"https://classic.com.np/","careers_url":null,"category":"telecom-isp","description":"Fibre (FTTH) internet and IPTV provider for homes and businesses across Kathmandu and beyond.","hq_city":"Kathmandu","global_hq":null,"offices":[{"city":"Kathmandu","district":"Kathmandu","lat":27.7172,"lng":85.324,"geo_precision":"centroid"}],"remote_friendly":null,"open_roles":[],"sources":[{"name":"Classic Tech homepage","url":"https://classic.com.np/"}],"source_label":"curated","last_verified":"2026-09-26"}]
+[
+  {
+    "slug": "khalti",
+    "name": "Khalti by IME",
+    "website": "https://khalti.com/",
+    "careers_url": "https://blog.khalti.com/careers/",
+    "category": "fintech",
+    "description": "NRB-licensed digital wallet and payment platform, now combined with IME Pay as IME Khalti Ltd.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.684042,
+        "lng": 85.312201,
+        "geo_precision": "area",
+        "address": "Bakhundole, Lalitpur, Bagmati Province, Nepal",
+        "address_source": "https://khalti.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Bakhundole, Lalitpur' -> https://www.openstreetmap.org/node/9958455119 (Bakhundole, Lalitpur-01, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44690, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Contact page lists \"Our Location: Bakhundole, Lalitpur\"; the same page also gives \"Panipokhari Kathmandu\" as the address for general queries."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Management Trainee",
+        "location": "Kathmandu, Nepal",
+        "url": "https://blog.khalti.com/career-job/management-trainee/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "PostgreSQL Database Administrator",
+        "location": null,
+        "url": "https://blog.khalti.com/career-job/data-science-and-business-intelligence/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Customer Support Intern",
+        "location": null,
+        "url": "https://blog.khalti.com/career-job/intern-customer-support-representative/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Khalti homepage",
+        "url": "https://khalti.com/"
+      },
+      {
+        "name": "Khalti careers",
+        "url": "https://blog.khalti.com/careers/"
+      },
+      {
+        "name": "Management Trainee posting",
+        "url": "https://blog.khalti.com/career-job/management-trainee/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://khalti.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/9958455119",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "f1soft-group",
+    "name": "F1Soft Group",
+    "website": "https://f1soft.com/",
+    "careers_url": "https://career.f1soft.com/",
+    "category": "fintech",
+    "description": "Fintech group (F1Soft International, FoneNXT, Foneloan and others) with its innovation centre in Nepal.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.676082,
+        "lng": 85.315707,
+        "geo_precision": "area",
+        "address": "F1Soft Group Building, Pulchowk, Lalitpur, Nepal",
+        "address_source": "https://f1soft.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Pulchowk, Lalitpur' -> https://www.openstreetmap.org/node/10939303582 (Pulchowk, Lalitpur-03, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44707, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Building not mapped by name in OSM; coordinates are the Pulchowk neighbourhood node."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Product Analyst (F1Soft International)",
+        "location": "F1Soft Tower, Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/product-analyst",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Product Owner (FoneNXT)",
+        "location": "F1Soft Tower, Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/product-owner",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Operational DBA and SQL Developer (FoneNXT)",
+        "location": "F1Soft Tower, Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/operational-dba-and-sql-developer",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Software Engineer - QA (FoneNXT)",
+        "location": "F1Soft Tower, Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/software-engineer-qa-fonenxt",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "AI Engineer (FoneNXT)",
+        "location": null,
+        "url": "https://career.f1soft.com/jobs/ai-engineer",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Business Analyst (FoneNXT)",
+        "location": null,
+        "url": "https://career.f1soft.com/jobs/business-analyst-fonenxt",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Associate Software Engineer - QA (Foneloan)",
+        "location": null,
+        "url": "https://career.f1soft.com/jobs/associate-software-engineer-qa",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Project Manager - Growth Team (F1Soft International)",
+        "location": null,
+        "url": "https://career.f1soft.com/jobs/project-manager-f1group",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "F1Soft homepage",
+        "url": "https://f1soft.com/"
+      },
+      {
+        "name": "F1Soft Group careers",
+        "url": "https://career.f1soft.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://f1soft.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10939303582",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "esewa",
+    "name": "eSewa",
+    "website": "https://esewa.com.np/",
+    "careers_url": "https://career.f1soft.com/",
+    "category": "fintech",
+    "description": "Nepali digital wallet for online payments; part of F1Soft Group, which hires for it through the group careers portal.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Full Stack Developer",
+        "location": "Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/full-stack-developer1",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Copywriter / Brand Storyteller",
+        "location": "Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/copywriter-brand-storyteller",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Business Outreach Officer - Chitwan",
+        "location": "Chitwan, Nepal",
+        "url": "https://career.f1soft.com/jobs/business-outreach-officer-chitwan",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Marketing Assistant - Nepalgunj",
+        "location": "Nepalgunj, Nepal",
+        "url": "https://career.f1soft.com/jobs/marketing-assistant-nepalgunj",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "eSewa homepage",
+        "url": "https://esewa.com.np/"
+      },
+      {
+        "name": "F1Soft careers - eSewa Full Stack Developer",
+        "url": "https://career.f1soft.com/jobs/full-stack-developer1"
+      },
+      {
+        "name": "F1Soft careers - Business Outreach Officer Chitwan",
+        "url": "https://career.f1soft.com/jobs/business-outreach-officer-chitwan"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "fonepay",
+    "name": "Fonepay",
+    "website": "https://fonepay.com/",
+    "careers_url": "https://fonepay.com/career",
+    "category": "fintech",
+    "description": "NRB-licensed payment system operator behind Fonepay QR, fund transfers, bill payments and cards.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.671815,
+        "lng": 85.317652,
+        "geo_precision": "street",
+        "address": "Yala Sadak 3468, Pulchowk, Lalitpur-3, Nepal",
+        "address_source": "https://fonepay.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Yala Sadak, Lalitpur' -> https://www.openstreetmap.org/way/232351911 (Yala Sadak, Kumaripati, Lalitpur-05, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44707, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Street from the site's structured data (streetAddress \"Yala Sadak 3468\"); coordinates are the Yala Sadak road segment in OSM, not the building. An older OSM node \"eSewa fonepay Pvt Ltd\" at Kamalpokhari was not used."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Project Coordinator",
+        "location": null,
+        "url": "https://fonepay.com/career/project-coordinator",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Fonepay homepage",
+        "url": "https://fonepay.com/"
+      },
+      {
+        "name": "Fonepay careers",
+        "url": "https://fonepay.com/career"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://fonepay.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/232351911",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "extensodata",
+    "name": "eXtensoData",
+    "website": "https://www.extensodata.com/",
+    "careers_url": "https://career.f1soft.com/",
+    "category": "ai-data",
+    "description": "Data engineering and analytics company in the F1Soft Group; hires through the group careers portal.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Data Engineer",
+        "location": "F1Soft Tower, Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/data-engineer-extensodata",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Product Owner",
+        "location": "F1Soft Tower, Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/product-owner-extenso",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "F1Soft Group careers",
+        "url": "https://career.f1soft.com/"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "nchl",
+    "name": "Nepal Clearing House Limited (NCHL)",
+    "website": "https://nchl.com.np/",
+    "careers_url": "https://vacancy.nchl.com.np/career/career.php",
+    "category": "fintech",
+    "description": "Operator of Nepal's national payment infrastructure, including connectIPS, RTGS, NEPALPAY QR and EFT.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.707816,
+        "lng": 85.318451,
+        "geo_precision": "building",
+        "address": "Kamaladi Complex, 3rd floor, Kamaladi, Kathmandu, Nepal",
+        "address_source": "https://nchl.com.np/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Kamaladi Complex' -> https://www.openstreetmap.org/way/206906112 (Kamaladi Complex, kamaladi, Kathmandu-28, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 66400, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site names Kamaladi Complex 3rd floor; matched to the OSM building \"Kamaladi Complex\"."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "NCHL homepage",
+        "url": "https://nchl.com.np/"
+      },
+      {
+        "name": "NCHL contact (Kamaladi, Kathmandu)",
+        "url": "https://nchl.com.np/contact-us/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://nchl.com.np/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/206906112",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "fusemachines",
+    "name": "Fusemachines",
+    "website": "https://fusemachines.com/",
+    "careers_url": "https://fusemachines.applytojob.com/apply",
+    "category": "ai-data",
+    "description": "AI products and solutions company that is hiring ML, MLOps and design roles in Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.693252,
+        "lng": 85.3366,
+        "geo_precision": "building",
+        "address": "Fusemachines Nepal Building, Devkota Sadak, Baneshwor, Kathmandu, Nepal",
+        "address_source": "https://fusemachines.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Fusemachines' -> https://www.openstreetmap.org/node/10752197979 (Fusemachines Nepal, Devkota Sadak, Kathmandu-10, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 00446, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address matches the OSM office node \"Fusemachines Nepal\" on Devkota Sadak."
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [
+      {
+        "title": "MLOps Engineer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://fusemachines.applytojob.com/apply/ukb85E3mWQ/MLOps-Engineer",
+        "source": "official ATS (JazzHR)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Red Hat System Administrator",
+        "location": "Kathmandu, Nepal",
+        "url": "https://fusemachines.applytojob.com/apply/zXkNa16BRv/Red-Hat-System-Administrator",
+        "source": "official ATS (JazzHR)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sr. ML Engineer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://fusemachines.applytojob.com/apply/qwM2nheCPZ/Sr-ML-Engineer",
+        "source": "official ATS (JazzHR)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Machine Learning Engineer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://fusemachines.applytojob.com/apply/9vIpSQxR3D/Machine-Learning-Engineer",
+        "source": "official ATS (JazzHR)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sr. UI/UX Designer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://fusemachines.applytojob.com/apply/CYDvfJqCBF/Sr-UIUX-Designer",
+        "source": "official ATS (JazzHR)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Fusemachines careers (redirects to JazzHR board)",
+        "url": "https://www.fusemachines.com/careers/"
+      },
+      {
+        "name": "Fusemachines job board",
+        "url": "https://fusemachines.applytojob.com/apply"
+      },
+      {
+        "name": "Fusemachines homepage",
+        "url": "https://fusemachines.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://fusemachines.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10752197979",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "cloudfactory",
+    "name": "CloudFactory",
+    "website": "https://www.cloudfactory.com/",
+    "careers_url": "https://www.cloudfactory.com/careers",
+    "category": "ai-data",
+    "description": "AI data and human-in-the-loop company founded in Nepal in 2010.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [
+      {
+        "title": "Senior Software Engineer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://apply.workable.com/j/520F8ECF19",
+        "source": "official ATS (Workable)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Frontend Engineer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://apply.workable.com/j/C87269A482",
+        "source": "official ATS (Workable)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "MLOps Support Engineer",
+        "location": "Kathmandu, Nepal (remote-eligible)",
+        "url": "https://apply.workable.com/j/3C17B65C71",
+        "source": "official ATS (Workable)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "CloudFactory careers",
+        "url": "https://www.cloudfactory.com/careers"
+      },
+      {
+        "name": "CloudFactory about (founded in Nepal)",
+        "url": "https://www.cloudfactory.com/about"
+      },
+      {
+        "name": "CloudFactory Workable job feed",
+        "url": "https://apply.workable.com/api/v1/widget/accounts/cloudfactory"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "leapfrog-technology",
+    "name": "Leapfrog Technology",
+    "website": "https://www.lftechnology.com/",
+    "careers_url": "https://www.lftechnology.com/careers",
+    "category": "software-services",
+    "description": "Product engineering and AI/data services firm (500+ people) with an office on Charkhal Rd, Dillibazar, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.707319,
+        "lng": 85.327424,
+        "geo_precision": "building",
+        "address": "Charkhal Rd, Dillibazar, Kathmandu 44660, Nepal",
+        "address_source": "https://www.lftechnology.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Leapfrog Technology' -> https://www.openstreetmap.org/node/7093467185 (Leapfrog Technology Pvt. Ltd., Thirbam Sadak 3, Dillibazar, Kathmandu-30, Kathmandu Metropolitan City, Kathmandu, Bagama)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address is Charkhal Rd, Dillibazar; OSM office node \"Leapfrog Technology Pvt. Ltd.\" sits in Dillibazar about 200 m from Charkhal."
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [
+      {
+        "title": "Tech Lead, AI",
+        "location": "Kathmandu, Nepal",
+        "url": "https://career.lftechnology.com/o/tech-lead-ai",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Security Engineer",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/senior-security-engineer-1",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Staff Manager (Engineering)",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/engineering-staff-manager",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Solution Architect",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/solution-architect-2",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "SysOps Engineer",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/sysops-engineer",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Data Engineer",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/data-engineer-lftechnology",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Full-Stack Engineer- Golang",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/senior-full-stack-engineer-golang",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Full-Stack Developer",
+        "location": "Kathmandu, Nepal (hybrid)",
+        "url": "https://career.lftechnology.com/o/senior-full-stack-developer-3",
+        "source": "official ATS (Recruitee)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Leapfrog careers",
+        "url": "https://www.lftechnology.com/careers"
+      },
+      {
+        "name": "Leapfrog contact (Kathmandu office)",
+        "url": "https://www.lftechnology.com/contact"
+      },
+      {
+        "name": "Leapfrog job feed",
+        "url": "https://career.lftechnology.com/api/offers/"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/7093467185",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "growbydata",
+    "name": "GrowByData",
+    "website": "https://growbydata.com/",
+    "careers_url": "https://growbydata.com/career-overview/",
+    "category": "ai-data",
+    "description": "Search and AI-visibility intelligence company with offices in Boston and Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": "Boston",
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.683246,
+        "lng": 85.312306,
+        "geo_precision": "building",
+        "address": "Bakhundol, Lalitpur, Nepal (from OSM)",
+        "address_source": "https://www.openstreetmap.org/node/6641026285",
+        "address_source_type": "osm_only",
+        "geo_source": "OSM Nominatim search 'GrowByData' -> https://www.openstreetmap.org/node/6641026285 (GrowByData Services Pvt. Ltd., Bakhundol, Arun Thapa Murti Chowk, Lalitpur-03, Lalitpur, Lalitpur Metropolitan City, Lal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site only says the team is in Kathmandu; address and point come from the OSM office node \"GrowByData Services Pvt. Ltd.\" (not confirmed on the official site)."
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [
+      {
+        "title": "Senior Data Analyst",
+        "location": "Kathmandu",
+        "url": "https://growbydata.com/career-overview/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "AI/ML Engineer",
+        "location": "Kathmandu",
+        "url": "https://growbydata.com/career-overview/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Software Engineer – Data Platform",
+        "location": null,
+        "url": "https://growbydata.com/career-overview/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "SEO Analyst",
+        "location": null,
+        "url": "https://growbydata.com/career-overview/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "GrowByData careers (Boston US, Kathmandu Nepal, and Remote)",
+        "url": "https://growbydata.com/career-overview/"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/6641026285",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "docsumo",
+    "name": "Docsumo",
+    "website": "https://www.docsumo.com/",
+    "careers_url": "https://www.docsumo.com/careers",
+    "category": "ai-data",
+    "description": "AI document-processing company whose careers page lists Mumbai, Kathmandu, Bangalore and New York as locations.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.71336,
+        "lng": 85.345041,
+        "geo_precision": "area",
+        "address": "Mitrapark-7, Kathmandu 44600, Nepal",
+        "address_source": "https://www.docsumo.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Mitrapark, Kathmandu' -> https://www.openstreetmap.org/node/2910276766 (Mitrapark, Bulbulley, Chabahil, Kathmandu-07, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 44660, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Docsumo careers",
+        "url": "https://www.docsumo.com/careers"
+      },
+      {
+        "name": "Docsumo Lever job feed (no Nepal-located roles on 2026-09-26)",
+        "url": "https://api.lever.co/v0/postings/docsumo?mode=json"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.docsumo.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2910276766",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "treeleaf-technologies",
+    "name": "Treeleaf Technologies",
+    "website": "https://treeleaf.ai/",
+    "careers_url": null,
+    "category": "ai-data",
+    "description": "AI company based in Sankhamul, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.678274,
+        "lng": 85.330694,
+        "geo_precision": "area",
+        "address": "Sankhamul-11, Lalitpur, Nepal",
+        "address_source": "https://treeleaf.ai/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Sankhamul, Lalitpur' -> https://www.openstreetmap.org/way/97378409 (Sankhamul Bagmati Marga, Tahan Nani, Lalitpur-09, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 007)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Coordinates are the Sankhamul Bagmati Marga area in Lalitpur (locality proxy)."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Treeleaf homepage",
+        "url": "https://treeleaf.ai/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://treeleaf.ai/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/97378409",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "wiseyak",
+    "name": "Wiseyak",
+    "website": "https://wiseyak.com/",
+    "careers_url": "https://wiseyak.com/career/",
+    "category": "ai-data",
+    "description": "AI product company building voice-to-voice conversational agents and digital health solutions, based in Naxal, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.712678,
+        "lng": 85.328703,
+        "geo_precision": "area",
+        "address": "Naxal, Kathmandu, Nepal",
+        "address_source": "https://wiseyak.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Naxal, Kathmandu' -> https://www.openstreetmap.org/node/3315904182 (Naxal, Narayan Chaur, Kathmandu-01, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 46000, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Full Stack Developer & Future CTO",
+        "location": null,
+        "url": "https://wiseyak.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Wiseyak homepage",
+        "url": "https://wiseyak.com/"
+      },
+      {
+        "name": "Wiseyak careers",
+        "url": "https://wiseyak.com/career/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://wiseyak.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/3315904182",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "lis-nepal",
+    "name": "LIS Nepal",
+    "website": "https://www.lisnepal.com.np/",
+    "careers_url": "https://www.lisnepal.com.np/career/",
+    "category": "ai-data",
+    "description": "BI, data warehousing and analytics IT firm in Manbhawan, Lalitpur; a member of Yomari Group.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.67168,
+        "lng": 85.316631,
+        "geo_precision": "area",
+        "address": "Lokeshwor Tole, Manbhawan, Lalitpur, Nepal",
+        "address_source": "https://www.lisnepal.com.np",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Manbhawan, Lalitpur' -> https://www.openstreetmap.org/way/447974040 (Manbhawan Ekta Galli, Jawalakhel, Lalitpur-05, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 40000,)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Lokeshwor Tole not found in OSM; coordinates are Manbhawan (Manbhawan Ekta Galli)."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "LIS Nepal homepage",
+        "url": "https://www.lisnepal.com.np/"
+      },
+      {
+        "name": "LIS Nepal careers",
+        "url": "https://www.lisnepal.com.np/career/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.lisnepal.com.np",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/447974040",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "naamii",
+    "name": "NAAMII (Nepal Applied Mathematics and Informatics Institute for research)",
+    "website": "https://naamii.org/",
+    "careers_url": "https://naamii.org/careers-at-naamii",
+    "category": "research-nonprofit",
+    "description": "Registered non-profit AI centre of excellence (research, AI schools and training) located in Jwagal, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.686582,
+        "lng": 85.321678,
+        "geo_precision": "area",
+        "address": "Jwagal, Lalitpur, Nepal",
+        "address_source": "https://naamii.org/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Jwagal' -> https://www.openstreetmap.org/node/10901435679 (Jwagal Children Park, Lalitpur-10, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 00779, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Jwagal has no place node in OSM; Jwagal Children Park used as the locality point."
+      }
+    ],
+    "remote_friendly": false,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "NAAMII homepage",
+        "url": "https://naamii.org/"
+      },
+      {
+        "name": "NAAMII careers (all listed roles closed on 2026-09-26)",
+        "url": "https://naamii.org/careers-at-naamii"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://naamii.org/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10901435679",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "verisk-nepal",
+    "name": "Verisk Nepal",
+    "website": "https://www.verisknepal.com.np/",
+    "careers_url": "https://www.verisk.com/company/careers/",
+    "category": "software-services",
+    "description": "Software development and IT service support centre for Verisk Analytics, at Prasiddhi Tower, Pulchowk, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.676082,
+        "lng": 85.315707,
+        "geo_precision": "area",
+        "address": "Prasiddhi Tower, Pulchowk, Lalitpur-3, Nepal",
+        "address_source": "https://www.verisknepal.com.np",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Pulchowk, Lalitpur' -> https://www.openstreetmap.org/node/10939303582 (Pulchowk, Lalitpur-03, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44707, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Prasiddhi Tower not in OSM; Pulchowk neighbourhood point used. An OSM node \"Verisk Nepal\" at Hattisar, Kathmandu conflicts with the official address and was not used."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Verisk Nepal homepage",
+        "url": "https://www.verisknepal.com.np/"
+      },
+      {
+        "name": "Verisk careers",
+        "url": "https://www.verisk.com/company/careers/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.verisknepal.com.np",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10939303582",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "cedar-gate-technologies",
+    "name": "Cedar Gate Technologies (formerly Deerwalk)",
+    "website": "https://www.cedargate.com/",
+    "careers_url": "https://www.cedargate.com/careers/",
+    "category": "healthtech",
+    "description": "US healthcare analytics company whose careers page says it has offices in the United States and Nepal; deerwalk.com now redirects to Cedar Gate.",
+    "hq_city": null,
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.68454,
+        "lng": 85.306592,
+        "geo_precision": "area",
+        "address": "Milap Road, Sanepa-2, Lalitpur, Nepal",
+        "address_source": "https://www.cedargate.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Sanepa, Lalitpur' -> https://www.openstreetmap.org/node/2313807942 (Sanepa, Lalitpur-02, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44650, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Milap Road not found in OSM; Sanepa neighbourhood point used. City was previously missing."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Cedar Gate careers",
+        "url": "https://www.cedargate.com/careers/"
+      },
+      {
+        "name": "deerwalk.com redirect",
+        "url": "https://www.deerwalk.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.cedargate.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807942",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "deerhold",
+    "name": "Deerhold",
+    "website": "https://www.deerhold.com/",
+    "careers_url": "https://www.deerhold.com/careers",
+    "category": "software-services",
+    "description": "Software services and data analytics company; its Nepal subsidiary, Deerhold Nepal Pvt Ltd, is in Siphal, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": "Burlington, MA",
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.711363,
+        "lng": 85.340955,
+        "geo_precision": "area",
+        "address": "Siphal, Kathmandu 44621, Nepal",
+        "address_source": "https://www.deerhold.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Siphal, Kathmandu' -> https://www.openstreetmap.org/way/191859931 (Siphal Ground, Chabahil, Kathmandu-07, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Siphal Ground used as the locality point."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Deerhold careers",
+        "url": "https://www.deerhold.com/careers"
+      },
+      {
+        "name": "Deerhold contact",
+        "url": "https://www.deerhold.com/contact-us"
+      },
+      {
+        "name": "Why Deerhold",
+        "url": "https://www.deerhold.com/why-deerhold"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.deerhold.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/191859931",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "guardsix",
+    "name": "Guardsix (formerly Logpoint)",
+    "website": "https://guardsix.com/",
+    "careers_url": "https://guardsix.com/join-us",
+    "category": "cybersecurity",
+    "description": "Cybersecurity company (logpoint.com now redirects here) with a Kathmandu office at Signature Platinum Tower, Pulchowk, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.676082,
+        "lng": 85.315707,
+        "geo_precision": "area",
+        "address": "Pulchowk, Lalitpur, Nepal",
+        "address_source": "https://guardsix.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Pulchowk, Lalitpur' -> https://www.openstreetmap.org/node/10939303582 (Pulchowk, Lalitpur-03, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44707, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Guardsix careers",
+        "url": "https://guardsix.com/join-us"
+      },
+      {
+        "name": "Guardsix contact",
+        "url": "https://guardsix.com/contact"
+      },
+      {
+        "name": "logpoint.com careers redirect",
+        "url": "https://www.logpoint.com/en/careers/"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10939303582",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "braindigit",
+    "name": "Braindigit",
+    "website": "https://braindigit.com/",
+    "careers_url": "https://braindigit.com/Career",
+    "category": "software-services",
+    "description": "Software and digitisation company with offices in the UK, Australia and Nepal (Hunch Complex, Gyaneshwor, Kathmandu).",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.709254,
+        "lng": 85.32982,
+        "geo_precision": "building",
+        "address": "Hunch Complex, Gyaneshwor, Kathmandu, Nepal",
+        "address_source": "https://braindigit.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Braindigit' -> https://www.openstreetmap.org/way/200537816 (Braindigit IT Solution Pvt Ltd., Pashupati Sadak, Gyaneshwar, Kathmandu-30, Kathmandu Metropolitan City, Kathmandu, Baga)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address (Gyaneshwor) matches the OSM building \"Braindigit IT Solution Pvt Ltd.\"."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Braindigit homepage",
+        "url": "https://braindigit.com/"
+      },
+      {
+        "name": "Braindigit careers",
+        "url": "https://braindigit.com/Career"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://braindigit.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/200537816",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "genese-solution",
+    "name": "Genese Solution",
+    "website": "https://www.genesesolution.com/",
+    "careers_url": "https://www.genesesolution.com/career/",
+    "category": "software-services",
+    "description": "Cloud, data, AI and cybersecurity consulting company with its Nepal office in Jhamsikhel, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.682355,
+        "lng": 85.302908,
+        "geo_precision": "area",
+        "address": "Jhamsikhel, Lalitpur, Nepal",
+        "address_source": "https://www.genesesolution.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Jhamsikhel, Lalitpur' -> https://www.openstreetmap.org/node/2313807795 (Jhamsikhel, Lalitpur-03, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44613, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "An OSM node \"Genese Software Solution\" in Maitidevi, Kathmandu conflicts with the official address and was not used."
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [
+      {
+        "title": "Senior AI Technical Lead",
+        "location": null,
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Gen AI Engineer",
+        "location": "Remote",
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Data Engineer",
+        "location": null,
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "DevSecOps Engineer",
+        "location": null,
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Director | Cybersecurity",
+        "location": null,
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Service Delivery Manager",
+        "location": null,
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Senior Finance Officer",
+        "location": null,
+        "url": "https://www.genesesolution.com/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Genese careers",
+        "url": "https://www.genesesolution.com/career/"
+      },
+      {
+        "name": "Genese contact",
+        "url": "https://www.genesesolution.com/contact-us/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.genesesolution.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807795",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "javra-software",
+    "name": "Javra Software",
+    "website": "https://javra.com/",
+    "careers_url": "https://javra.com/careers",
+    "category": "software-services",
+    "description": "Netherlands-founded software company with an offshore office at Nakhu, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.66409,
+        "lng": 85.307012,
+        "geo_precision": "area",
+        "address": "Ward no 18, Nakhu, Lalitpur, Nepal",
+        "address_source": "https://javra.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Nakhu, Lalitpur' -> https://www.openstreetmap.org/node/2313807894 (Nakhu, Lalitpur-13, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 40000, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Javra homepage",
+        "url": "https://javra.com/"
+      },
+      {
+        "name": "Javra careers",
+        "url": "https://javra.com/careers"
+      },
+      {
+        "name": "Javra Frontend Developer (Nepal; deadline passed)",
+        "url": "https://javra.com/careers/frontend-developer"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://javra.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807894",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "bajra-technologies",
+    "name": "Bajra Technologies",
+    "website": "https://bajratechnologies.com/",
+    "careers_url": "https://bajratechnologies.com/jobs",
+    "category": "software-services",
+    "description": "Software development and outsourcing company based in Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.706788,
+        "lng": 85.325422,
+        "geo_precision": "building",
+        "address": "Gurju Marg, Dillibazar, Kathmandu, Nepal (plus code P84G+P57 Kathmandu)",
+        "address_source": "https://bajratechnologies.com",
+        "address_source_type": "official_website",
+        "geo_source": "Open Location Code 7MV7P84G+P57 (from official site), decoded offline; cross-checked with https://www.openstreetmap.org/node/10738427320",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site gives plus code P84G+P57 Kathmandu, which decodes to within ~10 m of the OSM office node \"Bajra Technologies\" on Gurju Marg; street name from OSM."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Data Entry and Annotation Specialist",
+        "location": null,
+        "url": "https://bajratechnologies.com/jobs/detail/data-entry-and-annotation-specialist-355",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Bajra homepage",
+        "url": "https://bajratechnologies.com/"
+      },
+      {
+        "name": "Bajra jobs",
+        "url": "https://bajratechnologies.com/jobs"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://bajratechnologies.com",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10738427320",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "insight-workshop",
+    "name": "Insight Workshop",
+    "website": "https://insightworkshop.io/",
+    "careers_url": "https://insightworkshop.io/careers",
+    "category": "software-services",
+    "description": "Software company with offices in Salt Lake City, Utah and Lalitpur, Nepal.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid",
+        "address": "Lalitpur, Nepal",
+        "address_source": "https://insightworkshop.io",
+        "address_source_type": "official_website",
+        "geo_source": null,
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site gives only the city."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Insight Workshop homepage",
+        "url": "https://insightworkshop.io/"
+      },
+      {
+        "name": "Insight Workshop careers",
+        "url": "https://insightworkshop.io/careers"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://insightworkshop.io",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "ekbana",
+    "name": "EKbana Solutions",
+    "website": "https://ekbana.com/",
+    "careers_url": "https://careers.ekbana.com/",
+    "category": "software-services",
+    "description": "Web and mobile application development company (E.K. Solutions Pvt. Ltd.) in Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid",
+        "address": "Lalitpur, Nepal",
+        "address_source": "https://ekbana.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": null,
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site gives only the city."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Mid-Level UI/UX Designer",
+        "location": "Jwagal, Lalitpur",
+        "url": "https://careers.ekbana.com/job/mid-level-uiux-designer",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "EKbana homepage",
+        "url": "https://ekbana.com/"
+      },
+      {
+        "name": "EKbana careers",
+        "url": "https://careers.ekbana.com/"
+      },
+      {
+        "name": "EKbana contact",
+        "url": "https://ekbana.com/contact"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "infodevelopers",
+    "name": "InfoDevelopers",
+    "website": "https://infodev.com.np/",
+    "careers_url": "https://infodev.com.np/careers",
+    "category": "software-services",
+    "description": "Banking and enterprise software company hiring in Sanepa (Lalitpur) and Itahari.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.68454,
+        "lng": 85.306592,
+        "geo_precision": "area",
+        "address": "Sanepa-2, Lalitpur, Nepal",
+        "address_source": "https://infodev.com.np",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Sanepa, Lalitpur' -> https://www.openstreetmap.org/node/2313807942 (Sanepa, Lalitpur-02, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44650, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Sales Officer - Junior",
+        "location": "Sanepa, Nepal",
+        "url": "https://infodev.com.np/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sales Officer - Junior",
+        "location": "Itahari, Nepal",
+        "url": "https://infodev.com.np/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sales Officer - Enterprise",
+        "location": "Sanepa, Nepal",
+        "url": "https://infodev.com.np/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Corporate Relationship Officer",
+        "location": "Sanepa, Nepal",
+        "url": "https://infodev.com.np/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "InfoDevelopers homepage",
+        "url": "https://infodev.com.np/"
+      },
+      {
+        "name": "InfoDevelopers careers",
+        "url": "https://infodev.com.np/careers"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://infodev.com.np",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807942",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "gurzu",
+    "name": "Gurzu",
+    "website": "https://gurzu.com/",
+    "careers_url": "https://smarthirepro.com/company/gurzu-inc/",
+    "category": "software-services",
+    "description": "AI-augmented software engineering company with US and Nepal delivery teams, located in Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Gurzu homepage",
+        "url": "https://gurzu.com/"
+      },
+      {
+        "name": "Gurzu careers on SmartHire Pro (linked from gurzu.com)",
+        "url": "https://smarthirepro.com/company/gurzu-inc/"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "proshore",
+    "name": "Proshore",
+    "website": "https://proshore.eu/",
+    "careers_url": "https://proshore.eu/careers",
+    "category": "software-services",
+    "description": "Dutch-Nepalese software delivery partner with offices in Eindhoven and Muni Bhairab Marg, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Proshore careers",
+        "url": "https://proshore.eu/careers"
+      },
+      {
+        "name": "Proshore contact",
+        "url": "https://proshore.eu/contact"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "spiralogics",
+    "name": "Spiralogics",
+    "website": "https://www.spiralogics.com/",
+    "careers_url": "https://career.spiralogics.com/Home",
+    "category": "software-services",
+    "description": "Custom software development company based mainly in the US and Nepal, with its Kathmandu office at Sankhamul Tower, Baneshwor.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.684032,
+        "lng": 85.333302,
+        "geo_precision": "building",
+        "address": "Sankhamul Tower, Baneshwor, Kathmandu, Nepal",
+        "address_source": "https://www.spiralogics.com",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Sankhamul Tower' -> https://www.openstreetmap.org/node/9407592343 (Sankhamul Tower, Sankhamul Marg, Buddhnagar, Kathmandu-10, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 44)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Matched to the OSM node \"Sankhamul Tower\" on Sankhamul Marg."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Spiralogics homepage",
+        "url": "https://www.spiralogics.com/"
+      },
+      {
+        "name": "Spiralogics careers (no active openings)",
+        "url": "https://career.spiralogics.com/Home"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.spiralogics.com",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/9407592343",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "aayulogic",
+    "name": "Aayulogic",
+    "website": "https://aayulogic.com/",
+    "careers_url": "https://aayulogic.com/careers/",
+    "category": "software-services",
+    "description": "Canadian-incorporated software company with its engineering hub in Chakupat, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": "Toronto",
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.679592,
+        "lng": 85.322405,
+        "geo_precision": "building",
+        "address": "Chakupat, Lalitpur, Nepal",
+        "address_source": "https://aayulogic.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Aayulogic' -> https://www.openstreetmap.org/way/1263186334 (Aayulogic Pvt. Ltd, Chakupat Marga, Kupondole, Lalitpur-10, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Pro)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address (Chakupat) matches the OSM building \"Aayulogic Pvt. Ltd\" on Chakupat Marga."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Client Support Intern",
+        "location": "Chakupat, Lalitpur, Nepal",
+        "url": "https://aayulogic.com/careers/client-support-intern/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Digital Marketing Intern",
+        "location": "Chakupat, Lalitpur, Nepal",
+        "url": "https://aayulogic.com/careers/digital-marketing-intern/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Business Development Intern",
+        "location": "Chakupat, Lalitpur, Nepal",
+        "url": "https://aayulogic.com/careers/business-development-intern/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Software Implementation and Support Officer (Non-Technical)",
+        "location": null,
+        "url": "https://aayulogic.com/careers/software-implementation-support-officer/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Aayulogic homepage",
+        "url": "https://aayulogic.com/"
+      },
+      {
+        "name": "Aayulogic careers",
+        "url": "https://aayulogic.com/careers/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://aayulogic.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/1263186334",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "ingrails",
+    "name": "inGrails",
+    "website": "https://www.ingrails.com/",
+    "careers_url": "https://www.ingrails.com/careers.php",
+    "category": "software-services",
+    "description": "Software, mobile and web development company (maker of Véda) based in Dhobighat, Lalitpur, with support offices in Pokhara and Itahari.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.671698,
+        "lng": 85.305482,
+        "geo_precision": "area",
+        "address": "Dhobighat, Lalitpur, Nepal",
+        "address_source": "https://www.ingrails.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Dhobighat, Lalitpur' -> https://www.openstreetmap.org/node/2313807747 (Dhobighat, Lalitpur-04, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 40000, Nepal)",
+        "geo_as_of": "2026-09-26"
+      },
+      {
+        "city": "Pokhara",
+        "district": "Kaski",
+        "lat": 28.22876,
+        "lng": 83.988157,
+        "geo_precision": "street",
+        "address": "Terschhapatti, Pokhara, Nepal",
+        "address_source": "https://www.ingrails.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Tersapatti, Pokhara' -> https://www.openstreetmap.org/way/152606169 (Tersapatti Road, Pokhara-03, Pokhara, Kaski, Gandaki Province, 88700, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official spelling \"Terschhapatti\"; matched to Tersapatti Road in OSM."
+      },
+      {
+        "city": "Itahari",
+        "district": "Sunsari",
+        "lat": 26.663,
+        "lng": 87.274,
+        "geo_precision": "centroid",
+        "address": "Itahari-6, Sunsari (Lotus Multi-Training Pvt. Ltd.), Nepal",
+        "address_source": "https://www.ingrails.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": null,
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Only ward-level address; not geocoded more precisely."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "PHP Developer",
+        "location": null,
+        "url": "https://www.ingrails.com/careers.php",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sales & Marketing Manager",
+        "location": null,
+        "url": "https://www.ingrails.com/careers.php",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Salesperson",
+        "location": null,
+        "url": "https://www.ingrails.com/careers.php",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Salesperson (Intern)",
+        "location": null,
+        "url": "https://www.ingrails.com/careers.php",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Designer",
+        "location": null,
+        "url": "https://www.ingrails.com/careers.php",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "iOS Intern",
+        "location": null,
+        "url": "https://www.ingrails.com/careers.php",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "inGrails careers",
+        "url": "https://www.ingrails.com/careers.php"
+      },
+      {
+        "name": "inGrails contact (Lalitpur, Pokhara, Itahari)",
+        "url": "https://www.ingrails.com/contact.php"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.ingrails.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807747",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/152606169",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "outcode-software",
+    "name": "OutCode Software",
+    "website": "https://www.outcodesoftware.com/",
+    "careers_url": "https://app.eddy.com/careers/outcodesoftware/",
+    "category": "software-services",
+    "description": "Software company with a Nepal branch on Ananda Bhairab Marg, Gyaneshwor, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.710022,
+        "lng": 85.332129,
+        "geo_precision": "area",
+        "address": "Ananda Bhairab Marg, Gyaneshwor, Kathmandu 44600, Nepal",
+        "address_source": "https://www.outcodesoftware.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Gyaneshwar, Kathmandu' -> https://www.openstreetmap.org/node/31151023 (Gyaneshwar, Kathmandu-30, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 46000, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Ananda Bhairab Marg not found in OSM; Gyaneshwar neighbourhood point used."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "OutCode about us",
+        "url": "https://www.outcodesoftware.com/about-us"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.outcodesoftware.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/31151023",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "intuji",
+    "name": "Intuji",
+    "website": "https://intuji.com/",
+    "careers_url": "https://intuji.com/careers/",
+    "category": "software-services",
+    "description": "Digital product and customer-experience development company that is hiring in Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "DevOps Engineer",
+        "location": "Kathmandu, Nepal",
+        "url": "https://intuji.com/careers/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Intuji careers",
+        "url": "https://intuji.com/careers/"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "nectar-digit",
+    "name": "Nectar Digit",
+    "website": "https://nectardigit.com/",
+    "careers_url": "https://nectardigit.com/careers",
+    "category": "software-services",
+    "description": "IT solutions and digital marketing company headquartered in Sundhara, Kathmandu, with a US office.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.700077,
+        "lng": 85.312985,
+        "geo_precision": "area",
+        "address": "Sundhara, Kathmandu, Nepal",
+        "address_source": "https://nectardigit.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Sundhara, Kathmandu' -> https://www.openstreetmap.org/node/10958883841 (Sundhara, Kathmandu-22, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 44066, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Nectar Digit homepage",
+        "url": "https://nectardigit.com/"
+      },
+      {
+        "name": "Nectar Digit careers",
+        "url": "https://nectardigit.com/careers"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://nectardigit.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10958883841",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "hazesoft",
+    "name": "Hazesoft",
+    "website": "https://hazesoft.co/",
+    "careers_url": "https://hazesoft.co/careers/",
+    "category": "software-services",
+    "description": "Dedicated senior development teams from HDL Group's Kathmandu studio.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid",
+        "address": "Kathmandu, Nepal",
+        "address_source": "https://hazesoft.co/contact",
+        "address_source_type": "official_website",
+        "geo_source": null,
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site gives only the city."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Hazesoft homepage",
+        "url": "https://hazesoft.co/"
+      },
+      {
+        "name": "Hazesoft careers (no roles listed)",
+        "url": "https://hazesoft.co/careers/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://hazesoft.co/contact",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "vrit-technologies",
+    "name": "Vrit Technologies",
+    "website": "https://www.vrittechnologies.com/",
+    "careers_url": "https://www.vrittechnologies.com/jobs",
+    "category": "software-services",
+    "description": "Software development company in Sankhamul, Baneshwor.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.681438,
+        "lng": 85.331812,
+        "geo_precision": "building",
+        "address": "Sankhamul, Baneshwor, Kathmandu, Nepal (plus code M8JJ+HP Kathmandu)",
+        "address_source": "https://www.vrittechnologies.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "Open Location Code 7MV7M8JJ+HP (from official site), decoded offline",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official site links plus code M8JJ+HP Kathmandu; decoded offline (Open Location Code), ~14 m cell."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Vrit homepage",
+        "url": "https://www.vrittechnologies.com/"
+      },
+      {
+        "name": "Vrit jobs",
+        "url": "https://www.vrittechnologies.com/jobs"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.vrittechnologies.com/contact",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "code-himalaya",
+    "name": "Code Himalaya",
+    "website": "https://codehimalaya.com/",
+    "careers_url": "https://codehimalaya.com/careers/",
+    "category": "software-services",
+    "description": "Web/app development and staff-leasing company in Kupondole-10, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.684271,
+        "lng": 85.316675,
+        "geo_precision": "building",
+        "address": "Kupondole-10, Lalitpur 44660, Nepal",
+        "address_source": "https://codehimalaya.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Code Himalaya' -> https://www.openstreetmap.org/way/217517965 (Code Himalaya, Kupandole Height Marga, Lalitpur-01, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 4)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address (Kupondole) matches the OSM feature \"Code Himalaya\" on Kupandole Height Marga."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Code Himalaya homepage",
+        "url": "https://codehimalaya.com/"
+      },
+      {
+        "name": "Code Himalaya careers",
+        "url": "https://codehimalaya.com/careers/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://codehimalaya.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/217517965",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "cloco-nepal",
+    "name": "Cloco Nepal",
+    "website": "https://cloco.com.np/",
+    "careers_url": "https://cloco.com.np/careers",
+    "category": "software-services",
+    "description": "Nepal base of Japan-headquartered Cloco, located in Chakupat, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": "Japan",
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.680831,
+        "lng": 85.326101,
+        "geo_precision": "area",
+        "address": "House No: 214, Bagaldo Marg, Chakupat, Ward No. 11, Lalitpur Metropolitan City, Nepal",
+        "address_source": "https://cloco.com.np/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Chakupat, Lalitpur' -> https://www.openstreetmap.org/node/2313807700 (Chakupat, Lalitpur-11, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 00779, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Bagaldo Marg not found in OSM; Chakupat neighbourhood point used."
+      }
+    ],
+    "remote_friendly": true,
+    "open_roles": [
+      {
+        "title": "Business Development Officer (Freelance)",
+        "location": "Lalitpur, Nepal (Remote)",
+        "url": "https://cloco.com.np/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Cloco homepage",
+        "url": "https://cloco.com.np/"
+      },
+      {
+        "name": "Cloco careers",
+        "url": "https://cloco.com.np/careers"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://cloco.com.np/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807700",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "eb-pearls",
+    "name": "EB Pearls",
+    "website": "https://ebpearls.com.au/",
+    "careers_url": "https://ebpearls.com.au/careers",
+    "category": "software-services",
+    "description": "Australian app and web development company; strategy and design sit in Sydney, and its Kathmandu (Kupondole) team handles engineering.",
+    "hq_city": "Kathmandu",
+    "global_hq": "Sydney",
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.685361,
+        "lng": 85.318428,
+        "geo_precision": "area",
+        "address": "Kandevastan, Kupondole-10, Lalitpur, Bagmati, Nepal",
+        "address_source": "https://ebpearls.com.au/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Kupondole, Lalitpur' -> https://www.openstreetmap.org/node/2313807846 (Kupondole, Lalitpur-10, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 00779, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Office city corrected from Kathmandu to Lalitpur per the official address."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "UI UX Designer",
+        "location": "Kupondole, Kathmandu",
+        "url": "https://ebpearls.com.au/career/ux-ui-designer-nepal",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "NodeJS Developer",
+        "location": "Kupondole, Kathmandu",
+        "url": "https://ebpearls.com.au/career/full-stack-nodejs-developer",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "People Operations Associate",
+        "location": "Kupondole, Kathmandu",
+        "url": "https://ebpearls.com.au/career/people-operations-associate",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "EB Pearls careers",
+        "url": "https://ebpearls.com.au/careers"
+      },
+      {
+        "name": "EB Pearls contact",
+        "url": "https://ebpearls.com.au/contact"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807846",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "butwal-technologies",
+    "name": "Butwal Technologies",
+    "website": "http://www.butwaltech.com/",
+    "careers_url": null,
+    "category": "software-services",
+    "description": "Software, web and mobile development agency founded in 2009 at 575 B.P Path, Butwal, Rupandehi.",
+    "hq_city": "Butwal",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Butwal",
+        "district": "Rupandehi",
+        "lat": 27.691329,
+        "lng": 83.475603,
+        "geo_precision": "building",
+        "address": "575 B.P Path, Butwal, Rupandehi 32907, Nepal",
+        "address_source": "http://www.butwaltech.com",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Butwal Technologies' -> https://www.openstreetmap.org/way/983648336 (Butwal Technologies Pvt Ltd, 575, B.P Path, Butwal-07, Butwal, Rupandehi, Lumbini Province, 32907, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address matches the OSM building \"Butwal Technologies Pvt Ltd, 575 B.P Path\"."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Technical Writer",
+        "location": "Butwal",
+        "url": "http://www.butwaltech.com/",
+        "source": "official website (career section)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Graphics and Video Editor",
+        "location": "Butwal",
+        "url": "http://www.butwaltech.com/",
+        "source": "official website (career section)",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Quality Assurance",
+        "location": "Butwal",
+        "url": "http://www.butwaltech.com/",
+        "source": "official website (career section)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Butwal Technologies homepage",
+        "url": "http://www.butwaltech.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "http://www.butwaltech.com",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/983648336",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "iristech-innovation",
+    "name": "IrisTech Innovation",
+    "website": "https://iristechinnovation.com/",
+    "careers_url": null,
+    "category": "software-services",
+    "description": "Software development company (web, mobile and AI) based in Bharatpur-10, Chitwan.",
+    "hq_city": "Bharatpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Bharatpur",
+        "district": "Chitwan",
+        "lat": 27.6833,
+        "lng": 84.4333,
+        "geo_precision": "centroid",
+        "address": "Bharatpur-10, Chitwan, Nepal",
+        "address_source": "https://iristechinnovation.com",
+        "address_source_type": "official_website",
+        "geo_source": null,
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Only ward-level address on the official site."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "IrisTech homepage",
+        "url": "https://iristechinnovation.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://iristechinnovation.com",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "delta-tech",
+    "name": "Delta Tech",
+    "website": "https://deltatechnepal.com/",
+    "careers_url": "https://careers.rkgolchha.com/",
+    "category": "software-services",
+    "description": "Software development and IT consultancy in Tinpaini, Biratnagar; part of the RK Golchha Group.",
+    "hq_city": "Biratnagar",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Biratnagar",
+        "district": "Morang",
+        "lat": 26.481936,
+        "lng": 87.281454,
+        "geo_precision": "street",
+        "address": "Chand Kripaa, Tinpaini, Biratnagar-2, Nepal",
+        "address_source": "https://deltatechnepal.com",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Tinpaini, Biratnagar' -> https://www.openstreetmap.org/way/328513618 (Tinpaini Road, Biratnagar-03, Biratnagar, Morang, Koshi Province, 56613, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Matched to Tinpaini Road in OSM (tagged Biratnagar-03 in OSM vs Biratnagar-2 on the site)."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Delta Tech homepage",
+        "url": "https://deltatechnepal.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://deltatechnepal.com",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/328513618",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "prixa",
+    "name": "Prixa",
+    "website": "https://prixa.org/",
+    "careers_url": null,
+    "category": "software-services",
+    "description": "Nepal-born technology group that builds and scales products; its site metadata lists Kathmandu, Nepal.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.687203,
+        "lng": 85.317152,
+        "geo_precision": "building",
+        "address": "Yala Sadak, Kupondole, Lalitpur, Nepal (from OSM)",
+        "address_source": "https://www.openstreetmap.org/node/3993236332",
+        "address_source_type": "osm_only",
+        "geo_source": "OSM Nominatim search 'Prixa' -> https://www.openstreetmap.org/node/3993236332 (PRIXA Technologies, Yala Sadak, Kupondole, Lalitpur-10, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Provinc)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "No address on the official site; address and point from the OSM office node \"PRIXA Technologies\" (not confirmed on the official site)."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Prixa homepage",
+        "url": "https://prixa.org/"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/3993236332",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "itonics",
+    "name": "ITONICS",
+    "website": "https://www.itonics-innovation.com/",
+    "careers_url": "https://www.itonics-innovation.com/career",
+    "category": "saas-product",
+    "description": "Enterprise innovation-management SaaS company with offices in Berlin, Paris, Cape Town, Miami, Nuremberg and Anamnagar, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.692849,
+        "lng": 85.328439,
+        "geo_precision": "area",
+        "address": "Hanumansthan, Anamnagar, Kathmandu 44600, Nepal",
+        "address_source": "https://www.itonics-innovation.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Anamnagar' -> https://www.openstreetmap.org/way/966189053 (Bhat-Bhateni, Anamnagar, Bhaktithapa Road, Singha Durbar, Kathmandu-29, Kathmandu Metropolitan City, Kathmandu, Bagamati)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Anamnagar has no place node in OSM; a mapped Anamnagar landmark is used as the locality point."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "ITONICS careers",
+        "url": "https://www.itonics-innovation.com/career"
+      },
+      {
+        "name": "ITONICS contact",
+        "url": "https://www.itonics-innovation.com/contact"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/966189053",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "securitypal",
+    "name": "SecurityPal AI",
+    "website": "https://www.securitypalhq.com/",
+    "careers_url": "https://www.securitypalhq.com/careers",
+    "category": "cybersecurity",
+    "description": "Security-assurance and questionnaire company that is building its 'Silicon Peaks' team of security talent in Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "SecurityPal careers",
+        "url": "https://www.securitypalhq.com/careers"
+      },
+      {
+        "name": "SecurityPal company page",
+        "url": "https://www.securitypalhq.com/company"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "nimble-infosys",
+    "name": "Nimble Infosys",
+    "website": "https://nimble.com.np/",
+    "careers_url": "https://career.nimble.com.np/",
+    "category": "saas-product",
+    "description": "HRMS, payroll and asset-management software company at Corporate Tower, Tinkune, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.685212,
+        "lng": 85.348647,
+        "geo_precision": "area",
+        "address": "Tinkune, Kathmandu, Nepal",
+        "address_source": "https://nimble.com.np/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Tinkune, Kathmandu' -> https://www.openstreetmap.org/way/120031045 (Tinkune, Koteshwar, Kathmandu-32, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Nimble homepage",
+        "url": "https://nimble.com.np/"
+      },
+      {
+        "name": "Nimble job portal (no vacancies)",
+        "url": "https://career.nimble.com.np/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://nimble.com.np/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/120031045",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "rigo-technologies",
+    "name": "Rigo (RigoHR)",
+    "website": "https://rigohr.com/",
+    "careers_url": null,
+    "category": "saas-product",
+    "description": "HR and payroll software company (RigoHR) at Panipokhari, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.729252,
+        "lng": 85.324746,
+        "geo_precision": "area",
+        "address": "Panipokhari, Kathmandu, Nepal",
+        "address_source": "https://rigohr.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Panipokhari, Kathmandu' -> https://www.openstreetmap.org/node/1772109896 (Panipokhari, Kathmandu-03, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 10378, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "RigoHR homepage (rigonepal.com redirects here)",
+        "url": "https://rigohr.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://rigohr.com/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/1772109896",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "thulo",
+    "name": "Thulo",
+    "website": "https://thulo.com/",
+    "careers_url": null,
+    "category": "saas-product",
+    "description": "All-in-one business software (POS, inventory and more) for Nepali SMEs.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.686582,
+        "lng": 85.321678,
+        "geo_precision": "area",
+        "address": "Jwagal Tole (Jwagal Madhu Marg), Ward No 10, Lalitpur Metropolitan City, Nepal",
+        "address_source": "https://thulo.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Jwagal' -> https://www.openstreetmap.org/node/10901435679 (Jwagal Children Park, Lalitpur-10, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 00779, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Jwagal Children Park used as the locality point. No address found for the Kathmandu office (left as centroid)."
+      },
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Thulo homepage",
+        "url": "https://thulo.com/"
+      },
+      {
+        "name": "Thulo contact (Jwagal, Lalitpur; Subidhanagar, Kathmandu)",
+        "url": "https://thulo.com/contact"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10901435679",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "sparrow-sms",
+    "name": "Sparrow SMS",
+    "website": "https://sparrowsms.com/",
+    "careers_url": "https://sparrowsms.com/careers/",
+    "category": "saas-product",
+    "description": "Bulk SMS, SMS API/OTP and WhatsApp/Viber business messaging provider in Nepal.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.68454,
+        "lng": 85.306592,
+        "geo_precision": "area",
+        "address": "Sanchal Marga, Sanepa, Lalitpur, Nepal",
+        "address_source": "https://sparrowsms.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Sanepa, Lalitpur' -> https://www.openstreetmap.org/node/2313807942 (Sanepa, Lalitpur-02, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44650, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Contact page says Sanchal Marga, Sanepa; the site's structured data and map embed say Jwagal, Kupondole. Sources conflict; area-level Sanepa point used."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Sparrow SMS careers (no open vacancies)",
+        "url": "https://sparrowsms.com/careers/"
+      },
+      {
+        "name": "Sparrow SMS about (Jwagal, Kupondole, Lalitpur)",
+        "url": "https://sparrowsms.com/about-us/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://sparrowsms.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2313807942",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "hamro-patro",
+    "name": "Hamro Patro",
+    "website": "https://www.hamropatro.com/",
+    "careers_url": null,
+    "category": "consumer-app",
+    "description": "Nepali calendar and lifestyle app (remittance, news, rashifal, forex) with its office in Siphal, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.711892,
+        "lng": 85.341927,
+        "geo_precision": "building",
+        "address": "Bashusasi Galli, Panna Hiti, Chabahil, Kathmandu (from OSM)",
+        "address_source": "https://www.openstreetmap.org/node/12125902025",
+        "address_source_type": "osm_only",
+        "geo_source": "OSM Nominatim search 'Hamro Patro' -> https://www.openstreetmap.org/node/12125902025 (Hamro Patro, Bashusasi Galli, Panna Hiti, Chabahil, Kathmandu-07, Kathmandu Metropolitan City, Kathmandu, Bagamati Provi)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official contact page only says \"Kathmandu, Nepal\"; point from the OSM office node \"Hamro Patro\" (not confirmed on the official site)."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Hamro Patro homepage",
+        "url": "https://www.hamropatro.com/en"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/12125902025",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "yatri-motorcycles",
+    "name": "Yatri Motorcycles",
+    "website": "https://yatrimotorcycles.com/",
+    "careers_url": "https://yatrimotorcycles.com/careers",
+    "category": "ev-mobility",
+    "description": "Electric motorcycle maker that designs, engineers and builds in Nepal, with its HQ in Budhanilkantha, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.760355,
+        "lng": 85.350629,
+        "geo_precision": "area",
+        "address": "Budhanilkantha, Kathmandu 44600, Nepal (headquarters)",
+        "address_source": "https://yatrimotorcycles.com/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Budhanilkantha' -> https://www.openstreetmap.org/node/1772109893 (Budhanilkantha, Budhanilkantha Municipality, Kathmandu, Bagamati Province, 22644, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Municipality-level only (Budhanilkantha is large); treat as approximate. Experience Center at Teku is listed as opening soon."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Software Engineering (Node.js)",
+        "location": "Kathmandu",
+        "url": "https://yatrimotorcycles.com/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "React Native Developer",
+        "location": "Kathmandu",
+        "url": "https://yatrimotorcycles.com/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Associate Software Engineer",
+        "location": "Kathmandu",
+        "url": "https://s3.ap-south-1.amazonaws.com/yatri.static/careers/associate-swe.pdf",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Embedded Software Engineer",
+        "location": "Kathmandu",
+        "url": "https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Embedded_Software_Engineer.pdf",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Embedded Hardware Engineer",
+        "location": "Kathmandu",
+        "url": "https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Embedded_hardware_Engineer.pdf",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "CAE Engineer",
+        "location": "Kathmandu",
+        "url": "https://s3.ap-south-1.amazonaws.com/yatri.static/careers/CAE+Engineer.pdf",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Instrumentation Test Engineer",
+        "location": "Kathmandu",
+        "url": "https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Instrumentation_Test_Engineer.pdf",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Transportation Designer",
+        "location": "Kathmandu",
+        "url": "https://s3.ap-south-1.amazonaws.com/yatri.static/careers/Transportation_Designer.pdf",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Battery System Engineer",
+        "location": "Kathmandu",
+        "url": "https://yatrimotorcycles.com/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Head of Finance",
+        "location": "Kathmandu",
+        "url": "https://yatrimotorcycles.com/careers",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Yatri careers (25 Kathmandu openings listed)",
+        "url": "https://yatrimotorcycles.com/careers"
+      },
+      {
+        "name": "Yatri contact",
+        "url": "https://yatrimotorcycles.com/contact"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/1772109893",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "pathao-nepal",
+    "name": "Pathao Nepal",
+    "website": "https://pathao.com/np/",
+    "careers_url": "https://careers.pathao.com/np/",
+    "category": "mobility",
+    "description": "Super-app for rides, food, parcel delivery and more in Nepal.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.693646,
+        "lng": 85.336199,
+        "geo_precision": "building",
+        "address": "Nava Srijana Marg, Mid-Baneshwor, Kathmandu, Nepal",
+        "address_source": "https://pathao.com/np/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Pathao Nepal' -> https://www.openstreetmap.org/way/769897737 (Pathao Nepal, Nava Srijana Marg, Kathmandu-10, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 00446, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Official address matches the OSM office \"Pathao Nepal\" on Nava Srijana Marg. No address found for the Lalitpur office (left as centroid)."
+      },
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Front-End Development Intern",
+        "location": "Kathmandu / Lalitpur",
+        "url": "https://careers.pathao.com/np/blog/jobs/front-end-development-intern/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Pathao Nepal homepage",
+        "url": "https://pathao.com/np/"
+      },
+      {
+        "name": "Pathao Careers Nepal",
+        "url": "https://careers.pathao.com/np/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://pathao.com/np/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/769897737",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "indrive-nepal",
+    "name": "inDrive (Nepal)",
+    "website": "https://indrive.com/",
+    "careers_url": "https://careers.indrive.com/vacancies/?position=&department=&country=Nepal",
+    "category": "mobility",
+    "description": "Global ride-hailing platform whose careers site lists Nepal as a hiring country.",
+    "hq_city": null,
+    "global_hq": null,
+    "offices": [
+      {
+        "city": null,
+        "district": null,
+        "lat": null,
+        "lng": null,
+        "geo_precision": null
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Legal Counsel",
+        "location": "Nepal (hybrid)",
+        "url": "https://careers.indrive.com/vacancies/?position=&department=&country=Nepal",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "inDrive careers - Nepal filter",
+        "url": "https://careers.indrive.com/vacancies/?position=&department=&country=Nepal"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "upaya",
+    "name": "Upaya City Cargo",
+    "website": "https://upaya.com.np/",
+    "careers_url": "https://upaya.com.np/career/",
+    "category": "logistics",
+    "description": "Logistics and delivery company (fulfilment, on-demand transport, house moving) with its head office in Thapagaun.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid",
+        "address": "Thapagaun, Kathmandu, Nepal",
+        "address_source": "https://upaya.com.np/contact",
+        "address_source_type": "official_website",
+        "geo_source": null,
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Thapagaun (Kathmandu) could not be matched reliably in OSM; left as centroid."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Senior QA Engineer / QA Lead",
+        "location": "Upaya Head Office",
+        "url": "https://upaya.com.np/jobs/senior-qa-engineer-qa-lead/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Product Engineering Lead",
+        "location": null,
+        "url": "https://upaya.com.np/jobs/product-engineering-lead/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Associate Software Engineer",
+        "location": null,
+        "url": "https://upaya.com.np/jobs/associate-software-engineer/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Branch Manager – Birgunj",
+        "location": "Birgunj",
+        "url": "https://upaya.com.np/jobs/branch-manager-birgunj/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Branch Associate – Birgunj",
+        "location": "Birgunj",
+        "url": "https://upaya.com.np/jobs/branch-associate-birgunj-2/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Upaya homepage",
+        "url": "https://upaya.com.np/"
+      },
+      {
+        "name": "Upaya careers",
+        "url": "https://upaya.com.np/career/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://upaya.com.np/contact",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "daraz-nepal",
+    "name": "Daraz Nepal",
+    "website": "https://www.daraz.com.np/",
+    "careers_url": "https://careers.daraz.com/",
+    "category": "e-commerce",
+    "description": "Online marketplace in Nepal operated by Daraz Kaymu Private Limited, based in Thapathali, Kathmandu (Ward 11).",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.691595,
+        "lng": 85.320145,
+        "geo_precision": "area",
+        "address": "Kathmandu Metropolitan City, Ward No. 11, Thapathali, Kathmandu, Nepal",
+        "address_source": "https://www.daraz.com.np",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Thapathali, Kathmandu' -> https://www.openstreetmap.org/node/6413913540 (Thapathali, Kathmandu-11, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 00779, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Daraz Nepal homepage",
+        "url": "https://www.daraz.com.np/"
+      },
+      {
+        "name": "Daraz careers",
+        "url": "https://careers.daraz.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.daraz.com.np",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/6413913540",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "hamrobazar",
+    "name": "Hamrobazar (Hamro Bazar Ventures)",
+    "website": "https://hamrobazaar.com/",
+    "careers_url": "https://career.f1soft.com/",
+    "category": "e-commerce",
+    "description": "Buy-and-sell classifieds marketplace in Nepal; an F1Soft Group company.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.6588,
+        "lng": 85.3247,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Business Development Officer",
+        "location": "Pulchowk, Lalitpur",
+        "url": "https://career.f1soft.com/jobs/business-development-officer-HB",
+        "source": "official careers page (F1Soft Group)",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Hamrobazar homepage",
+        "url": "https://hamrobazaar.com/"
+      },
+      {
+        "name": "F1Soft careers - Hamro Bazar Ventures",
+        "url": "https://career.f1soft.com/jobs/business-development-officer-HB"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "jeevee",
+    "name": "Jeevee",
+    "website": "https://jeevee.com/",
+    "careers_url": null,
+    "category": "e-commerce",
+    "description": "Online beauty, baby and health store run by Jeevee Health Pvt. Ltd., Lazimpat, Kathmandu.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.721508,
+        "lng": 85.320765,
+        "geo_precision": "area",
+        "address": "Lazimpat-3, Kathmandu, Nepal",
+        "address_source": "https://jeevee.com/contact-us",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Lazimpat, Kathmandu' -> https://www.openstreetmap.org/node/1772109891 (Lazimpat, Kathmandu-02, Kathmandu Metropolitan City, Kathmandu, Bagamati Province, 21255, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Jeevee homepage",
+        "url": "https://jeevee.com/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://jeevee.com/contact-us",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/1772109891",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "cheers",
+    "name": "Cheers",
+    "website": "https://cheers.com.np/",
+    "careers_url": null,
+    "category": "e-commerce",
+    "description": "Online beverage store and delivery service in Nepal, with its address in Pulchowk, Lalitpur.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.676082,
+        "lng": 85.315707,
+        "geo_precision": "area",
+        "address": "Pulchowk, Lalitpur, Nepal",
+        "address_source": "https://cheers.com.np",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Pulchowk, Lalitpur' -> https://www.openstreetmap.org/node/10939303582 (Pulchowk, Lalitpur-03, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 44707, Nepal)",
+        "geo_as_of": "2026-09-26"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Cheers homepage",
+        "url": "https://cheers.com.np/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://cheers.com.np",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/10939303582",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "vianet",
+    "name": "Vianet Communication",
+    "website": "https://www.vianet.com.np/",
+    "careers_url": "https://www.vianet.com.np/vacancy/",
+    "category": "telecom-isp",
+    "description": "Internet service provider at Prera Business Center, Jawalakhel, Lalitpur, with branches around Nepal.",
+    "hq_city": "Lalitpur",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Lalitpur",
+        "district": "Lalitpur",
+        "lat": 27.67244,
+        "lng": 85.313376,
+        "geo_precision": "area",
+        "address": "4th Floor, Prera Business Center, Jawalakhel, Lalitpur, Nepal",
+        "address_source": "https://www.vianet.com.np/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Jawalakhel, Lalitpur' -> https://www.openstreetmap.org/node/2230569077 (Jawalakhel, Lalitpur-05, Lalitpur, Lalitpur Metropolitan City, Lalitpur, Bagamati Province, 40000, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Prera Business Center not in OSM; Jawalakhel neighbourhood point used."
+      },
+      {
+        "city": "Biratnagar",
+        "district": "Morang",
+        "lat": 26.449175,
+        "lng": 87.270942,
+        "geo_precision": "street",
+        "address": "Panchali (Branch Office), Biratnagar, Nepal",
+        "address_source": "https://www.vianet.com.np/contact",
+        "address_source_type": "official_website",
+        "geo_source": "OSM Nominatim search 'Panchali, Biratnagar' -> https://www.openstreetmap.org/way/405602225 (Panchali, Biratnagar-11, Biratnagar, Morang, Koshi Province, 56613, Nepal)",
+        "geo_as_of": "2026-09-26",
+        "geo_note": "Matched to the road \"Panchali\" in Biratnagar-11 (OSM)."
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "Sales Officer - Reseller Sales",
+        "location": "Head Office",
+        "url": "https://www.vianet.com.np/vacancy/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sales Coordinator – Bhaktapur",
+        "location": "Bhaktapur",
+        "url": "https://www.vianet.com.np/vacancy/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Sales Coordinator - Itahari Branch",
+        "location": "Itahari",
+        "url": "https://www.vianet.com.np/vacancy/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Branch Manager - Simara",
+        "location": "Simara",
+        "url": "https://www.vianet.com.np/vacancy/branch-manager-simara/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Enterprise Field/Desk Support – Biratnagar",
+        "location": "Biratnagar",
+        "url": "https://www.vianet.com.np/vacancy/biratnagar-enterprise-field-desk-support/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "Vianet homepage",
+        "url": "https://www.vianet.com.np/"
+      },
+      {
+        "name": "Vianet vacancies",
+        "url": "https://www.vianet.com.np/vacancy/"
+      },
+      {
+        "name": "Official website – office address",
+        "url": "https://www.vianet.com.np/contact",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/node/2230569077",
+        "as_of": "2026-09-26"
+      },
+      {
+        "name": "OpenStreetMap – office/locality geometry",
+        "url": "https://www.openstreetmap.org/way/405602225",
+        "as_of": "2026-09-26"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "worldlink",
+    "name": "WorldLink Communications",
+    "website": "https://worldlink.com.np/",
+    "careers_url": "https://worldlink.com.np/career/",
+    "category": "telecom-isp",
+    "description": "Nepal's largest internet and network service provider, founded in 1995.",
+    "hq_city": null,
+    "global_hq": null,
+    "offices": [
+      {
+        "city": null,
+        "district": null,
+        "lat": null,
+        "lng": null,
+        "geo_precision": null
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [
+      {
+        "title": "MIS Officer",
+        "location": null,
+        "url": "https://worldlink.com.np/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Content Developer",
+        "location": null,
+        "url": "https://worldlink.com.np/career/content-developer/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Video Presenter/On-Camera Host",
+        "location": null,
+        "url": "https://worldlink.com.np/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Branch Head",
+        "location": null,
+        "url": "https://worldlink.com.np/career/branch-head/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      },
+      {
+        "title": "Marketing Intern",
+        "location": null,
+        "url": "https://worldlink.com.np/career/",
+        "source": "official careers page",
+        "seen_date": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "name": "WorldLink careers",
+        "url": "https://worldlink.com.np/career/"
+      },
+      {
+        "name": "WorldLink organization",
+        "url": "https://worldlink.com.np/organization/"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  },
+  {
+    "slug": "classic-tech",
+    "name": "Classic Tech",
+    "website": "https://classic.com.np/",
+    "careers_url": null,
+    "category": "telecom-isp",
+    "description": "Fibre (FTTH) internet and IPTV provider for homes and businesses across Kathmandu and beyond.",
+    "hq_city": "Kathmandu",
+    "global_hq": null,
+    "offices": [
+      {
+        "city": "Kathmandu",
+        "district": "Kathmandu",
+        "lat": 27.7172,
+        "lng": 85.324,
+        "geo_precision": "centroid"
+      }
+    ],
+    "remote_friendly": null,
+    "open_roles": [],
+    "sources": [
+      {
+        "name": "Classic Tech homepage",
+        "url": "https://classic.com.np/"
+      }
+    ],
+    "source_label": "curated",
+    "last_verified": "2026-09-26"
+  }
+]

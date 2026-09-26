@@ -1090,11 +1090,23 @@ body:has(.charge-stage) {
 .station-more-block { margin-top: 0.7rem; display: grid; gap: 0.45rem; }
 
 .map-pin-wrap {
+  position: relative;
   background: transparent !important;
   border: 0 !important;
   padding: 0;
   line-height: 0;
   cursor: pointer;
+}
+.pin-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 76px;
+  height: 76px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(0, 245, 160, 0.42) 0%, rgba(0, 229, 255, 0.16) 48%, transparent 72%);
+  pointer-events: none;
 }
 .map-dot {
   width: 16px;
@@ -1124,6 +1136,8 @@ body:has(.charge-stage) {
   border-radius: 999px;
 }
 .map-cluster {
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   width: 36px;
@@ -1738,8 +1752,12 @@ body:has(.charge-stage) {
   background: var(--surface);
   border: 1px solid var(--line-soft);
 }
-.jobs-pin-list a { color: inherit; font-weight: 650; text-decoration: none; }
+.jobs-pin-list li strong { font-weight: 650; }
 .jobs-pin-list li span { display: block; margin-top: 0.15rem; color: var(--ink-muted); font-size: 0.78rem; }
+.jobs-pin-list .apply-link { margin-top: 0.45rem; }
+.role-address { color: var(--ink); font-size: 0.84rem; }
+.stay-price { margin-top: 0.55rem; color: var(--ink); font-size: 0.88rem; font-weight: 600; }
+.stay-work { margin-top: 0.7rem; }
 .map-pin-wrap.is-selected .map-cluster {
   box-shadow: 0 0 0 3px #04140a, 0 0 0 5px #00f5a0;
 }

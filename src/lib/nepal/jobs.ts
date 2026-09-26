@@ -13,17 +13,21 @@ export type NearbyCompany = {
   company: NepalCompany;
   distanceKm: number | null;
   placeLabel: string;
+  address: string | null;
+  geoNote: string | null;
   unlocated: boolean;
 };
 
 function nearestOffice(origin: PlaceHit, company: NepalCompany): {
   distanceKm: number | null;
   placeLabel: string;
+  address: string | null;
+  geoNote: string | null;
   locatable: Locatable | null;
 } {
   const offices = company.offices.filter((office) => office.city || office.lat != null);
   if (!offices.length) {
-    return { distanceKm: null, placeLabel: "City not listed", locatable: null };
+    return { distanceKm: null, placeLabel: "City not listed", address: null, geoNote: null, locatable: null };
   }
   let best = offices[0];
   let bestDistance = distanceKm(origin, best);
@@ -42,6 +46,8 @@ function nearestOffice(origin: PlaceHit, company: NepalCompany): {
   return {
     distanceKm: bestDistance,
     placeLabel,
+    address: best.address ?? null,
+    geoNote: best.geo_note ?? null,
     locatable: best,
   };
 }
@@ -66,6 +72,8 @@ export function companiesNear(
       company,
       distanceKm: office.distanceKm,
       placeLabel: office.placeLabel,
+      address: office.address,
+      geoNote: office.geoNote,
       unlocated: !office.locatable || office.locatable.lat == null,
     };
 
@@ -127,6 +135,8 @@ export type JobRoleCard = {
   location: string | null;
   seen: string;
   placeLabel: string;
+  address: string | null;
+  geoNote: string | null;
   distanceKm: number | null;
   category: string;
 };
@@ -144,6 +154,8 @@ export function jobRoleCards(rows: NearbyCompany[]): JobRoleCard[] {
         location: role.location,
         seen: role.seen_date,
         placeLabel: row.placeLabel,
+        address: row.address,
+        geoNote: row.geoNote,
         distanceKm: row.distanceKm,
         category: row.company.category,
       });
@@ -158,6 +170,8 @@ export function jobRoleCards(rows: NearbyCompany[]): JobRoleCard[] {
   return cards;
 }
 
+export type JobMapKind = "precise" | "area" | "centroid";
+
 export type JobMapPin = {
   id: string;
   label: string;
@@ -165,22 +179,47 @@ export type JobMapPin = {
   lng: number;
   roleCount: number;
   companyCount: number;
-  grouped: boolean;
+  kind: JobMapKind;
+  slugs: string[];
 };
 
+function officeKind(precision: string | null): JobMapKind {
+  if (precision === "building" || precision === "street") return "precise";
+  if (precision === "area") return "area";
+  return "centroid";
+}
+
 /**
- * Street-level offices get their own pin. City centroids are grouped into one
- * pin per city so a stack of identical points does not cover the map.
+ * Building and street offices are their own pins. Area offices are the same
+ * pin with a halo. Centroid offices share one pin per city, and only offices
+ * near the current origin are drawn.
  */
-export function jobMapPins(rows: NearbyCompany[]): JobMapPin[] {
-  const pins = new Map<string, JobMapPin & { slugs: Set<string> }>();
+export function jobMapPins(rows: NearbyCompany[], origin: PlaceHit): JobMapPin[] {
+  const pins = new Map<
+    string,
+    {
+      id: string;
+      label: string;
+      city: string;
+      lat: number;
+      lng: number;
+      roleCount: number;
+      companyCount: number;
+      kind: JobMapKind;
+      slugs: Set<string>;
+    }
+  >();
   for (const row of rows) {
     if (row.company.open_roles.length === 0) continue;
     for (const office of row.company.offices) {
       if (office.lat == null || office.lng == null) continue;
-      const centroid = office.geo_precision == null || office.geo_precision === "centroid";
+      if (!isNearRecord(origin, office)) continue;
+      const kind = officeKind(office.geo_precision);
       const city = office.city || "Nepal";
-      const id = centroid ? `city:${city.toLowerCase()}` : `office:${row.company.slug}:${office.lat.toFixed(4)}`;
+      const id =
+        kind === "centroid"
+          ? `city:${city.toLowerCase()}`
+          : `office:${row.company.slug}:${office.lat.toFixed(4)}:${office.lng.toFixed(4)}`;
       const existing = pins.get(id);
       if (existing) {
         if (!existing.slugs.has(row.company.slug)) {
@@ -192,17 +231,32 @@ export function jobMapPins(rows: NearbyCompany[]): JobMapPin[] {
       }
       pins.set(id, {
         id,
-        label: city,
+        label: row.company.name,
+        city,
         lat: office.lat,
         lng: office.lng,
         roleCount: row.company.open_roles.length,
         companyCount: 1,
-        grouped: centroid,
+        kind,
         slugs: new Set([row.company.slug]),
       });
     }
   }
   return [...pins.values()]
-    .map(({ slugs: _slugs, ...pin }) => pin)
+    .map((pin) => ({
+      id: pin.id,
+      label:
+        pin.kind === "centroid"
+          ? pin.companyCount === 1
+            ? `1 company in ${pin.city}, locations approximate`
+            : `${pin.companyCount} more companies in ${pin.city}, locations approximate`
+          : pin.label,
+      lat: pin.lat,
+      lng: pin.lng,
+      roleCount: pin.roleCount,
+      companyCount: pin.companyCount,
+      kind: pin.kind,
+      slugs: [...pin.slugs],
+    }))
     .sort((a, b) => b.roleCount - a.roleCount || a.label.localeCompare(b.label));
 }

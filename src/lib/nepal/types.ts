@@ -64,6 +64,8 @@ export type CompanyOffice = {
   lat: number | null;
   lng: number | null;
   geo_precision: string | null;
+  address?: string | null;
+  geo_note?: string | null;
 };
 
 export type OpenRole = {

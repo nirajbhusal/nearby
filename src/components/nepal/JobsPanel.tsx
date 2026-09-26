@@ -56,6 +56,8 @@ function RoleCard({ card }: { card: JobRoleCard }) {
           {" · "}
           {card.location || card.placeLabel}
         </p>
+        {card.address ? <p className="role-address">{card.address}</p> : null}
+        {card.geoNote ? <p className="fine">{card.geoNote}</p> : null}
         <p className="role-meta">
           <span>{categoryLabel(card.category)}</span>
           {card.seen ? <span>Seen {formatUpdated(card.seen)}</span> : null}
@@ -92,23 +94,11 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
     const rows = jobRoleCards(near);
     return preferMatches(rows, profile.jobInterests, (card) => jobInterestMatch(card, profile.jobInterests));
   }, [near, profile.jobInterests]);
-  const pins = useMemo(() => jobMapPins(near), [near]);
+  const pins = useMemo(() => jobMapPins(near, origin), [near, origin]);
   const active = pins.find((pin) => pin.id === selectedPin) ?? pins[0] ?? null;
   const pinRoles = useMemo(() => {
     if (!active) return [];
-    return cards.filter((card) => {
-      const inCity = card.company.offices.some(
-        (office) => (office.city || "Nepal").toLowerCase() === active.label.toLowerCase(),
-      );
-      if (active.grouped) return inCity;
-      return card.company.offices.some(
-        (office) =>
-          office.lat != null &&
-          Math.abs(office.lat - active.lat) < 0.0002 &&
-          office.lng != null &&
-          Math.abs(office.lng - active.lng) < 0.0002,
-      );
-    });
+    return cards.filter((card) => active.slugs.includes(card.company.slug));
   }, [active, cards]);
 
   function setView(next: string) {
@@ -133,9 +123,9 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
         />
         <p className="fine">
           {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
-          {profile.jobInterests.length > 0 ? " Matching interests are listed first." : ""} City filters use office
-          cities. Street coordinates are still being collected, so the map groups centroid offices into one pin per
-          city.
+          {profile.jobInterests.length > 0 ? " Matching interests are listed first." : ""} Building and street offices
+          are exact pins. Area offices have a soft halo. Offices still placed at a city centre share one pin, and that
+          location is approximate.
         </p>
       </div>
       <div className="space-y-3">
@@ -178,19 +168,20 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
                   {active.label}
                   <span>
                     {active.roleCount} role{active.roleCount === 1 ? "" : "s"}
-                    {active.grouped ? " · city pin" : ""}
                   </span>
                 </h3>
                 <ul>
                   {pinRoles.map((card) => (
                     <li key={card.key}>
-                      <a href={card.url} target="_blank" rel="noopener noreferrer">
-                        {card.title}
-                      </a>
+                      <strong>{card.title}</strong>
                       <span>
                         {card.company.name}
+                        {card.address ? ` · ${card.address}` : ""}
                         {card.seen ? ` · seen ${formatUpdated(card.seen)}` : ""}
                       </span>
+                      <a className="btn-secondary apply-link" href={card.url} target="_blank" rel="noopener noreferrer">
+                        Apply
+                      </a>
                     </li>
                   ))}
                 </ul>
