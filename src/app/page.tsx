@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Briefcase, Calendar, Compass, Zap } from "lucide-react";
+import { BookOpen, Briefcase, Calendar, Compass, Info, Zap } from "lucide-react";
 import { HomeSearch } from "@/components/home/HomeSearch";
 import { NepalMapSlot } from "@/components/home/NepalMapSlot";
 import { NearestChargers, type HomeCharger } from "@/components/home/NearestChargers";
@@ -83,6 +83,16 @@ export default function HomePage() {
           <BookOpen aria-hidden />
           <h2>Learn</h2>
           <p>Universities, bootcamps, and AI communities.</p>
+        </Link>
+        <Link href="/nomad" className="section-card">
+          <Compass aria-hidden />
+          <h2>Nomad</h2>
+          <p>Kathmandu and Pokhara, for living and working.</p>
+        </Link>
+        <Link href="/about" className="section-card">
+          <Info aria-hidden />
+          <h2>About</h2>
+          <p>Sources, and how Nearby is put together.</p>
         </Link>
       </section>
 

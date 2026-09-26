@@ -2,16 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useId, useState } from "react";
 import { ViewTransition } from "react";
-import { Briefcase, Calendar, House, LayoutGrid, Zap } from "lucide-react";
+import { Briefcase, Calendar, House, User, Zap } from "lucide-react";
 import { Wordmark } from "@/components/brand/Logo";
-import { AccountMenu } from "@/components/AccountMenu";
 import { InstallBridge } from "@/components/InstallPrompt";
-import { MenuSheet } from "@/components/MenuSheet";
-import { ProfileAvatar } from "@/components/ProfileAvatar";
+import { AvatarFace, ProfileAvatar } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
 import { ThemeSync } from "@/components/ThemeToggle";
+import { profileInitial } from "@/lib/local-profile";
+import { useProfile } from "@/lib/profile-store";
 
 const TABS = [
   { href: "/", label: "Home", icon: House },
@@ -35,12 +34,17 @@ function active(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function ProfileTabMark() {
+  const profile = useProfile();
+  const initial = profileInitial(profile.name);
+  if (!initial) return <User size={22} strokeWidth={2} aria-hidden />;
+  return <AvatarFace className="tab-avatar" />;
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const charge = pathname.startsWith("/charge");
-  const [menuPath, setMenuPath] = useState<string | null>(null);
-  const menuOpen = menuPath === pathname;
-  const menuId = useId();
+  const onProfile = pathname.startsWith("/profile");
 
   return (
     <>
@@ -63,13 +67,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           ))}
         </nav>
-        <AccountMenu />
+        <ProfileAvatar current={onProfile} />
       </header>
       <div className="mobile-bar glass-bar">
         <Link href="/" className="brand">
           <Wordmark />
         </Link>
-        <ProfileAvatar current={pathname.startsWith("/profile")} />
+        <ProfileAvatar current={onProfile} />
       </div>
       <ViewTransition
         default="none"
@@ -95,22 +99,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           );
         })}
-        <button
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls={menuId}
-          aria-haspopup="dialog"
-          onClick={() => setMenuPath(menuOpen ? null : pathname)}
-        >
-          <LayoutGrid size={22} strokeWidth={2} aria-hidden />
-          <span>Menu</span>
-        </button>
+        <Link href="/profile" transitionTypes={["nav-forward"]} aria-current={onProfile ? "page" : undefined}>
+          <ProfileTabMark />
+          <span>Profile</span>
+        </Link>
       </nav>
-      {menuOpen ? (
-        <div id={menuId}>
-          <MenuSheet pathname={pathname} onClose={() => setMenuPath(null)} />
-        </div>
-      ) : null}
       <ThemeSync />
       <InstallBridge />
       <RegisterSW />
