@@ -978,6 +978,7 @@ body:has(.charge-stage) {
   flex-direction: column;
   min-height: 0;
   overflow: auto;
+  overscroll-behavior: contain;
   padding: 0 0.85rem 1rem;
 }
 
@@ -2648,13 +2649,16 @@ html.is-route-pending .route-skeleton { display: block; }
 }
 .section-card,
 .charger-card,
-.station-row,
 .stay-card,
 .home-block,
 .role-card,
 .preview-card {
   content-visibility: auto;
   contain-intrinsic-size: auto 132px;
+}
+.station-line {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 76px;
 }
 
 body {

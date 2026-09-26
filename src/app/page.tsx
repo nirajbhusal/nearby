@@ -68,27 +68,27 @@ export default function HomePage() {
           <h2>Charge</h2>
           <p>Speed-coloured pins, filters, and a navigate button.</p>
         </Link>
-        <Link href="/jobs?q=Kathmandu" className="section-card">
+        <Link href="/jobs?q=Kathmandu" className="section-card" prefetch={false}>
           <Briefcase aria-hidden />
           <h2>Jobs</h2>
           <p>Tech companies and open roles around a city.</p>
         </Link>
-        <Link href="/events?q=Kathmandu" className="section-card">
+        <Link href="/events?q=Kathmandu" className="section-card" prefetch={false}>
           <Calendar aria-hidden />
           <h2>Events</h2>
           <p>Meetups, conferences, and the series that repeat.</p>
         </Link>
-        <Link href="/learn?q=Kathmandu" className="section-card">
+        <Link href="/learn?q=Kathmandu" className="section-card" prefetch={false}>
           <BookOpen aria-hidden />
           <h2>Learn</h2>
           <p>Universities, bootcamps, and AI communities.</p>
         </Link>
-        <Link href="/nomad" className="section-card">
+        <Link href="/nomad" className="section-card" prefetch={false}>
           <Compass aria-hidden />
           <h2>Nomad</h2>
           <p>Kathmandu and Pokhara, for living and working.</p>
         </Link>
-        <Link href="/about" className="section-card">
+        <Link href="/about" className="section-card" prefetch={false}>
           <Info aria-hidden />
           <h2>About</h2>
           <p>Sources, and how Nearby is put together.</p>
@@ -119,7 +119,7 @@ export default function HomePage() {
       <section className="home-block">
         <div className="block-head">
           <h2>Coming up</h2>
-          <Link href="/events?q=Kathmandu">All events</Link>
+          <Link href="/events?q=Kathmandu" prefetch={false}>All events</Link>
         </div>
         {upcoming.length === 0 ? (
           <p className="empty-inline">No dated events are coming up near Kathmandu.</p>
@@ -141,7 +141,7 @@ export default function HomePage() {
       <section className="home-block">
         <div className="block-head">
           <h2>Featured jobs</h2>
-          <Link href="/jobs?q=Kathmandu">All jobs</Link>
+          <Link href="/jobs?q=Kathmandu" prefetch={false}>All jobs</Link>
         </div>
         <ul className="preview-list">
           {jobs.map((row) => (
@@ -159,12 +159,12 @@ export default function HomePage() {
       <section className="home-block">
         <div className="block-head">
           <h2>Digital nomad</h2>
-          <Link href="/nomad">Both cities</Link>
+          <Link href="/nomad" prefetch={false}>Both cities</Link>
         </div>
         <div className="nomad-promo">
           {nomadCities.map((city) => {
             return (
-              <Link key={city.slug} href={`/nomad/${city.slug}`} className="promo-card">
+              <Link key={city.slug} href={`/nomad/${city.slug}`} className="promo-card" prefetch={false}>
                 <Compass size={18} aria-hidden />
                 <h3>{city.shortName}</h3>
                 <p>{city.referenceLine}</p>

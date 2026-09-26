@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import { AppShell } from "@/components/AppShell";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+import { flightFetchBoot } from "@/lib/flight-fetch";
 import { themeBoot } from "@/lib/tod";
 import "./globals.css";
 
@@ -74,6 +75,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`} data-theme="dark" suppressHydrationWarning>
       <body className="flex min-h-full flex-col bg-[var(--bg)] text-[var(--graphite)]">
+        <Script id="flight-fetch" strategy="beforeInteractive">
+          {flightFetchBoot}
+        </Script>
         <Script id="theme-boot" strategy="beforeInteractive">
           {themeBoot}
         </Script>
