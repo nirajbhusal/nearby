@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# Copied from maplibre-gl during `npm run build` (see scripts/copy-map-worker.mjs).
+/public/maplibre/
+
 # production
 /build
 

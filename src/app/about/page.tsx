@@ -32,7 +32,7 @@ export default function AboutPage() {
           public, Nearby says so and asks you to call ahead.
         </p>
         <p>
-          Map tiles are © OpenStreetMap contributors © CARTO. Station coordinates come
+          Map tiles are © OpenStreetMap contributors, via OpenFreeMap. Station coordinates come
           from public operator directories and OpenStreetMap. Company offices
           are city centroids, not street addresses. Nomad figures, places, and
           notes are credited on the city page, each with the date it was current.

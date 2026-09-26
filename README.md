@@ -101,5 +101,5 @@ unknown — the UI says to call ahead instead of assuming a charger is public.
 
 ## Stack
 
-Next.js App Router (static export) · TypeScript · Tailwind CSS · Leaflet /
-OpenStreetMap · optional Prisma · SQLite
+Next.js App Router (static export) · TypeScript · Tailwind CSS · MapLibre GL /
+OpenFreeMap (OpenStreetMap) · optional Prisma · SQLite
