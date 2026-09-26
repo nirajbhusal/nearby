@@ -5,7 +5,11 @@ import { useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { CalendarOff } from "lucide-react";
-import { eventTypeLabel, formatKm, formatWhen } from "@/lib/nepal/format";
+import { DistanceText } from "@/components/DistanceText";
+import { SaveButton } from "@/components/SaveButton";
+import { eventInterestMatch, preferMatches } from "@/lib/local-profile";
+import { useProfile } from "@/lib/profile-store";
+import { eventTypeLabel, formatWhen } from "@/lib/nepal/format";
 import {
   EVENT_TYPE_FILTERS,
   eventsNear,
@@ -28,6 +32,17 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
   const { event } = row;
   return (
     <article className="app-card">
+      <div className="card-tools">
+        <SaveButton
+          item={{
+            id: event.id,
+            kind: "event",
+            title: event.title,
+            subtitle: event.city ?? "",
+            href: event.url || "/events",
+          }}
+        />
+      </div>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {event.start_date ? (
           <time
@@ -41,7 +56,12 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
         )}
         <span className="text-sm text-[var(--ink-muted)]">
           {event.city}
-          {row.distanceKm != null ? ` · ${formatKm(row.distanceKm)}` : ""}
+          {row.distanceKm != null ? (
+            <>
+              {" · "}
+              <DistanceText km={row.distanceKm} />
+            </>
+          ) : null}
         </span>
         {event.free === true ? (
           <span className="text-xs tracking-wide text-[var(--ink-faint)]">Free</span>
@@ -79,20 +99,25 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
   const nowMs = useSyncExternalStore(subscribeClock, readClientNow, () => 0);
   const [type, setType] = useState<string | null>(null);
   const [freeOnly, setFreeOnly] = useState(false);
-  const grouped = useMemo(
-    () =>
-      eventsNear(
-        origin,
-        { type, freeOnly },
-        nowMs === 0 ? null : new Date(nowMs)
-      ),
-    [origin, type, freeOnly, nowMs]
-  );
+  const profile = useProfile();
+  const grouped = useMemo(() => {
+    const base = eventsNear(origin, { type, freeOnly }, nowMs === 0 ? null : new Date(nowMs));
+    const rank = <T extends { event: { topics: string[] } }>(rows: T[]) =>
+      preferMatches(rows, profile.eventInterests, (row) => eventInterestMatch(row.event.topics, profile.eventInterests));
+    return {
+      ...base,
+      upcoming: rank(base.upcoming),
+      recurring: rank(base.recurring),
+      past: rank(base.past),
+      online: rank(base.online),
+    };
+  }, [origin, type, freeOnly, nowMs, profile.eventInterests]);
 
   return (
     <div className="space-y-6 text-left">
       <p className="text-sm text-[var(--ink-muted)]">
         Near {origin.label}, using today&apos;s date in Nepal time. A missing price stays blank.
+        {profile.eventInterests.length > 0 ? " Matching interests are listed first." : ""}
       </p>
       <div className="space-y-3">
         <ChipRow label="Type">

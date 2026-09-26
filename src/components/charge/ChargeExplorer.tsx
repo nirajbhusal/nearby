@@ -19,13 +19,16 @@ import {
 } from "@/lib/nepal/ev";
 import {
   accessCopy,
-  formatKm,
   formatUpdated,
   phoneHref,
   sourceLabel,
   speedLabel,
   stationCaution,
 } from "@/lib/nepal/format";
+import { evReady, formatDistance, stationFitsEv } from "@/lib/local-profile";
+import { useProfile, useUnits } from "@/lib/profile-store";
+import { DistanceText } from "@/components/DistanceText";
+import { FitMark, SaveButton } from "@/components/SaveButton";
 import { haversineKm } from "@/lib/geo";
 import { defaultRadiusKm, NEPAL, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
 import {
@@ -39,7 +42,6 @@ import type { MapFrame } from "@/components/charge/ChargeMap";
 import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { ViewToggle } from "@/components/ViewToggle";
 
 const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
@@ -203,6 +205,14 @@ export function ChargeExplorer() {
     [radiusKm, state.fast, state.plugs, state.network]
   );
   const stations = useMemo(() => stationsNear(origin, filters), [origin, filters]);
+  const profile = useProfile();
+  const unit = useUnits();
+  const carReady = evReady(profile);
+  const [fitsOnly, setFitsOnly] = useState(false);
+  const visible = useMemo(() => {
+    if (!fitsOnly || !carReady) return stations;
+    return stations.filter((station) => stationFitsEv(station, profile));
+  }, [stations, fitsOnly, carReady, profile]);
   const scope = useMemo(() => stationsInScope(origin, radiusKm), [origin, radiusKm]);
   const selected = useMemo(() => {
     if (!state.station) return null;
@@ -217,9 +227,9 @@ export function ChargeExplorer() {
   }, [state.station, stations, origin]);
 
   const mapStations = useMemo(() => {
-    if (!selected || stations.some((station) => station.id === selected.id)) return stations;
-    return [...stations, selected];
-  }, [stations, selected]);
+    if (!selected || visible.some((station) => station.id === selected.id)) return visible;
+    return [...visible, selected];
+  }, [visible, selected]);
 
   const networks = useMemo(() => {
     const counts = new Map<string, number>();
@@ -405,6 +415,7 @@ export function ChargeExplorer() {
   }
 
   function clearFilters() {
+    setFitsOnly(false);
     replace({ fast: false, plugs: [], network: null });
     setNetworkOpen(false);
   }
@@ -454,16 +465,17 @@ export function ChargeExplorer() {
   }
 
   const cards = state.view === "cards";
-  const count = stations.length;
-  const filterCount = activeFilterCount(filters);
+  const count = visible.length;
+  const filterCount = activeFilterCount(filters) + (fitsOnly && carReady ? 1 : 0);
+  const within = radiusKm == null ? "" : formatDistance(radiusKm, unit);
   const summary =
     origin.kind === "province"
       ? `${count} in ${origin.label}`
       : origin.kind === "country" || radiusKm == null
         ? `${count} charger${count === 1 ? "" : "s"} in ${origin.kind === "country" ? "Nepal" : origin.label}`
         : origin.kind === "geolocation"
-          ? `${count} charger${count === 1 ? "" : "s"} within ${radiusKm} km`
-          : `${count} within ${radiusKm} km of ${origin.label}`;
+          ? `${count} charger${count === 1 ? "" : "s"} within ${within}`
+          : `${count} within ${within} of ${origin.label}`;
   const frame: MapFrame =
     origin.kind === "country"
       ? { mode: "bounds", bbox: NEPAL_BBOX }
@@ -533,7 +545,6 @@ export function ChargeExplorer() {
               }
             }}
           />
-          <ThemeToggle />
           <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
             <LocateIcon />
           </button>
@@ -652,6 +663,9 @@ export function ChargeExplorer() {
               network={state.network}
               networks={networks}
               networkOpen={networkOpen}
+              fits={fitsOnly}
+              showFits={carReady}
+              onFits={() => setFitsOnly((on) => !on)}
               onFast={() => replace({ fast: !stateRef.current.fast })}
               onPlug={togglePlug}
               onNetworkOpen={() => setNetworkOpen((open) => !open)}
@@ -670,11 +684,11 @@ export function ChargeExplorer() {
             ) : null}
           </p>
           {count === 0 ? (
-            <p className="empty-inline">{emptyCopy(filters, radiusKm)}</p>
+            <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
           ) : (
             <div className="charger-grid">
-              {stations.map((station) => (
-                <ChargerCard key={station.id} station={station} />
+              {visible.map((station) => (
+                <ChargerCard key={station.id} station={station} fits={stationFitsEv(station, profile)} />
               ))}
             </div>
           )}
@@ -701,6 +715,7 @@ export function ChargeExplorer() {
         {selected ? (
           <StationSheet
             station={selected}
+            fits={stationFitsEv(selected, profile)}
             call={call}
             caution={caution}
             copied={copied}
@@ -729,6 +744,9 @@ export function ChargeExplorer() {
                 network={state.network}
                 networks={networks}
                 networkOpen={networkOpen}
+                fits={fitsOnly}
+                showFits={carReady}
+                onFits={() => setFitsOnly((on) => !on)}
                 onFast={() => replace({ fast: !stateRef.current.fast })}
                 onPlug={togglePlug}
                 onNetworkOpen={() => setNetworkOpen((open) => !open)}
@@ -740,15 +758,20 @@ export function ChargeExplorer() {
             </div>
             {count > 0 ? (
               <ul className="peek-list station-list">
-                {stations.slice(0, 3).map((station) => (
-                  <StationListItem key={station.id} station={station} onSelect={selectStation} />
+                {visible.slice(0, 3).map((station) => (
+                  <StationListItem
+                    key={station.id}
+                    station={station}
+                    fits={stationFitsEv(station, profile)}
+                    onSelect={selectStation}
+                  />
                 ))}
               </ul>
             ) : null}
             <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">
-                  <p>{emptyCopy(filters, radiusKm)}</p>
+                  <p>{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
                   <div className="widen-row">
                     {radiusKm != null && radiusKm < 50 ? (
                       <button type="button" className="chip" onClick={() => widen(50)}>
@@ -769,8 +792,13 @@ export function ChargeExplorer() {
                 </div>
               ) : (
                 <ul className="station-list">
-                  {stations.map((station) => (
-                    <StationListItem key={station.id} station={station} onSelect={selectStation} />
+                  {visible.map((station) => (
+                    <StationListItem
+                      key={station.id}
+                      station={station}
+                      fits={stationFitsEv(station, profile)}
+                      onSelect={selectStation}
+                    />
                   ))}
                 </ul>
               )}
@@ -789,6 +817,9 @@ function FilterChips({
   network,
   networks,
   networkOpen,
+  fits,
+  showFits,
+  onFits,
   onFast,
   onPlug,
   onNetworkOpen,
@@ -799,6 +830,9 @@ function FilterChips({
   network: string | null;
   networks: [string, number][];
   networkOpen: boolean;
+  fits: boolean;
+  showFits: boolean;
+  onFits: () => void;
   onFast: () => void;
   onPlug: (id: PlugFilter) => void;
   onNetworkOpen: () => void;
@@ -806,6 +840,11 @@ function FilterChips({
 }) {
   return (
     <>
+      {showFits ? (
+        <button type="button" className={fits ? "chip chip-on" : "chip"} aria-pressed={fits} onClick={onFits}>
+          Fits my car
+        </button>
+      ) : null}
       <button type="button" className={fast ? "chip chip-on" : "chip"} aria-pressed={fast} onClick={onFast}>
         Fast only
       </button>
@@ -854,18 +893,23 @@ function FilterChips({
 
 function StationListItem({
   station,
+  fits,
   onSelect,
 }: {
   station: NearbyStation;
+  fits: boolean;
   onSelect: (id: string) => void;
 }) {
   return (
-    <li>
+    <li className="station-line">
       <button type="button" className="station-row" onClick={() => onSelect(station.id)}>
         <span className="station-row-main">
-          <span className="station-name">{station.name}</span>
+          <span className="station-name">
+            {station.name}
+            {fits ? <FitMark /> : null}
+          </span>
           <span className="station-meta">
-            {networkLabel(station.network)} · {formatKm(station.distanceKm)}
+            {networkLabel(station.network)} · <DistanceText km={station.distanceKm} />
           </span>
         </span>
         <span className={`speed-badge speed-${station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown"}`}>
@@ -879,11 +923,12 @@ function StationListItem({
           ))}
         </span>
       </button>
+      <SaveButton item={chargerSave(station)} />
     </li>
   );
 }
 
-function ChargerCard({ station }: { station: NearbyStation }) {
+function ChargerCard({ station, fits }: { station: NearbyStation; fits: boolean }) {
   const call = phoneHref(station.phone);
   const kw = maxKw(station);
   const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
@@ -891,11 +936,17 @@ function ChargerCard({ station }: { station: NearbyStation }) {
   return (
     <article className="charger-card">
       <header>
-        <h2>{station.name}</h2>
-        <span className={`speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
+        <h2>
+          {station.name}
+          {fits ? <FitMark /> : null}
+        </h2>
+        <span className="card-tools">
+          <SaveButton item={chargerSave(station)} />
+          <span className={`speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
+        </span>
       </header>
       <p className="station-meta">
-        {formatKm(station.distanceKm)}
+        <DistanceText km={station.distanceKm} />
         {area ? ` · ${area}` : ""}
       </p>
       <p className="charger-kw">{kw != null ? `${trimKw(kw)} kW` : "kW not listed"}</p>
@@ -916,6 +967,7 @@ function ChargerCard({ station }: { station: NearbyStation }) {
 
 function StationSheet({
   station,
+  fits,
   call,
   caution,
   copied,
@@ -923,6 +975,7 @@ function StationSheet({
   onShare,
 }: {
   station: NearbyStation;
+  fits: boolean;
   call: string | null;
   caution: string | null;
   copied: boolean;
@@ -940,12 +993,16 @@ function StationSheet({
           {speedLabel(station.speed)}
         </p>
       </div>
-      <h2 className="station-title">{station.name}</h2>
+      <h2 className="station-title">
+        {station.name}
+        {fits ? <FitMark /> : null}
+      </h2>
       <p className="station-meta">
-        {networkLabel(station.network)} · {formatKm(station.distanceKm)}
+        {networkLabel(station.network)} · <DistanceText km={station.distanceKm} />
         {station.city ? ` · ${station.city}` : ""}
       </p>
       <div className="station-actions">
+        <SaveButton item={chargerSave(station)} />
         <NavigateLinks lat={station.lat} lng={station.lng} prominent />
         {call ? (
           <a className="btn-secondary" href={call}>
@@ -992,11 +1049,23 @@ function StationSheet({
   );
 }
 
+function chargerSave(station: NearbyStation) {
+  return {
+    id: station.id,
+    kind: "charger" as const,
+    title: station.name,
+    subtitle: station.city ?? "",
+    href: `/charge?station=${station.id}`,
+  };
+}
+
 function emptyCopy(
   filters: { fastOnly: boolean; plugs: PlugFilter[]; radiusKm: number | null },
-  radiusKm: number | null
+  radiusKm: number | null,
+  fits: boolean
 ): string {
   const within = radiusKm == null ? "in this search" : `within ${radiusKm} km`;
+  if (fits) return `No chargers fit your car ${within}.`;
   if (filters.fastOnly && filters.plugs.length === 0) {
     return radiusKm == null
       ? "No fast chargers in this search."

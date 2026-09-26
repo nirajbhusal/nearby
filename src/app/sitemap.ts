@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/events/",
     "/nomad/",
     "/about/",
+    "/profile/",
     ...nomadCities.map((city) => `/nomad/${city.slug}/`),
     ...allStationIds().map((id) => `/ev/${id}/`),
   ];

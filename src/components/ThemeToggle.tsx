@@ -1,44 +1,41 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { useEffect } from "react";
+import { applyThemeChoice, useThemeChoice } from "@/lib/profile-store";
+import type { ThemeChoice } from "@/lib/local-profile";
 
-type Theme = "dark" | "light";
+const CHOICES: { id: ThemeChoice; label: string }[] = [
+  { id: "system", label: "System" },
+  { id: "light", label: "Light" },
+  { id: "dark", label: "Dark" },
+];
 
-function readTheme(): Theme {
-  if (typeof document === "undefined") return "dark";
-  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+export function ThemeSync() {
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: light)");
+    const onChange = () => {
+      if (document.documentElement.dataset.themeChoice === "system") applyThemeChoice("system");
+    };
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+  return null;
 }
 
-function subscribe(onChange: () => void) {
-  window.addEventListener("nearby-theme", onChange);
-  return () => window.removeEventListener("nearby-theme", onChange);
-}
-
-export function applyTheme(theme: Theme) {
-  document.documentElement.dataset.theme = theme;
-  try {
-    localStorage.setItem("nearby-theme", theme);
-  } catch {
-    /* private mode */
-  }
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", theme === "light" ? "#F5F5F7" : "#000000");
-  window.dispatchEvent(new Event("nearby-theme"));
-}
-
-export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribe, readTheme, () => "dark" as Theme);
-  const next = theme === "dark" ? "light" : "dark";
-  const Icon = theme === "dark" ? Sun : Moon;
+export function ThemeChoiceControl({ compact = false }: { compact?: boolean }) {
+  const choice = useThemeChoice();
   return (
-    <button
-      type="button"
-      className="theme-toggle"
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      onClick={() => applyTheme(next)}
-    >
-      <Icon size={18} strokeWidth={2.1} aria-hidden />
-    </button>
+    <div className={compact ? "segment segment-compact" : "segment"} role="group" aria-label="Theme">
+      {CHOICES.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          aria-pressed={choice === item.id}
+          onClick={() => applyThemeChoice(item.id)}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
   );
 }
