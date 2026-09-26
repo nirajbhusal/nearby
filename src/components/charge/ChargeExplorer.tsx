@@ -790,7 +790,7 @@ export function ChargeExplorer() {
                 <button type="button" className="text-btn" onClick={clearFilters}>
                   Clear {filterCount}
                 </button>
-              ) : (
+              ) : origin.kind === "country" ? null : (
                 <span className="fine">{origin.label}</span>
               )}
             </div>
