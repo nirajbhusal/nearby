@@ -7,25 +7,28 @@ export const evIndex = indexJson as EvIndexStation[];
 
 export type NearbyStation = EvIndexStation & { distanceKm: number };
 
-export type SpeedFilter = "all" | "fast" | "slow" | "unknown";
+export type PlugFilter = "ccs2" | "gbt" | "t2" | "chademo";
+
+export const PLUG_FILTERS: { id: PlugFilter; label: string }[] = [
+  { id: "ccs2", label: "CCS2" },
+  { id: "gbt", label: "GB/T" },
+  { id: "t2", label: "Type 2" },
+  { id: "chademo", label: "CHAdeMO" },
+];
 
 export type EvFilters = {
   radiusKm: number | null;
-  speed: SpeedFilter;
-  connector: string | null;
+  fastOnly: boolean;
+  plugs: PlugFilter[];
   network: string | null;
-  province: string | null;
-  city: string | null;
 };
 
 export function emptyEvFilters(origin: PlaceHit): EvFilters {
   return {
     radiusKm: defaultRadiusKm(origin),
-    speed: "all",
-    connector: null,
+    fastOnly: false,
+    plugs: [],
     network: null,
-    province: origin.kind === "province" ? origin.province : null,
-    city: null,
   };
 }
 
@@ -49,6 +52,43 @@ function matchesNetwork(station: EvIndexStation, network: string | null): boolea
   return station.network === network;
 }
 
+export function plugMatches(station: EvIndexStation, plug: PlugFilter): boolean {
+  return station.plugs.some((item) => {
+    if (plug === "ccs2") return item.type === "CCS2";
+    if (plug === "gbt") return item.type === "GB/T DC" || item.type === "GB/T AC";
+    if (plug === "t2") return item.type === "Type 2";
+    return /chademo/i.test(item.type);
+  });
+}
+
+export function matchesPlugs(station: EvIndexStation, plugs: PlugFilter[]): boolean {
+  if (!plugs.length) return true;
+  return plugs.some((plug) => plugMatches(station, plug));
+}
+
+function inScope(
+  origin: PlaceHit,
+  station: NearbyStation,
+  radiusKm: number | null
+): boolean {
+  if (origin.kind === "province" && origin.province) {
+    return station.province === origin.province;
+  }
+  if (radiusKm == null) return true;
+  if (station.distanceKm <= radiusKm) return true;
+  if (
+    origin.kind === "district" &&
+    origin.district &&
+    station.district === origin.district
+  ) {
+    return true;
+  }
+  if (origin.kind === "city" && origin.city && station.city === origin.city) {
+    return true;
+  }
+  return false;
+}
+
 export function stationsNear(
   origin: PlaceHit,
   filters: EvFilters
@@ -59,30 +99,11 @@ export function stationsNear(
   }));
 
   const filtered = rows.filter((station) => {
-    if (filters.province && station.province !== filters.province) return false;
-    if (filters.city && station.city !== filters.city) return false;
-    if (filters.speed !== "all" && station.speed !== filters.speed) return false;
-    if (
-      filters.connector &&
-      !station.plugs.some((plug) => plug.type === filters.connector)
-    ) {
-      return false;
-    }
+    if (!inScope(origin, station, filters.radiusKm)) return false;
+    if (filters.fastOnly && station.speed !== "fast") return false;
+    if (!matchesPlugs(station, filters.plugs)) return false;
     if (!matchesNetwork(station, filters.network)) return false;
-
-    if (filters.radiusKm == null) return true;
-    if (station.distanceKm <= filters.radiusKm) return true;
-    if (
-      origin.kind === "district" &&
-      origin.district &&
-      station.district === origin.district
-    ) {
-      return true;
-    }
-    if (origin.kind === "city" && origin.city && station.city === origin.city) {
-      return true;
-    }
-    return false;
+    return true;
   });
 
   filtered.sort(
@@ -91,20 +112,42 @@ export function stationsNear(
   return filtered;
 }
 
-/** Stations inside the place and radius, before connector, speed, network, and city chips. */
+/** Stations inside the place and radius, before connector, speed, and network chips. */
 export function stationsInScope(
   origin: PlaceHit,
-  radiusKm: number | null,
-  province: string | null
+  radiusKm: number | null
 ): NearbyStation[] {
   return stationsNear(origin, {
     radiusKm,
-    speed: "all",
-    connector: null,
+    fastOnly: false,
+    plugs: [],
     network: null,
-    province,
-    city: null,
   });
+}
+
+export function maxKw(station: EvIndexStation): number | null {
+  let max: number | null = null;
+  for (const plug of station.plugs) {
+    if (plug.kw != null && (max == null || plug.kw > max)) max = plug.kw;
+  }
+  return max;
+}
+
+/** Short label drawn on a pin once the map is zoomed in. */
+export function pinHint(station: EvIndexStation): string {
+  const kw = maxKw(station);
+  if (kw != null) return Number.isInteger(kw) ? String(kw) : String(Math.round(kw));
+  const type = station.plugs[0]?.type;
+  if (!type) return "";
+  if (type === "CCS2") return "CCS";
+  if (type.startsWith("GB/T")) return "GBT";
+  if (type === "Type 2") return "T2";
+  if (/chademo/i.test(type)) return "CH";
+  return "";
+}
+
+export function activeFilterCount(filters: EvFilters): number {
+  return (filters.fastOnly ? 1 : 0) + filters.plugs.length + (filters.network ? 1 : 0);
 }
 
 export function networkLabel(network: string | null): string {

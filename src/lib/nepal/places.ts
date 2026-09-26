@@ -364,6 +364,51 @@ export function distanceKm(origin: PlaceHit, item: Locatable): number | null {
   return haversineKm(origin.lat, origin.lng, item.lat, item.lng);
 }
 
+/** Place suggestions for the search field. An empty query returns a short popular list. */
+export function suggestPlaces(raw: string, limit = 8): PlaceHit[] {
+  const key = normalizePlace(raw);
+  const popular = ["Kathmandu", "Pokhara", "Lalitpur", "Bharatpur", "Biratnagar", "Butwal"]
+    .map((name) => resolvePlace(name))
+    .filter((hit): hit is PlaceHit => Boolean(hit));
+  if (!key) return popular.slice(0, limit);
+
+  type Scored = { hit: PlaceHit; score: number; label: string };
+  const scored: Scored[] = [];
+  const consider = (hit: PlaceHit | null, name: string) => {
+    if (!hit) return;
+    const nameKey = normalizePlace(name);
+    let score = 0;
+    if (nameKey === key) score = 100;
+    else if (nameKey.startsWith(key)) score = 80 - Math.min(nameKey.length, 20);
+    else if (nameKey.includes(key)) score = 60;
+    else if (key.length >= 3 && phraseOverlaps(nameKey, key)) score = 40;
+    else return;
+    scored.push({ hit, score, label: name });
+  };
+
+  for (const area of AREAS) consider(hitFromArea(area), area.name);
+  for (const city of cities) consider(hitFromCity(city), city.name);
+  for (const district of districts) consider(hitFromDistrict(district), district.name);
+  for (const province of provinces) consider(hitFromProvince(province), province.name);
+  for (const [alias, target] of Object.entries(ALIASES)) {
+    consider(resolveNamed(target.kind, target.name), alias);
+  }
+
+  scored.sort(
+    (a, b) => b.score - a.score || a.hit.label.localeCompare(b.hit.label)
+  );
+  const seen = new Set<string>();
+  const hits: PlaceHit[] = [];
+  for (const row of scored) {
+    const id = `${row.hit.kind}:${row.hit.lat.toFixed(3)}:${row.hit.lng.toFixed(3)}:${row.hit.label}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    hits.push(row.hit);
+    if (hits.length >= limit) break;
+  }
+  return hits;
+}
+
 export function isNearRecord(origin: PlaceHit, item: Locatable): boolean {
   if (isOnlinePlace(item.city)) return false;
   const city = lookupCity(item.city);

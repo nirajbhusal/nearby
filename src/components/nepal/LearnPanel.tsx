@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
-import { LearnIcon } from "@/components/illustrations/LearnIcon";
 import { EmptySketch } from "@/components/illustrations/EmptySketch";
 import { formatKm, learnTypeLabel, modeLabel } from "@/lib/nepal/format";
 import { learnNear, learnTypes, type NearbyLearn } from "@/lib/nepal/learn";
@@ -17,7 +16,7 @@ const MODES = [
 function PlaceCard({ row }: { row: NearbyLearn }) {
   const { place } = row;
   return (
-    <article className="border-b border-[var(--line-soft)] py-6 last:border-b-0">
+    <article className="app-card">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-lg font-medium tracking-tight text-[var(--graphite)]">
           {place.website ? (
@@ -65,6 +64,16 @@ function PlaceCard({ row }: { row: NearbyLearn }) {
           </li>
         ))}
       </ul>
+      {place.website ? (
+        <a
+          href={place.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-secondary mt-3"
+        >
+          Website
+        </a>
+      ) : null}
     </article>
   );
 }
@@ -80,15 +89,8 @@ export function LearnPanel({ origin }: { origin: PlaceHit }) {
 
   return (
     <div className="space-y-6 text-left">
-      <div className="flex items-center gap-2">
-        <LearnIcon className="h-4 w-4 text-[var(--accent)]" />
-        <h2 className="font-display text-lg font-medium tracking-tight">
-          Learn AI
-        </h2>
-      </div>
-      <p className="text-[15px] leading-relaxed text-[var(--ink-muted)]">
-        Universities, colleges, bootcamps, and communities near {origin.label}.
-        Program links open the organizer&apos;s page.
+      <p className="text-sm text-[var(--ink-muted)]">
+        Near {origin.label}. Program links open the organizer&apos;s page.
       </p>
       <div className="space-y-3">
         <ChipRow label="Type">
@@ -126,7 +128,7 @@ export function LearnPanel({ origin }: { origin: PlaceHit }) {
           <EmptySketch className="mx-auto h-16 w-24 text-[var(--ink-faint)]" />
         </div>
       ) : (
-        <div>
+        <div className="card-list">
           {near.map((row) => (
             <PlaceCard key={row.place.slug} row={row} />
           ))}
@@ -137,7 +139,7 @@ export function LearnPanel({ origin }: { origin: PlaceHit }) {
           <h3 className="font-display text-base italic text-[var(--ink-muted)]">
             Study online
           </h3>
-          <div>
+          <div className="card-list">
             {online.map((row) => (
               <PlaceCard key={row.place.slug} row={row} />
             ))}
