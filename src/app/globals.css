@@ -956,8 +956,8 @@ body:has(.charge-stage) {
   text-align: left;
   padding: 0.7rem 0.7rem;
   border-radius: 0.9rem;
-  background: color-mix(in srgb, white 55%, var(--paper));
-  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+  border: 1px solid var(--line);
 }
 
 .station-row:hover {
@@ -1152,7 +1152,7 @@ body:has(.charge-stage) {
 }
 
 .charge-stage {
-  --map-ctrl-top: 8rem;
+  --map-ctrl-top: 11.4rem;
   --map-ctrl-bottom: calc(26rem + env(safe-area-inset-bottom));
 }
 .charge-stage:has(.charge-panel[data-mode="station"][data-snap="peek"]) {
@@ -1317,7 +1317,7 @@ body:has(.charge-stage) {
   .stat-row { grid-template-columns: repeat(4, 1fr); }
   .home { padding-top: 1.2rem; }
   .section-cards { grid-template-columns: repeat(4, 1fr); }
-  .home-split { grid-template-columns: 1.3fr 0.7fr; }
+  .home-split { grid-template-columns: 0.9fr 1.15fr; }
   .nomad-promo { grid-template-columns: 1fr 1fr; }
 }
 
@@ -1448,6 +1448,9 @@ body:has(.charge-stage) {
   color: inherit;
 }
 .preview-row { grid-template-columns: auto 1fr auto; align-items: center; gap: 0.7rem; }
+.preview-row > span { display: grid; gap: 0.15rem; min-width: 0; }
+.preview-row strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.preview-row small { display: block; }
 .preview-row small, .preview-card small, .preview-card time { color: var(--ink-muted); font-size: 0.8rem; }
 .speed-dot { width: 0.7rem; height: 0.7rem; border-radius: 999px; }
 .map-preview {
@@ -1810,4 +1813,59 @@ body:has(.charge-stage) {
 @media (min-width: 1100px) {
   .charger-grid,
   .role-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+.nepal-card { display: grid; gap: 0.55rem; align-content: start; }
+.nepal-map {
+  position: relative;
+  height: 18rem;
+  border-radius: 1.15rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #121214;
+}
+.nepal-map-canvas,
+.nepal-fallback { width: 100%; height: 100%; display: block; object-fit: cover; }
+.nepal-map .maplibregl-map { width: 100%; height: 100%; }
+.province-bubble {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00e5ff, #00f5a0 55%, #30d158);
+  color: #04140a;
+  font-weight: 750;
+  font-size: 0.78rem;
+  border: 2px solid rgba(4, 20, 10, 0.85);
+  box-shadow: 0 0 18px rgba(0, 245, 160, 0.4);
+}
+.province-counts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.1rem 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.province-counts a {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.32rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.86rem;
+}
+.province-counts strong { color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.scope-rows { display: grid; gap: 0.35rem; width: 100%; }
+.scope-row {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 0.05rem;
+}
+.scope-row .chip { flex: none; }
+@media (max-width: 1023px) {
+  .nepal-card { order: -1; }
 }

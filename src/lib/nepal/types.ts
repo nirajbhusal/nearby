@@ -138,7 +138,7 @@ export type NepalEvent = {
   last_verified: string;
 };
 
-export type PlaceKind = "city" | "district" | "province" | "area" | "geolocation";
+export type PlaceKind = "city" | "district" | "province" | "area" | "geolocation" | "country";
 
 export type PlaceHit = {
   label: string;

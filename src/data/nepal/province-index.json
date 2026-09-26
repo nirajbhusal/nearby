@@ -1,0 +1,107 @@
+{
+  "source": "geoBoundaries NPL ADM1 (gbOpen, 2020), Douglas-Peucker simplified",
+  "sourceUrl": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/NPL/ADM1/geoBoundaries-NPL-ADM1_simplified.geojson",
+  "license": "CC BY 3.0 IGO",
+  "licenseNote": "geoBoundaries redistributes Survey Department of Nepal and OCHA FISS boundaries. The gbOpen ADM1 file is licensed CC BY 3.0 IGO.",
+  "nepal": {
+    "bbox": [
+      80.0586,
+      26.3478,
+      88.2014,
+      30.4473
+    ]
+  },
+  "provinces": [
+    {
+      "slug": "koshi",
+      "name": "Koshi",
+      "iso": "NP-P1",
+      "lat": 27.2105,
+      "lng": 87.272,
+      "bbox": [
+        86.1559,
+        26.3478,
+        88.2014,
+        28.1087
+      ]
+    },
+    {
+      "slug": "madhesh",
+      "name": "Madhesh",
+      "iso": "NP-P2",
+      "lat": 26.9306,
+      "lng": 85.6895,
+      "bbox": [
+        84.4839,
+        26.4225,
+        87.0134,
+        27.463
+      ]
+    },
+    {
+      "slug": "bagmati",
+      "name": "Bagmati",
+      "iso": "NP-P3",
+      "lat": 27.6786,
+      "lng": 85.4705,
+      "bbox": [
+        83.9245,
+        26.9191,
+        86.5728,
+        28.3863
+      ]
+    },
+    {
+      "slug": "gandaki",
+      "name": "Gandaki",
+      "iso": "NP-P4",
+      "lat": 28.4091,
+      "lng": 84.0498,
+      "bbox": [
+        82.8774,
+        27.4378,
+        85.1884,
+        29.3287
+      ]
+    },
+    {
+      "slug": "lumbini",
+      "name": "Lumbini",
+      "iso": "NP-P5",
+      "lat": 28.0514,
+      "lng": 82.6867,
+      "bbox": [
+        81.0646,
+        27.3315,
+        84.0285,
+        28.8672
+      ]
+    },
+    {
+      "slug": "karnali",
+      "name": "Karnali",
+      "iso": "NP-P6",
+      "lat": 29.2535,
+      "lng": 82.2823,
+      "bbox": [
+        80.9811,
+        28.1511,
+        83.6804,
+        30.4473
+      ]
+    },
+    {
+      "slug": "sudurpashchim",
+      "name": "Sudurpashchim",
+      "iso": "NP-P7",
+      "lat": 29.3249,
+      "lng": 80.9403,
+      "bbox": [
+        80.0586,
+        28.3945,
+        81.8039,
+        30.2467
+      ]
+    }
+  ]
+}

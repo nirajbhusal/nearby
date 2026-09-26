@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { BookOpen, Briefcase, Calendar, Compass, Zap } from "lucide-react";
 import { HomeSearch } from "@/components/home/HomeSearch";
+import { NepalMapSlot } from "@/components/home/NepalMapSlot";
 import { NearestChargers, type HomeCharger } from "@/components/home/NearestChargers";
 import { LogoMark } from "@/components/brand/Logo";
-import { formatKm, formatWhen, speedLabel } from "@/lib/nepal/format";
+import { formatWhen } from "@/lib/nepal/format";
 import { evIndex, stationsInScope } from "@/lib/nepal/ev";
 import { nepalEvents, eventTiming, eventsNear } from "@/lib/nepal/events";
 import { companiesNear, nepalCompanies } from "@/lib/nepal/jobs";
 import { learnPlaces } from "@/lib/nepal/learn";
 import { nomadCities } from "@/lib/nepal/nomad";
 import { KATHMANDU } from "@/lib/nepal/places";
+import { provinceRecords } from "@/lib/nepal/provinces";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
@@ -86,20 +88,23 @@ export default function HomePage() {
 
       <div className="home-split">
         <NearestChargers fallback={fallback} />
-        <Link href="/charge?q=Kathmandu" className="map-preview" aria-label="Open the Kathmandu charger map">
-          <svg viewBox="0 0 280 180" aria-hidden>
-            <rect width="280" height="180" rx="20" />
-            <path d="M20 40 H260 M20 80 H260 M20 120 H260 M70 16 V164 M140 16 V164 M210 16 V164" />
-            <circle cx="92" cy="68" r="7" className="pin-fast" />
-            <circle cx="168" cy="104" r="7" className="pin-fast" />
-            <circle cx="206" cy="58" r="6" className="pin-slow" />
-            <circle cx="124" cy="128" r="5" className="pin-unknown" />
-          </svg>
-          <span>
-            <strong>Kathmandu map</strong>
-            <small>{fallback.length > 0 ? `${speedLabel(fallback[0].speed)} nearby · ${formatKm(fallback[0].distanceKm)}` : "Open the charger map"}</small>
-          </span>
-        </Link>
+        <section className="nepal-card" aria-label="Chargers across Nepal">
+          <div className="block-head">
+            <h2>{chargers} chargers across Nepal</h2>
+            <Link href="/charge?near=1">Near me</Link>
+          </div>
+          <NepalMapSlot provinces={provinceRecords} />
+          <ul className="province-counts">
+            {provinceRecords.map((province) => (
+              <li key={province.slug}>
+                <Link href={`/charge?province=${province.slug}`}>
+                  <span>{province.name}</span>
+                  <strong>{province.count}</strong>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
 
       <section className="home-block">

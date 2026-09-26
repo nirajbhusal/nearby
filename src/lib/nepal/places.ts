@@ -332,6 +332,16 @@ export function resolvePlace(raw: string): PlaceHit | null {
   return null;
 }
 
+export const NEPAL: PlaceHit = {
+  label: "Nepal",
+  lat: 28.39,
+  lng: 84.12,
+  kind: "country",
+  city: null,
+  district: null,
+  province: null,
+};
+
 export const KATHMANDU: PlaceHit = resolvePlace("Kathmandu") ?? {
   label: "Kathmandu",
   lat: 27.70884,
@@ -343,7 +353,8 @@ export const KATHMANDU: PlaceHit = resolvePlace("Kathmandu") ?? {
 };
 
 export function defaultRadiusKm(origin: PlaceHit): number | null {
-  if (origin.kind === "province") return null;
+  if (origin.kind === "province" || origin.kind === "country") return null;
+  if (origin.kind === "geolocation") return 15;
   if (origin.kind === "district") return 50;
   return 25;
 }
