@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { EventsPanel } from "@/components/nepal/EventsPanel";
 import { JobsPanel } from "@/components/nepal/JobsPanel";
@@ -119,6 +120,11 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
         <p className="eyebrow">{copy.kicker}</p>
         <h1 className="font-display page-title">{copy.title}</h1>
         <p className="lede">{copy.intro}</p>
+        {section === "events" ? (
+          <p className="fine">
+            Looking for a class instead? <Link href="/learn">Places to learn AI</Link>
+          </p>
+        ) : null}
         <form
           className="page-search"
           role="search"

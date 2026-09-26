@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CityHorizon } from "@/components/illustrations/CityHorizon";
+import { LogoMark } from "@/components/brand/Logo";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About — Nearby",
-  description:
-    "Nearby is a Nepal-only guide to EV charging, tech jobs, AI learning, events, and working from Kathmandu or Pokhara.",
-};
+export const metadata = pageMeta(
+  "About — Nearby",
+  "Nearby is a Nepal-only guide to EV charging, tech jobs, AI learning, events, and working from Kathmandu or Pokhara.",
+  "/about",
+);
 
 export default function AboutPage() {
   return (
@@ -14,7 +15,7 @@ export default function AboutPage() {
       <header className="page-hero">
         <p className="eyebrow">About</p>
         <h1 className="font-display page-title">Nearby, for Nepal</h1>
-        <CityHorizon className="hero-sketch" />
+        <LogoMark className="logo-mark hero-mark" title="Nearby" />
       </header>
       <div className="prose">
         <p>
@@ -31,7 +32,7 @@ export default function AboutPage() {
           public, Nearby says so and asks you to call ahead.
         </p>
         <p>
-          Map tiles are © OpenStreetMap contributors. Station coordinates come
+          Map tiles are © OpenStreetMap contributors © CARTO. Station coordinates come
           from public operator directories and OpenStreetMap. Company offices
           are city centroids, not street addresses. Nomad figures, places, and
           notes are credited on the city page, each with the date it was current.

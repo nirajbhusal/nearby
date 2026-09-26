@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SectionPage } from "@/components/nepal/SectionPage";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Tech events — Nearby",
-  description: "Tech and AI events in Nepal: upcoming dates, regular series, and recent meetups.",
-};
+export const metadata = pageMeta(
+  "Tech events — Nearby",
+  "Tech and AI events in Nepal: upcoming dates, regular series, and recent meetups.",
+  "/events",
+);
 
 export default function EventsPage() {
   return (

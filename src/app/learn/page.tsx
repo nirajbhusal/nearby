@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SectionPage } from "@/components/nepal/SectionPage";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Learn AI — Nearby",
-  description: "Places to learn AI in Nepal: universities, bootcamps, and communities.",
-};
+export const metadata = pageMeta(
+  "Learn AI — Nearby",
+  "Places to learn AI in Nepal: universities, bootcamps, and communities.",
+  "/learn",
+);
 
 export default function LearnPage() {
   return (

@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Map as LeafletMap } from "leaflet";
+import type { Map as LeafletMap, TileLayer } from "leaflet";
+type LeafletNs = typeof import("leaflet");
 import "leaflet/dist/leaflet.css";
+import { mapTileOptions, readMapTheme } from "@/lib/map-style";
+
+function mountTiles(leaflet: LeafletNs, map: LeafletMap): TileLayer {
+  const spec = mapTileOptions(readMapTheme());
+  return leaflet.tileLayer(spec.url, spec.options).addTo(map);
+}
 
 export type NomadPin = {
   name: string;
@@ -22,6 +29,7 @@ export default function NomadMap({ pins }: Props) {
     if (!holder || pins.length === 0) return;
     let map: LeafletMap | null = null;
     let alive = true;
+    let onTheme: (() => void) | null = null;
 
     (async () => {
       const leaflet = await import("leaflet");
@@ -31,13 +39,14 @@ export default function NomadMap({ pins }: Props) {
         attributionControl: true,
         scrollWheelZoom: false,
       });
-      leaflet
-        .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          maxZoom: 19,
-        })
-        .addTo(map);
+      let tiles = mountTiles(leaflet, map);
+      onTheme = () => {
+        if (!map) return;
+        map.removeLayer(tiles);
+        tiles = mountTiles(leaflet, map);
+        tiles.bringToBack();
+      };
+      window.addEventListener("nearby-theme", onTheme);
       map.attributionControl?.setPrefix("");
       const markers = pins.map((pin) => {
         const icon = leaflet.divIcon({
@@ -61,6 +70,7 @@ export default function NomadMap({ pins }: Props) {
 
     return () => {
       alive = false;
+      if (onTheme) window.removeEventListener("nearby-theme", onTheme);
       map?.remove();
     };
   }, [pins]);

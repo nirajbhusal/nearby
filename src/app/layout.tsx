@@ -1,27 +1,70 @@
-import type { Metadata } from "next";
-import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import Script from "next/script";
 import { AppShell } from "@/components/AppShell";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const themeBoot = `(function(){try{var t=localStorage.getItem("nearby-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})();`;
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#F5F5F7" },
+  ],
+};
 
 export const metadata: Metadata = {
-  title: "Nearby — EV charging in Nepal",
-  description:
-    "Find, check, and navigate to EV chargers in Nepal. Also tech jobs, places to learn AI, events, and a digital nomad guide. Curated from public directories and official pages.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — EV charging in Nepal`,
+    template: `%s`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  manifest: "/nearby/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: SITE_NAME,
+  },
+  icons: {
+    icon: [
+      { url: "/nearby/icon.svg", type: "image/svg+xml" },
+      { url: "/nearby/favicon.ico", sizes: "32x32" },
+      { url: "/nearby/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/nearby/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/nearby/apple-touch-icon.png", sizes: "180x180" }],
+    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#30D158" }],
+  },
+  openGraph: {
+    title: `${SITE_NAME} — EV charging in Nepal`,
+    description: SITE_DESCRIPTION,
+    url: `${SITE_URL}/`,
+    siteName: SITE_NAME,
+    type: "website",
+    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: "Nearby" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — EV charging in Nepal`,
+    description: SITE_DESCRIPTION,
+    images: [`${SITE_URL}/og.png`],
+  },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default function RootLayout({
@@ -30,11 +73,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
-    >
-      <body className="grain flex min-h-full flex-col bg-[var(--paper)] text-[var(--graphite)]">
+    <html lang="en" className={`${inter.variable} h-full antialiased`} data-theme="dark" suppressHydrationWarning>
+      <body className="flex min-h-full flex-col bg-[var(--bg)] text-[var(--graphite)]">
+        <Script id="theme-boot" strategy="beforeInteractive">
+          {themeBoot}
+        </Script>
         <AppShell>{children}</AppShell>
       </body>
     </html>

@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
-import { EmptySketch } from "@/components/illustrations/EmptySketch";
+import { EmptyState } from "@/components/nepal/EmptyState";
+import { Briefcase } from "lucide-react";
 import { categoryLabel, formatKm } from "@/lib/nepal/format";
 import {
   companiesNear,
@@ -152,9 +153,11 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
             }.`}
       </p>
       {near.length === 0 ? (
-        <div className="space-y-3 py-6 text-center">
-          <EmptySketch className="mx-auto h-16 w-24 text-[var(--ink-faint)]" />
-        </div>
+        <EmptyState
+          icon={Briefcase}
+          title="No companies in this view"
+          body={`Nothing matched near ${origin.label}. Try another city, or clear the filters.`}
+        />
       ) : (
         <div className="card-list">
           {near.map((row) => (

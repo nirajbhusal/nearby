@@ -29,6 +29,7 @@ import { defaultRadiusKm, resolvePlace, suggestPlaces } from "@/lib/nepal/places
 import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
   ssr: false,
@@ -426,6 +427,7 @@ export function ChargeExplorer() {
               }
             }}
           />
+          <ThemeToggle />
           <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
             <LocateIcon />
           </button>

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -13,6 +12,7 @@ import {
   type NomadPlace,
   type NomadStat,
 } from "@/lib/nepal/nomad";
+import { pageMeta } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -31,14 +31,15 @@ export async function generateMetadata({
   params,
 }: {
   params: Params;
-}): Promise<Metadata> {
+}) {
   const { city: slug } = await params;
   const city = getNomadCity(slug);
   if (!city) return { title: "Nomad city — Nearby" };
-  return {
-    title: `${city.name} for nomads — Nearby`,
-    description: `Digital nomad notes for ${city.name}, Nepal. Every figure includes a source and an as-of date.`,
-  };
+  return pageMeta(
+    `${city.name} for nomads — Nearby`,
+    `Digital nomad notes for ${city.name}, Nepal. Every figure includes a source and an as-of date.`,
+    `/nomad/${city.slug}`,
+  );
 }
 
 export default async function NomadCityPage({ params }: { params: Params }) {
