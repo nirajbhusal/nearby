@@ -3070,7 +3070,14 @@ svg { stroke-width: 1.75; }
 }
 .detail-list { font-size: var(--type-subhead); line-height: var(--type-subhead-lh); }
 .page-wrap:has(.jobs-board) { padding-top: 8px; }
-.page-wrap:has(.jobs-board) .page-hero { display: grid; gap: 8px; }
+.page-wrap:has(.jobs-board) .page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  min-width: 0;
+}
+.page-search { min-width: 0; max-width: 100%; }
+.page-wrap { overflow-x: clip; }
 .page-wrap:has(.jobs-board) .lede,
 .page-wrap:has(.jobs-board) .eyebrow { display: none; }
 .page-wrap:has(.jobs-board) .page-title {
@@ -3125,6 +3132,8 @@ svg { stroke-width: 1.75; }
     min-height: 70vh;
     align-items: stretch;
   }
+  .jobs-pin-list { order: 1; }
+  .jobs-map-frame { order: 2; }
   .jobs-map { height: 100%; min-height: 70vh; }
 }
 @media (min-width: 1440px) {

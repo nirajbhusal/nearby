@@ -17,7 +17,7 @@ const DARK = {
   building: "#14171c",
   minor: "#1a1e24",
   mid: "#2a3038",
-  major: "#4a515c",
+  major: "#5c6572",
   casing: "#07080a",
   label: "rgba(245, 245, 247, 0.72)",
   halo: "#0b0d0f",
@@ -48,7 +48,7 @@ function textPaint(palette) {
   return {
     "text-color": palette.label,
     "text-halo-color": palette.halo,
-    "text-halo-width": 1.1,
+    "text-halo-width": 1.5,
     "text-halo-blur": 0.4,
   };
 }
@@ -94,7 +94,7 @@ function silhouette(features, buckets = 72) {
   return ring;
 }
 
-function style(palette, name, nepal) {
+function style(palette, name, nepal, provinces, mask) {
   const label = {
     "text-font": ["Noto Sans Regular"],
     "text-field": nameField(),
@@ -106,8 +106,8 @@ function style(palette, name, nepal) {
     name,
     sources: {
       openmaptiles: { type: "vector", url: "https://tiles.openfreemap.org/planet" },
-      "nepal-provinces": { type: "geojson", data: "nepal-provinces.geojson" },
-      "nepal-mask": { type: "geojson", data: "nepal-mask.geojson" },
+      "nepal-provinces": { type: "geojson", data: provinces },
+      "nepal-mask": { type: "geojson", data: mask },
     },
     glyphs: "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
     layers: [
@@ -210,7 +210,7 @@ function style(palette, name, nepal) {
         layout: {
           ...label,
           "symbol-placement": "line",
-          "text-size": 12,
+          "text-size": 13,
           "text-rotation-alignment": "map",
         },
         paint: textPaint(palette),
@@ -222,7 +222,7 @@ function style(palette, name, nepal) {
         "source-layer": "place",
         minzoom: 7,
         filter: ["all", ["==", ["get", "class"], "town"], ["within", nepal]],
-        layout: { ...label, "text-size": 12 },
+        layout: { ...label, "text-size": 13 },
         paint: textPaint(palette),
       },
       {
@@ -232,7 +232,7 @@ function style(palette, name, nepal) {
         "source-layer": "place",
         minzoom: 4,
         filter: ["all", ["==", ["get", "class"], "city"], ["within", nepal]],
-        layout: { ...label, "text-font": ["Noto Sans Regular"], "text-size": ["interpolate", ["linear"], ["zoom"], 4, 12, 10, 16] },
+        layout: { ...label, "text-font": ["Noto Sans Regular"], "text-size": ["interpolate", ["linear"], ["zoom"], 4, 13, 8, 16, 12, 20] },
         paint: textPaint(palette),
       },
     ],
@@ -268,7 +268,7 @@ const mask = {
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, "nepal-provinces.geojson"), JSON.stringify(provinces));
 await writeFile(path.join(outDir, "nepal-mask.geojson"), JSON.stringify(mask));
-await writeFile(path.join(outDir, "style-dark.json"), JSON.stringify(style(DARK, "Nearby Dark", nepal)));
-await writeFile(path.join(outDir, "style-light.json"), JSON.stringify(style(LIGHT, "Nearby Light", nepal)));
+await writeFile(path.join(outDir, "style-dark.json"), JSON.stringify(style(DARK, "Nearby Dark", nepal, provinces, mask)));
+await writeFile(path.join(outDir, "style-light.json"), JSON.stringify(style(LIGHT, "Nearby Light", nepal, provinces, mask)));
 const dark = JSON.parse(await readFile(path.join(outDir, "style-dark.json"), "utf8"));
 console.log(`wrote hand-built map styles (${dark.layers.length} layers)`);
