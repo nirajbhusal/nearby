@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { paintTheme } from "@/lib/tod";
 import {
   EMPTY_PROFILE,
   PROFILE_KEY,
@@ -12,7 +13,6 @@ import {
   parseProfile,
   parseSaved,
   readThemeChoice,
-  resolveTheme,
   type DistanceUnit,
   type Profile,
   type SavedRecord,
@@ -99,17 +99,14 @@ export function writeUnits(unit: DistanceUnit) {
 }
 
 export function applyThemeChoice(choice: ThemeChoice) {
-  const resolved = resolveTheme(choice);
-  document.documentElement.dataset.theme = resolved;
-  document.documentElement.dataset.themeChoice = choice;
+  document.documentElement.dataset.todLock = "";
+  paintTheme(choice, { ignoreQuery: true });
   try {
     localStorage.setItem(THEME_CHOICE_KEY, choice);
-    localStorage.setItem(THEME_KEY, resolved);
+    localStorage.setItem(THEME_KEY, document.documentElement.dataset.theme || "dark");
   } catch {
     /* private mode */
   }
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", resolved === "light" ? "#F5F5F7" : "#000000");
   window.dispatchEvent(new Event(THEME_EVENT));
 }
 
@@ -152,7 +149,7 @@ export function useUnits(): DistanceUnit {
 }
 
 export function useThemeChoice(): ThemeChoice {
-  return useSyncExternalStore(subscribe(THEME_EVENT), readThemeChoice, () => "system");
+  return useSyncExternalStore(subscribe(THEME_EVENT), readThemeChoice, () => "auto");
 }
 
 export function isSaved(items: SavedRecord[], kind: SavedRecord["kind"], id: string): boolean {

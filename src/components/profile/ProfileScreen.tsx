@@ -197,7 +197,7 @@ function SettingsGroup() {
         <div className="settings-row settings-stack">
           <span className="settings-copy">
             <strong>Theme</strong>
-            <small>System, light, or dark</small>
+            <small>Auto follows the time of day</small>
           </span>
           <ThemeChoiceControl />
         </div>

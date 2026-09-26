@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { DistanceText } from "@/components/DistanceText";
 import { NomadMapSlot } from "@/components/nepal/NomadMapSlot";
@@ -123,11 +123,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
         {stays.length === 0 ? (
           <p className="empty-inline">No verified stays are listed for this area.</p>
         ) : (
-          <div className="stay-grid">
-            {stays.map((place) => (
-              <StayCard key={place.id} citySlug={city.slug} cityName={city.shortName} place={place} />
-            ))}
-          </div>
+          <StayPage stays={stays} citySlug={city.slug} cityName={city.shortName} />
         )}
       </section>
 
@@ -208,6 +204,38 @@ function LayerButton({ on, label, onClick }: { on: boolean; label: string; onCli
     <button type="button" className={on ? "chip chip-on" : "chip"} aria-pressed={on} onClick={onClick}>
       {label}
     </button>
+  );
+}
+
+function StayPage({
+  stays,
+  citySlug,
+  cityName,
+}: {
+  stays: NomadStay[];
+  citySlug: string;
+  cityName: string;
+}) {
+  const page = 8;
+  const [limit, setLimit] = useState(page);
+  const key = stays.map((place) => place.id).join("|");
+  useEffect(() => {
+    setLimit(page);
+  }, [key]);
+  const shown = stays.slice(0, limit);
+  return (
+    <>
+      <div className="stay-grid">
+        {shown.map((place) => (
+          <StayCard key={place.id} citySlug={citySlug} cityName={cityName} place={place} />
+        ))}
+      </div>
+      {limit < stays.length ? (
+        <button type="button" className="chip show-more" onClick={() => setLimit((value) => value + page)}>
+          Show {Math.min(page, stays.length - limit)} more
+        </button>
+      ) : null}
+    </>
   );
 }
 

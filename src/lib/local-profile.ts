@@ -16,7 +16,7 @@ export const LOCAL_DATA_KEYS = [
   "nearby-install-dismissed",
 ] as const;
 
-export type ThemeChoice = "system" | "light" | "dark";
+export type ThemeChoice = "auto" | "system" | "light" | "dark";
 export type DistanceUnit = "km" | "mi";
 export type ConnectorId = "ccs2" | "gbt" | "chademo" | "t2";
 export type SavedKind = "charger" | "job" | "event" | "stay" | "cowork";
@@ -262,22 +262,23 @@ export function formatDistance(km: number, unit: DistanceUnit): string {
 }
 
 export function readThemeChoice(): ThemeChoice {
-  if (typeof window === "undefined") return "system";
+  if (typeof window === "undefined") return "auto";
   try {
     const choice = localStorage.getItem(THEME_CHOICE_KEY);
-    if (choice === "light" || choice === "dark" || choice === "system") return choice;
+    if (choice === "auto" || choice === "light" || choice === "dark" || choice === "system") return choice;
     const legacy = localStorage.getItem(THEME_KEY);
     if (legacy === "light" || legacy === "dark") return legacy;
   } catch {
     /* private mode */
   }
-  return "system";
+  return "auto";
 }
 
 export function resolveTheme(choice: ThemeChoice): "light" | "dark" {
+  if (choice === "light" || choice === "dark") return choice;
   if (choice === "system") {
     if (typeof window === "undefined") return "dark";
     return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
   }
-  return choice;
+  return "dark";
 }

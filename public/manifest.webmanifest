@@ -1,7 +1,7 @@
 {
   "name": "Nearby",
   "short_name": "Nearby",
-  "description": "Nepal EV chargers, tech jobs, events, and a digital nomad guide.",
+  "description": "Nearby: Nepal, within reach",
   "start_url": "/nearby/",
   "scope": "/nearby/",
   "display": "standalone",

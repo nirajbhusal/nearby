@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { AppShell } from "@/components/AppShell";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+import { themeBoot } from "@/lib/tod";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,8 +11,6 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
-
-const themeBoot = `(function(){try{var choice=localStorage.getItem("nearby-theme-choice");var legacy=localStorage.getItem("nearby-theme");if(choice!=="light"&&choice!=="dark"&&choice!=="system"){choice=(legacy==="light"||legacy==="dark")?legacy:"system"}var resolved=choice==="system"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):choice;document.documentElement.dataset.theme=resolved;document.documentElement.dataset.themeChoice=choice}catch(e){document.documentElement.dataset.theme="dark"}})();`;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -26,7 +25,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — EV charging in Nepal`,
+    default: SITE_TAGLINE,
     template: `%s`,
   },
   description: SITE_DESCRIPTION,
@@ -48,16 +47,16 @@ export const metadata: Metadata = {
     other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#00F5A0" }],
   },
   openGraph: {
-    title: `${SITE_NAME} — EV charging in Nepal`,
+    title: SITE_TAGLINE,
     description: SITE_DESCRIPTION,
     url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     type: "website",
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: "Nearby" }],
+    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: SITE_TAGLINE }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — EV charging in Nepal`,
+    title: SITE_TAGLINE,
     description: SITE_DESCRIPTION,
     images: [`${SITE_URL}/og.png`],
   },
