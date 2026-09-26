@@ -5,11 +5,11 @@ import { User } from "lucide-react";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 
-export function AvatarFace() {
+export function AvatarFace({ className = "" }: { className?: string } = {}) {
   const profile = useProfile();
   const initial = profileInitial(profile.name);
   return (
-    <span className="avatar-face" style={{ background: profile.color }} aria-hidden>
+    <span className={className ? `avatar-face ${className}` : "avatar-face"} style={{ background: profile.color }} aria-hidden>
       {initial || <User size={16} strokeWidth={2.2} />}
     </span>
   );

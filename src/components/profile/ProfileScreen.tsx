@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { User } from "lucide-react";
+import { useSyncExternalStore, useState } from "react";
+import { BookOpen, ChevronLeft, ChevronRight, Compass, Download, Info, Share, User } from "lucide-react";
+import { useInstallOffer } from "@/components/InstallPrompt";
+import { ThemeChoiceControl } from "@/components/ThemeToggle";
 import {
   AVATAR_COLORS,
   CONNECTOR_OPTIONS,
@@ -10,22 +12,36 @@ import {
   HOME_CITY_OPTIONS,
   JOB_INTERESTS,
   profileInitial,
+  savedCounts,
   type ConnectorId,
   type Profile,
   type SavedKind,
 } from "@/lib/local-profile";
 import { clearLocalData, toggleSaved, useProfile, useSaved, writeProfile, writeUnits, useUnits } from "@/lib/profile-store";
-import { ThemeChoiceControl } from "@/components/ThemeToggle";
 
-const SAVED_LABEL: Record<SavedKind, string> = {
-  charger: "Chargers",
-  job: "Jobs",
-  event: "Events",
-  stay: "Stays",
-  cowork: "Coworking",
-};
+const SAVED_ROWS: { kind: SavedKind; label: string }[] = [
+  { kind: "charger", label: "Chargers" },
+  { kind: "job", label: "Jobs" },
+  { kind: "event", label: "Events" },
+  { kind: "stay", label: "Stays" },
+  { kind: "cowork", label: "Coworking" },
+];
 
-const SAVED_ORDER: SavedKind[] = ["charger", "job", "event", "stay", "cowork"];
+function subscribeHash(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  return () => window.removeEventListener("hashchange", onChange);
+}
+
+function useHash(): string {
+  return useSyncExternalStore(subscribeHash, () => window.location.hash, () => "");
+}
+
+function setHash(hash: string) {
+  const next = hash ? `#${hash}` : window.location.pathname + window.location.search;
+  if (hash) window.location.hash = hash;
+  else window.history.pushState(null, "", next);
+  window.dispatchEvent(new HashChangeEvent("hashchange"));
+}
 
 function patch(profile: Profile, partial: Partial<Profile>) {
   writeProfile({ ...profile, ...partial });
@@ -35,43 +51,236 @@ function toggleId<T extends string>(list: T[], id: T): T[] {
   return list.includes(id) ? list.filter((item) => item !== id) : [...list, id];
 }
 
+function fitsSummary(profile: Profile): string {
+  if (!profile.evOn) return "Not set";
+  const labels = CONNECTOR_OPTIONS.filter((item) => profile.connectors.includes(item.id)).map((item) => item.label);
+  if (labels.length === 0) return "Turned on, no connectors yet";
+  const speed = profile.fastCharge ? "includes fast charge" : "AC only";
+  return `${labels.join(", ")}. ${speed}.`;
+}
+
 export function ProfileScreen() {
+  const hash = useHash();
   const profile = useProfile();
   const saved = useSaved();
-  const units = useUnits();
-  const [clearArmed, setClearArmed] = useState(false);
+  const counts = savedCounts(saved);
+  const savedKind = SAVED_ROWS.find((row) => hash === `#saved-${row.kind}`);
+
+  if (hash === "#edit") return <EditProfile profile={profile} />;
+  if (savedKind) {
+    const rows = saved.filter((item) => item.kind === savedKind.kind);
+    return (
+      <main className="page-wrap profile-page">
+        <button type="button" className="text-btn profile-back" onClick={() => setHash("")}>
+          <ChevronLeft size={18} aria-hidden />
+          Profile
+        </button>
+        <h1 className="page-title">{savedKind.label}</h1>
+        {rows.length === 0 ? (
+          <p className="group-note">Nothing saved here yet.</p>
+        ) : (
+          <div className="settings-list">
+            {rows.map((item) => (
+              <div key={`${item.kind}:${item.id}`} className="settings-row">
+                <Link href={item.href} className="settings-copy">
+                  <strong>{item.title}</strong>
+                  {item.subtitle ? <small>{item.subtitle}</small> : null}
+                </Link>
+                <button type="button" className="text-btn" onClick={() => toggleSaved(item)}>
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+    );
+  }
+
+  const name = profile.name.trim() || "Your profile";
   const initial = profileInitial(profile.name);
 
   return (
     <main className="page-wrap profile-page">
-      <header className="page-hero">
-        <p className="eyebrow">Profile</p>
-        <h1 className="page-title">On this device</h1>
-        <p className="lede">Saved on this device. Sign-in and sync coming soon.</p>
+      <header className="profile-head">
+        <span className="avatar-face avatar-lg" style={{ background: profile.color }} aria-hidden>
+          {initial || <User size={22} strokeWidth={2.2} />}
+        </span>
+        <div className="profile-head-copy">
+          <h1>{name}</h1>
+          <p>{profile.homeCity || "Home city not set"}</p>
+        </div>
+        <a className="btn-secondary" href="#edit">
+          Edit
+        </a>
+      </header>
+
+      <section className="settings-group" aria-labelledby="profile-ev">
+        <h2 id="profile-ev">My EV</h2>
+        <div className="settings-list">
+          <a className="settings-row" href="#edit">
+            <span className="settings-copy">
+              <strong>Fits my car</strong>
+              <small>{fitsSummary(profile)}</small>
+            </span>
+            <ChevronRight size={18} aria-hidden />
+          </a>
+        </div>
+      </section>
+
+      <section className="settings-group" aria-labelledby="profile-saved">
+        <h2 id="profile-saved">Saved</h2>
+        <div className="settings-list">
+          {SAVED_ROWS.map((row) => (
+            <a key={row.kind} className="settings-row" href={`#saved-${row.kind}`}>
+              <span className="settings-copy">
+                <strong>{row.label}</strong>
+              </span>
+              <span className="row-count">
+                {counts[row.kind]}
+                <ChevronRight size={18} aria-hidden />
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="settings-group" aria-labelledby="profile-explore">
+        <h2 id="profile-explore">Explore</h2>
+        <div className="settings-list">
+          <Link className="settings-row" href="/learn">
+            <BookOpen size={20} strokeWidth={1.9} aria-hidden />
+            <span className="settings-copy">
+              <strong>Learn</strong>
+            </span>
+            <ChevronRight size={18} aria-hidden />
+          </Link>
+          <Link className="settings-row" href="/nomad">
+            <Compass size={20} strokeWidth={1.9} aria-hidden />
+            <span className="settings-copy">
+              <strong>Nomad</strong>
+              <small>Kathmandu and Pokhara</small>
+            </span>
+            <ChevronRight size={18} aria-hidden />
+          </Link>
+          <Link className="settings-row" href="/about">
+            <Info size={20} strokeWidth={1.9} aria-hidden />
+            <span className="settings-copy">
+              <strong>About</strong>
+            </span>
+            <ChevronRight size={18} aria-hidden />
+          </Link>
+        </div>
+      </section>
+
+      <SettingsGroup />
+
+      <footer className="profile-signin-block">
+        <p>Saved on this device. Sign-in and sync coming soon.</p>
         <button type="button" className="btn-secondary profile-signin" disabled>
           Sign in (coming soon)
         </button>
-      </header>
+      </footer>
+    </main>
+  );
+}
 
-      <section className="settings-group" aria-labelledby="profile-you">
-        <h2 id="profile-you">You</h2>
-        <div className="settings-list">
-          <div className="settings-row profile-identity">
-            <span className="avatar-face avatar-lg" style={{ background: profile.color }} aria-hidden>
-              {initial || <User size={22} strokeWidth={2.2} />}
-            </span>
-            <label className="settings-copy">
-              <strong>Name</strong>
-              <input
-                className="inset-field"
-                value={profile.name}
-                placeholder="Optional"
-                autoComplete="name"
-                maxLength={80}
-                onChange={(event) => patch(profile, { name: event.target.value })}
-              />
-            </label>
+function SettingsGroup() {
+  const units = useUnits();
+  const install = useInstallOffer();
+  const [clearArmed, setClearArmed] = useState(false);
+
+  return (
+    <section className="settings-group" id="settings" aria-labelledby="profile-settings">
+      <h2 id="profile-settings">Settings</h2>
+      <div className="settings-list">
+        <div className="settings-row settings-stack">
+          <span className="settings-copy">
+            <strong>Theme</strong>
+            <small>System, light, or dark</small>
+          </span>
+          <ThemeChoiceControl />
+        </div>
+        <div className="settings-row settings-stack">
+          <span className="settings-copy">
+            <strong>Distance</strong>
+          </span>
+          <div className="segment" role="group" aria-label="Distance units">
+            <button type="button" aria-pressed={units === "km"} onClick={() => writeUnits("km")}>
+              Kilometres
+            </button>
+            <button type="button" aria-pressed={units === "mi"} onClick={() => writeUnits("mi")}>
+              Miles
+            </button>
           </div>
+        </div>
+        {install.mode === "prompt" ? (
+          <button
+            type="button"
+            className="settings-row"
+            onClick={() => {
+              void install.install();
+            }}
+          >
+            <Download size={20} strokeWidth={1.9} aria-hidden />
+            <span className="settings-copy">
+              <strong>Install app</strong>
+              <small>Add Nearby to this device</small>
+            </span>
+          </button>
+        ) : install.mode === "ios" ? (
+          <p className="settings-row">
+            <Share size={20} strokeWidth={1.9} aria-hidden />
+            <span className="settings-copy">
+              <strong>Install app</strong>
+              <small>Use Share, then Add to Home Screen</small>
+            </span>
+          </p>
+        ) : null}
+        <button
+          type="button"
+          className="settings-row settings-danger"
+          onClick={() => (clearArmed ? clearLocalData() : setClearArmed(true))}
+        >
+          <span className="settings-copy">
+            <strong>{clearArmed ? "Confirm clear" : "Clear local data"}</strong>
+            <small>
+              {clearArmed
+                ? "This removes the profile, saved items, theme, and recent places on this device"
+                : "Profile, saved items, theme, and recent places on this device"}
+            </small>
+          </span>
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function EditProfile({ profile }: { profile: Profile }) {
+  return (
+    <main className="page-wrap profile-page">
+      <button type="button" className="text-btn profile-back" onClick={() => setHash("")}>
+        <ChevronLeft size={18} aria-hidden />
+        Profile
+      </button>
+      <h1 className="page-title">Edit profile</h1>
+
+      <section className="settings-group" aria-labelledby="edit-you">
+        <h2 id="edit-you">You</h2>
+        <div className="settings-list">
+          <label className="settings-row settings-stack">
+            <span className="settings-copy">
+              <strong>Name</strong>
+            </span>
+            <input
+              className="inset-field"
+              value={profile.name}
+              placeholder="Optional"
+              autoComplete="name"
+              maxLength={80}
+              onChange={(event) => patch(profile, { name: event.target.value })}
+            />
+          </label>
           <fieldset className="settings-row settings-stack">
             <legend>Avatar colour</legend>
             <div className="swatch-row" role="radiogroup" aria-label="Avatar colour">
@@ -92,8 +301,8 @@ export function ProfileScreen() {
         </div>
       </section>
 
-      <section className="settings-group" aria-labelledby="profile-city">
-        <h2 id="profile-city">Home city</h2>
+      <section className="settings-group" aria-labelledby="edit-city">
+        <h2 id="edit-city">Home city</h2>
         <p className="group-note">Default place for Jobs, Events, and Nomad. Charge still opens on Nepal.</p>
         <div className="settings-list" role="radiogroup" aria-label="Home city">
           <button
@@ -105,7 +314,6 @@ export function ProfileScreen() {
           >
             <span className="settings-copy">
               <strong>Not set</strong>
-              <small>Jobs and events stay on Kathmandu</small>
             </span>
             <span className="radio-mark" aria-hidden />
           </button>
@@ -127,14 +335,13 @@ export function ProfileScreen() {
         </div>
       </section>
 
-      <section className="settings-group" aria-labelledby="profile-ev">
-        <h2 id="profile-ev">My EV</h2>
-        <p className="group-note">Optional. Charge can filter to stations that fit, and mark them with a tick.</p>
+      <section className="settings-group" aria-labelledby="edit-ev">
+        <h2 id="edit-ev">My EV</h2>
+        <p className="group-note">Charge can filter to stations that fit, and mark them with a tick.</p>
         <div className="settings-list">
           <div className="settings-row">
             <span className="settings-copy">
               <strong>I charge an EV</strong>
-              <small>Leave off if you only browse</small>
             </span>
             <button
               type="button"
@@ -188,7 +395,7 @@ export function ProfileScreen() {
       </section>
 
       <InterestGroup
-        id="profile-jobs"
+        id="edit-jobs"
         title="Job interests"
         note="Jobs that match move to the top. Everything else stays in the list."
         options={JOB_INTERESTS}
@@ -196,78 +403,13 @@ export function ProfileScreen() {
         onToggle={(id) => patch(profile, { jobInterests: toggleId(profile.jobInterests, id) })}
       />
       <InterestGroup
-        id="profile-events"
+        id="edit-events"
         title="Event interests"
         note="Events that match move to the top. The rest stay visible."
         options={EVENT_INTERESTS}
         selected={profile.eventInterests}
         onToggle={(id) => patch(profile, { eventInterests: toggleId(profile.eventInterests, id) })}
       />
-
-      <section className="settings-group" id="saved" aria-labelledby="profile-saved">
-        <h2 id="profile-saved">Saved</h2>
-        {saved.length === 0 ? (
-          <p className="group-note">Hearts on chargers, jobs, events, stays, and coworking places land here.</p>
-        ) : (
-          SAVED_ORDER.map((kind) => {
-            const rows = saved.filter((item) => item.kind === kind);
-            if (rows.length === 0) return null;
-            return (
-              <div key={kind} className="saved-block">
-                <h3>{SAVED_LABEL[kind]}</h3>
-                <div className="settings-list">
-                  {rows.map((item) => (
-                    <div key={`${item.kind}:${item.id}`} className="settings-row">
-                      <Link href={item.href} className="settings-copy">
-                        <strong>{item.title}</strong>
-                        {item.subtitle ? <small>{item.subtitle}</small> : null}
-                      </Link>
-                      <button type="button" className="text-btn" onClick={() => toggleSaved(item)}>
-                        Remove
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        )}
-      </section>
-
-      <section className="settings-group" id="settings" aria-labelledby="profile-settings">
-        <h2 id="profile-settings">Settings</h2>
-        <div className="settings-list">
-          <div className="settings-row settings-stack">
-            <span className="settings-copy">
-              <strong>Theme</strong>
-            </span>
-            <ThemeChoiceControl />
-          </div>
-          <div className="settings-row settings-stack">
-            <span className="settings-copy">
-              <strong>Distance</strong>
-            </span>
-            <div className="segment" role="group" aria-label="Distance units">
-              <button type="button" aria-pressed={units === "km"} onClick={() => writeUnits("km")}>
-                Kilometres
-              </button>
-              <button type="button" aria-pressed={units === "mi"} onClick={() => writeUnits("mi")}>
-                Miles
-              </button>
-            </div>
-          </div>
-          <button
-            type="button"
-            className="settings-row settings-danger"
-            onClick={() => (clearArmed ? clearLocalData() : setClearArmed(true))}
-          >
-            <span className="settings-copy">
-              <strong>{clearArmed ? "Confirm clear all local data" : "Clear all local data"}</strong>
-              <small>Profile, saved items, theme, units, and recent places on this device</small>
-            </span>
-          </button>
-        </div>
-      </section>
     </main>
   );
 }
