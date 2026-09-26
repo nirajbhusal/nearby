@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LngLatBounds, Map as MlMap, Marker, NavigationControl } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { pinHint, type NearbyStation } from "@/lib/nepal/ev";
+import type { NearbyStation } from "@/lib/nepal/ev";
 import { clusterStations } from "@/components/charge/cluster";
 import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 
@@ -190,9 +190,9 @@ export default function ChargeMap({
       const zoom = map.getZoom();
       for (const pin of clusterStations(stations, zoom)) {
         if (pin.kind === "cluster") {
-          const hot = pin.fast >= pin.count / 2 && pin.fast > 0;
+          const size = pin.count >= 40 ? "xl" : pin.count >= 12 ? "lg" : "md";
           const element = pinButton(
-            `<span class="ev-cluster${hot ? " is-fast" : ""}">${pin.count}</span>`,
+            `<span class="ev-cluster size-${size}">${pin.count}</span>`,
             `${pin.count} chargers`,
           );
           element.addEventListener("click", (event) => {
@@ -210,11 +210,8 @@ export default function ChargeMap({
         }
         const station = pin.station;
         const active = station.id === selectedId;
-        const hint = zoom >= 14 ? pinHint(station) : "";
         const element = pinButton(
-          `<span class="ev-pin-row${active ? " is-active" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}">${BOLT}</span>${
-            hint ? `<span class="map-pin-kw">${hint}</span>` : ""
-          }</span>`,
+          `<span class="ev-pin-row${active ? " is-active" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}">${BOLT}</span></span>`,
           station.name,
         );
         element.addEventListener("click", (event) => {

@@ -985,6 +985,19 @@ function StationListItem({
   );
 }
 
+function shortStationArea(station: NearbyStation): string {
+  const raw = station.address || "";
+  const parts = raw
+    .split(",")
+    .map((part) => part.replace(/\(.*?\)/g, "").trim())
+    .filter((part) => part && !/^nepal$/i.test(part) && !/plus code/i.test(part));
+  const street = /\b(marg|road|rd|sadak|street|path|lane|tole)\b/i;
+  const local = parts.filter((part, index) => !(index === 0 && street.test(part)));
+  const area = (local.length ? local : parts).slice(-2).join(", ");
+  if (area) return area;
+  return [station.city, station.district].filter(Boolean).join(", ");
+}
+
 function ChargerCard({
   station,
   fits,
@@ -997,7 +1010,7 @@ function ChargerCard({
   const call = phoneHref(station.phone);
   const kw = maxKw(station);
   const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
-  const area = station.address || [station.city, station.district].filter(Boolean).join(", ");
+  const area = shortStationArea(station);
   return (
     <article className="charger-card">
       <header>
@@ -1007,24 +1020,27 @@ function ChargerCard({
         </h2>
         <span className="card-tools">
           <SaveButton item={chargerSave(station)} />
-          <span className={`speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
         </span>
       </header>
-      {showDistance || area ? (
-        <p className="station-meta">
-          {showDistance ? <DistanceText km={station.distanceKm} /> : null}
-          {showDistance && area ? " · " : ""}
-          {area}
-        </p>
-      ) : null}
-      <p className="charger-kw">{kw != null ? `${trimKw(kw)} kW` : "kW not listed"}</p>
-      <ul className="connector-chips">
-        {uniquePlugs(station).length === 0 ? <li>Connectors not listed</li> : uniquePlugs(station).map((type) => <li key={type}>{type}</li>)}
-      </ul>
+      <p className="card-sub">{[networkLabel(station.network), area].filter(Boolean).join(" · ")}</p>
+      <div className="meta-row">
+        <span className={`meta-chip speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
+        {kw != null ? <span className="meta-chip tabular">{trimKw(kw)} kW</span> : null}
+        {showDistance ? (
+          <span className="meta-chip tabular">
+            <DistanceText km={station.distanceKm} />
+          </span>
+        ) : null}
+        {uniquePlugs(station).slice(0, 3).map((type) => (
+          <span key={type} className="meta-chip">
+            {type}
+          </span>
+        ))}
+      </div>
       <div className="card-actions">
         <NavigateLinks lat={station.lat} lng={station.lng} />
         {call ? (
-          <a className="btn-secondary" href={call}>
+          <a className="btn-secondary card-action" href={call}>
             Call
           </a>
         ) : null}

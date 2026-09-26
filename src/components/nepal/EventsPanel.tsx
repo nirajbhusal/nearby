@@ -4,7 +4,7 @@ import { useMemo, useSyncExternalStore } from "react";
 import { useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
-import { CalendarOff } from "lucide-react";
+import { Calendar, CalendarOff, MapPin, Tag } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
 import { SaveButton } from "@/components/SaveButton";
 import { eventInterestMatch, preferMatches } from "@/lib/local-profile";
@@ -43,52 +43,36 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
           }}
         />
       </div>
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        {event.start_date ? (
-          <time
-            dateTime={event.start_date}
-            className="text-sm tabular-nums text-[var(--accent)]"
-          >
-            {formatWhen(event.start_date, event.end_date)}
-          </time>
-        ) : (
-          <span className="text-sm text-[var(--accent)]">Date not set</span>
-        )}
-        <span className="text-sm text-[var(--ink-muted)]">
-          {event.city}
-          {row.distanceKm != null ? (
-            <>
-              {" · "}
-              <DistanceText km={row.distanceKm} />
-            </>
-          ) : null}
-        </span>
-        {event.free === true ? (
-          <span className="text-xs tracking-wide text-[var(--ink-faint)]">Free</span>
-        ) : null}
-        {event.free === false ? (
-          <span className="text-xs tracking-wide text-[var(--ink-faint)]">Paid</span>
-        ) : null}
-      </div>
-      <h3 className="mt-1 text-[15px] font-medium text-[var(--graphite)]">
-        {event.title}
-      </h3>
-      <p className="mt-1 text-sm text-[var(--ink-muted)]">
-        {[eventTypeLabel(event.type), event.organizer, event.venue]
-          .filter(Boolean)
-          .join(" · ")}
+      <h3>{event.title}</h3>
+      <p className="card-sub">
+        {[event.organizer, event.venue || event.city].filter(Boolean).join(" · ") || event.city}
       </p>
-      {event.recurring && row.timing === "recurring" ? (
-        <p className="mt-1 text-sm text-[var(--ink-faint)]">{event.recurring}</p>
-      ) : null}
+      <div className="meta-row">
+        <span className="meta-chip">
+          <Calendar aria-hidden />
+          {event.start_date ? (
+            <time dateTime={event.start_date}>{formatWhen(event.start_date, event.end_date)}</time>
+          ) : (
+            "Date not set"
+          )}
+        </span>
+        {row.distanceKm != null ? (
+          <span className="meta-chip">
+            <MapPin aria-hidden />
+            <DistanceText km={row.distanceKm} />
+          </span>
+        ) : null}
+        <span className="meta-chip">
+          <Tag aria-hidden />
+          {eventTypeLabel(event.type)}
+        </span>
+        {event.free === true ? <span className="meta-chip">Free</span> : null}
+        {event.free === false ? <span className="meta-chip">Paid</span> : null}
+      </div>
+      {event.recurring && row.timing === "recurring" ? <p className="card-sub">{event.recurring}</p> : null}
       {event.url ? (
-        <a
-          href={event.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-secondary mt-3"
-        >
-          {row.timing === "upcoming" ? "Register / details" : "Details"} →
+        <a href={event.url} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
+          {row.timing === "upcoming" ? "Register" : "Open"}
         </a>
       ) : null}
     </article>

@@ -81,7 +81,7 @@ export default async function StationPage({ params }: { params: Params }) {
 
         <NavigateLinks lat={station.lat} lng={station.lng} />
 
-        <dl className="space-y-4 text-[15px]">
+        <dl className="detail-list space-y-4">
           <div>
             <dt className="text-xs tracking-wide text-[var(--ink-faint)]">Address</dt>
             <dd className="mt-1 text-[var(--graphite)]">

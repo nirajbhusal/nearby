@@ -254,18 +254,22 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
           }}
         />
       </div>
-      <p className="meta-label">{stayTypeLabel(place.type)}</p>
       <h3>{place.name}</h3>
-      {place.area ? <p className="station-meta">{place.area}</p> : null}
-      {chips.length > 0 ? (
-        <ul className="connector-chips">
-          {chips.map((feature) => (
-            <li key={feature}>{feature}</li>
-          ))}
-        </ul>
+      <p className="card-sub">{[stayTypeLabel(place.type), place.area || cityName].filter(Boolean).join(" · ")}</p>
+      <div className="meta-row">
+        {place.priceShort ? <span className="meta-chip tabular">{place.priceShort}</span> : null}
+        {chips.map((feature) => (
+          <span key={feature} className="meta-chip">
+            {feature}
+          </span>
+        ))}
+      </div>
+      {place.workLine ? <p className="card-sub">{place.workLine}</p> : null}
+      {place.website ? (
+        <a className="btn-secondary card-action" href={place.website} target="_blank" rel="noopener noreferrer">
+          Open
+        </a>
       ) : null}
-      {place.priceShort ? <p className="stay-price">{place.priceShort}</p> : null}
-      {place.workLine ? <p className="stay-work-line">{place.workLine}</p> : null}
       <details className="stay-more">
         <summary>Details</summary>
         {place.address ? <p>{place.address}</p> : null}
