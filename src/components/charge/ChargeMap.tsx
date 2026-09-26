@@ -1,19 +1,45 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Map as MlMap, Marker, NavigationControl } from "maplibre-gl";
+import { LngLatBounds, Map as MlMap, Marker, NavigationControl } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { pinHint, type NearbyStation } from "@/lib/nepal/ev";
 import { clusterStations } from "@/components/charge/cluster";
 import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 
+export type MapFrame =
+  | { mode: "bounds"; bbox: [number, number, number, number] }
+  | { mode: "point"; lng: number; lat: number; zoom: number };
+
 type Props = {
   stations: NearbyStation[];
   origin: { lat: number; lng: number };
+  frame: MapFrame;
   selectedId: string | null;
   showYou: boolean;
   onSelect: (id: string) => void;
 };
+
+function frameKey(frame: MapFrame): string {
+  if (frame.mode === "bounds") return `b:${frame.bbox.join(",")}`;
+  return `p:${frame.lng.toFixed(4)},${frame.lat.toFixed(4)},${frame.zoom}`;
+}
+
+function applyFrame(map: MlMap, frame: MapFrame) {
+  if (frame.mode === "bounds") {
+    const [west, south, east, north] = frame.bbox;
+    const wide = window.innerWidth >= 1024;
+    map.fitBounds(new LngLatBounds([west, south], [east, north]), {
+      padding: wide
+        ? { top: 88, right: 48, bottom: 48, left: 420 }
+        : { top: 188, right: 16, bottom: 360, left: 16 },
+      duration: 0,
+      maxZoom: 11,
+    });
+    return;
+  }
+  map.jumpTo({ center: [frame.lng, frame.lat], zoom: frame.zoom });
+}
 
 function speedClass(speed: string): string {
   if (speed === "fast" || speed === "slow") return speed;
@@ -33,6 +59,7 @@ function pinButton(html: string, label: string): HTMLButtonElement {
 export default function ChargeMap({
   stations,
   origin,
+  frame,
   selectedId,
   showYou,
   onSelect,
@@ -42,12 +69,14 @@ export default function ChargeMap({
   const onSelectRef = useRef(onSelect);
   const stationsRef = useRef(stations);
   const selectedRef = useRef(selectedId);
+  const frameRef = useRef(frame);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     onSelectRef.current = onSelect;
     stationsRef.current = stations;
     selectedRef.current = selectedId;
+    frameRef.current = frame;
   });
 
   useEffect(() => {
@@ -59,24 +88,39 @@ export default function ChargeMap({
 
     ensureMapWorker();
     const theme = readMapTheme();
+    const initial = frameRef.current;
+    const start =
+      initial.mode === "point"
+        ? { center: [initial.lng, initial.lat] as [number, number], zoom: initial.zoom }
+        : {
+            center: [(initial.bbox[0] + initial.bbox[2]) / 2, (initial.bbox[1] + initial.bbox[3]) / 2] as [
+              number,
+              number,
+            ],
+            zoom: 5,
+          };
     map = new MlMap({
       container: holder,
       style: mapStyleUrl(theme),
-      center: [origin.lng, origin.lat],
-      zoom: 13,
-      minZoom: 6,
+      center: start.center,
+      zoom: start.zoom,
+      minZoom: 4.5,
       maxZoom: 18,
-      attributionControl: { compact: false },
+      attributionControl: {
+        compact: false,
+        customAttribution: "Province boundaries © geoBoundaries (CC BY 3.0 IGO)",
+      },
       dragRotate: false,
       pitchWithRotate: false,
       touchPitch: false,
     });
     map.addControl(new NavigationControl({ showCompass: false }), "top-right");
     map.once("load", () => {
-      if (!alive) return;
+      if (!alive || !map) return;
+      applyFrame(map, frameRef.current);
       mapRef.current = map;
       setReady(true);
-      map?.resize();
+      map.resize();
     });
     onTheme = () => {
       const next = readMapTheme();
@@ -102,12 +146,15 @@ export default function ChargeMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const key = frameKey(frame);
   useEffect(() => {
     if (!ready) return;
     const map = mapRef.current;
-    if (!map || selectedRef.current) return;
-    map.flyTo({ center: [origin.lng, origin.lat], zoom: 13, duration: 450 });
-  }, [origin.lat, origin.lng, ready]);
+    if (!map || selectedId) return;
+    applyFrame(map, frame);
+    // key is the stable identity of frame.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, key, selectedId]);
 
   useEffect(() => {
     if (!ready || !selectedId) return;

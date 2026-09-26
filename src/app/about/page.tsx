@@ -32,8 +32,12 @@ export default function AboutPage() {
           public, Nearby says so and asks you to call ahead.
         </p>
         <p>
-          Map tiles are © OpenStreetMap contributors, via OpenFreeMap. Station coordinates come
-          from public operator directories and OpenStreetMap. Company offices
+          Map tiles are © OpenStreetMap contributors, via OpenFreeMap. Province
+          outlines are geoBoundaries ADM1 for Nepal (2020), © geoBoundaries,
+          licensed CC BY 3.0 IGO. The Survey Department of Nepal and OCHA FISS
+          compiled those boundaries. Each charger is placed in a province by a
+          point-in-polygon test against them. Station coordinates come from
+          public operator directories and OpenStreetMap. Company offices
           are city centroids, not street addresses. Nomad figures, places, and
           notes are credited on the city page, each with the date it was current.
           A coworking space found only on a listing site is marked as listed,

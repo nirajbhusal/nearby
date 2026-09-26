@@ -13,6 +13,8 @@ export type ChargeState = {
   radiusSet: boolean;
   near: boolean;
   view: "map" | "cards";
+  /** Province slug. Used when the map is scoped to a province rather than a search. */
+  province: string | null;
 };
 
 type SearchReader = {
@@ -44,6 +46,7 @@ export function readChargeState(sp: SearchReader): ChargeState {
     radiusSet,
     near: sp.get("near") === "1",
     view: sp.get("view") === "cards" ? "cards" : "map",
+    province: (sp.get("province") || "").trim().toLowerCase() || null,
   };
 }
 
@@ -63,6 +66,7 @@ export function writeChargeSearch(state: ChargeState): string {
   if (state.radiusSet) sp.set("r", state.radius == null ? "all" : String(state.radius));
   if (state.near) sp.set("near", "1");
   if (state.view === "cards") sp.set("view", "cards");
+  if (state.province && !state.q && state.lat == null) sp.set("province", state.province);
   const query = sp.toString();
   return query ? `?${query}` : "";
 }

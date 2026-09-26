@@ -27,7 +27,15 @@ import {
   stationCaution,
 } from "@/lib/nepal/format";
 import { haversineKm } from "@/lib/geo";
-import { defaultRadiusKm, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
+import { defaultRadiusKm, NEPAL, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
+import {
+  MAJOR_CITIES,
+  NEPAL_BBOX,
+  provinceByName,
+  provinceBySlug,
+  provinceRecords,
+} from "@/lib/nepal/provinces";
+import type { MapFrame } from "@/components/charge/ChargeMap";
 import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
@@ -168,8 +176,21 @@ export function ChargeExplorer() {
         province: named?.province ?? null,
       };
     }
-    return named ?? resolvePlace("Kathmandu")!;
-  }, [state.q, state.lat, state.lng]);
+    if (named) return named;
+    const province = provinceBySlug(state.province);
+    if (province) {
+      return {
+        label: province.name,
+        lat: province.lat,
+        lng: province.lng,
+        kind: "province",
+        city: null,
+        district: null,
+        province: province.name,
+      };
+    }
+    return NEPAL;
+  }, [state.q, state.lat, state.lng, state.province]);
 
   const radiusKm = state.radiusSet ? state.radius : defaultRadiusKm(origin);
   const filters = useMemo(
@@ -209,11 +230,12 @@ export function ChargeExplorer() {
     return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, [scope]);
 
-  const [draft, setDraft] = useState(origin.label);
-  const [prevLabel, setPrevLabel] = useState(origin.label);
-  if (origin.label !== prevLabel) {
-    setPrevLabel(origin.label);
-    setDraft(origin.label);
+  const scopeLabel = origin.kind === "country" ? "" : origin.label;
+  const [draft, setDraft] = useState(scopeLabel);
+  const [prevLabel, setPrevLabel] = useState(scopeLabel);
+  if (scopeLabel !== prevLabel) {
+    setPrevLabel(scopeLabel);
+    setDraft(scopeLabel);
   }
   const [searchOpen, setSearchOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
@@ -287,6 +309,24 @@ export function ChargeExplorer() {
   }, [state.near]);
 
   useEffect(() => {
+    if (state.q || state.province || state.near || state.lat != null || state.station) return;
+    let cancel = false;
+    const permissions = navigator.permissions;
+    if (!permissions?.query) return;
+    permissions
+      .query({ name: "geolocation" })
+      .then((status) => {
+        if (cancel || status.state !== "granted") return;
+        replace({ near: true });
+      })
+      .catch(() => {});
+    return () => {
+      cancel = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.q, state.province, state.near, state.lat, state.station]);
+
+  useEffect(() => {
     function onPointer(event: PointerEvent) {
       if (!searchRef.current?.contains(event.target as Node)) setSearchOpen(false);
     }
@@ -305,6 +345,37 @@ export function ChargeExplorer() {
     setSnap("peek");
     replace({
       q: hit.label,
+      province: null,
+      lat: null,
+      lng: null,
+      station: null,
+      near: false,
+      radiusSet: false,
+    });
+  }
+
+  function chooseProvince(slug: string) {
+    setSearchOpen(false);
+    setDraft("");
+    setSnap("peek");
+    replace({
+      province: slug,
+      q: "",
+      lat: null,
+      lng: null,
+      station: null,
+      near: false,
+      radiusSet: false,
+    });
+  }
+
+  function chooseNepal() {
+    setSearchOpen(false);
+    setDraft("");
+    setSnap("peek");
+    replace({
+      province: null,
+      q: "",
       lat: null,
       lng: null,
       station: null,
@@ -385,13 +456,27 @@ export function ChargeExplorer() {
   const cards = state.view === "cards";
   const count = stations.length;
   const filterCount = activeFilterCount(filters);
-  const scopeText =
-    radiusKm == null
-      ? origin.kind === "province"
-        ? `in ${origin.label}`
-        : "in Nepal"
-      : `within ${radiusKm} km`;
-  const summary = `${count} charger${count === 1 ? "" : "s"} ${scopeText}`;
+  const summary =
+    origin.kind === "province"
+      ? `${count} in ${origin.label}`
+      : origin.kind === "country" || radiusKm == null
+        ? `${count} charger${count === 1 ? "" : "s"} in ${origin.kind === "country" ? "Nepal" : origin.label}`
+        : origin.kind === "geolocation"
+          ? `${count} charger${count === 1 ? "" : "s"} within ${radiusKm} km`
+          : `${count} within ${radiusKm} km of ${origin.label}`;
+  const frame: MapFrame =
+    origin.kind === "country"
+      ? { mode: "bounds", bbox: NEPAL_BBOX }
+      : origin.kind === "province"
+        ? { mode: "bounds", bbox: (provinceByName(origin.province)?.bbox ?? NEPAL_BBOX) }
+        : { mode: "point", lng: origin.lng, lat: origin.lat, zoom: origin.kind === "geolocation" ? 13 : 13 };
+  const cityChips = MAJOR_CITIES.map((name) => {
+    const hit = resolvePlace(name);
+    return {
+      name,
+      count: hit ? stationsInScope(hit, defaultRadiusKm(hit)).length : 0,
+    };
+  }).filter((chip) => chip.count > 0);
   const call = selected ? phoneHref(selected.phone) : null;
   const caution = selected ? stationCaution(selected.name, selected.caution) : null;
 
@@ -402,6 +487,7 @@ export function ChargeExplorer() {
         <ChargeMap
           stations={mapStations}
           origin={origin}
+          frame={frame}
           selectedId={selected?.id ?? null}
           showYou={origin.kind === "geolocation"}
           onSelect={selectStation}
@@ -461,6 +547,51 @@ export function ChargeExplorer() {
           ]}
           onChange={(id) => replace({ view: id === "cards" ? "cards" : "map" })}
         />
+        <div className="scope-rows">
+          <div className="scope-row" role="group" aria-label="Provinces">
+            <button
+              type="button"
+              className={origin.kind === "country" ? "chip chip-on" : "chip"}
+              aria-pressed={origin.kind === "country"}
+              onClick={chooseNepal}
+            >
+              Nepal {evIndex.length}
+            </button>
+            {provinceRecords.map((province) => {
+              const on = origin.kind === "province" && origin.province === province.name;
+              return (
+                <button
+                  key={province.slug}
+                  type="button"
+                  className={on ? "chip chip-on" : "chip"}
+                  aria-pressed={on}
+                  onClick={() => chooseProvince(province.slug)}
+                >
+                  {province.name} {province.count}
+                </button>
+              );
+            })}
+          </div>
+          <div className="scope-row" role="group" aria-label="Cities">
+            {cityChips.map((city) => {
+              const on = origin.kind === "city" && origin.city === city.name;
+              return (
+                <button
+                  key={city.name}
+                  type="button"
+                  className={on ? "chip chip-on" : "chip"}
+                  aria-pressed={on}
+                  onClick={() => {
+                    const hit = resolvePlace(city.name);
+                    if (hit) choosePlace(hit);
+                  }}
+                >
+                  {city.name} {city.count}
+                </button>
+              );
+            })}
+          </div>
+        </div>
         {state.near ? (
           <p className="search-note" role="status">
             Finding your location…
