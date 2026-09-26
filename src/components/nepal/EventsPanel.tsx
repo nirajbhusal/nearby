@@ -3,9 +3,7 @@
 import { useMemo, useSyncExternalStore } from "react";
 import { useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
-import { EventIcon } from "@/components/illustrations/EventIcon";
 import { EmptySketch } from "@/components/illustrations/EmptySketch";
-import { MeetupIcon } from "@/components/illustrations/MeetupIcon";
 import { eventTypeLabel, formatKm, formatWhen } from "@/lib/nepal/format";
 import {
   EVENT_TYPE_FILTERS,
@@ -28,7 +26,7 @@ function readClientNow() {
 function EventRow({ row }: { row: NearbyNepalEvent }) {
   const { event } = row;
   return (
-    <article className="border-b border-[var(--line-soft)] py-4 last:border-b-0">
+    <article className="app-card">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {event.start_date ? (
           <time
@@ -67,7 +65,7 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
           href={event.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="ink-link mt-2 inline-block text-sm"
+          className="btn-secondary mt-3"
         >
           {row.timing === "upcoming" ? "Register / details" : "Details"} →
         </a>
@@ -92,15 +90,8 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
 
   return (
     <div className="space-y-6 text-left">
-      <div className="flex items-center gap-2">
-        <EventIcon className="h-4 w-4 text-[var(--accent)]" />
-        <h2 className="font-display text-lg font-medium tracking-tight">
-          Tech and AI events
-        </h2>
-      </div>
-      <p className="text-[15px] leading-relaxed text-[var(--ink-muted)]">
-        Upcoming gatherings near {origin.label}, using today&apos;s date in Nepal
-        time. A missing price is left blank rather than called free.
+      <p className="text-sm text-[var(--ink-muted)]">
+        Near {origin.label}, using today&apos;s date in Nepal time. A missing price stays blank.
       </p>
       <div className="space-y-3">
         <ChipRow label="Type">
@@ -121,12 +112,9 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
       </div>
 
       <section>
-        <div className="mb-2 flex items-center gap-2">
-          <MeetupIcon className="h-4 w-4 text-[var(--accent)]" />
-          <h3 className="font-display text-base italic text-[var(--ink-muted)]">
-            Upcoming
-          </h3>
-        </div>
+        <h3 className="mb-2 text-sm font-semibold tracking-wide text-[var(--ink-muted)]">
+          Upcoming
+        </h3>
         {grouped.upcoming.length === 0 ? (
           <div className="space-y-3 py-4 text-center">
             <EmptySketch className="mx-auto h-14 w-20 text-[var(--ink-faint)]" />
@@ -135,7 +123,7 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
             </p>
           </div>
         ) : (
-          <div>
+          <div className="card-list">
             {grouped.upcoming.map((row) => (
               <EventRow key={row.event.id} row={row} />
             ))}
@@ -148,7 +136,7 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
           <h3 className="font-display text-base italic text-[var(--ink-muted)]">
             Online
           </h3>
-          <div>
+          <div className="card-list">
             {grouped.online
               .filter((row) => row.timing === "upcoming")
               .map((row) => (
@@ -166,7 +154,7 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
           <p className="mb-2 text-sm text-[var(--ink-faint)]">
             Series with no confirmed next date.
           </p>
-          <div>
+          <div className="card-list">
             {grouped.recurring.map((row) => (
               <EventRow key={row.event.id} row={row} />
             ))}
@@ -179,7 +167,7 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
           <summary className="cursor-pointer py-2 text-sm text-[var(--ink-muted)]">
             Recent ({grouped.past.length})
           </summary>
-          <div>
+          <div className="card-list">
             {grouped.past.map((row) => (
               <EventRow key={row.event.id} row={row} />
             ))}

@@ -51,7 +51,9 @@ export default async function StationPage({ params }: { params: Params }) {
   const access = accessCopy(station.access);
   const caution = stationCaution(station.name, station.notes);
   const call = phoneHref(station.phone);
-  const backCity = station.city ? `/?q=${encodeURIComponent(station.city)}` : "/";
+  const backCity = `/charge?station=${encodeURIComponent(station.id)}${
+    station.city ? `&q=${encodeURIComponent(station.city)}` : ""
+  }`;
   const updated = formatUpdated(station.last_verified);
 
   return (
@@ -61,7 +63,7 @@ export default async function StationPage({ params }: { params: Params }) {
         className="mb-8 inline-flex items-center gap-1.5 text-sm text-[var(--ink-faint)] transition hover:text-[var(--graphite)]"
       >
         <SketchPin className="h-3.5 w-3.5 text-[var(--accent)]" />
-        ← Nearby
+        Open on the map
       </Link>
 
       <div className="space-y-8">

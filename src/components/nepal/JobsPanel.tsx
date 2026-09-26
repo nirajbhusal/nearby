@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
-import { JobIcon } from "@/components/illustrations/JobIcon";
 import { EmptySketch } from "@/components/illustrations/EmptySketch";
 import { categoryLabel, formatKm } from "@/lib/nepal/format";
 import {
@@ -18,7 +17,7 @@ function CompanyCard({ row }: { row: NearbyCompany }) {
   const [open, setOpen] = useState(false);
   const roles = open ? company.open_roles : company.open_roles.slice(0, 4);
   return (
-    <article className="border-b border-[var(--line-soft)] py-6 last:border-b-0">
+    <article className="app-card">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-lg font-medium tracking-tight text-[var(--graphite)]">
           {company.website ? (
@@ -86,7 +85,7 @@ function CompanyCard({ row }: { row: NearbyCompany }) {
             href={company.careers_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="ink-link text-sm"
+            className="btn-secondary"
           >
             Careers →
           </a>
@@ -109,15 +108,8 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
 
   return (
     <div className="space-y-6 text-left">
-      <div className="flex items-center gap-2">
-        <JobIcon className="h-4 w-4 text-[var(--accent)]" />
-        <h2 className="font-display text-lg font-medium tracking-tight">
-          Tech jobs
-        </h2>
-      </div>
-      <p className="text-[15px] leading-relaxed text-[var(--ink-muted)]">
-        Nepal tech companies near {origin.label}. Office pins are city centroids,
-        not street addresses. Role links go to the company&apos;s own page.
+      <p className="text-sm text-[var(--ink-muted)]">
+        Near {origin.label}. Office locations are city centroids.
       </p>
       <div className="space-y-3">
         <ChipRow label="Category">
@@ -164,7 +156,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           <EmptySketch className="mx-auto h-16 w-24 text-[var(--ink-faint)]" />
         </div>
       ) : (
-        <div>
+        <div className="card-list">
           {near.map((row) => (
             <CompanyCard key={row.company.slug} row={row} />
           ))}
@@ -175,7 +167,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           <summary className="cursor-pointer py-2">
             Office city not listed ({unlocated.length})
           </summary>
-          <div>
+          <div className="card-list">
             {unlocated.map((row) => (
               <CompanyCard key={row.company.slug} row={row} />
             ))}

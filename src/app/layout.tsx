@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
-import { Nav } from "@/components/Nav";
+import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,9 +19,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Nearby — EV charging, jobs, and events in Nepal",
+  title: "Nearby — EV charging in Nepal",
   description:
-    "A Nepal-first finder for EV charging, tech jobs, places to learn AI, and tech events. Curated from public directories and official pages.",
+    "Find, check, and navigate to EV chargers in Nepal. Also tech jobs, places to learn AI, events, and a digital nomad guide. Curated from public directories and official pages.",
 };
 
 export default function RootLayout({
@@ -35,8 +35,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="grain flex min-h-full flex-col bg-[var(--paper)] text-[var(--graphite)]">
-        <Nav />
-        <div className="relative z-0 flex flex-1 flex-col">{children}</div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

@@ -1,0 +1,70 @@
+{
+  "cities": [
+    {
+      "slug": "kathmandu",
+      "name": "Kathmandu",
+      "province": "Bagmati",
+      "lat": 27.70884,
+      "lng": 85.32289,
+      "stats": [
+        {
+          "id": "rank",
+          "label": "Nomads.com rank",
+          "value": "#11",
+          "source": "Nomads.com (nomads.com)",
+          "sourceUrl": "https://nomads.com",
+          "asOf": "Sep 2026"
+        },
+        {
+          "id": "cost",
+          "label": "Cost for a nomad",
+          "value": "USD 906/month",
+          "source": "Nomads.com (nomads.com)",
+          "sourceUrl": "https://nomads.com",
+          "asOf": "Sep 2026"
+        }
+      ],
+      "internet": null,
+      "bestSeason": null,
+      "coworking": [],
+      "cafes": [],
+      "neighbourhoods": [],
+      "visa": null,
+      "sim": null,
+      "tips": []
+    },
+    {
+      "slug": "pokhara",
+      "name": "Pokhara",
+      "province": "Gandaki",
+      "lat": 28.20967,
+      "lng": 83.97864,
+      "stats": [
+        {
+          "id": "rank",
+          "label": "Nomads.com rank",
+          "value": "#61",
+          "source": "Nomads.com (nomads.com)",
+          "sourceUrl": "https://nomads.com",
+          "asOf": "Sep 2026"
+        },
+        {
+          "id": "cost",
+          "label": "Cost for a nomad",
+          "value": "USD 1,027/month",
+          "source": "Nomads.com (nomads.com)",
+          "sourceUrl": "https://nomads.com",
+          "asOf": "Sep 2026"
+        }
+      ],
+      "internet": null,
+      "bestSeason": null,
+      "coworking": [],
+      "cafes": [],
+      "neighbourhoods": [],
+      "visa": null,
+      "sim": null,
+      "tips": []
+    }
+  ]
+}
