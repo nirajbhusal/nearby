@@ -523,8 +523,7 @@ export function ChargeExplorer() {
                 <span className="fine">{origin.label}</span>
               )}
             </div>
-            <div className="sheet-body">
-              <div className="filter-row" role="group" aria-label="Charger filters">
+            <div className="filter-row" role="group" aria-label="Charger filters">
                 <button
                   type="button"
                   className={state.fast ? "chip chip-on" : "chip"}
@@ -585,8 +584,8 @@ export function ChargeExplorer() {
                     </ul>
                   ) : null}
                 </div>
-              </div>
-
+            </div>
+            <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">
                   <p>{emptyCopy(filters, radiusKm)}</p>

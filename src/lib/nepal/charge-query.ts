@@ -31,7 +31,8 @@ export function readChargeState(sp: SearchReader): ChargeState {
   else if (radiusRaw != null && Number.isFinite(Number(radiusRaw))) radius = Number(radiusRaw);
 
   return {
-    q: sp.get("q") ?? "",
+    // `place` and `q` both name the search. `place` wins when a shared link uses it.
+    q: (sp.get("place") || sp.get("q") || "").trim(),
     lat: Number.isFinite(lat) ? lat : null,
     lng: Number.isFinite(lng) ? lng : null,
     station: sp.get("station"),
