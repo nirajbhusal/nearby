@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { GraduationCap } from "lucide-react";
-import { formatKm, learnTypeLabel, modeLabel } from "@/lib/nepal/format";
+import { DistanceText } from "@/components/DistanceText";
+import { learnTypeLabel, modeLabel } from "@/lib/nepal/format";
 import { learnNear, learnTypes, type NearbyLearn } from "@/lib/nepal/learn";
 import type { PlaceHit } from "@/lib/nepal/types";
 
@@ -34,7 +35,9 @@ function PlaceCard({ row }: { row: NearbyLearn }) {
           )}
         </h3>
         {row.distanceKm != null ? (
-          <p className="text-sm text-[var(--accent)]">{formatKm(row.distanceKm)}</p>
+          <p className="text-sm text-[var(--accent)]">
+            <DistanceText km={row.distanceKm} />
+          </p>
         ) : null}
       </div>
       <p className="mt-1 text-sm text-[var(--ink-muted)]">

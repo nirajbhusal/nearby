@@ -2,27 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useId, useState } from "react";
 import { ViewTransition } from "react";
-import { Briefcase, Calendar, Compass, House, Zap } from "lucide-react";
+import { Briefcase, Calendar, House, LayoutGrid, Zap } from "lucide-react";
 import { Wordmark } from "@/components/brand/Logo";
-import { InstallPrompt } from "@/components/InstallPrompt";
+import { AccountMenu } from "@/components/AccountMenu";
+import { InstallBridge } from "@/components/InstallPrompt";
+import { MenuSheet } from "@/components/MenuSheet";
+import { ProfileAvatar } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeSync } from "@/components/ThemeToggle";
 
 const TABS = [
   { href: "/", label: "Home", icon: House },
   { href: "/charge", label: "Charge", icon: Zap },
   { href: "/jobs", label: "Jobs", icon: Briefcase },
   { href: "/events", label: "Events", icon: Calendar },
-  { href: "/nomad", label: "Nomad", icon: Compass },
 ] as const;
 
 const DESKTOP = [
   { href: "/", label: "Home" },
   { href: "/charge", label: "Charge" },
   { href: "/jobs", label: "Jobs" },
-  { href: "/learn", label: "Learn" },
   { href: "/events", label: "Events" },
+  { href: "/learn", label: "Learn" },
   { href: "/nomad", label: "Nomad" },
 ] as const;
 
@@ -35,6 +38,9 @@ function active(pathname: string, href: string): boolean {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const charge = pathname.startsWith("/charge");
+  const [menuPath, setMenuPath] = useState<string | null>(null);
+  const menuOpen = menuPath === pathname;
+  const menuId = useId();
 
   return (
     <>
@@ -56,31 +62,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               {tab.label}
             </Link>
           ))}
-          <Link href="/about" aria-current={pathname.startsWith("/about") ? "page" : undefined}>
-            About
-          </Link>
         </nav>
-        <ThemeToggle />
+        <AccountMenu />
       </header>
-      {charge ? null : (
-        <div className="mobile-bar glass-bar">
-          <Link href="/" className="brand">
-            <Wordmark />
-          </Link>
-          <div className="mobile-bar-actions">
-            <Link href="/learn">Learn</Link>
-            <Link href="/about">About</Link>
-            <ThemeToggle />
-          </div>
-        </div>
-      )}
+      <div className="mobile-bar glass-bar">
+        <Link href="/" className="brand">
+          <Wordmark />
+        </Link>
+        <ProfileAvatar current={pathname.startsWith("/profile")} />
+      </div>
       <ViewTransition
         default="none"
         enter={{ "nav-forward": "page-fade", default: "none" }}
         exit={{ "nav-forward": "page-fade", default: "none" }}
       >
         <div id="content" className={charge ? "charge-frame" : "page-frame"}>
-          <InstallPrompt />
           {children}
         </div>
       </ViewTransition>
@@ -99,7 +95,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           );
         })}
+        <button
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          aria-haspopup="dialog"
+          onClick={() => setMenuPath(menuOpen ? null : pathname)}
+        >
+          <LayoutGrid size={22} strokeWidth={2} aria-hidden />
+          <span>Menu</span>
+        </button>
       </nav>
+      {menuOpen ? (
+        <div id={menuId}>
+          <MenuSheet pathname={pathname} onClose={() => setMenuPath(null)} />
+        </div>
+      ) : null}
+      <ThemeSync />
+      <InstallBridge />
       <RegisterSW />
     </>
   );

@@ -7,7 +7,11 @@ import { Briefcase } from "lucide-react";
 import { ViewToggle } from "@/components/ViewToggle";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
-import { categoryLabel, formatKm, formatUpdated } from "@/lib/nepal/format";
+import { DistanceText } from "@/components/DistanceText";
+import { SaveButton } from "@/components/SaveButton";
+import { categoryLabel, formatUpdated } from "@/lib/nepal/format";
+import { jobInterestMatch, preferMatches } from "@/lib/local-profile";
+import { useProfile } from "@/lib/profile-store";
 import {
   companiesNear,
   jobCategories,
@@ -35,6 +39,17 @@ function RoleCard({ card }: { card: JobRoleCard }) {
         {initial(card.company.name)}
       </div>
       <div className="role-copy">
+        <div className="card-tools">
+          <SaveButton
+            item={{
+              id: card.key,
+              kind: "job",
+              title: card.title,
+              subtitle: card.company.name,
+              href: card.url,
+            }}
+          />
+        </div>
         <h3>{card.title}</h3>
         <p>
           {card.company.name}
@@ -44,7 +59,11 @@ function RoleCard({ card }: { card: JobRoleCard }) {
         <p className="role-meta">
           <span>{categoryLabel(card.category)}</span>
           {card.seen ? <span>Seen {formatUpdated(card.seen)}</span> : null}
-          {card.distanceKm != null ? <span>{formatKm(card.distanceKm)}</span> : null}
+          {card.distanceKm != null ? (
+            <span>
+              <DistanceText km={card.distanceKm} />
+            </span>
+          ) : null}
         </p>
         <a className="btn-primary" href={card.url} target="_blank" rel="noopener noreferrer">
           Apply
@@ -68,7 +87,11 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
     () => companiesNear(origin, { category, city, remoteOnly: false }),
     [origin, category, city],
   );
-  const cards = useMemo(() => jobRoleCards(near), [near]);
+  const profile = useProfile();
+  const cards = useMemo(() => {
+    const rows = jobRoleCards(near);
+    return preferMatches(rows, profile.jobInterests, (card) => jobInterestMatch(card, profile.jobInterests));
+  }, [near, profile.jobInterests]);
   const pins = useMemo(() => jobMapPins(near), [near]);
   const active = pins.find((pin) => pin.id === selectedPin) ?? pins[0] ?? null;
   const pinRoles = useMemo(() => {
@@ -109,7 +132,8 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           onChange={setView}
         />
         <p className="fine">
-          {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}. City filters use office
+          {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
+          {profile.jobInterests.length > 0 ? " Matching interests are listed first." : ""} City filters use office
           cities. Street coordinates are still being collected, so the map groups centroid offices into one pin per
           city.
         </p>

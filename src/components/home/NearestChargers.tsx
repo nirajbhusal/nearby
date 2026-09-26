@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Zap } from "lucide-react";
-import { formatKm, speedLabel } from "@/lib/nepal/format";
+import { DistanceText } from "@/components/DistanceText";
+import { SaveButton } from "@/components/SaveButton";
+import { speedLabel } from "@/lib/nepal/format";
 
 export type HomeCharger = {
   id: string;
@@ -69,18 +71,27 @@ export function NearestChargers({ fallback }: { fallback: HomeCharger[] }) {
       </div>
       <ul className="preview-list">
         {rows.map((row) => (
-          <li key={row.id}>
+          <li key={row.id} className="preview-line">
             <Link href={`/charge?q=${encodeURIComponent(row.city || "Kathmandu")}&station=${row.id}`} className="preview-row">
               <span className={`speed-dot speed-${row.speed === "fast" || row.speed === "slow" ? row.speed : "unknown"}`} aria-hidden />
               <span>
                 <strong>{row.name}</strong>
                 <small>
                   {speedLabel(row.speed)}
-                  {row.city ? ` · ${row.city}` : ""} · {formatKm(row.distanceKm)}
+                  {row.city ? ` · ${row.city}` : ""} · <DistanceText km={row.distanceKm} />
                 </small>
               </span>
               <Zap size={16} aria-hidden />
             </Link>
+            <SaveButton
+              item={{
+                id: row.id,
+                kind: "charger",
+                title: row.name,
+                subtitle: row.city ?? "",
+                href: `/charge?station=${row.id}`,
+              }}
+            />
           </li>
         ))}
       </ul>

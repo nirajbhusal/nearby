@@ -2,7 +2,9 @@
 
 import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { DistanceText } from "@/components/DistanceText";
 import { NomadMapSlot } from "@/components/nepal/NomadMapSlot";
+import { SaveButton } from "@/components/SaveButton";
 import { haversineKm } from "@/lib/geo";
 import {
   mappedPlaces,
@@ -119,6 +121,8 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
             {stays.map((place) => (
               <StayCard
                 key={place.name}
+                citySlug={city.slug}
+                cityName={city.name}
                 place={place}
                 selected={place.name === stayName}
                 onSelect={() => setStayName(place.name)}
@@ -135,7 +139,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
             ? `Sorted around ${focus.name}. A card names its area when a kilometre figure is not available.`
             : "Coworking spaces first, then laptop-friendly cafés."}
         </p>
-        <PlaceGrid title="Coworking" places={city.coworking} focus={focus} />
+        <PlaceGrid title="Coworking" places={city.coworking} focus={focus} city={city} saveKind="cowork" />
         <PlaceGrid title="Wifi cafés" places={city.cafes} focus={focus} />
       </section>
 
@@ -202,15 +206,30 @@ function LayerButton({ on, label, onClick }: { on: boolean; label: string; onCli
 
 function StayCard({
   place,
+  citySlug,
+  cityName,
   selected,
   onSelect,
 }: {
   place: NomadStay;
+  citySlug: string;
+  cityName: string;
   selected: boolean;
   onSelect: () => void;
 }) {
   return (
     <article className={selected ? "stay-card is-on" : "stay-card"}>
+      <div className="card-tools">
+        <SaveButton
+          item={{
+            id: `${citySlug}:${place.name}`,
+            kind: "stay",
+            title: place.name,
+            subtitle: cityName,
+            href: `/nomad/${citySlug}`,
+          }}
+        />
+      </div>
       <p className="meta-label">{place.type}</p>
       <h3>
         {place.url ? (
@@ -241,10 +260,14 @@ function PlaceGrid({
   title,
   places,
   focus,
+  city,
+  saveKind,
 }: {
   title: string;
   places: NomadPlace[];
   focus: NomadPlace | null;
+  city?: NomadCity;
+  saveKind?: "cowork";
 }) {
   const ordered = [...places].sort((a, b) => {
     const left = distanceKm(focus, a);
@@ -265,6 +288,19 @@ function PlaceGrid({
             const km = distanceKm(focus, place);
             return (
               <article key={place.name} className="work-card">
+                {saveKind && city ? (
+                  <div className="card-tools">
+                    <SaveButton
+                      item={{
+                        id: `${city.slug}:${place.name}`,
+                        kind: saveKind,
+                        title: place.name,
+                        subtitle: city.name,
+                        href: `/nomad/${city.slug}`,
+                      }}
+                    />
+                  </div>
+                ) : null}
                 <h4>
                   {place.url ? (
                     <a href={place.url} target="_blank" rel="noopener noreferrer">
@@ -285,7 +321,12 @@ function PlaceGrid({
                 ) : null}
                 <p className="station-meta">
                   {place.area || "Area not listed"}
-                  {km != null ? ` · ${km < 10 ? km.toFixed(1) : Math.round(km)} km from ${focus?.name}` : ""}
+                  {km != null && focus ? (
+                    <>
+                      {" · "}
+                      <DistanceText km={km} /> from {focus.name}
+                    </>
+                  ) : null}
                 </p>
                 {place.note ? <p>{place.note}</p> : null}
                 <Attribution stat={place} />

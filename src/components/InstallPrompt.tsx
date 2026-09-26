@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { Share, X } from "lucide-react";
 
 type InstallEvent = Event & {
   prompt: () => Promise<void>;
@@ -16,159 +15,134 @@ const VIEWS_KEY = "nearby-page-views";
 const START_KEY = "nearby-session-start";
 
 let trackedPath: string | null = null;
+let promptEvent: InstallEvent | null = null;
+let iosHint = false;
+let dismissed = false;
+const listeners = new Set<() => void>();
+
+export type InstallOffer = {
+  mode: "none" | "prompt" | "ios";
+  install: () => Promise<void>;
+};
+
+const NONE: InstallOffer = { mode: "none", install: async () => {} };
+const IOS: InstallOffer = { mode: "ios", install: async () => {} };
+const PROMPT: InstallOffer = {
+  mode: "prompt",
+  install: async () => {
+    const event = promptEvent;
+    if (!event) return;
+    await event.prompt();
+    const choice = await event.userChoice;
+    promptEvent = null;
+    if (choice.outcome === "accepted") {
+      dismissed = true;
+      try {
+        localStorage.setItem(DISMISS_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+    }
+    publish();
+  },
+};
+
+let current: InstallOffer = NONE;
+
+function emit() {
+  for (const listener of listeners) listener();
+}
+
+function publish() {
+  const resolved = dismissed ? NONE : promptEvent ? PROMPT : iosHint ? IOS : NONE;
+  if (resolved !== current) current = resolved;
+  emit();
+}
+
+function snapshot(): InstallOffer {
+  return current;
+}
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  return () => listeners.delete(onChange);
+}
 
 function readCount(storage: Storage, key: string): number {
   const value = Number(storage.getItem(key) || "0");
   return Number.isFinite(value) ? value : 0;
 }
 
-function noteVisit(): number {
+function noteVisit(): void {
   try {
-    if (sessionStorage.getItem(VISIT_MARK) === "1") return readCount(localStorage, VISIT_KEY);
+    if (sessionStorage.getItem(VISIT_MARK) === "1") return;
     sessionStorage.setItem(VISIT_MARK, "1");
     const next = readCount(localStorage, VISIT_KEY) + 1;
     localStorage.setItem(VISIT_KEY, String(next));
-    return next;
   } catch {
-    return 1;
+    /* ignore */
   }
 }
 
-function notePageView(pathname: string): number {
+function notePageView(pathname: string): void {
   try {
-    const current = readCount(sessionStorage, VIEWS_KEY);
-    if (trackedPath === pathname) return current;
+    if (trackedPath === pathname) return;
     trackedPath = pathname;
-    const next = current + 1;
+    const next = readCount(sessionStorage, VIEWS_KEY) + 1;
     sessionStorage.setItem(VIEWS_KEY, String(next));
-    return next;
   } catch {
-    return 1;
+    /* ignore */
   }
 }
 
-function sessionStart(): number {
+function sessionStart(): void {
   try {
-    const existing = Number(sessionStorage.getItem(START_KEY) || "0");
-    if (existing > 0) return existing;
-    const now = Date.now();
-    sessionStorage.setItem(START_KEY, String(now));
-    return now;
+    if (Number(sessionStorage.getItem(START_KEY) || "0") > 0) return;
+    sessionStorage.setItem(START_KEY, String(Date.now()));
   } catch {
-    return Date.now();
+    /* ignore */
   }
 }
 
-function chargePath(pathname: string): boolean {
-  return pathname.startsWith("/charge") || pathname.startsWith("/ev");
+export function useInstallOffer(): InstallOffer {
+  return useSyncExternalStore(subscribe, snapshot, () => NONE);
 }
 
-export function InstallPrompt() {
+/** Captures the browser install event so the menu can offer it. No floating pill. */
+export function InstallBridge() {
   const pathname = usePathname() || "/";
-  const eventRef = useRef<InstallEvent | null>(null);
-  const [hasEvent, setHasEvent] = useState(false);
-  const [iosHint, setIosHint] = useState(false);
-  const [engaged, setEngaged] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(display-mode: standalone)").matches) return;
-    let storedDismiss = false;
+    noteVisit();
+    sessionStart();
     try {
-      storedDismiss = localStorage.getItem(DISMISS_KEY) === "1";
+      dismissed = localStorage.getItem(DISMISS_KEY) === "1";
     } catch {
-      storedDismiss = false;
+      dismissed = false;
     }
-    setDismissed(storedDismiss);
-
-    const visits = noteVisit();
-    const start = sessionStart();
-    const elapsed = Date.now() - start;
-    const sync = (views: number) => {
-      setEngaged(visits >= 2 || views >= 2 || Date.now() - start >= 30_000);
-    };
-    sync(notePageView(pathname));
-    const remaining = Math.max(0, 30_000 - elapsed);
-    const timer = window.setTimeout(() => setEngaged(true), remaining);
-
-    const onPrompt = (promptEvent: Event) => {
-      promptEvent.preventDefault();
-      eventRef.current = promptEvent as InstallEvent;
-      setHasEvent(true);
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      dismissed = true;
+      publish();
+      return;
+    }
+    const onPrompt = (event: Event) => {
+      event.preventDefault();
+      promptEvent = event as InstallEvent;
+      publish();
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
-
     const ua = navigator.userAgent;
     const ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     const safari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
     const standalone = "standalone" in navigator && Boolean((navigator as Navigator & { standalone?: boolean }).standalone);
-    if (ios && safari && !standalone) setIosHint(true);
-
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener("beforeinstallprompt", onPrompt);
-    };
-    // Visit + timer are session-scoped. Page views update in the effect below.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    iosHint = ios && safari && !standalone;
+    publish();
+    return () => window.removeEventListener("beforeinstallprompt", onPrompt);
   }, []);
 
   useEffect(() => {
-    const views = notePageView(pathname);
-    try {
-      const visits = readCount(localStorage, VISIT_KEY);
-      const start = Number(sessionStorage.getItem(START_KEY) || "0");
-      const waited = start > 0 && Date.now() - start >= 30_000;
-      if (visits >= 2 || views >= 2 || waited) setEngaged(true);
-    } catch {
-      if (views >= 2) setEngaged(true);
-    }
+    notePageView(pathname);
   }, [pathname]);
 
-  function dismiss() {
-    setDismissed(true);
-    eventRef.current = null;
-    setHasEvent(false);
-    setIosHint(false);
-    try {
-      localStorage.setItem(DISMISS_KEY, "1");
-    } catch {
-      /* ignore */
-    }
-  }
-
-  async function install() {
-    const event = eventRef.current;
-    if (!event) return;
-    await event.prompt();
-    const choice = await event.userChoice;
-    eventRef.current = null;
-    setHasEvent(false);
-    if (choice.outcome === "accepted") dismiss();
-  }
-
-  if (dismissed || !engaged || chargePath(pathname) || (!hasEvent && !iosHint)) return null;
-
-  return (
-    <div className="install-prompt glass-bar" role="region" aria-label="Install Nearby">
-      <p>
-        {hasEvent ? (
-          "Install Nearby"
-        ) : (
-          <>
-            Add via <Share size={14} aria-hidden /> Share
-          </>
-        )}
-      </p>
-      <div className="install-actions">
-        {hasEvent ? (
-          <button type="button" className="btn-primary" onClick={install}>
-            Install
-          </button>
-        ) : null}
-        <button type="button" className="icon-btn" onClick={dismiss} aria-label="Dismiss install hint">
-          <X size={16} aria-hidden />
-        </button>
-      </div>
-    </div>
-  );
+  return null;
 }

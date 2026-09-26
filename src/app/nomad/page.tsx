@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { nomadCities } from "@/lib/nepal/nomad";
+import { NomadCityList } from "@/components/nepal/NomadCityList";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
@@ -20,25 +19,7 @@ export default function NomadIndexPage() {
           without a verified source stay empty on purpose.
         </p>
       </header>
-      <div className="entry-grid">
-        {nomadCities.map((city) => (
-          <Link key={city.slug} href={`/nomad/${city.slug}`} className="app-card entry-card">
-            <h2>{city.name}</h2>
-            <p>{city.province}</p>
-            <ul className="mini-stats">
-              {city.stats
-                .filter((stat) => ["rank", "cost", "internet", "safety"].includes(stat.id))
-                .map((stat) => (
-                  <li key={stat.id}>
-                    <span>{stat.label}</span>
-                    <strong>{stat.value}</strong>
-                  </li>
-                ))}
-            </ul>
-            <p className="fine">Source: Nomads.com, as of 26 Sep 2026. The ranking changes daily.</p>
-          </Link>
-        ))}
-      </div>
+      <NomadCityList />
     </main>
   );
 }

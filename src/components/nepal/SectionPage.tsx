@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { EventsPanel } from "@/components/nepal/EventsPanel";
 import { JobsPanel } from "@/components/nepal/JobsPanel";
 import { LearnPanel } from "@/components/nepal/LearnPanel";
+import { useProfile } from "@/lib/profile-store";
 import { KATHMANDU, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
 import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { PlaceHit } from "@/lib/nepal/types";
@@ -70,15 +71,18 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const q = searchParams.get("q") ?? "";
+  const profile = useProfile();
+  const home = !q && profile.homeCity ? resolvePlace(profile.homeCity) : null;
   const resolved = q ? resolvePlace(q) : null;
-  const origin = resolved ?? KATHMANDU;
+  const origin = resolved ?? home ?? KATHMANDU;
   const copy = COPY[section];
   const recent = useSyncExternalStore(subscribe, readRecent, () => EMPTY);
-  const [draft, setDraft] = useState(q || origin.label);
-  const [prev, setPrev] = useState(q);
-  if (q !== prev) {
-    setPrev(q);
-    setDraft(q || origin.label);
+  const shown = q || origin.label;
+  const [draft, setDraft] = useState(shown);
+  const [prevShown, setPrevShown] = useState(shown);
+  if (shown !== prevShown) {
+    setPrevShown(shown);
+    setDraft(shown);
   }
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<string | null>(null);

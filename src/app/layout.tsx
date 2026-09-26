@@ -11,7 +11,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const themeBoot = `(function(){try{var t=localStorage.getItem("nearby-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})();`;
+const themeBoot = `(function(){try{var choice=localStorage.getItem("nearby-theme-choice");var legacy=localStorage.getItem("nearby-theme");if(choice!=="light"&&choice!=="dark"&&choice!=="system"){choice=(legacy==="light"||legacy==="dark")?legacy:"system"}var resolved=choice==="system"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):choice;document.documentElement.dataset.theme=resolved;document.documentElement.dataset.themeChoice=choice}catch(e){document.documentElement.dataset.theme="dark"}})();`;
 
 export const viewport: Viewport = {
   width: "device-width",
