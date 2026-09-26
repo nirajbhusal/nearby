@@ -73,11 +73,17 @@ export default function JobsMap({ pins, selectedId, onSelect }: Props) {
     map.on("load", () => {
       if (!alive || !map) return;
       draw();
-      if (pins.length === 1) map.jumpTo({ center: [pins[0].lng, pins[0].lat], zoom: 11 });
+      const primary = pins[0];
+      const close = pins.filter((pin) => {
+        const dLat = pin.lat - primary.lat;
+        const dLng = pin.lng - primary.lng;
+        return dLat * dLat + dLng * dLng < 0.12;
+      });
+      if (close.length === 1) map.jumpTo({ center: [primary.lng, primary.lat], zoom: 11 });
       else {
         const bounds = new LngLatBounds();
-        for (const pin of pins) bounds.extend([pin.lng, pin.lat]);
-        map.fitBounds(bounds, { padding: 48, maxZoom: 12, duration: 0 });
+        for (const pin of close) bounds.extend([pin.lng, pin.lat]);
+        map.fitBounds(bounds, { padding: 56, maxZoom: 12, duration: 0 });
       }
       map.resize();
     });
