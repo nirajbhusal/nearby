@@ -1101,11 +1101,18 @@ body:has(.charge-stage) {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 76px;
-  height: 76px;
+  width: 88px;
+  height: 88px;
   transform: translate(-50%, -50%);
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(0, 245, 160, 0.42) 0%, rgba(0, 229, 255, 0.16) 48%, transparent 72%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 245, 160, 0.16) 0 30%,
+    rgba(0, 245, 160, 0.62) 46%,
+    rgba(0, 229, 255, 0.28) 64%,
+    transparent 78%
+  );
+  box-shadow: 0 0 16px rgba(0, 245, 160, 0.35);
   pointer-events: none;
 }
 .map-dot {

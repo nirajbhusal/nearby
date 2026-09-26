@@ -57,7 +57,6 @@ function RoleCard({ card }: { card: JobRoleCard }) {
           {card.location || card.placeLabel}
         </p>
         {card.address ? <p className="role-address">{card.address}</p> : null}
-        {card.geoNote ? <p className="fine">{card.geoNote}</p> : null}
         <p className="role-meta">
           <span>{categoryLabel(card.category)}</span>
           {card.seen ? <span>Seen {formatUpdated(card.seen)}</span> : null}

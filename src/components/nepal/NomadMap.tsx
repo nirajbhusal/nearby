@@ -80,7 +80,7 @@ export default function NomadMap({ pins }: Props) {
       ref={holderRef}
       className="nomad-map"
       role="region"
-      aria-label="Coworking spaces with a published coordinate"
+      aria-label="Stays, coworking, and cafés"
     />
   );
 }
