@@ -20,11 +20,11 @@ export default async function CompanyPage({ params }: { params: Params }) {
   return (
     <main className="mx-auto w-full max-w-xl flex-1 px-4 py-16 sm:px-6 sm:py-20">
       <Link
-        href="/"
+        href="/worldwide"
         className="mb-10 inline-flex items-center gap-1.5 text-sm text-[var(--ink-faint)] transition hover:text-[var(--graphite)]"
       >
         <SketchPin className="h-3.5 w-3.5 text-[var(--accent)]" />
-        ← Nearby
+        ← Worldwide
       </Link>
 
       <div className="space-y-8">

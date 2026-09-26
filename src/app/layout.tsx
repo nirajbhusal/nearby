@@ -19,9 +19,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Nearby — Jobs & AI meetups near you",
+  title: "Nearby — EV charging, jobs, and events in Nepal",
   description:
-    "Jobs & AI meetups near you. A soft place-first finder — tell us where you are, and we sketch companies hiring nearby alongside upcoming AI gatherings.",
+    "A Nepal-first finder for EV charging, tech jobs, places to learn AI, and tech events. Curated from public directories and official pages.",
 };
 
 export default function RootLayout({
