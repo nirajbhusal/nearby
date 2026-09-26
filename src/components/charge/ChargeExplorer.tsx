@@ -498,7 +498,9 @@ export function ChargeExplorer() {
     origin.kind === "province"
       ? `${count} in ${origin.label}`
       : origin.kind === "country" || radiusKm == null
-        ? `${count} charger${count === 1 ? "" : "s"} in ${origin.kind === "country" ? "Nepal" : origin.label}`
+        ? origin.kind === "country"
+          ? `${count} charger${count === 1 ? "" : "s"}`
+          : `${count} charger${count === 1 ? "" : "s"} in ${origin.label}`
         : origin.kind === "geolocation"
           ? `${count} charger${count === 1 ? "" : "s"} within ${within}`
           : `${count} within ${within} of ${origin.label}`;
@@ -542,7 +544,7 @@ export function ChargeExplorer() {
           }}
         >
           <label className="sr-only" htmlFor="charger-search">
-            Search a place in Nepal
+            Search a place
           </label>
           <input
             id="charger-search"
@@ -587,7 +589,7 @@ export function ChargeExplorer() {
             aria-pressed={origin.kind === "country"}
             onClick={chooseNepal}
           >
-            Nepal {evIndex.length}
+            All {evIndex.length}
           </button>
           {provinceRecords.map((province) => {
             const on = origin.kind === "province" && origin.province === province.name;
@@ -650,7 +652,7 @@ export function ChargeExplorer() {
                 })
               : null}
             {suggestionHits.length === 0 ? (
-              <li className="suggest-label">No matching place in Nepal</li>
+              <li className="suggest-label">No matching place</li>
             ) : (
               suggestionHits.map((hit, index) => (
                 <li key={`${hit.kind}-${hit.label}-${hit.lat}`}>
@@ -676,7 +678,7 @@ export function ChargeExplorer() {
 
   return (
     <div className={cards ? "charge-cards-page" : "charge-stage"}>
-      <h1 className="sr-only">EV chargers in Nepal</h1>
+      <h1 className="sr-only">EV chargers</h1>
       {cards ? null : (
         <ChargeMap
           stations={mapStations}

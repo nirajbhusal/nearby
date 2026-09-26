@@ -33,14 +33,14 @@ export function HomeSearch() {
       }}
     >
       <label className="sr-only" htmlFor="home-search">
-        Search chargers, jobs, events in Nepal
+        Search chargers, jobs, events
       </label>
       <div className="home-search-field glass-bar">
         <Search size={18} aria-hidden />
         <input
           id="home-search"
           value={draft}
-          placeholder="Search chargers, jobs, events in Nepal"
+          placeholder="Search chargers, jobs, events"
           autoComplete="off"
           onChange={(event) => {
             setDraft(event.target.value);

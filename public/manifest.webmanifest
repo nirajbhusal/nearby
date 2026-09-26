@@ -1,7 +1,7 @@
 {
   "name": "Nearby",
   "short_name": "Nearby",
-  "description": "Nearby: Nepal, within reach",
+  "description": "Nearby · All within reach",
   "start_url": "/nearby/",
   "scope": "/nearby/",
   "display": "standalone",

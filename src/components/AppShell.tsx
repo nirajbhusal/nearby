@@ -8,6 +8,7 @@ import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
 import { toHref } from "@/components/SiteLink";
+import { SITE_TAGLINE } from "@/lib/site";
 import { ThemeSync } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
@@ -48,7 +49,7 @@ function BrandLockup() {
   return (
     <a className="brand-lockup" href={toHref("/")}>
       <Wordmark />
-      <span className="brand-tag">Nepal, within reach.</span>
+      <span className="brand-tag">{SITE_TAGLINE}</span>
     </a>
   );
 }

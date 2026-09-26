@@ -4,7 +4,7 @@ import { LogoMark } from "@/components/brand/Logo";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "About — Nearby",
+  "About — Nearby · All within reach",
   "Nearby is a Nepal-only guide to EV charging, tech jobs, AI learning, events, and working from Kathmandu or Pokhara.",
   "/about",
 );

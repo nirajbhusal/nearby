@@ -192,7 +192,7 @@ const SHORT_NAME: Record<string, string> = {
 
 const HEADLINE: Record<string, string> = {
   kathmandu:
-    "Nepal's capital and its sister city Patan: cafés, coworking and mountain views, from about $908 a month.",
+    "The capital and its sister city Patan: cafés, coworking and mountain views, from about $908 a month.",
   pokhara:
     "Beside Phewa Lake, where most Annapurna treks begin: lakeside cafés and quieter side streets, from about $1,030 a month.",
 };

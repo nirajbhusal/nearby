@@ -42,7 +42,7 @@ function nearestOffice(origin: PlaceHit, company: NepalCompany): {
   const placeLabel =
     best.city && best.district && best.city !== best.district
       ? `${best.city}, ${best.district}`
-      : best.city || best.district || "Nepal";
+      : best.city || best.district || "City not listed";
   return {
     distanceKm: bestDistance,
     placeLabel,
@@ -215,7 +215,7 @@ export function jobMapPins(rows: NearbyCompany[], origin: PlaceHit): JobMapPin[]
       if (office.lat == null || office.lng == null) continue;
       if (!isNearRecord(origin, office)) continue;
       const kind = officeKind(office.geo_precision);
-      const city = office.city || "Nepal";
+      const city = office.city || "City not listed";
       const id =
         kind === "centroid"
           ? `city:${city.toLowerCase()}`

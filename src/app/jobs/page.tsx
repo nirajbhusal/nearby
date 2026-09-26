@@ -3,7 +3,7 @@ import { SectionPage } from "@/components/nepal/SectionPage";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "Tech jobs — Nearby",
+  "Tech jobs — Nearby · All within reach",
   "Tech companies and open roles in Nepal, sorted around a city you choose.",
   "/jobs",
 );

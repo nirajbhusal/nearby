@@ -29,12 +29,12 @@ export async function generateMetadata({
 }) {
   const { id } = await params;
   const station = getStation(id);
-  if (!station) return { title: "Charging station — Nearby" };
+  if (!station) return { title: "Charging station — Nearby · All within reach" };
   const place = [station.city, station.district].filter(Boolean).join(", ");
   const description = place
     ? `${station.name} in ${place}. Curated charging-station details for Nepal.`
     : `${station.name}. Curated charging-station details for Nepal.`;
-  return pageMeta(`${station.name} — EV charging — Nearby`, description, `/ev/${station.id}`);
+  return pageMeta(`${station.name} — EV charging — Nearby · All within reach`, description, `/ev/${station.id}`);
 }
 
 function formatKw(kw: number | null): string | null {

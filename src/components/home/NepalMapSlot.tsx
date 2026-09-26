@@ -6,7 +6,7 @@ import type { ProvinceRecord } from "@/lib/nepal/provinces";
 
 const NepalMap = dynamic(() => import("@/components/home/NepalMap"), {
   ssr: false,
-  loading: () => <div className="map-skeleton nepal-map-canvas" role="status" aria-label="Loading the Nepal map" />,
+  loading: () => <div className="map-skeleton nepal-map-canvas" role="status" aria-label="Loading the map" />,
 });
 
 export function NepalMapSlot({ provinces }: { provinces: ProvinceRecord[] }) {
@@ -32,7 +32,7 @@ export function NepalMapSlot({ provinces }: { provinces: ProvinceRecord[] }) {
 
   return (
     <div ref={ref} className="nepal-map">
-      {show ? <NepalMap provinces={provinces} /> : <div className="map-skeleton nepal-map-canvas" role="status" aria-label="Loading the Nepal map" />}
+      {show ? <NepalMap provinces={provinces} /> : <div className="map-skeleton nepal-map-canvas" role="status" aria-label="Loading the map" />}
     </div>
   );
 }

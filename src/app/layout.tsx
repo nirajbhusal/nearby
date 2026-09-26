@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { AppShell } from "@/components/AppShell";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import { flightFetchBoot } from "@/lib/flight-fetch";
 import { themeBoot } from "@/lib/tod";
 import "./globals.css";
@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: SITE_TAGLINE,
+    default: SITE_TITLE,
     template: `%s`,
   },
   description: SITE_DESCRIPTION,
@@ -48,16 +48,16 @@ export const metadata: Metadata = {
     other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#00F5A0" }],
   },
   openGraph: {
-    title: SITE_TAGLINE,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     type: "website",
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: SITE_TAGLINE }],
+    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: SITE_TITLE }],
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_TAGLINE,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     images: [`${SITE_URL}/og.png`],
   },

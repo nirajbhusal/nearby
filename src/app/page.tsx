@@ -16,8 +16,8 @@ import { provinceRecords } from "@/lib/nepal/provinces";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "Nearby: Nepal, within reach",
-  "Nearby: Nepal, within reach",
+  "Nearby · All within reach",
+  "Chargers, tech jobs, events and places to learn in Nepal.",
   "/",
 );
 
@@ -46,7 +46,7 @@ export default function HomePage() {
       <section className="home-hero">
         <DayGreeting />
         <h1 className="font-display hero-title">Everything near you, in one place.</h1>
-        <p className="lede">Chargers, tech jobs, events and places to learn, all near you.</p>
+        <p className="lede">Chargers, tech jobs, events and places to learn.</p>
         <HomeSearch />
         <div className="hero-actions">
           <Link href="/charge?near=1" className="btn-primary">
@@ -97,9 +97,9 @@ export default function HomePage() {
 
       <div className="home-split">
         <NearestChargers fallback={fallback} />
-        <section className="nepal-card" aria-label="Chargers across Nepal">
+        <section className="nepal-card" aria-label="Chargers">
           <div className="block-head">
-            <h2>{chargers} chargers across Nepal</h2>
+            <h2>{chargers} chargers</h2>
             <Link href="/charge?near=1">Near me</Link>
           </div>
           <NepalMapSlot provinces={provinceRecords} />
@@ -176,7 +176,7 @@ export default function HomePage() {
 
       <p className="home-mark">
         <LogoMark className="logo-mark" />
-        Curated for Nepal · 26 Sep 2026
+        Curated · 26 Sep 2026
       </p>
     </main>
   );
