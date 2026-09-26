@@ -1,17 +1,18 @@
 # Nearby
 
-Jobs & AI meetups near you.
+A Nepal-first finder for EV charging, tech jobs, places to learn AI, and tech
+and AI events.
 
 **Live:** [https://nirajbhusal.github.io/nearby/](https://nirajbhusal.github.io/nearby/)
 
-A soft, place-first finder — not a traditional job board. Tell Nearby where you
-are (and optionally what kind of work you want); it ranks curated companies by
-location overlap and a light role-intent match, and surfaces upcoming AI meetups
-the same way.
+Tell Nearby a place in Nepal (or use your location). It sorts curated EV
+chargers by distance, and lists tech companies, AI programs, and events around
+that place. A separate worldwide view still covers jobs and AI meetups outside
+Nepal.
 
-The public site is a static export. Search runs in the browser from
-`prisma/seed-data.json` and `prisma/seed-events.json`. GitHub Pages does not
-run the Next.js server or Prisma.
+The public site is a static export. Search runs in the browser from JSON in
+`src/data/nepal/`, plus `prisma/seed-data.json` and `prisma/seed-events.json`
+for the worldwide lists. GitHub Pages does not run a Next.js server.
 
 ## How to run
 
@@ -23,7 +24,7 @@ npm run dev
 Open [http://localhost:3000/nearby](http://localhost:3000/nearby). The `/nearby`
 prefix matches the GitHub Pages project path (`basePath`).
 
-Prisma is optional. The dev server and the static build both read the seed JSON
+Prisma is optional. The dev server and the static build both read the JSON
 files, so you do not need a database to work on the site.
 
 ### Optional local database
@@ -45,45 +46,43 @@ npm run build
 
 This writes the site to `out/`. Pushing to `main` runs
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml), which uploads
-`out/` and deploys it with GitHub Pages (Actions source).
+`out/` and deploys it with GitHub Pages.
 
-### First-time GitHub Pages setup
+Pages is enabled for this repo (source: GitHub Actions). A push to `main`
+publishes [https://nirajbhusal.github.io/nearby/](https://nirajbhusal.github.io/nearby/).
 
-Pages is not enabled until someone with admin access turns it on. The Actions
-workflow cannot do that itself (`actions/configure-pages` only reads an existing
-Pages site unless a token with `administration:write` is provided).
+## Try it
 
-1. Open **Settings → Pages → Build and deployment**.
-2. Set **Source** to **GitHub Actions**.
-3. Re-run the failed **Deploy to GitHub Pages** workflow (or push to `main` again).
+1. Open the home page. It starts in Kathmandu, on EV charging.
+2. Search a Nepal place (`Pokhara`, `Patan`, `Chitwan`, `Butwal`) or tap **Use my location**.
+3. Switch **Jobs**, **Learn AI**, and **Events**. Filter with the chips.
+4. Open a station for connectors, phone, and **Navigate** (Google Maps, with Apple Maps beside it).
+5. **Worldwide** keeps the older jobs and AI meetup search.
 
-After that, every push to `main` publishes
-[https://nirajbhusal.github.io/nearby/](https://nirajbhusal.github.io/nearby/).
+## Data
 
-## Try the nearby flow
+Nepal records live in `src/data/nepal/` and are labeled **curated** in the UI.
+They were compiled on 26 Sep 2026 from public pages. They are not
+field-verified.
 
-1. On the home page, type a city (e.g. `San Francisco`) or tap **Use my location**.
-2. Optionally add a role intent (`product designer`, `ML engineer`).
-3. Press **Find nearby** — you’ll get a short summary, an illustrated place card,
-   soft recommendation rows with “Open roles →” links, and AI meetups nearby.
+| File | What it is |
+| --- | --- |
+| `ev-stations.json` | 502 EV charging stations (full record, used for detail pages) |
+| `ev-index.json` | Slim station list for search and the map |
+| `companies.json` | 61 Nepal tech companies and their open roles |
+| `learn.json` | 27 places to learn AI, with programs |
+| `events.json` | 63 tech and AI events |
+| `places.json` | City, district, and province centroids used for search |
 
-“Use my location” asks the browser for coordinates and reverse-geocodes them
-with Nominatim. Company pages are prebuilt from the seed list.
+Credits: OpenStreetMap contributors (map tiles, and some station coordinates);
+public operator directories; official company, campus, and organizer pages.
+Office coordinates in the jobs set are city centroids. Station access is often
+unknown — the UI says to call ahead instead of assuming a charger is public.
 
-## Product vision
-
-1. Place-first discovery — one prompt, not filters + grids.
-2. Recommendations that feel like an answer, not a directory.
-3. Continuously curated company inventory under the hood.
-4. Stay lightweight — seed JSON in the browser, heuristic ranking (no paid API keys).
+Worldwide companies and meetups still come from `prisma/seed-data.json` and
+`prisma/seed-events.json`.
 
 ## Stack
 
-Next.js App Router (static export) · TypeScript · Tailwind CSS · optional Prisma · SQLite
-
-## Seed data
-
-The site ranks companies from `prisma/seed-data.json` and AI meetups from
-`prisma/seed-events.json`. Inventory stays curated; it is not presented as a
-browseable job board. `npm run seed` can load that same JSON into SQLite for
-local experiments.
+Next.js App Router (static export) · TypeScript · Tailwind CSS · Leaflet /
+OpenStreetMap · optional Prisma · SQLite

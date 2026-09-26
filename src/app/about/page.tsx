@@ -18,26 +18,31 @@ export default function AboutPage() {
 
       <div className="space-y-5 text-[15px] leading-relaxed text-[var(--ink-muted)]">
         <p>
-          Nearby finds roles and AI meetups near you — not a traditional job
-          board. Tell us where you are (or what kind of work you’re after), and
-          we recommend companies hiring nearby alongside upcoming AI events in
-          the area.
+          Nearby is a Nepal-first finder for EV charging, tech jobs, places to
+          learn AI, and tech and AI events. Search a city, district, or
+          neighborhood — Kathmandu, Patan, Pokhara, Chitwan, and the rest of
+          the country — or use your location. Results are sorted by distance.
         </p>
         <p>
-          Recommendations are ranked from a continuously curated set of
-          companies: location overlap first, then a light match on role intent.
-          AI meetups are surfaced the same way — by city overlap, or the soonest
-          upcoming elsewhere when nothing local matches. No endless filters,
-          badge grids, or directory browsing.
+          The lists are curated. Each record traces back to a public directory
+          or an official company or organizer page, and the useful ones link
+          through. The set was compiled on 26 Sep 2026. It is not a field visit:
+          chargers move, roles close, and class dates change. Where a station
+          does not say it is public, Nearby says so and asks you to call ahead.
         </p>
         <p>
-          Open a recommendation to learn more, or jump straight to open roles
-          on the company’s careers page.
+          Map tiles are from OpenStreetMap contributors. Station coordinates
+          come from public operator directories and OpenStreetMap. Company
+          offices are city centroids, not street addresses. A worldwide view of
+          jobs and AI meetups is still there if you need it.
         </p>
       </div>
-      <p className="mt-10">
+      <p className="mt-10 flex flex-wrap gap-4">
         <Link href="/" className="ink-link text-sm">
           ← Find nearby
+        </Link>
+        <Link href="/worldwide" className="ink-link text-sm">
+          Worldwide jobs and meetups
         </Link>
       </p>
     </main>
