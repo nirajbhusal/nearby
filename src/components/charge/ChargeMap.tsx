@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { LngLatBounds, Map as MlMap, Marker, NavigationControl } from "maplibre-gl";
+import { LngLatBounds, Map as MlMap, Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { NearbyStation } from "@/lib/nepal/ev";
 import { clusterStations } from "@/components/charge/cluster";
@@ -11,13 +11,24 @@ export type MapFrame =
   | { mode: "bounds"; bbox: [number, number, number, number] }
   | { mode: "point"; lng: number; lat: number; zoom: number };
 
+export type ProvinceBubble = {
+  slug: string;
+  name: string;
+  lat: number;
+  lng: number;
+  count: number;
+};
+
 type Props = {
   stations: NearbyStation[];
   origin: { lat: number; lng: number };
   frame: MapFrame;
   selectedId: string | null;
   showYou: boolean;
+  provinces: ProvinceBubble[] | null;
   onSelect: (id: string) => void;
+  onProvince: (slug: string) => void;
+  onLocate: () => void;
 };
 
 function frameKey(frame: MapFrame): string {
@@ -25,18 +36,32 @@ function frameKey(frame: MapFrame): string {
   return `p:${frame.lng.toFixed(4)},${frame.lat.toFixed(4)},${frame.zoom}`;
 }
 
+function framePadding(map: MlMap) {
+  const canvas = map.getContainer().getBoundingClientRect();
+  const panel = document.querySelector(".charge-panel");
+  const desktop = window.innerWidth >= 1024;
+  if (desktop && panel instanceof HTMLElement) {
+    const rect = panel.getBoundingClientRect();
+    const left = Math.max(24, rect.right - canvas.left + 24);
+    return { top: 56, right: 72, bottom: 36, left };
+  }
+  let bottom = 240;
+  if (panel instanceof HTMLElement) {
+    const rect = panel.getBoundingClientRect();
+    bottom = Math.max(120, canvas.bottom - rect.top + 16);
+  }
+  return { top: 16, right: 64, bottom, left: 16 };
+}
+
 function applyFrame(map: MlMap, frame: MapFrame) {
   map.resize();
   if (frame.mode === "bounds") {
     const [west, south, east, north] = frame.bbox;
     const country = east - west > 6;
-    const wide = window.innerWidth >= 1024;
     map.fitBounds(new LngLatBounds([west, south], [east, north]), {
-      padding: wide
-        ? { top: 72, right: 72, bottom: 40, left: 420 }
-        : { top: 88, right: 56, bottom: country ? 300 : 280, left: 20 },
+      padding: framePadding(map),
       duration: 0,
-      maxZoom: country ? 6.6 : 11,
+      maxZoom: country ? 6.8 : 11,
     });
     return;
   }
@@ -49,6 +74,19 @@ const BOLT =
 function speedClass(speed: string): string {
   if (speed === "fast" || speed === "slow") return speed;
   return "unknown";
+}
+
+function bubbleSize(count: number): number {
+  return Math.round(36 + Math.sqrt(count) * 2.2);
+}
+
+function LocateIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="3.2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
 }
 
 function pinButton(html: string, label: string): HTMLButtonElement {
@@ -67,19 +105,26 @@ export default function ChargeMap({
   frame,
   selectedId,
   showYou,
+  provinces,
   onSelect,
+  onProvince,
+  onLocate,
 }: Props) {
   const holderRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MlMap | null>(null);
   const onSelectRef = useRef(onSelect);
+  const onProvinceRef = useRef(onProvince);
   const stationsRef = useRef(stations);
+  const provincesRef = useRef(provinces);
   const selectedRef = useRef(selectedId);
   const frameRef = useRef(frame);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     onSelectRef.current = onSelect;
+    onProvinceRef.current = onProvince;
     stationsRef.current = stations;
+    provincesRef.current = provinces;
     selectedRef.current = selectedId;
     frameRef.current = frame;
   });
@@ -119,10 +164,12 @@ export default function ChargeMap({
       pitchWithRotate: false,
       touchPitch: false,
     });
-    map.addControl(new NavigationControl({ showCompass: false }), "top-right");
     map.once("load", () => {
       if (!alive || !map) return;
       applyFrame(map, frameRef.current);
+      requestAnimationFrame(() => {
+        if (alive && map && !selectedRef.current) applyFrame(map, frameRef.current);
+      });
       const collapseAttrib = () => {
         map?.getContainer().querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show");
       };
@@ -138,7 +185,11 @@ export default function ChargeMap({
     };
     window.addEventListener("nearby-theme", onTheme);
 
-    const onResize = () => map?.resize();
+    const onResize = () => {
+      if (!map) return;
+      map.resize();
+      if (!selectedRef.current) applyFrame(map, frameRef.current);
+    };
     window.addEventListener("resize", onResize);
     const observer = new ResizeObserver(() => map?.resize());
     observer.observe(holder);
@@ -188,6 +239,25 @@ export default function ChargeMap({
       for (const marker of markers) marker.remove();
       markers.length = 0;
       const zoom = map.getZoom();
+      const bubbles = provincesRef.current;
+      if (bubbles && bubbles.length > 0 && zoom < 8) {
+        for (const province of bubbles) {
+          const size = bubbleSize(province.count);
+          const element = pinButton(
+            `<span class="province-bubble" style="width:${size}px;height:${size}px">${province.count}</span>`,
+            `${province.name}, ${province.count} chargers`,
+          );
+          element.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onProvinceRef.current(province.slug);
+          });
+          markers.push(
+            new Marker({ element, anchor: "center" }).setLngLat([province.lng, province.lat]).addTo(map),
+          );
+        }
+        return;
+      }
       for (const pin of clusterStations(stations, zoom)) {
         if (pin.kind === "cluster") {
           const size = pin.count >= 40 ? "xl" : pin.count >= 12 ? "lg" : "md";
@@ -232,7 +302,7 @@ export default function ChargeMap({
       map.off("zoomend", draw);
       for (const marker of markers) marker.remove();
     };
-  }, [ready, stations, selectedId]);
+  }, [ready, stations, selectedId, provinces]);
 
   useEffect(() => {
     if (!ready) return;
@@ -256,6 +326,17 @@ export default function ChargeMap({
   return (
     <div className="charge-map">
       <div ref={holderRef} className="charge-map-canvas" />
+      <div className="map-stack">
+        <button type="button" aria-label="Zoom in" onClick={() => mapRef.current?.zoomIn({ duration: 200 })}>
+          +
+        </button>
+        <button type="button" aria-label="Zoom out" onClick={() => mapRef.current?.zoomOut({ duration: 200 })}>
+          −
+        </button>
+        <button type="button" aria-label="Chargers near me" onClick={onLocate}>
+          <LocateIcon />
+        </button>
+      </div>
       {ready ? null : <div className="map-skeleton" role="status" aria-label="Loading map" />}
     </div>
   );

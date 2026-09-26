@@ -580,7 +580,11 @@ export function ChargeExplorer() {
             <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
               <LocateIcon />
             </button>
-          ) : null}
+          ) : (
+            <button type="button" className="peek-cards" onClick={() => replace({ view: "cards" })}>
+              Cards
+            </button>
+          )}
         </form>
         <div className="scope-row" role="group" aria-label="Scope">
           <button
@@ -686,17 +690,22 @@ export function ChargeExplorer() {
           frame={frame}
           selectedId={selected?.id ?? null}
           showYou={origin.kind === "geolocation"}
+          provinces={
+            origin.kind === "country"
+              ? provinceRecords.map((province) => ({
+                  slug: province.slug,
+                  name: province.name,
+                  lat: province.lat,
+                  lng: province.lng,
+                  count: province.count,
+                }))
+              : null
+          }
           onSelect={selectStation}
+          onProvince={chooseProvince}
+          onLocate={locate}
         />
       )}
-      {cards ? null : (
-        <button type="button" className="locate-float" onClick={locate} aria-label="Chargers near me">
-          <LocateIcon />
-        </button>
-      )}
-      <button type="button" className="view-float" onClick={() => replace({ view: cards ? "map" : "cards" })}>
-        {cards ? "Map" : "Cards"}
-      </button>
 
       {cards ? (
         <div className="charge-card-board">

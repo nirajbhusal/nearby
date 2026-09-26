@@ -32,11 +32,15 @@ function initial(name: string): string {
   return (letter || "•").toUpperCase();
 }
 
+function stripPostcode(part: string): string {
+  return part.replace(/\b\d{4,6}\b/g, "").replace(/\s+/g, " ").trim();
+}
+
 function shortArea(card: JobRoleCard): string {
   const raw = card.address || card.location || card.placeLabel;
   const parts = raw
     .split(",")
-    .map((part) => part.replace(/\(.*?\)/g, "").trim())
+    .map((part) => stripPostcode(part.replace(/\(.*?\)/g, "")))
     .filter((part) => part && !/^nepal$/i.test(part) && !/plus code/i.test(part));
   const street = /\b(marg|road|rd|sadak|street|path|lane|tole)\b/i;
   const local = parts.filter((part, index) => !(index === 0 && street.test(part)));
@@ -52,17 +56,6 @@ function RoleCard({ card }: { card: JobRoleCard }) {
         {initial(card.company.name)}
       </div>
       <div className="role-copy">
-        <div className="card-tools">
-          <SaveButton
-            item={{
-              id: card.key,
-              kind: "job",
-              title: card.title,
-              subtitle: card.company.name,
-              href: card.url,
-            }}
-          />
-        </div>
         <h3>{card.title}</h3>
         <p>
           {card.company.name}
@@ -86,15 +79,20 @@ function RoleCard({ card }: { card: JobRoleCard }) {
             </span>
           ) : null}
         </div>
-        <a className="btn-secondary card-action" href={card.url} target="_blank" rel="noopener noreferrer">
-          Apply
-        </a>
-        {card.address ? (
-          <details className="card-address">
-            <summary>Full address</summary>
-            <p>{card.address}</p>
-          </details>
-        ) : null}
+        <div className="card-footer">
+          <a className="btn-secondary card-action" href={card.url} target="_blank" rel="noopener noreferrer">
+            Apply
+          </a>
+          <SaveButton
+            item={{
+              id: card.key,
+              kind: "job",
+              title: card.title,
+              subtitle: card.company.name,
+              href: card.url,
+            }}
+          />
+        </div>
       </div>
     </article>
   );

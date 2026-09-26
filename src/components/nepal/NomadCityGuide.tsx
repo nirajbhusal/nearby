@@ -243,17 +243,6 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
   const chips = place.features.slice(0, 3);
   return (
     <article className="stay-card">
-      <div className="card-tools">
-        <SaveButton
-          item={{
-            id: place.id,
-            kind: "stay",
-            title: place.name,
-            subtitle: cityName,
-            href: `/nomad/${citySlug}`,
-          }}
-        />
-      </div>
       <h3>{place.name}</h3>
       <p className="card-sub">{[stayTypeLabel(place.type), place.area || cityName].filter(Boolean).join(" · ")}</p>
       <div className="meta-row">
@@ -265,11 +254,22 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
         ))}
       </div>
       {place.workLine ? <p className="card-sub">{place.workLine}</p> : null}
-      {place.website ? (
-        <a className="btn-secondary card-action" href={place.website} target="_blank" rel="noopener noreferrer">
-          Open
-        </a>
-      ) : null}
+      <div className="card-footer">
+        {place.website ? (
+          <a className="btn-secondary card-action" href={place.website} target="_blank" rel="noopener noreferrer">
+            Open
+          </a>
+        ) : null}
+        <SaveButton
+          item={{
+            id: place.id,
+            kind: "stay",
+            title: place.name,
+            subtitle: cityName,
+            href: `/nomad/${citySlug}`,
+          }}
+        />
+      </div>
       <details className="stay-more">
         <summary>Details</summary>
         {place.address ? <p>{place.address}</p> : null}

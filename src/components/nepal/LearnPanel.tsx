@@ -52,9 +52,11 @@ function PlaceCard({ row }: { row: NearbyLearn }) {
         </ul>
       ) : null}
       {place.website ? (
-        <a href={place.website} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
-          Open
-        </a>
+        <div className="card-footer">
+          <a href={place.website} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
+            Open
+          </a>
+        </div>
       ) : null}
     </article>
   );
