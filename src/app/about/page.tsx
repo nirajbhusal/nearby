@@ -33,10 +33,10 @@ export default function AboutPage() {
         <p>
           Map tiles are © OpenStreetMap contributors. Station coordinates come
           from public operator directories and OpenStreetMap. Company offices
-          are city centroids, not street addresses. Nomad rank and monthly cost
-          figures are credited on the city page, with the date they were current.
-          Coworking, cafés, visas, and neighbourhoods stay blank until a sourced
-          figure is added.
+          are city centroids, not street addresses. Nomad figures, places, and
+          notes are credited on the city page, each with the date it was current.
+          A coworking space found only on a listing site is marked as listed,
+          not confirmed.
         </p>
       </div>
       <p className="link-row">

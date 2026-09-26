@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { NomadMapSlot } from "@/components/nepal/NomadMapSlot";
 import {
   getNomadCity,
+  mappedPlaces,
   nomadCities,
+  type NomadAttribution,
+  type NomadBadge,
   type NomadNote,
   type NomadPlace,
   type NomadStat,
@@ -17,6 +22,11 @@ export function generateStaticParams() {
 
 type Params = Promise<{ city: string }>;
 
+const BADGE_LABEL: Record<NomadBadge, string> = {
+  listed: "Listed; not confirmed",
+  stale: "May be outdated",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -27,7 +37,7 @@ export async function generateMetadata({
   if (!city) return { title: "Nomad city — Nearby" };
   return {
     title: `${city.name} for nomads — Nearby`,
-    description: `Digital nomad notes for ${city.name}, Nepal. Figures include a source and an as-of date.`,
+    description: `Digital nomad notes for ${city.name}, Nepal. Every figure includes a source and an as-of date.`,
   };
 }
 
@@ -36,69 +46,87 @@ export default async function NomadCityPage({ params }: { params: Params }) {
   const city = getNomadCity(slug);
   if (!city) notFound();
 
-  const internet = city.internet;
-  const season = city.bestSeason;
+  const pins = mappedPlaces(city.coworking).map((place) => ({
+    name: place.name,
+    lat: place.lat,
+    lng: place.lng,
+  }));
 
   return (
     <main className="page-wrap">
       <header className="page-hero">
         <p className="eyebrow">Nomad · {city.province}</p>
         <h1 className="font-display page-title">{city.name}</h1>
-        <p className="lede">
-          A practical page for working from {city.name}. Numbers appear only
-          when a source and an as-of date came with them.
-        </p>
+        <p className="lede">{city.blurb}</p>
+        <Attribution stat={city.blurbSource} />
       </header>
 
       <section className="stat-row" aria-label="City figures">
         {city.stats.map((stat) => (
           <StatCell key={stat.id} stat={stat} />
         ))}
-        <article className="stat-cell">
-          <p className="meta-label">Internet</p>
-          <p className="stat-value">{internet ? internet.value : "Not listed yet"}</p>
-          {internet ? <Attribution stat={internet} /> : null}
-        </article>
-        <article className="stat-cell">
-          <p className="meta-label">Best season</p>
-          <p className="stat-value">{season ? season.body : "Not listed yet"}</p>
-          {season ? <Attribution stat={season} /> : null}
-        </article>
       </section>
 
-      <PlaceSection title="Coworking spaces" places={city.coworking} />
-      <PlaceSection title="Laptop-friendly cafés" places={city.cafes} />
-      <PlaceSection title="Neighbourhoods to stay" places={city.neighbourhoods} />
-      <NoteSection title="Visa and stay" note={city.visa} empty="Visa and stay rules are not listed yet." />
-      <NoteSection title="SIM and data" note={city.sim} empty="SIM and data notes are not listed yet." />
-      <section className="nomad-section">
-        <h2>Practical tips</h2>
-        {city.tips.length === 0 ? (
-          <p className="empty-inline">Practical tips are not listed yet.</p>
-        ) : (
-          <ul className="note-list">
-            {city.tips.map((tip) => (
-              <li key={tip.title} className="app-card">
-                <h3>{tip.title}</h3>
-                <p>{tip.body}</p>
-                <Attribution stat={tip} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      <p className="fine nomad-ookla">
+        <a href={city.ookla.url} target="_blank" rel="noopener noreferrer">
+          {city.ookla.label}
+        </a>
+      </p>
+
+      <NoteSection title="Season" notes={[city.season]} empty="Season notes are not listed yet." />
+
+      <PlaceSection
+        title="Coworking spaces"
+        places={city.coworking}
+        intro={
+          pins.length > 0
+            ? "Confirmed spaces come first. The map pins a space only when a coordinate was published with it."
+            : "Confirmed spaces come first. None of these spaces has a published coordinate, so there is no map."
+        }
+        map={
+          pins.length > 0 ? (
+            <NomadMapSlot pins={pins} />
+          ) : (
+            <p className="empty-inline nomad-map-empty">No coworking map for this city yet.</p>
+          )
+        }
+      />
+      <PlaceSection
+        title="Laptop-friendly cafés"
+        places={city.cafes}
+        intro="Current listings come first. A stale note keeps its older source date."
+      />
+      <PlaceSection title="Neighbourhoods" places={city.neighbourhoods} />
+
+      <NoteSection title="Visa and stay" notes={city.visa} empty="Visa and stay rules are not listed yet.">
+        <p className="fine nomad-caveat">
+          Rules change. Check the{" "}
+          <a
+            href="https://www.immigration.gov.np/visa-information"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Department of Immigration
+          </a>{" "}
+          before you travel.
+        </p>
+      </NoteSection>
+
+      <NoteSection title="SIM and data" notes={city.sim} empty="SIM and data notes are not listed yet." />
+
+      <NoteSection title="Practical tips" notes={city.tips} empty="Practical tips are not listed yet." />
 
       <section className="nomad-section">
         <h2>In {city.name}</h2>
         <div className="link-row">
           <Link className="btn-primary" href={`/charge?q=${encodeURIComponent(city.name)}`}>
-            EV chargers
-          </Link>
-          <Link className="btn-secondary" href={`/jobs?q=${encodeURIComponent(city.name)}`}>
-            Jobs
+            Charge
           </Link>
           <Link className="btn-secondary" href={`/events?q=${encodeURIComponent(city.name)}`}>
             Events
+          </Link>
+          <Link className="btn-secondary" href={`/jobs?q=${encodeURIComponent(city.name)}`}>
+            Jobs
           </Link>
         </div>
       </section>
@@ -117,38 +145,83 @@ function StatCell({ stat }: { stat: NomadStat }) {
     <article className="stat-cell">
       <p className="meta-label">{stat.label}</p>
       <p className="stat-value">{stat.value}</p>
+      {stat.note ? <p className="stat-note">{stat.note}</p> : null}
       <Attribution stat={stat} />
     </article>
   );
 }
 
-function Attribution({ stat }: { stat: { source: string; sourceUrl: string | null; asOf: string } }) {
+function SourceLink({ item }: { item: NomadAttribution }) {
+  if (!item.sourceUrl) return item.source;
   return (
-    <p className="fine">
-      Source:{" "}
-      {stat.sourceUrl ? (
-        <a href={stat.sourceUrl} target="_blank" rel="noopener noreferrer">
-          {stat.source}
-        </a>
-      ) : (
-        stat.source
-      )}
-      , as of {stat.asOf}
-    </p>
+    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
+      {item.source}
+    </a>
   );
 }
 
-function PlaceSection({ title, places }: { title: string; places: NomadPlace[] }) {
+function Attribution({ stat }: { stat: NomadAttribution & { also?: NomadAttribution[] } }) {
+  const also = stat.also ?? [];
+  return (
+    <div className="fine source-block">
+      <p>
+        Source: <SourceLink item={stat} />, as of {stat.asOf}
+      </p>
+      {also.length > 0 ? (
+        <p>
+          Also:{" "}
+          {also.map((item, index) => (
+            <span key={`${item.sourceUrl || item.source}-${item.asOf}`}>
+              {index > 0 ? " · " : null}
+              <SourceLink item={item} />, as of {item.asOf}
+            </span>
+          ))}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function PlaceSection({
+  title,
+  places,
+  intro,
+  map,
+}: {
+  title: string;
+  places: NomadPlace[];
+  intro?: string;
+  map?: ReactNode;
+}) {
   return (
     <section className="nomad-section">
       <h2>{title}</h2>
+      {intro ? <p className="section-lead">{intro}</p> : null}
+      {map}
       {places.length === 0 ? (
         <p className="empty-inline">Not listed yet. Verified places will show here with a source and a date.</p>
       ) : (
-        <ul className="card-list">
+        <ul className="card-list nomad-cards">
           {places.map((place) => (
             <li key={place.name} className="app-card">
-              <h3>{place.url ? <a href={place.url}>{place.name}</a> : place.name}</h3>
+              <h3>
+                {place.url ? (
+                  <a href={place.url} target="_blank" rel="noopener noreferrer">
+                    {place.name}
+                  </a>
+                ) : (
+                  place.name
+                )}
+              </h3>
+              {place.badges.length > 0 ? (
+                <p className="badge-row">
+                  {place.badges.map((badge) => (
+                    <span key={badge} className={`badge badge-${badge}`}>
+                      {BADGE_LABEL[badge]}
+                    </span>
+                  ))}
+                </p>
+              ) : null}
               {place.area ? <p className="station-meta">{place.area}</p> : null}
               {place.note ? <p>{place.note}</p> : null}
               <Attribution stat={place} />
@@ -162,25 +235,32 @@ function PlaceSection({ title, places }: { title: string; places: NomadPlace[] }
 
 function NoteSection({
   title,
-  note,
+  notes,
   empty,
+  children,
 }: {
   title: string;
-  note: NomadNote | null;
+  notes: NomadNote[];
   empty: string;
+  children?: ReactNode;
 }) {
   return (
     <section className="nomad-section">
       <h2>{title}</h2>
-      {note ? (
-        <article className="app-card">
-          <h3>{note.title}</h3>
-          <p>{note.body}</p>
-          <Attribution stat={note} />
-        </article>
-      ) : (
+      {notes.length === 0 ? (
         <p className="empty-inline">{empty}</p>
+      ) : (
+        <ul className="note-list">
+          {notes.map((note) => (
+            <li key={note.title} className="app-card">
+              <h3>{note.title}</h3>
+              <p>{note.body}</p>
+              <Attribution stat={note} />
+            </li>
+          ))}
+        </ul>
       )}
+      {children}
     </section>
   );
 }
