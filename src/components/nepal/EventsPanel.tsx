@@ -3,7 +3,8 @@
 import { useMemo, useSyncExternalStore } from "react";
 import { useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
-import { EmptySketch } from "@/components/illustrations/EmptySketch";
+import { EmptyState } from "@/components/nepal/EmptyState";
+import { CalendarOff } from "lucide-react";
 import { eventTypeLabel, formatKm, formatWhen } from "@/lib/nepal/format";
 import {
   EVENT_TYPE_FILTERS,
@@ -116,12 +117,11 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
           Upcoming
         </h3>
         {grouped.upcoming.length === 0 ? (
-          <div className="space-y-3 py-4 text-center">
-            <EmptySketch className="mx-auto h-14 w-20 text-[var(--ink-faint)]" />
-            <p className="text-sm text-[var(--ink-muted)]">
-              Nothing dated coming up near {origin.label}.
-            </p>
-          </div>
+          <EmptyState
+            icon={CalendarOff}
+            title="Nothing dated coming up"
+            body={`No upcoming events matched near ${origin.label}.`}
+          />
         ) : (
           <div className="card-list">
             {grouped.upcoming.map((row) => (

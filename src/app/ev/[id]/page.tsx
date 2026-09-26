@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookingSlot } from "@/components/nepal/BookingSlot";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
-import { SketchPin } from "@/components/illustrations/SketchPin";
+import { LogoMark } from "@/components/brand/Logo";
+import { pageMeta } from "@/lib/site";
 import {
   accessCopy,
   formatUpdated,
@@ -25,17 +25,15 @@ export async function generateMetadata({
   params,
 }: {
   params: Params;
-}): Promise<Metadata> {
+}) {
   const { id } = await params;
   const station = getStation(id);
   if (!station) return { title: "Charging station — Nearby" };
   const place = [station.city, station.district].filter(Boolean).join(", ");
-  return {
-    title: `${station.name} — EV charging — Nearby`,
-    description: place
-      ? `${station.name} in ${place}. Curated charging-station details for Nepal.`
-      : `${station.name}. Curated charging-station details for Nepal.`,
-  };
+  const description = place
+    ? `${station.name} in ${place}. Curated charging-station details for Nepal.`
+    : `${station.name}. Curated charging-station details for Nepal.`;
+  return pageMeta(`${station.name} — EV charging — Nearby`, description, `/ev/${station.id}`);
 }
 
 function formatKw(kw: number | null): string | null {
@@ -62,7 +60,7 @@ export default async function StationPage({ params }: { params: Params }) {
         href={backCity}
         className="mb-8 inline-flex items-center gap-1.5 text-sm text-[var(--ink-faint)] transition hover:text-[var(--graphite)]"
       >
-        <SketchPin className="h-3.5 w-3.5 text-[var(--accent)]" />
+        <LogoMark className="h-3.5 w-3.5 text-[var(--accent)]" />
         Open on the map
       </Link>
 

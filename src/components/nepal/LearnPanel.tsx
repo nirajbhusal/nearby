@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
-import { EmptySketch } from "@/components/illustrations/EmptySketch";
+import { EmptyState } from "@/components/nepal/EmptyState";
+import { GraduationCap } from "lucide-react";
 import { formatKm, learnTypeLabel, modeLabel } from "@/lib/nepal/format";
 import { learnNear, learnTypes, type NearbyLearn } from "@/lib/nepal/learn";
 import type { PlaceHit } from "@/lib/nepal/types";
@@ -124,9 +125,11 @@ export function LearnPanel({ origin }: { origin: PlaceHit }) {
           : `${near.length} place${near.length === 1 ? "" : "s"} near ${origin.label}.`}
       </p>
       {near.length === 0 ? (
-        <div className="space-y-3 py-4 text-center">
-          <EmptySketch className="mx-auto h-16 w-24 text-[var(--ink-faint)]" />
-        </div>
+        <EmptyState
+          icon={GraduationCap}
+          title="No places in this view"
+          body={`No in-person programs matched near ${origin.label}. Online options stay listed below when they exist.`}
+        />
       ) : (
         <div className="card-list">
           {near.map((row) => (

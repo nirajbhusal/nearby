@@ -5,6 +5,7 @@ import type { LayerGroup, Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { pinHint, type NearbyStation } from "@/lib/nepal/ev";
 import { clusterStations } from "@/components/charge/cluster";
+import { mapTileOptions, readMapTheme, type MapTheme } from "@/lib/map-style";
 
 type LeafletNs = typeof import("leaflet");
 
@@ -15,6 +16,12 @@ type Props = {
   showYou: boolean;
   onSelect: (id: string) => void;
 };
+
+function addTiles(leaflet: LeafletNs, map: LeafletMap, theme: MapTheme) {
+  const spec = mapTileOptions(theme);
+  const layer = leaflet.tileLayer(spec.url, spec.options).addTo(map);
+  return { layer, theme };
+}
 
 function speedClass(speed: string): string {
   if (speed === "fast" || speed === "slow") return speed;
@@ -49,6 +56,7 @@ export default function ChargeMap({
     if (!holder) return;
     let map: LeafletMap | null = null;
     let alive = true;
+    let onTheme: (() => void) | null = null;
 
     (async () => {
       const leaflet = await import("leaflet");
@@ -60,13 +68,15 @@ export default function ChargeMap({
         minZoom: 6,
         maxZoom: 18,
       });
-      leaflet
-        .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          maxZoom: 19,
-        })
-        .addTo(map);
+      let tiles = addTiles(leaflet, map, readMapTheme());
+      onTheme = () => {
+        const next = readMapTheme();
+        if (!map || tiles.theme === next) return;
+        map.removeLayer(tiles.layer);
+        tiles = addTiles(leaflet, map, next);
+        tiles.layer.bringToBack();
+      };
+      window.addEventListener("nearby-theme", onTheme);
       leaflet.control.zoom({ position: "bottomright" }).addTo(map);
       map.attributionControl?.setPrefix("");
       map.setView([origin.lat, origin.lng], 13);
@@ -83,6 +93,7 @@ export default function ChargeMap({
     return () => {
       alive = false;
       window.removeEventListener("resize", onResize);
+      if (onTheme) window.removeEventListener("nearby-theme", onTheme);
       map?.remove();
       mapRef.current = null;
       layerRef.current = null;

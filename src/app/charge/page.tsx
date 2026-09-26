@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ChargeExplorer } from "@/components/charge/ChargeExplorer";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "EV charging map — Nearby",
-  description:
-    "Map of EV chargers in Nepal. Search a city or use your location, filter by speed and connector, and navigate.",
-};
+export const metadata = pageMeta(
+  "EV charging map — Nearby",
+  "Map of EV chargers in Nepal. Search a city or use your location, filter by speed and connector, and navigate.",
+  "/charge",
+);
 
 export default function ChargePage() {
   return (

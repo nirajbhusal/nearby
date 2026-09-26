@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { nomadCities } from "@/lib/nepal/nomad";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Digital nomad — Nearby",
-  description:
-    "Kathmandu and Pokhara for people working from Nepal. Rank and cost figures are credited to Nomads.com.",
-};
+export const metadata = pageMeta(
+  "Digital nomad — Nearby",
+  "Kathmandu and Pokhara for people working from Nepal. Rank and cost figures are credited to Nomads.com.",
+  "/nomad",
+);
 
 export default function NomadIndexPage() {
   return (

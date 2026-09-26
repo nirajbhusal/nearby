@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SectionPage } from "@/components/nepal/SectionPage";
+import { pageMeta } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Tech jobs — Nearby",
-  description: "Tech companies and open roles in Nepal, sorted around a city you choose.",
-};
+export const metadata = pageMeta(
+  "Tech jobs — Nearby",
+  "Tech companies and open roles in Nepal, sorted around a city you choose.",
+  "/jobs",
+);
 
 export default function JobsPage() {
   return (
