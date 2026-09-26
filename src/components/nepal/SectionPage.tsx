@@ -52,7 +52,7 @@ const COPY = {
   jobs: {
     kicker: "Jobs",
     title: "Tech work nearby",
-    intro: "Tech roles across Nepal.",
+    intro: "Tech roles around a city.",
   },
   learn: {
     kicker: "Learn",
@@ -108,7 +108,7 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
         const named = await reverseGeocode(pos.coords.latitude, pos.coords.longitude);
         const hit = (named && resolvePlace(named)) || null;
         if (!hit) {
-          setMessage("That location is outside the places Nearby knows. Search a Nepal city.");
+          setMessage("That location is outside the places Nearby knows. Search a city.");
           return;
         }
         go(hit);
@@ -136,11 +136,11 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
             event.preventDefault();
             const hit = suggestions[0];
             if (hit) go(hit);
-            else setMessage("No matching place in Nepal. Try Kathmandu, Pokhara, or Patan.");
+            else setMessage("No matching place. Try Kathmandu, Pokhara, or Patan.");
           }}
         >
           <label className="sr-only" htmlFor={`${section}-place`}>
-            Place in Nepal
+            Place
           </label>
           <input
             id={`${section}-place`}

@@ -29,12 +29,12 @@ export async function generateMetadata({
 }) {
   const { id } = await params;
   const station = getStation(id);
-  if (!station) return { title: "Charging station — Nearby" };
+  if (!station) return { title: "Charging station — Nearby · All within reach" };
   const place = [station.city, station.district].filter(Boolean).join(", ");
   const description = place
     ? `${station.name} in ${place}. Curated charging-station details for Nepal.`
     : `${station.name}. Curated charging-station details for Nepal.`;
-  return pageMeta(`${station.name} — EV charging — Nearby`, description, `/ev/${station.id}`);
+  return pageMeta(`${station.name} — EV charging — Nearby · All within reach`, description, `/ev/${station.id}`);
 }
 
 function formatKw(kw: number | null): string | null {
@@ -81,7 +81,7 @@ export default async function StationPage({ params }: { params: Params }) {
 
         <NavigateLinks lat={station.lat} lng={station.lng} />
 
-        <dl className="space-y-4 text-[15px]">
+        <dl className="detail-list space-y-4">
           <div>
             <dt className="text-xs tracking-wide text-[var(--ink-faint)]">Address</dt>
             <dd className="mt-1 text-[var(--graphite)]">

@@ -3,7 +3,7 @@ import { SectionPage } from "@/components/nepal/SectionPage";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "Tech events — Nearby",
+  "Tech events — Nearby · All within reach",
   "Tech and AI events in Nepal: upcoming dates, regular series, and recent meetups.",
   "/events",
 );

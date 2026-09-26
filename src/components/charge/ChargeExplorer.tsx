@@ -498,7 +498,9 @@ export function ChargeExplorer() {
     origin.kind === "province"
       ? `${count} in ${origin.label}`
       : origin.kind === "country" || radiusKm == null
-        ? `${count} charger${count === 1 ? "" : "s"} in ${origin.kind === "country" ? "Nepal" : origin.label}`
+        ? origin.kind === "country"
+          ? `${count} charger${count === 1 ? "" : "s"}`
+          : `${count} charger${count === 1 ? "" : "s"} in ${origin.label}`
         : origin.kind === "geolocation"
           ? `${count} charger${count === 1 ? "" : "s"} within ${within}`
           : `${count} within ${within} of ${origin.label}`;
@@ -542,7 +544,7 @@ export function ChargeExplorer() {
           }}
         >
           <label className="sr-only" htmlFor="charger-search">
-            Search a place in Nepal
+            Search a place
           </label>
           <input
             id="charger-search"
@@ -587,7 +589,7 @@ export function ChargeExplorer() {
             aria-pressed={origin.kind === "country"}
             onClick={chooseNepal}
           >
-            Nepal {evIndex.length}
+            All {evIndex.length}
           </button>
           {provinceRecords.map((province) => {
             const on = origin.kind === "province" && origin.province === province.name;
@@ -650,7 +652,7 @@ export function ChargeExplorer() {
                 })
               : null}
             {suggestionHits.length === 0 ? (
-              <li className="suggest-label">No matching place in Nepal</li>
+              <li className="suggest-label">No matching place</li>
             ) : (
               suggestionHits.map((hit, index) => (
                 <li key={`${hit.kind}-${hit.label}-${hit.lat}`}>
@@ -676,7 +678,7 @@ export function ChargeExplorer() {
 
   return (
     <div className={cards ? "charge-cards-page" : "charge-stage"}>
-      <h1 className="sr-only">EV chargers in Nepal</h1>
+      <h1 className="sr-only">EV chargers</h1>
       {cards ? null : (
         <ChargeMap
           stations={mapStations}
@@ -788,7 +790,7 @@ export function ChargeExplorer() {
                 <button type="button" className="text-btn" onClick={clearFilters}>
                   Clear {filterCount}
                 </button>
-              ) : (
+              ) : origin.kind === "country" ? null : (
                 <span className="fine">{origin.label}</span>
               )}
             </div>
@@ -983,6 +985,19 @@ function StationListItem({
   );
 }
 
+function shortStationArea(station: NearbyStation): string {
+  const raw = station.address || "";
+  const parts = raw
+    .split(",")
+    .map((part) => part.replace(/\(.*?\)/g, "").trim())
+    .filter((part) => part && !/^nepal$/i.test(part) && !/plus code/i.test(part));
+  const street = /\b(marg|road|rd|sadak|street|path|lane|tole)\b/i;
+  const local = parts.filter((part, index) => !(index === 0 && street.test(part)));
+  const area = (local.length ? local : parts).slice(-2).join(", ");
+  if (area) return area;
+  return [station.city, station.district].filter(Boolean).join(", ");
+}
+
 function ChargerCard({
   station,
   fits,
@@ -995,7 +1010,7 @@ function ChargerCard({
   const call = phoneHref(station.phone);
   const kw = maxKw(station);
   const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
-  const area = station.address || [station.city, station.district].filter(Boolean).join(", ");
+  const area = shortStationArea(station);
   return (
     <article className="charger-card">
       <header>
@@ -1005,24 +1020,27 @@ function ChargerCard({
         </h2>
         <span className="card-tools">
           <SaveButton item={chargerSave(station)} />
-          <span className={`speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
         </span>
       </header>
-      {showDistance || area ? (
-        <p className="station-meta">
-          {showDistance ? <DistanceText km={station.distanceKm} /> : null}
-          {showDistance && area ? " · " : ""}
-          {area}
-        </p>
-      ) : null}
-      <p className="charger-kw">{kw != null ? `${trimKw(kw)} kW` : "kW not listed"}</p>
-      <ul className="connector-chips">
-        {uniquePlugs(station).length === 0 ? <li>Connectors not listed</li> : uniquePlugs(station).map((type) => <li key={type}>{type}</li>)}
-      </ul>
+      <p className="card-sub">{[networkLabel(station.network), area].filter(Boolean).join(" · ")}</p>
+      <div className="meta-row">
+        <span className={`meta-chip speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
+        {kw != null ? <span className="meta-chip tabular">{trimKw(kw)} kW</span> : null}
+        {showDistance ? (
+          <span className="meta-chip tabular">
+            <DistanceText km={station.distanceKm} />
+          </span>
+        ) : null}
+        {uniquePlugs(station).slice(0, 3).map((type) => (
+          <span key={type} className="meta-chip">
+            {type}
+          </span>
+        ))}
+      </div>
       <div className="card-actions">
         <NavigateLinks lat={station.lat} lng={station.lng} />
         {call ? (
-          <a className="btn-secondary" href={call}>
+          <a className="btn-secondary card-action" href={call}>
             Call
           </a>
         ) : null}

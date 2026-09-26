@@ -203,7 +203,7 @@ export default function NepalMap({ provinces }: Props) {
       <img
         className="nepal-fallback"
         src={src}
-        alt="Chargers across Nepal by province"
+        alt="Chargers by province"
       />
     );
   }

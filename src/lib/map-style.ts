@@ -14,7 +14,7 @@ export function ensureMapWorker(): void {
 
 
 /**
- * OpenFreeMap Liberty, retuned at build time into public/map.
+ * Hand-built OpenMapTiles style, written at build time into public/map.
  * Tiles, sprites, and glyphs stay on OpenFreeMap. No API key.
  */
 export function readMapTheme(): MapTheme {

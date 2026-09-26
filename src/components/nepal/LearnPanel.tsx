@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, MapPin } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
 import { learnTypeLabel, modeLabel } from "@/lib/nepal/format";
 import { learnNear, learnTypes, type NearbyLearn } from "@/lib/nepal/learn";
@@ -19,63 +19,41 @@ function PlaceCard({ row }: { row: NearbyLearn }) {
   const { place } = row;
   return (
     <article className="app-card">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-lg font-medium tracking-tight text-[var(--graphite)]">
-          {place.website ? (
-            <a
-              href={place.website}
-              className="hover:text-[var(--accent)]"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {place.name}
-            </a>
-          ) : (
-            place.name
-          )}
-        </h3>
+      <h3>
+        {place.website ? (
+          <a href={place.website} target="_blank" rel="noopener noreferrer">
+            {place.name}
+          </a>
+        ) : (
+          place.name
+        )}
+      </h3>
+      <p className="card-sub">{[place.city, learnTypeLabel(place.type)].filter(Boolean).join(" · ")}</p>
+      <div className="meta-row">
         {row.distanceKm != null ? (
-          <p className="text-sm text-[var(--accent)]">
+          <span className="meta-chip">
+            <MapPin aria-hidden />
             <DistanceText km={row.distanceKm} />
-          </p>
+          </span>
         ) : null}
+        {place.mode ? <span className="meta-chip">{modeLabel(place.mode)}</span> : null}
       </div>
-      <p className="mt-1 text-sm text-[var(--ink-muted)]">
-        {[place.city, learnTypeLabel(place.type), modeLabel(place.mode)]
-          .filter(Boolean)
-          .join(" · ")}
-      </p>
-      {place.address ? (
-        <p className="mt-1 text-sm text-[var(--ink-faint)]">{place.address}</p>
+      {place.programs.length > 0 ? (
+        <ul className="program-list">
+          {place.programs.map((program) => (
+            <li key={program.url + program.title}>
+              <a href={program.url} target="_blank" rel="noopener noreferrer" className="ink-link">
+                {program.title}
+              </a>
+              {program.level ? <span> · {program.level}</span> : null}
+              {program.duration ? <span> · {program.duration}</span> : null}
+            </li>
+          ))}
+        </ul>
       ) : null}
-      <ul className="mt-3 space-y-2">
-        {place.programs.map((program) => (
-          <li key={program.url + program.title} className="text-sm">
-            <a
-              href={program.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ink-link"
-            >
-              {program.title}
-            </a>
-            {program.level ? (
-              <span className="text-[var(--ink-faint)]"> · {program.level}</span>
-            ) : null}
-            {program.duration ? (
-              <span className="text-[var(--ink-faint)]"> · {program.duration}</span>
-            ) : null}
-          </li>
-        ))}
-      </ul>
       {place.website ? (
-        <a
-          href={place.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-secondary mt-3"
-        >
-          Website
+        <a href={place.website} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
+          Open
         </a>
       ) : null}
     </article>

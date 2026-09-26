@@ -3,7 +3,7 @@ import { SectionPage } from "@/components/nepal/SectionPage";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "Learn AI — Nearby",
+  "Learn AI — Nearby · All within reach",
   "Places to learn AI in Nepal: universities, bootcamps, and communities.",
   "/learn",
 );

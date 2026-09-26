@@ -111,7 +111,7 @@ export function CityHorizon({
         />
       </svg>
       {label ? (
-        <span className="pointer-events-none absolute inset-x-0 bottom-0 truncate px-1 text-center font-[family-name:var(--font-fraunces)] text-[11px] italic tracking-wide text-[var(--ink-muted)]">
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 truncate px-1 text-center font-[family-name:var(--font-fraunces)] text-xs italic tracking-wide text-[var(--ink-muted)]">
           {label}
         </span>
       ) : null}

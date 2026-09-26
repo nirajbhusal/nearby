@@ -14,9 +14,9 @@ type Params = Promise<{ city: string }>;
 export async function generateMetadata({ params }: { params: Params }) {
   const { city: slug } = await params;
   const city = getNomadCity(slug);
-  if (!city) return { title: "Nomad city — Nearby" };
+  if (!city) return { title: "Nomad city — Nearby · All within reach" };
   return pageMeta(
-    `${city.name} for nomads — Nearby`,
+    `${city.name} for nomads — Nearby · All within reach`,
     `Where to live and work in ${city.name}, Nepal, with sourced reference figures.`,
     `/nomad/${city.slug}`,
   );

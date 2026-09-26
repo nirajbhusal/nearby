@@ -3,7 +3,7 @@ import { ChargeExplorer } from "@/components/charge/ChargeExplorer";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "EV charging map — Nearby",
+  "EV charging map — Nearby · All within reach",
   "Map of EV chargers in Nepal. Search a city or use your location, filter by speed and connector, and navigate.",
   "/charge",
 );

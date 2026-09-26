@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Calendar, MapPin, Tag } from "lucide-react";
 import { ViewToggle } from "@/components/ViewToggle";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
@@ -32,9 +32,22 @@ function initial(name: string): string {
   return (letter || "•").toUpperCase();
 }
 
+function shortArea(card: JobRoleCard): string {
+  const raw = card.address || card.location || card.placeLabel;
+  const parts = raw
+    .split(",")
+    .map((part) => part.replace(/\(.*?\)/g, "").trim())
+    .filter((part) => part && !/^nepal$/i.test(part) && !/plus code/i.test(part));
+  const street = /\b(marg|road|rd|sadak|street|path|lane|tole)\b/i;
+  const local = parts.filter((part, index) => !(index === 0 && street.test(part)));
+  const area = (local.length ? local : parts).slice(-2).join(", ");
+  return area || card.placeLabel;
+}
+
 function RoleCard({ card }: { card: JobRoleCard }) {
+  const area = shortArea(card);
   return (
-    <article className="role-card">
+    <article className="role-card app-card">
       <div className="role-mark" aria-hidden>
         {initial(card.company.name)}
       </div>
@@ -53,22 +66,35 @@ function RoleCard({ card }: { card: JobRoleCard }) {
         <h3>{card.title}</h3>
         <p>
           {card.company.name}
-          {" · "}
-          {card.location || card.placeLabel}
+          {area ? ` · ${area}` : ""}
         </p>
-        {card.address ? <p className="role-address">{card.address}</p> : null}
-        <p className="role-meta">
-          <span>{categoryLabel(card.category)}</span>
-          {card.seen ? <span>Seen {formatUpdated(card.seen)}</span> : null}
+        <div className="meta-row">
+          <span className="meta-chip">
+            <Tag aria-hidden />
+            {categoryLabel(card.category)}
+          </span>
+          {card.seen ? (
+            <span className="meta-chip">
+              <Calendar aria-hidden />
+              {formatUpdated(card.seen)}
+            </span>
+          ) : null}
           {card.distanceKm != null ? (
-            <span>
+            <span className="meta-chip">
+              <MapPin aria-hidden />
               <DistanceText km={card.distanceKm} />
             </span>
           ) : null}
-        </p>
-        <a className="btn-primary" href={card.url} target="_blank" rel="noopener noreferrer">
+        </div>
+        <a className="btn-secondary card-action" href={card.url} target="_blank" rel="noopener noreferrer">
           Apply
         </a>
+        {card.address ? (
+          <details className="card-address">
+            <summary>Full address</summary>
+            <p>{card.address}</p>
+          </details>
+        ) : null}
       </div>
     </article>
   );
@@ -81,6 +107,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
   const view = searchParams.get("view") === "map" ? "map" : "cards";
   const [category, setCategory] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedPin, setSelectedPin] = useState<string | null>(null);
   const categories = useMemo(() => jobCategories(), []);
   const cities = useMemo(() => jobCities(origin), [origin]);
@@ -117,7 +144,11 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
 
   return (
     <div className="jobs-board">
+      <div className="jobs-sticky">
       <div className="jobs-toolbar">
+        <p className="fine tabular">
+          {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
+        </p>
         <ViewToggle
           label="Jobs view"
           value={view}
@@ -127,23 +158,22 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           ]}
           onChange={setView}
         />
-        <p className="fine">
-          {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
-          {profile.jobInterests.length > 0 ? " Matching interests are listed first." : ""}
-        </p>
       </div>
-      <div className="space-y-3">
-        <ChipRow label="Category">
-          <Chip pressed={!category} onClick={() => setCategory(null)}>
-            Any
+      <div className="filter-scroll" role="group" aria-label="Category">
+        <button type="button" className={filtersOpen ? "chip chip-on" : "chip"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen((open) => !open)}>
+          Filters
+        </button>
+        <Chip pressed={!category} onClick={() => setCategory(null)}>
+          Any
+        </Chip>
+        {categories.map((item) => (
+          <Chip key={item} pressed={category === item} onClick={() => setCategory(item)}>
+            {categoryLabel(item)}
           </Chip>
-          {categories.map((item) => (
-            <Chip key={item} pressed={category === item} onClick={() => setCategory(item)}>
-              {categoryLabel(item)}
-            </Chip>
-          ))}
-        </ChipRow>
-        {cities.length > 1 ? (
+        ))}
+      </div>
+      {filtersOpen && cities.length > 1 ? (
+        <div className="filter-sheet">
           <ChipRow label="City">
             <Chip pressed={!city} onClick={() => setCity(null)}>
               Any nearby
@@ -154,7 +184,8 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
               </Chip>
             ))}
           </ChipRow>
-        ) : null}
+        </div>
+      ) : null}
       </div>
       {view === "map" ? (
         pins.length === 0 ? (
@@ -180,7 +211,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
                       <strong>{card.title}</strong>
                       <span>
                         {card.company.name}
-                        {card.address ? ` · ${card.address}` : ""}
+                        {` · ${shortArea(card)}`}
                         {card.seen ? ` · seen ${formatUpdated(card.seen)}` : ""}
                       </span>
                       <a className="btn-secondary apply-link" href={card.url} target="_blank" rel="noopener noreferrer">
