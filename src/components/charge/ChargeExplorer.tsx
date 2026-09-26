@@ -213,7 +213,7 @@ export function ChargeExplorer() {
     if (!fitsOnly || !carReady) return stations;
     return stations.filter((station) => stationFitsEv(station, profile));
   }, [stations, fitsOnly, carReady, profile]);
-  const LIST_PAGE = 24;
+  const LIST_PAGE = 12;
   const [listLimit, setListLimit] = useState(LIST_PAGE);
   const listKey = `${origin.kind}|${origin.label}|${state.fast}|${state.plugs.join(",")}|${state.network ?? ""}|${fitsOnly}|${radiusKm ?? "all"}`;
   useEffect(() => {
