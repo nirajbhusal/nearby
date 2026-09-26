@@ -1014,13 +1014,17 @@ body:has(.charge-stage) {
   box-shadow: 0 0 0 7px rgba(29, 79, 145, 0.28);
 }
 
-.leaflet-bottom.leaflet-right { margin-bottom: 8.2rem !important; }
+.charge-stage .leaflet-bottom.leaflet-right { margin-bottom: 12.5rem !important; }
+.charge-stage .leaflet-bottom.leaflet-left {
+  top: 4.6rem;
+  bottom: auto;
+  left: 0.75rem;
+}
 .leaflet-control-attribution {
-  font-size: 10px !important;
-  max-width: 12rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+  max-width: none;
+  white-space: nowrap !important;
 }
 
 .stat-row {
@@ -1085,7 +1089,13 @@ body:has(.charge-stage) {
   .charge-panel[data-snap="peek"] .sheet-body { display: flex; }
   .charge-panel[data-snap="peek"] .station-more { display: block; }
   .sheet-handle { cursor: default; }
-  .leaflet-bottom.leaflet-right { margin-bottom: 0.6rem !important; }
+  .charge-stage .leaflet-bottom.leaflet-right { margin-bottom: 0.6rem !important; }
+  .charge-stage .leaflet-bottom.leaflet-left {
+    top: auto;
+    bottom: 0.55rem;
+    left: auto;
+    right: 0.6rem;
+  }
   .entry-grid { grid-template-columns: 1fr 1fr; }
   .stat-row { grid-template-columns: repeat(4, 1fr); }
 }

@@ -63,11 +63,12 @@ export default function ChargeMap({
       leaflet
         .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           maxZoom: 19,
         })
         .addTo(map);
       leaflet.control.zoom({ position: "bottomright" }).addTo(map);
+      map.attributionControl?.setPrefix("");
       map.setView([origin.lat, origin.lng], 13);
       layerRef.current = leaflet.layerGroup().addTo(map);
       youRef.current = leaflet.layerGroup().addTo(map);
