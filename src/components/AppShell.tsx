@@ -80,6 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         exit={{ "nav-forward": "page-fade", default: "none" }}
       >
         <div id="content" className={charge ? "charge-frame" : "page-frame"}>
+          <InstallPrompt />
           {children}
         </div>
       </ViewTransition>
@@ -99,7 +100,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           );
         })}
       </nav>
-      <InstallPrompt />
       <RegisterSW />
     </>
   );

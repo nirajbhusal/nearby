@@ -1,15 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Map as LeafletMap, TileLayer } from "leaflet";
-type LeafletNs = typeof import("leaflet");
-import "leaflet/dist/leaflet.css";
-import { mapTileOptions, readMapTheme } from "@/lib/map-style";
-
-function mountTiles(leaflet: LeafletNs, map: LeafletMap): TileLayer {
-  const spec = mapTileOptions(readMapTheme());
-  return leaflet.tileLayer(spec.url, spec.options).addTo(map);
-}
+import { LngLatBounds, Map as MlMap, Marker, NavigationControl, Popup } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { mapStyleUrl, readMapTheme } from "@/lib/map-style";
 
 export type NomadPin = {
   name: string;
@@ -27,46 +21,49 @@ export default function NomadMap({ pins }: Props) {
   useEffect(() => {
     const holder = holderRef.current;
     if (!holder || pins.length === 0) return;
-    let map: LeafletMap | null = null;
+    let map: MlMap | null = null;
     let alive = true;
     let onTheme: (() => void) | null = null;
 
-    (async () => {
-      const leaflet = await import("leaflet");
-      if (!alive || !holderRef.current) return;
-      map = leaflet.map(holder, {
-        zoomControl: true,
-        attributionControl: true,
-        scrollWheelZoom: false,
-      });
-      let tiles = mountTiles(leaflet, map);
-      onTheme = () => {
-        if (!map) return;
-        map.removeLayer(tiles);
-        tiles = mountTiles(leaflet, map);
-        tiles.bringToBack();
-      };
-      window.addEventListener("nearby-theme", onTheme);
-      map.attributionControl?.setPrefix("");
-      const markers = pins.map((pin) => {
-        const icon = leaflet.divIcon({
-          className: "map-pin-wrap",
-          html: '<span class="map-dot nomad-dot"></span>',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8],
-        });
-        return leaflet
-          .marker([pin.lat, pin.lng], { icon, title: pin.name, keyboard: true })
-          .bindPopup(pin.name);
-      });
-      const group = leaflet.featureGroup(markers).addTo(map);
-      if (pins.length === 1) {
-        map.setView([pins[0].lat, pins[0].lng], 15);
-      } else {
-        map.fitBounds(group.getBounds().pad(0.25));
+    const first = pins[0];
+    map = new MlMap({
+      container: holder,
+      style: mapStyleUrl(readMapTheme()),
+      center: [first.lng, first.lat],
+      zoom: pins.length === 1 ? 15 : 12,
+      attributionControl: { compact: true },
+      scrollZoom: false,
+      dragRotate: false,
+      pitchWithRotate: false,
+      touchPitch: false,
+    });
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
+    onTheme = () => {
+      map?.setStyle(mapStyleUrl(readMapTheme()));
+    };
+    window.addEventListener("nearby-theme", onTheme);
+
+    map.on("load", () => {
+      if (!alive || !map) return;
+      for (const pin of pins) {
+        const element = document.createElement("div");
+        element.className = "map-pin-wrap";
+        element.innerHTML = '<span class="map-dot nomad-dot"></span>';
+        element.title = pin.name;
+        new Marker({ element, anchor: "center" })
+          .setLngLat([pin.lng, pin.lat])
+          .setPopup(new Popup({ offset: 12, closeButton: false }).setText(pin.name))
+          .addTo(map);
       }
-      window.setTimeout(() => map?.invalidateSize(), 80);
-    })();
+      if (pins.length === 1) {
+        map.jumpTo({ center: [pins[0].lng, pins[0].lat], zoom: 15 });
+      } else {
+        const bounds = new LngLatBounds();
+        for (const pin of pins) bounds.extend([pin.lng, pin.lat]);
+        map.fitBounds(bounds, { padding: 36, maxZoom: 15, duration: 0 });
+      }
+      map.resize();
+    });
 
     return () => {
       alive = false;

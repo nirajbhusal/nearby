@@ -261,53 +261,60 @@ body {
   }
 }
 
-.leaflet-container {
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+.maplibregl-map {
+  font-family: inherit;
   background: var(--paper-deep);
   height: 100%;
   width: 100%;
-  /* Keep tile and marker panes (z-index 200–700) inside the map. */
+  /* Keep markers and controls inside the map so they cannot paint over the sheet. */
   z-index: 0;
   isolation: isolate;
 }
 
-.leaflet-container img {
-  max-width: none !important;
-  max-height: none !important;
+.maplibregl-ctrl-group {
+  background: var(--glass) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
-.leaflet-control-attribution {
-  background: color-mix(in srgb, var(--paper) 92%, white) !important;
+.maplibregl-ctrl-group button {
+  width: 32px;
+  height: 32px;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--line) !important;
+}
+
+[data-theme="dark"] .maplibregl-ctrl button .maplibregl-ctrl-icon {
+  filter: invert(1);
+}
+
+.maplibregl-ctrl-attrib {
+  background: color-mix(in srgb, var(--paper) 88%, transparent) !important;
   color: var(--ink-muted) !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  border-radius: 0.45rem;
 }
 
-.leaflet-control-attribution a {
-  color: var(--accent) !important;
+.maplibregl-ctrl-attrib a {
+  color: var(--accent-text) !important;
 }
 
-.leaflet-bar a {
-  background: var(--paper) !important;
-  color: var(--graphite) !important;
-  border-bottom-color: var(--line) !important;
-}
-
-.leaflet-popup-content-wrapper {
+.maplibregl-popup-content {
   background: var(--paper);
   color: var(--graphite);
   border-radius: 0.75rem;
-  box-shadow: none;
-  border: 1px solid var(--line);
-}
-
-.leaflet-popup-tip {
-  background: var(--paper);
-}
-
-.leaflet-popup-content {
-  margin: 0.7rem 0.85rem;
+  padding: 0.55rem 0.75rem;
   font-size: 0.85rem;
-  line-height: 1.4;
+  box-shadow: var(--shadow);
+}
+
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--paper);
 }
 
 .ev-popup-title {
@@ -1045,6 +1052,9 @@ body:has(.charge-stage) {
 .map-pin-wrap {
   background: transparent !important;
   border: 0 !important;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
 }
 .map-dot {
   width: 16px;
@@ -1100,17 +1110,29 @@ body:has(.charge-stage) {
   box-shadow: 0 0 0 7px rgba(29, 79, 145, 0.28);
 }
 
-.charge-stage .leaflet-bottom.leaflet-right { margin-bottom: 12.5rem !important; }
-.charge-stage .leaflet-bottom.leaflet-left {
-  top: 4.6rem;
-  bottom: auto;
-  left: 0.75rem;
+.charge-stage {
+  --map-ctrl-top: 4.55rem;
+  --map-ctrl-bottom: calc(16.4rem + env(safe-area-inset-bottom));
 }
-.leaflet-control-attribution {
-  font-size: 11px !important;
-  line-height: 1.3 !important;
-  max-width: none;
-  white-space: nowrap !important;
+.charge-stage:has(.charge-panel[data-mode="station"][data-snap="peek"]) {
+  --map-ctrl-bottom: calc(17.5rem + env(safe-area-inset-bottom));
+}
+.charge-stage:has(.charge-panel[data-snap="half"]) {
+  --map-ctrl-bottom: calc(5.35rem + min(48vh, 30rem) + 0.7rem + env(safe-area-inset-bottom));
+}
+.charge-stage:has(.charge-panel[data-snap="full"]) {
+  --map-ctrl-bottom: calc(100% - 6.4rem);
+}
+.charge-stage .maplibregl-ctrl-top-right {
+  top: var(--map-ctrl-top);
+  right: 0.55rem;
+}
+.charge-stage .maplibregl-ctrl-bottom-right,
+.charge-stage .maplibregl-ctrl-bottom-left {
+  bottom: var(--map-ctrl-bottom);
+}
+.charge-stage .maplibregl-ctrl-attrib {
+  max-width: min(16rem, calc(100vw - 2rem));
 }
 
 .stat-row {
@@ -1198,7 +1220,7 @@ body:has(.charge-stage) {
   background: var(--paper-deep);
 }
 .nomad-dot { background: #c4704b; }
-.nomad-map .leaflet-bottom.leaflet-right { margin-bottom: 0 !important; }
+.nomad-map .maplibregl-ctrl-attrib { font-size: 9px !important; }
 .mini-stats {
   display: grid;
   gap: 0.25rem;
@@ -1237,12 +1259,13 @@ body:has(.charge-stage) {
   .charge-panel[data-snap="peek"] .sheet-body { display: flex; }
   .charge-panel[data-snap="peek"] .station-more { display: block; }
   .sheet-handle { cursor: default; }
-  .charge-stage .leaflet-bottom.leaflet-right { margin-bottom: 0.6rem !important; }
-  .charge-stage .leaflet-bottom.leaflet-left {
-    top: auto;
-    bottom: 0.55rem;
-    left: auto;
-    right: 0.6rem;
+  .charge-stage,
+  .charge-stage:has(.charge-panel[data-snap="peek"]),
+  .charge-stage:has(.charge-panel[data-snap="half"]),
+  .charge-stage:has(.charge-panel[data-snap="full"]),
+  .charge-stage:has(.charge-panel[data-mode="station"][data-snap="peek"]) {
+    --map-ctrl-top: 0.65rem;
+    --map-ctrl-bottom: 0.45rem;
   }
   .entry-grid { grid-template-columns: 1fr 1fr; }
   .stat-row { grid-template-columns: repeat(4, 1fr); }
@@ -1447,21 +1470,28 @@ body:has(.charge-stage) {
 .suggest-jumps { display: flex; gap: 0.4rem; padding: 0 0.9rem 0.55rem; }
 .suggest-jumps button { color: var(--accent-text); font-size: 0.8rem; font-weight: 650; }
 .install-prompt {
-  position: fixed;
-  z-index: 45;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.7rem;
-  padding: 0.7rem 0.7rem 0.7rem 0.9rem;
-  border-radius: 1.1rem;
+  gap: 0.55rem;
+  width: min(calc(100% - 1.4rem), 46rem);
+  margin: 0.55rem auto 0;
+  padding: 0.28rem 0.28rem 0.28rem 0.9rem;
+  border-radius: 999px;
 }
-.install-prompt p { font-size: 0.85rem; display: flex; align-items: center; gap: 0.25rem; }
-.install-actions { display: flex; align-items: center; gap: 0.35rem; }
-.install-prompt .btn-primary { min-height: 2.4rem; padding: 0.45rem 0.8rem; }
+.install-prompt p {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.install-actions { display: flex; align-items: center; gap: 0.3rem; }
+.install-prompt .btn-primary { min-height: 2rem; padding: 0.3rem 0.75rem; font-size: 0.82rem; }
+.install-prompt .icon-btn { width: 2rem; height: 2rem; }
 .skeleton-block { height: 4.5rem; border-radius: 1rem; margin-top: 0.8rem; }
 .skeleton-line.short { width: 55%; }
 .skeleton-grid { display: grid; gap: 0.6rem; }
@@ -1478,7 +1508,4 @@ body:has(.charge-stage) {
   }
   ::view-transition-old(.page-fade),
   ::view-transition-new(.page-fade) { animation: none; }
-}
-@media (min-width: 1024px) {
-  .install-prompt { bottom: 1.2rem; left: auto; right: 1.2rem; width: min(24rem, calc(100% - 2rem)); }
 }
