@@ -111,8 +111,8 @@ const staysFile = staysJson as StaysFile;
 
 export type NomadArea = {
   name: string;
-  description: string;
-  suits: string[];
+  blurb: string;
+  tags: string[];
   lat: number | null;
   lng: number | null;
   sources: string[];
@@ -121,6 +121,7 @@ export type NomadArea = {
 export type NomadWorkLink = {
   id: string;
   name: string;
+  kind: string;
   km: number | null;
 };
 
@@ -139,6 +140,8 @@ export type NomadStay = {
   bookingUrls: string[];
   features: string[];
   price: string | null;
+  priceShort: string | null;
+  workLine: string | null;
   nearbyWork: NomadWorkLink[];
 };
 
@@ -157,6 +160,10 @@ export type NomadNote = { title: string; body: string };
 export type NomadCity = {
   slug: string;
   name: string;
+  shortName: string;
+  headline: string;
+  referenceLine: string;
+  sourceUrl: string | null;
   blurb: string;
   reference: { label: string; value: string; note: string | null }[];
   ookla: { label: string; url: string } | null;
@@ -177,6 +184,67 @@ const REFERENCE_LABELS = [
   "Internet speed (avg)",
   "Safety",
 ];
+
+const SHORT_NAME: Record<string, string> = {
+  kathmandu: "Kathmandu",
+  pokhara: "Pokhara",
+};
+
+const HEADLINE: Record<string, string> = {
+  kathmandu:
+    "Nepal's capital and its sister city Patan: cafés, coworking and mountain views, from about $908 a month.",
+  pokhara:
+    "Beside Phewa Lake, where most Annapurna treks begin: lakeside cafés and quieter side streets, from about $1,030 a month.",
+};
+
+/** Plain-language area lines, paraphrased from the cited neighbourhood notes. */
+const AREA_COPY: Record<string, { blurb: string; tags: string[] }> = {
+  Thamel: {
+    blurb:
+      "The backpacker centre, a traffic-free maze of guesthouses and cafés. Most tourist stays are here, and it is loud.",
+    tags: ["Central", "Cafés", "Busy"],
+  },
+  "Jhamsikhel / Sanepa (Lalitpur)": {
+    blurb: "Quieter than Thamel, with the valley’s densest stretch of remote-work cafés along Jhamel.",
+    tags: ["Cafés", "Quieter", "Expat area"],
+  },
+  "Patan Durbar area (Lalitpur)": {
+    blurb: "About 4 km from Thamel, around the UNESCO Durbar Square. More space, and home to many INGOs.",
+    tags: ["Heritage", "Calmer", "Patan"],
+  },
+  "Boudha (Boudhanath)": {
+    blurb: "East of the centre, around the great stupa and its monasteries. Calm, and often better value.",
+    tags: ["Calm", "Spiritual", "Good value"],
+  },
+  Lazimpat: {
+    blurb: "The embassy and hotel strip in central Kathmandu, a short walk from Thamel.",
+    tags: ["Central", "Hotels", "Walkable"],
+  },
+  Baluwatar: {
+    blurb: "A quiet residential neighbourhood with cafés, next to the government quarter.",
+    tags: ["Quiet", "Residential"],
+  },
+  Lakeside: {
+    blurb: "The main strip along Phewa Lake, with cafés and live music. Busy, and where most visitors stay.",
+    tags: ["Lake", "Cafés", "Walkable"],
+  },
+  "Baidam (Lakeside East)": {
+    blurb: "The eastern side streets of Lakeside. Quieter than the main road, and still a short walk to the lake.",
+    tags: ["Quieter", "Apartments", "Lake"],
+  },
+  "Khahare (North Lakeside)": {
+    blurb: "The north end of Lakeside, a little higher, with lake views and simpler stays.",
+    tags: ["Lake views", "Quieter", "Budget"],
+  },
+  Sarangkot: {
+    blurb: "The hill above the lake, for sunrise over the Annapurnas. Cleaner air, and a walk from the cafés.",
+    tags: ["Mountain views", "Quiet"],
+  },
+  Damside: {
+    blurb: "The other tourist shore of Phewa Lake, with hotels along Damside Marg.",
+    tags: ["Lake", "Hotels"],
+  },
+};
 
 function hostOf(url: string | undefined): string {
   if (!url) return "";
@@ -247,8 +315,41 @@ function simNotes(nepal: CitiesFile["nepal"]): NomadNote[] {
   }));
 }
 
+function shortPrice(note: StayJson["price_note"]): string | null {
+  const text = note?.text?.trim();
+  if (!text) return null;
+  const amount = text.match(/(?:USD|NPR)\s[\d,]+(?:[–-][\d,]+)?(?:\/(?:night|month))?/i);
+  const bit = amount?.[0] ?? text.split(/[.;]/)[0]?.trim() ?? text;
+  return bit.length > 42 ? `${bit.slice(0, 39).trim()}…` : bit;
+}
+
+function workNearbyLine(links: NomadWorkLink[], approximate: boolean): string | null {
+  const measured = links.filter((item) => item.km != null);
+  if (measured.length === 0) return null;
+  const about = approximate ? "about " : "";
+  const cowork = measured.filter((item) => item.kind === "coworking" && (item.km ?? 99) <= 1);
+  if (cowork.length > 0) {
+    return `${cowork.length} coworking space${cowork.length === 1 ? "" : "s"} within ${about}1 km`;
+  }
+  const close = measured.filter((item) => (item.km ?? 99) <= 1);
+  if (close.length > 0) {
+    return `${close.length} place${close.length === 1 ? "" : "s"} to work within ${about}1 km`;
+  }
+  const nearest = [...measured].sort((a, b) => (a.km ?? 99) - (b.km ?? 99))[0];
+  if (!nearest || nearest.km == null) return null;
+  const km = nearest.km < 10 ? nearest.km.toFixed(1) : String(Math.round(nearest.km));
+  return `Nearest work ${about}${km} km`;
+}
+
 function toStay(stay: StayJson): NomadStay {
   const basis = stay.nearby_work_basis ?? "";
+  const approximateDistance = stay.geo_precision === "area" || basis.startsWith("approximate");
+  const nearbyWork = (stay.nearby_work ?? []).map((item) => ({
+    id: item.id,
+    name: item.name,
+    kind: item.kind,
+    km: typeof item.km === "number" ? item.km : null,
+  }));
   return {
     id: stay.id,
     name: stay.name,
@@ -259,29 +360,31 @@ function toStay(stay: StayJson): NomadStay {
     lat: typeof stay.lat === "number" ? stay.lat : null,
     lng: typeof stay.lng === "number" ? stay.lng : null,
     geoPrecision: stay.geo_precision,
-    approximateDistance: stay.geo_precision === "area" || basis.startsWith("approximate"),
+    approximateDistance,
     website: stay.website ?? null,
     bookingUrls: stay.booking_urls ?? [],
     features: stay.nomad_features ?? [],
     price: priceLine(stay.price_note),
-    nearbyWork: (stay.nearby_work ?? []).map((item) => ({
-      id: item.id,
-      name: item.name,
-      km: typeof item.km === "number" ? item.km : null,
-    })),
+    priceShort: shortPrice(stay.price_note),
+    workLine: workNearbyLine(nearbyWork, approximateDistance),
+    nearbyWork,
   };
 }
 
 function buildCity(raw: CityJson): NomadCity {
   const pack = staysFile.cities[raw.slug];
-  const areas = (pack?.best_areas_to_live ?? []).map((area) => ({
-    name: area.name,
-    description: area.description ?? "",
-    suits: area.suits ?? [],
-    lat: typeof area.center?.lat === "number" ? area.center.lat : null,
-    lng: typeof area.center?.lng === "number" ? area.center.lng : null,
-    sources: area.sources ?? [],
-  }));
+  const areas = (pack?.best_areas_to_live ?? []).map((area) => {
+    const written = AREA_COPY[area.name];
+    const tags = (written?.tags ?? area.suits ?? []).slice(0, 3);
+    return {
+      name: area.name,
+      blurb: written?.blurb ?? "",
+      tags,
+      lat: typeof area.center?.lat === "number" ? area.center.lat : null,
+      lng: typeof area.center?.lng === "number" ? area.center.lng : null,
+      sources: area.sources ?? [],
+    };
+  });
   const reference = (raw.stats ?? [])
     .filter((stat) => REFERENCE_LABELS.includes(stat.label))
     .map((stat) => ({ label: stat.label, value: statValue(stat), note: stat.note ?? null }));
@@ -293,9 +396,27 @@ function buildCity(raw: CityJson): NomadCity {
     .filter((tip) => !tip.cities?.length || tip.cities.includes(raw.slug))
     .map((tip) => ({ title: tip.topic.replaceAll("_", " "), body: tip.tip }));
 
+  const rank = raw.stats?.find((stat) => stat.label === "Nomads.com rank");
+  const cost = raw.stats?.find((stat) => stat.label === "Cost of living for nomad");
+  const internet = raw.stats?.find((stat) => stat.label === "Internet speed (avg)");
+  const asOf = rank?.as_of ? formatUpdated(rank.as_of) : "26 Sep 2026";
+  const costText = typeof cost?.value === "number" ? `$${cost.value.toLocaleString("en-US")}/mo` : "";
+  const referenceLine = [
+    rank ? `#${rank.value} on Nomads.com` : "",
+    costText,
+    internet ? `${internet.value} Mbps avg` : "",
+    `as of ${asOf}`,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
   return {
     slug: raw.slug,
     name: raw.name,
+    shortName: SHORT_NAME[raw.slug] ?? raw.name,
+    headline: HEADLINE[raw.slug] ?? "",
+    referenceLine,
+    sourceUrl: rank?.source_url ?? cost?.source_url ?? null,
     blurb: raw.hero_blurb ?? "",
     reference,
     ookla: ookla?.url ? { label: ookla.name || "Ookla", url: ookla.url } : null,

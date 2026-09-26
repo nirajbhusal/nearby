@@ -482,6 +482,8 @@ export function ChargeExplorer() {
       : origin.kind === "province"
         ? { mode: "bounds", bbox: (provinceByName(origin.province)?.bbox ?? NEPAL_BBOX) }
         : { mode: "point", lng: origin.lng, lat: origin.lat, zoom: origin.kind === "geolocation" ? 13 : 13 };
+  const showDistance =
+    origin.kind === "geolocation" || origin.kind === "city" || origin.kind === "area" || origin.kind === "district";
   const cityChips = MAJOR_CITIES.map((name) => {
     const hit = resolvePlace(name);
     return {
@@ -507,6 +509,7 @@ export function ChargeExplorer() {
       )}
 
       <div className="charge-search" ref={searchRef}>
+        <div className="charge-search-top">
         <form
           role="search"
           onSubmit={(event) => {
@@ -558,50 +561,47 @@ export function ChargeExplorer() {
           ]}
           onChange={(id) => replace({ view: id === "cards" ? "cards" : "map" })}
         />
-        <div className="scope-rows">
-          <div className="scope-row" role="group" aria-label="Provinces">
-            <button
-              type="button"
-              className={origin.kind === "country" ? "chip chip-on" : "chip"}
-              aria-pressed={origin.kind === "country"}
-              onClick={chooseNepal}
-            >
-              Nepal {evIndex.length}
-            </button>
-            {provinceRecords.map((province) => {
-              const on = origin.kind === "province" && origin.province === province.name;
-              return (
-                <button
-                  key={province.slug}
-                  type="button"
-                  className={on ? "chip chip-on" : "chip"}
-                  aria-pressed={on}
-                  onClick={() => chooseProvince(province.slug)}
-                >
-                  {province.name} {province.count}
-                </button>
-              );
-            })}
-          </div>
-          <div className="scope-row" role="group" aria-label="Cities">
-            {cityChips.map((city) => {
-              const on = origin.kind === "city" && origin.city === city.name;
-              return (
-                <button
-                  key={city.name}
-                  type="button"
-                  className={on ? "chip chip-on" : "chip"}
-                  aria-pressed={on}
-                  onClick={() => {
-                    const hit = resolvePlace(city.name);
-                    if (hit) choosePlace(hit);
-                  }}
-                >
-                  {city.name} {city.count}
-                </button>
-              );
-            })}
-          </div>
+        </div>
+        <div className="scope-row" role="group" aria-label="Scope">
+          <button
+            type="button"
+            className={origin.kind === "country" ? "chip chip-on" : "chip"}
+            aria-pressed={origin.kind === "country"}
+            onClick={chooseNepal}
+          >
+            Nepal {evIndex.length}
+          </button>
+          {provinceRecords.map((province) => {
+            const on = origin.kind === "province" && origin.province === province.name;
+            return (
+              <button
+                key={province.slug}
+                type="button"
+                className={on ? "chip chip-on" : "chip"}
+                aria-pressed={on}
+                onClick={() => chooseProvince(province.slug)}
+              >
+                {province.name} {province.count}
+              </button>
+            );
+          })}
+          {cityChips.map((city) => {
+            const on = origin.kind === "city" && origin.city === city.name;
+            return (
+              <button
+                key={city.name}
+                type="button"
+                className={on ? "chip chip-on" : "chip"}
+                aria-pressed={on}
+                onClick={() => {
+                  const hit = resolvePlace(city.name);
+                  if (hit) choosePlace(hit);
+                }}
+              >
+                {city.name} {city.count}
+              </button>
+            );
+          })}
         </div>
         {state.near ? (
           <p className="search-note" role="status">
@@ -688,7 +688,12 @@ export function ChargeExplorer() {
           ) : (
             <div className="charger-grid">
               {visible.map((station) => (
-                <ChargerCard key={station.id} station={station} fits={stationFitsEv(station, profile)} />
+                <ChargerCard
+                  key={station.id}
+                  station={station}
+                  fits={stationFitsEv(station, profile)}
+                  showDistance={showDistance}
+                />
               ))}
             </div>
           )}
@@ -716,6 +721,7 @@ export function ChargeExplorer() {
           <StationSheet
             station={selected}
             fits={stationFitsEv(selected, profile)}
+            showDistance={showDistance}
             call={call}
             caution={caution}
             copied={copied}
@@ -763,6 +769,7 @@ export function ChargeExplorer() {
                     key={station.id}
                     station={station}
                     fits={stationFitsEv(station, profile)}
+                    showDistance={showDistance}
                     onSelect={selectStation}
                   />
                 ))}
@@ -797,6 +804,7 @@ export function ChargeExplorer() {
                       key={station.id}
                       station={station}
                       fits={stationFitsEv(station, profile)}
+                      showDistance={showDistance}
                       onSelect={selectStation}
                     />
                   ))}
@@ -894,10 +902,12 @@ function FilterChips({
 function StationListItem({
   station,
   fits,
+  showDistance,
   onSelect,
 }: {
   station: NearbyStation;
   fits: boolean;
+  showDistance: boolean;
   onSelect: (id: string) => void;
 }) {
   return (
@@ -909,7 +919,13 @@ function StationListItem({
             {fits ? <FitMark /> : null}
           </span>
           <span className="station-meta">
-            {networkLabel(station.network)} · <DistanceText km={station.distanceKm} />
+            {networkLabel(station.network)}
+            {showDistance ? (
+              <>
+                {" · "}
+                <DistanceText km={station.distanceKm} />
+              </>
+            ) : null}
           </span>
         </span>
         <span className={`speed-badge speed-${station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown"}`}>
@@ -928,7 +944,15 @@ function StationListItem({
   );
 }
 
-function ChargerCard({ station, fits }: { station: NearbyStation; fits: boolean }) {
+function ChargerCard({
+  station,
+  fits,
+  showDistance,
+}: {
+  station: NearbyStation;
+  fits: boolean;
+  showDistance: boolean;
+}) {
   const call = phoneHref(station.phone);
   const kw = maxKw(station);
   const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
@@ -945,10 +969,13 @@ function ChargerCard({ station, fits }: { station: NearbyStation; fits: boolean 
           <span className={`speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
         </span>
       </header>
-      <p className="station-meta">
-        <DistanceText km={station.distanceKm} />
-        {area ? ` · ${area}` : ""}
-      </p>
+      {showDistance || area ? (
+        <p className="station-meta">
+          {showDistance ? <DistanceText km={station.distanceKm} /> : null}
+          {showDistance && area ? " · " : ""}
+          {area}
+        </p>
+      ) : null}
       <p className="charger-kw">{kw != null ? `${trimKw(kw)} kW` : "kW not listed"}</p>
       <ul className="connector-chips">
         {uniquePlugs(station).length === 0 ? <li>Connectors not listed</li> : uniquePlugs(station).map((type) => <li key={type}>{type}</li>)}
@@ -968,6 +995,7 @@ function ChargerCard({ station, fits }: { station: NearbyStation; fits: boolean 
 function StationSheet({
   station,
   fits,
+  showDistance,
   call,
   caution,
   copied,
@@ -976,6 +1004,7 @@ function StationSheet({
 }: {
   station: NearbyStation;
   fits: boolean;
+  showDistance: boolean;
   call: string | null;
   caution: string | null;
   copied: boolean;
@@ -998,7 +1027,13 @@ function StationSheet({
         {fits ? <FitMark /> : null}
       </h2>
       <p className="station-meta">
-        {networkLabel(station.network)} · <DistanceText km={station.distanceKm} />
+        {networkLabel(station.network)}
+        {showDistance ? (
+          <>
+            {" · "}
+            <DistanceText km={station.distanceKm} />
+          </>
+        ) : null}
         {station.city ? ` · ${station.city}` : ""}
       </p>
       <div className="station-actions">

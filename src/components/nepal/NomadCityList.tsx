@@ -17,16 +17,8 @@ export function NomadCityList() {
     <div className="entry-grid">
       {cities.map((city) => (
         <Link key={city.slug} href={`/nomad/${city.slug}`} className="app-card entry-card">
-          <h2>{city.name}</h2>
-          <ul className="mini-stats">
-            {city.reference.map((stat) => (
-              <li key={stat.label}>
-                <span>{stat.label}</span>
-                <strong>{stat.value}</strong>
-              </li>
-            ))}
-          </ul>
-          <p className="fine">Source: Nomads.com, as of 26 Sep 2026. The ranking changes daily.</p>
+          <h2>{city.shortName}</h2>
+          <p>{city.referenceLine}</p>
         </Link>
       ))}
     </div>

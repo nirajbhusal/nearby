@@ -106,9 +106,15 @@ export function stationsNear(
     return true;
   });
 
-  filtered.sort(
-    (a, b) => a.distanceKm - b.distanceKm || a.name.localeCompare(b.name)
-  );
+  const broad = origin.kind === "country" || origin.kind === "province";
+  filtered.sort((a, b) => {
+    if (broad) {
+      const speed = Number(b.speed === "fast") - Number(a.speed === "fast");
+      if (speed !== 0) return speed;
+      return a.name.localeCompare(b.name);
+    }
+    return a.distanceKm - b.distanceKm || a.name.localeCompare(b.name);
+  });
   return filtered;
 }
 

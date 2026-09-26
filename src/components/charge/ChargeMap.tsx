@@ -26,15 +26,17 @@ function frameKey(frame: MapFrame): string {
 }
 
 function applyFrame(map: MlMap, frame: MapFrame) {
+  map.resize();
   if (frame.mode === "bounds") {
     const [west, south, east, north] = frame.bbox;
+    const country = east - west > 6;
     const wide = window.innerWidth >= 1024;
     map.fitBounds(new LngLatBounds([west, south], [east, north]), {
       padding: wide
-        ? { top: 88, right: 48, bottom: 48, left: 420 }
-        : { top: 188, right: 16, bottom: 360, left: 16 },
+        ? { top: 72, right: 40, bottom: 40, left: 400 }
+        : { top: 118, right: 18, bottom: country ? 408 : 168, left: 18 },
       duration: 0,
-      maxZoom: 11,
+      maxZoom: country ? 6.6 : 11,
     });
     return;
   }
@@ -107,7 +109,7 @@ export default function ChargeMap({
       minZoom: 4.5,
       maxZoom: 18,
       attributionControl: {
-        compact: false,
+        compact: true,
         customAttribution: "Province boundaries © geoBoundaries (CC BY 3.0 IGO)",
       },
       dragRotate: false,
@@ -118,6 +120,11 @@ export default function ChargeMap({
     map.once("load", () => {
       if (!alive || !map) return;
       applyFrame(map, frameRef.current);
+      const collapseAttrib = () => {
+        map?.getContainer().querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show");
+      };
+      collapseAttrib();
+      map.once("idle", collapseAttrib);
       mapRef.current = map;
       setReady(true);
       map.resize();
