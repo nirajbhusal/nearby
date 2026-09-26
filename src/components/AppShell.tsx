@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ViewTransition } from "react";
 import { BookOpen, Briefcase, Calendar, House, User, Zap } from "lucide-react";
 import { Wordmark } from "@/components/brand/Logo";
@@ -50,12 +50,21 @@ function ProfileTabMark() {
   return <AvatarFace className="tab-avatar" />;
 }
 
+function prefetchRoute(href: string): boolean {
+  return href === "/charge";
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const charge = pathname.startsWith("/charge");
+  const hardNav = useRef<number | null>(null);
 
   useEffect(() => {
     document.documentElement.classList.remove("is-route-pending");
+    if (hardNav.current != null) {
+      window.clearTimeout(hardNav.current);
+      hardNav.current = null;
+    }
   }, [pathname]);
 
   function onNavigate(event: React.MouseEvent<HTMLElement>) {
@@ -81,6 +90,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     // client navigation is not interrupted by a React update.
     document.documentElement.classList.add("is-route-pending");
     window.setTimeout(() => document.documentElement.classList.remove("is-route-pending"), 4000);
+    if (hardNav.current != null) window.clearTimeout(hardNav.current);
+    const absolute = link.href;
+    hardNav.current = window.setTimeout(() => {
+      let current = window.location.pathname;
+      if (current.startsWith("/nearby")) current = current.slice("/nearby".length) || "/";
+      if (normalizePath(current) !== next) window.location.assign(absolute);
+    }, 1500);
   }
 
   return (
@@ -88,8 +104,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <a href="#content" className="skip-link">
         Skip to content
       </a>
-      <header className="top-nav glass-bar" style={{ viewTransitionName: "site-header" }}>
-        <Link href="/" className="brand" prefetch>
+      <header className="top-nav glass-bar" style={{ viewTransitionName: "site-header" }} onClickCapture={onNavigate}>
+        <Link href="/" className="brand" prefetch={false}>
           <Wordmark />
         </Link>
         <nav aria-label="Sections">
@@ -97,7 +113,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Link
               key={tab.href}
               href={tab.href}
-              prefetch
+              prefetch={prefetchRoute(tab.href)}
               transitionTypes={["nav-forward"]}
               aria-current={active(pathname, tab.href) ? "page" : undefined}
             >
@@ -106,8 +122,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
       </header>
-      <div className="mobile-bar glass-bar">
-        <Link href="/" className="brand" prefetch>
+      <div className="mobile-bar glass-bar" onClickCapture={onNavigate}>
+        <Link href="/" className="brand" prefetch={false}>
           <Wordmark />
         </Link>
       </div>
@@ -133,7 +149,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Link
               key={tab.href}
               href={tab.href}
-              prefetch
+              prefetch={prefetchRoute(tab.href)}
               transitionTypes={["nav-forward"]}
               aria-current={on ? "page" : undefined}
             >

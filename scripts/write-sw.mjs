@@ -36,7 +36,7 @@ for (const file of walk(join(outDir, "_next/static"))) {
   urls.add(`/nearby/${rel}`);
 }
 
-const body = `const CACHE = "nearby-shell-v1";
+const body = `const CACHE = "nearby-shell-v2";
 const PRECACHE = ${JSON.stringify([...urls], null, 2)};
 
 self.addEventListener("install", (event) => {
@@ -53,6 +53,21 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+function isFlight(request, url) {
+  if (url.pathname.indexOf("/_next/static/") !== -1) return false;
+  if (url.searchParams.has("_rsc")) return true;
+  if (request.headers.get("RSC") === "1") return true;
+  return url.pathname.endsWith(".txt");
+}
+
+function flightUrl(url) {
+  var next = new URL(url.href);
+  if (!next.pathname.endsWith(".txt")) {
+    next.pathname = next.pathname.endsWith("/") ? next.pathname + "index.txt" : next.pathname + ".txt";
+  }
+  return next;
+}
+
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -61,7 +76,7 @@ self.addEventListener("fetch", (event) => {
   if (!url.pathname.startsWith("/nearby/")) return;
 
   if (request.mode === "navigate") {
-    const indexPath = url.pathname.endsWith("/") ? \`\${url.pathname}index.html\` : url.pathname;
+    const indexPath = url.pathname.endsWith("/") ? url.pathname + "index.html" : url.pathname;
     event.respondWith(
       fetch(request)
         .then((response) => {
@@ -78,20 +93,27 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      const networked = fetch(request)
-        .then((response) => {
+  if (url.pathname.indexOf("/_next/static/") !== -1) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((response) => {
           if (response.ok) {
             const copy = response.clone();
             caches.open(CACHE).then((cache) => cache.put(request, copy));
           }
           return response;
-        })
-        .catch(() => cached);
-      return cached || networked;
-    })
-  );
+        });
+      })
+    );
+    return;
+  }
+
+  if (isFlight(request, url)) {
+    const target = flightUrl(url);
+    event.respondWith(fetch(new Request(target, request)));
+    return;
+  }
 });
 `;
 

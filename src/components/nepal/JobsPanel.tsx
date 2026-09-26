@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Briefcase } from "lucide-react";
 import { ViewToggle } from "@/components/ViewToggle";
@@ -93,6 +93,13 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
     const rows = jobRoleCards(near);
     return preferMatches(rows, profile.jobInterests, (card) => jobInterestMatch(card, profile.jobInterests));
   }, [near, profile.jobInterests]);
+  const PAGE = 12;
+  const [limit, setLimit] = useState(PAGE);
+  const listKey = `${origin.label}|${category ?? ""}|${city ?? ""}`;
+  useEffect(() => {
+    setLimit(PAGE);
+  }, [listKey]);
+  const shown = cards.slice(0, limit);
   const pins = useMemo(() => jobMapPins(near, origin), [near, origin]);
   const active = pins.find((pin) => pin.id === selectedPin) ?? pins[0] ?? null;
   const pinRoles = useMemo(() => {
@@ -193,11 +200,18 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           body={`Nothing matched near ${origin.label}. Try another city, or clear the filters.`}
         />
       ) : (
-        <div className="role-grid">
-          {cards.map((card) => (
-            <RoleCard key={card.key} card={card} />
-          ))}
-        </div>
+        <>
+          <div className="role-grid">
+            {shown.map((card) => (
+              <RoleCard key={card.key} card={card} />
+            ))}
+          </div>
+          {shown.length < cards.length ? (
+            <button type="button" className="show-more" onClick={() => setLimit((value) => value + PAGE)}>
+              Show more
+            </button>
+          ) : null}
+        </>
       )}
       <CuratedNote />
     </div>

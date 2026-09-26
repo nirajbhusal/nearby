@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ProfileScreen } from "@/components/profile/ProfileScreen";
 import { pageMeta } from "@/lib/site";
 
@@ -8,5 +9,9 @@ export const metadata = pageMeta(
 );
 
 export default function ProfilePage() {
-  return <ProfileScreen />;
+  return (
+    <Suspense fallback={<main className="page-wrap"><p className="lede">Loading profile…</p></main>}>
+      <ProfileScreen />
+    </Suspense>
+  );
 }
