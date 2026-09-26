@@ -63,8 +63,8 @@ export default function JobsMap({ pins, selectedId, onSelect }: Props) {
         const roles = `${pin.roleCount} open role${pin.roleCount === 1 ? "" : "s"}`;
         button.title = `${pin.label}. ${roles}`;
         button.setAttribute("aria-label", `${pin.label}. ${roles}`);
-        const halo = pin.kind === "area" ? `<span class="pin-halo" aria-hidden="true"></span>` : "";
-        button.innerHTML = `${halo}<span class="map-cluster is-fast">${pin.roleCount}</span>`;
+        const halo = pin.kind === "area" ? `<span class="pin-ring" aria-hidden="true"></span>` : "";
+        button.innerHTML = `${halo}<span class="map-cluster job-pin">${pin.roleCount}</span>`;
         button.addEventListener("click", (event) => {
           event.stopPropagation();
           onSelectRef.current(pin.id);
@@ -89,6 +89,11 @@ export default function JobsMap({ pins, selectedId, onSelect }: Props) {
         map.fitBounds(bounds, { padding: 56, maxZoom: 12, duration: 0 });
       }
       map.resize();
+      const collapseAttrib = () => {
+        map?.getContainer().querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show");
+      };
+      collapseAttrib();
+      map.once("idle", collapseAttrib);
     });
 
     return () => {
@@ -99,11 +104,20 @@ export default function JobsMap({ pins, selectedId, onSelect }: Props) {
   }, [pins]);
 
   return (
-    <div
-      ref={holderRef}
-      className="jobs-map"
-      role="region"
-      aria-label={selectedId ? "Company offices, one selected" : "Company offices"}
-    />
+    <div className="jobs-map-frame">
+      <div
+        ref={holderRef}
+        className="jobs-map"
+        role="region"
+        aria-label={selectedId ? "Company offices, one selected" : "Company offices"}
+      />
+      <details className="map-info">
+        <summary aria-label="How office pins are placed">i</summary>
+        <p>
+          A plain pin is a building or a street. A ring means the office is only placed in that area. One pin per city
+          groups offices still at the city centre, so that location is approximate.
+        </p>
+      </details>
+    </div>
   );
 }

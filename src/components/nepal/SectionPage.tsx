@@ -52,7 +52,7 @@ const COPY = {
   jobs: {
     kicker: "Jobs",
     title: "Tech work nearby",
-    intro: "Open roles as cards, with an optional map. Centroid offices share one city pin until street coordinates arrive.",
+    intro: "Tech roles across Nepal.",
   },
   learn: {
     kicker: "Learn",

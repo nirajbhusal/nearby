@@ -57,60 +57,59 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
     <main className="page-wrap nomad-guide">
       <header className="page-hero">
         <p className="eyebrow">Nomad</p>
-        <h1 className="font-display page-title">{city.name}</h1>
-        {city.blurb ? <p className="lede">{city.blurb}</p> : null}
+        <h1 className="font-display page-title">{city.shortName}</h1>
+        {city.headline ? <p className="lede">{city.headline}</p> : null}
       </header>
 
-      <section className="ref-strip" aria-label="Reference figures">
-        <p className="meta-label">Reference</p>
-        <ul>
-          {city.reference.map((stat) => (
-            <li key={stat.label}>
-              <span>{stat.label}</span>
-              <strong>{stat.value}</strong>
-            </li>
-          ))}
-        </ul>
-        {city.reference
-          .filter((stat) => stat.note)
-          .map((stat) => (
-            <p key={stat.label} className="fine">
-              {stat.note}
-            </p>
-          ))}
-        <p className="fine">Source: Nomads.com, as of 26 Sep 2026. The ranking changes daily.</p>
-        {city.ookla ? (
-          <p className="fine">
-            <a href={city.ookla.url} target="_blank" rel="noopener noreferrer">
-              {city.ookla.label}
+      <p className="ref-line">
+        {city.referenceLine}
+        {city.sourceUrl ? (
+          <>
+            {" "}
+            <a href={city.sourceUrl} target="_blank" rel="noopener noreferrer">
+              Nomads.com
             </a>
-          </p>
+          </>
         ) : null}
-      </section>
+      </p>
 
       <section className="nomad-section">
         <h2>Best areas to live</h2>
-        <p className="section-lead">Tap an area to filter the stays and work below. Tap it again to show the whole city.</p>
+        <p className="section-lead">Swipe the areas. Show stays to filter the list.</p>
         {city.areas.length === 0 ? (
           <p className="empty-inline">Areas are not listed yet.</p>
         ) : (
-          <div className="area-grid">
+          <div className="area-carousel">
             {city.areas.map((area) => {
               const on = area.name === areaName;
               return (
                 <article key={area.name} className={on ? "area-card is-on" : "area-card"}>
                   <h3>{area.name}</h3>
-                  {area.description ? <p>{area.description}</p> : null}
-                  {area.suits.length > 0 ? (
+                  {area.blurb ? <p>{area.blurb}</p> : null}
+                  {area.tags.length > 0 ? (
                     <ul className="connector-chips">
-                      {area.suits.map((suit) => (
-                        <li key={suit}>{suit}</li>
+                      {area.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
                       ))}
                     </ul>
                   ) : null}
                   <button type="button" className="btn-secondary" aria-pressed={on} onClick={() => chooseArea(area.name)}>
-                    {on ? "Showing this area" : "Show this area"}
+                    {on ? "Showing this area" : "Show stays here"}
                   </button>
+                  {area.sources.length > 0 ? (
+                    <details className="source-disclosure">
+                      <summary>Sources</summary>
+                      <ul>
+                        {area.sources.map((url) => (
+                          <li key={url}>
+                            <a href={url} target="_blank" rel="noopener noreferrer">
+                              {sourceLabel(url)}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : null}
                 </article>
               );
             })}
@@ -120,15 +119,13 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
 
       <section className="nomad-section">
         <h2>Places to stay</h2>
-        <p className="section-lead">
-          {areaName ? `Stays in ${areaName}.` : "Hotels, guesthouses, hostels, apartments, and coliving with a cited source."}
-        </p>
+        <p className="section-lead">{areaName ? `In ${areaName}.` : `${stays.length} verified stays.`}</p>
         {stays.length === 0 ? (
           <p className="empty-inline">No verified stays are listed for this area.</p>
         ) : (
           <div className="stay-grid">
             {stays.map((place) => (
-              <StayCard key={place.id} citySlug={city.slug} cityName={city.name} place={place} />
+              <StayCard key={place.id} citySlug={city.slug} cityName={city.shortName} place={place} />
             ))}
           </div>
         )}
@@ -137,10 +134,10 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
       <section className="nomad-section">
         <h2>Work nearby</h2>
         <p className="section-lead">
-          {areaName ? `Coworking and cafés listed in ${areaName}.` : "Coworking spaces first, then laptop-friendly cafés."}
+          {areaName ? `In ${areaName}.` : `${coworking.length} coworking spaces, ${cafes.length} cafés.`}
         </p>
-        <PlaceGrid title="Coworking" places={coworking} city={city} saveKind="cowork" />
-        <PlaceGrid title="Wifi cafés" places={cafes} city={city} />
+        <PlaceList title="Coworking" places={coworking} city={city} saveKind="cowork" />
+        <PlaceList title="Cafés" places={cafes} city={city} />
       </section>
 
       <section className="nomad-section">
@@ -152,7 +149,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
         </div>
         {unmapped > 0 ? (
           <p className="fine">
-            {unmapped} stay{unmapped === 1 ? "" : "s"} {unmapped === 1 ? "is" : "are"} listed without a map point.
+            {unmapped} stay{unmapped === 1 ? "" : "s"} {unmapped === 1 ? "has" : "have"} no map point.
           </p>
         ) : null}
         {pins.length > 0 ? (
@@ -163,29 +160,28 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
         {city.osmCredit ? <p className="fine">{city.osmCredit}</p> : null}
       </section>
 
-      <NoteSection title="Visa and stay" notes={city.visa} empty="Visa and stay rules are not listed yet.">
-        <p className="fine nomad-caveat">
+      <NoteDisclosure title="Visa and stay" notes={city.visa}>
+        <p>
           Rules change. Check the{" "}
           <a href="https://www.immigration.gov.np/visa-information" target="_blank" rel="noopener noreferrer">
             Department of Immigration
           </a>{" "}
           before you travel.
         </p>
-      </NoteSection>
-      <NoteSection title="SIM and data" notes={city.sim} empty="SIM and data notes are not listed yet." />
-      <NoteSection title="Season" notes={city.season} empty="Season notes are not listed yet." />
-      <NoteSection title="Practical tips" notes={city.tips} empty="Practical tips are not listed yet." />
+      </NoteDisclosure>
+      <NoteDisclosure title="SIM and data" notes={city.sim} />
+      <NoteDisclosure title="Season" notes={city.season} />
+      <NoteDisclosure title="Practical tips" notes={city.tips} />
 
       <section className="nomad-section">
-        <h2>In {city.name.replace(/\s*\(.*\)$/, "")}</h2>
         <div className="link-row">
-          <Link className="btn-primary" href={`/charge?q=${encodeURIComponent(city.slug === "kathmandu" ? "Kathmandu" : city.name)}`}>
+          <Link className="btn-primary" href={`/charge?q=${encodeURIComponent(city.shortName)}`}>
             Charge
           </Link>
-          <Link className="btn-secondary" href={`/events?q=${encodeURIComponent(city.slug === "kathmandu" ? "Kathmandu" : city.name)}`}>
+          <Link className="btn-secondary" href={`/events?q=${encodeURIComponent(city.shortName)}`}>
             Events
           </Link>
-          <Link className="btn-secondary" href={`/jobs?q=${encodeURIComponent(city.slug === "kathmandu" ? "Kathmandu" : city.name)}`}>
+          <Link className="btn-secondary" href={`/jobs?q=${encodeURIComponent(city.shortName)}`}>
             Jobs
           </Link>
         </div>
@@ -199,6 +195,14 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
   );
 }
 
+function sourceLabel(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
+
 function LayerButton({ on, label, onClick }: { on: boolean; label: string; onClick: () => void }) {
   return (
     <button type="button" className={on ? "chip chip-on" : "chip"} aria-pressed={on} onClick={onClick}>
@@ -208,6 +212,7 @@ function LayerButton({ on, label, onClick }: { on: boolean; label: string; onCli
 }
 
 function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: string; cityName: string }) {
+  const chips = place.features.slice(0, 3);
   return (
     <article className="stay-card">
       <div className="card-tools">
@@ -224,33 +229,28 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
       <p className="meta-label">{stayTypeLabel(place.type)}</p>
       <h3>{place.name}</h3>
       {place.area ? <p className="station-meta">{place.area}</p> : null}
-      {place.address ? <p className="fine">{place.address}</p> : null}
-      {place.features.length > 0 ? (
+      {chips.length > 0 ? (
         <ul className="connector-chips">
-          {place.features.map((feature) => (
+          {chips.map((feature) => (
             <li key={feature}>{feature}</li>
           ))}
         </ul>
       ) : null}
-      {place.price ? <p className="stay-price">{place.price}</p> : null}
-      {place.website || place.bookingUrls.length > 0 ? (
-        <p className="link-row">
-          {place.website ? (
-            <a className="btn-secondary" href={place.website} target="_blank" rel="noopener noreferrer">
-              Website
-            </a>
-          ) : null}
-          {place.bookingUrls.map((url) => (
-            <a key={url} className="btn-secondary" href={url} target="_blank" rel="noopener noreferrer">
-              Book
-            </a>
-          ))}
-        </p>
-      ) : null}
-      {place.nearbyWork.length > 0 ? (
-        <div className="stay-work">
-          <p className="meta-label">Work nearby</p>
+      {place.priceShort ? <p className="stay-price">{place.priceShort}</p> : null}
+      {place.workLine ? <p className="stay-work-line">{place.workLine}</p> : null}
+      <details className="stay-more">
+        <summary>Details</summary>
+        {place.address ? <p>{place.address}</p> : null}
+        {place.price && place.price !== place.priceShort ? <p>{place.price}</p> : null}
+        {place.features.length > 3 ? (
           <ul className="connector-chips">
+            {place.features.slice(3).map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        ) : null}
+        {place.nearbyWork.length > 0 ? (
+          <ul className="work-distances">
             {place.nearbyWork.map((item) => (
               <li key={item.id}>
                 {item.name}
@@ -264,13 +264,27 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
               </li>
             ))}
           </ul>
-        </div>
-      ) : null}
+        ) : null}
+        {place.website || place.bookingUrls.length > 0 ? (
+          <p className="link-row">
+            {place.website ? (
+              <a className="btn-secondary" href={place.website} target="_blank" rel="noopener noreferrer">
+                Website
+              </a>
+            ) : null}
+            {place.bookingUrls.map((url) => (
+              <a key={url} className="btn-secondary" href={url} target="_blank" rel="noopener noreferrer">
+                Book
+              </a>
+            ))}
+          </p>
+        ) : null}
+      </details>
     </article>
   );
 }
 
-function PlaceGrid({
+function PlaceList({
   title,
   places,
   city,
@@ -288,23 +302,21 @@ function PlaceGrid({
       {ordered.length === 0 ? (
         <p className="empty-inline">Not listed for this area.</p>
       ) : (
-        <div className="work-grid">
+        <ul className="work-list">
           {ordered.map((place) => (
-            <article key={place.id} className="work-card">
+            <li key={place.id}>
               {saveKind ? (
-                <div className="card-tools">
-                  <SaveButton
-                    item={{
-                      id: place.id,
-                      kind: saveKind,
-                      title: place.name,
-                      subtitle: city.name,
-                      href: `/nomad/${city.slug}`,
-                    }}
-                  />
-                </div>
+                <SaveButton
+                  item={{
+                    id: place.id,
+                    kind: saveKind,
+                    title: place.name,
+                    subtitle: city.shortName,
+                    href: `/nomad/${city.slug}`,
+                  }}
+                />
               ) : null}
-              <h4>
+              <span>
                 {place.url ? (
                   <a href={place.url} target="_blank" rel="noopener noreferrer">
                     {place.name}
@@ -312,44 +324,38 @@ function PlaceGrid({
                 ) : (
                   place.name
                 )}
-              </h4>
-              {place.area ? <p className="station-meta">{place.area}</p> : null}
-              {place.note ? <p>{place.note}</p> : null}
-            </article>
+                {place.area ? <small>{place.area}</small> : null}
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );
 }
 
-function NoteSection({
+function NoteDisclosure({
   title,
   notes,
-  empty,
   children,
 }: {
   title: string;
   notes: NomadNote[];
-  empty: string;
   children?: ReactNode;
 }) {
+  if (notes.length === 0 && !children) return null;
   return (
-    <section className="nomad-section">
-      <h2>{title}</h2>
-      {notes.length === 0 ? (
-        <p className="empty-inline">{empty}</p>
-      ) : (
-        <ul className="note-list">
-          {notes.map((note) => (
-            <li key={note.title} className="app-card">
-              <h3>{note.title}</h3>
-              <p>{note.body}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <details className="nomad-disclosure">
+      <summary>{title}</summary>
+      <ul>
+        {notes.map((note) => (
+          <li key={note.title}>
+            <strong>{note.title}</strong>
+            <p>{note.body}</p>
+          </li>
+        ))}
+      </ul>
       {children}
-    </section>
+    </details>
   );
 }

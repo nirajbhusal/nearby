@@ -122,9 +122,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
         />
         <p className="fine">
           {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
-          {profile.jobInterests.length > 0 ? " Matching interests are listed first." : ""} Building and street offices
-          are exact pins. Area offices have a soft halo. Offices still placed at a city centre share one pin, and that
-          location is approximate.
+          {profile.jobInterests.length > 0 ? " Matching interests are listed first." : ""}
         </p>
       </div>
       <div className="space-y-3">
