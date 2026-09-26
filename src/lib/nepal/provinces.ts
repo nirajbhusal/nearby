@@ -1,7 +1,9 @@
 import indexJson from "@/data/nepal/province-index.json";
 import { evIndex } from "@/lib/nepal/ev";
+import { NEPAL_BBOX, type BBox } from "@/lib/nepal/bbox";
 
-export type BBox = [number, number, number, number];
+export type { BBox };
+export { NEPAL_BBOX };
 
 export type ProvinceRecord = {
   slug: string;
@@ -37,8 +39,6 @@ export const PROVINCE_BOUNDARY_CREDIT = {
   license: index.license,
   licenseNote: index.licenseNote,
 };
-
-export const NEPAL_BBOX: BBox = index.nepal.bbox;
 
 /** Cities the charge screen offers as chips. Each one has chargers in the directory. */
 export const MAJOR_CITIES = [

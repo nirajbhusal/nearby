@@ -4,6 +4,7 @@ import { HomeSearch } from "@/components/home/HomeSearch";
 import { NepalMapSlot } from "@/components/home/NepalMapSlot";
 import { NearestChargers, type HomeCharger } from "@/components/home/NearestChargers";
 import { LogoMark } from "@/components/brand/Logo";
+import { DayGreeting } from "@/components/home/DayGreeting";
 import { formatWhen } from "@/lib/nepal/format";
 import { evIndex, stationsInScope } from "@/lib/nepal/ev";
 import { nepalEvents, eventTiming, eventsNear } from "@/lib/nepal/events";
@@ -15,8 +16,8 @@ import { provinceRecords } from "@/lib/nepal/provinces";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
-  "Nearby — EV charging in Nepal",
-  "Find, check, and navigate to EV chargers in Nepal. Tech jobs, events, and a digital nomad guide sit beside the map.",
+  "Nearby: Nepal, within reach",
+  "Nearby: Nepal, within reach",
   "/",
 );
 
@@ -43,11 +44,9 @@ export default function HomePage() {
   return (
     <main className="home">
       <section className="home-hero">
-        <p className="eyebrow">Nepal</p>
-        <h1 className="font-display hero-title">Find it nearby.</h1>
-        <p className="lede">
-          A map of EV chargers, plus tech jobs, events, and a nomad guide for Kathmandu and Pokhara.
-        </p>
+        <DayGreeting />
+        <h1 className="font-display hero-title">Nepal, within reach.</h1>
+        <p className="lede">Chargers, tech jobs, events and places to learn, all near you.</p>
         <HomeSearch />
         <div className="hero-actions">
           <Link href="/charge?near=1" className="btn-primary">

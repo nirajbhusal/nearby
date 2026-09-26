@@ -213,6 +213,13 @@ export function ChargeExplorer() {
     if (!fitsOnly || !carReady) return stations;
     return stations.filter((station) => stationFitsEv(station, profile));
   }, [stations, fitsOnly, carReady, profile]);
+  const LIST_PAGE = 24;
+  const [listLimit, setListLimit] = useState(LIST_PAGE);
+  const listKey = `${origin.kind}|${origin.label}|${state.fast}|${state.plugs.join(",")}|${state.network ?? ""}|${fitsOnly}|${radiusKm ?? "all"}`;
+  useEffect(() => {
+    setListLimit(LIST_PAGE);
+  }, [listKey]);
+  const listed = visible.slice(0, listLimit);
   const scope = useMemo(() => stationsInScope(origin, radiusKm), [origin, radiusKm]);
   const selected = useMemo(() => {
     if (!state.station) return null;
@@ -340,7 +347,7 @@ export function ChargeExplorer() {
     function onPointer(event: PointerEvent) {
       if (!searchRef.current?.contains(event.target as Node)) setSearchOpen(false);
     }
-    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("pointerdown", onPointer, { passive: true });
     return () => document.removeEventListener("pointerdown", onPointer);
   }, []);
 
@@ -704,16 +711,19 @@ export function ChargeExplorer() {
           {count === 0 ? (
             <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
           ) : (
-            <div className="charger-grid">
-              {visible.map((station) => (
-                <ChargerCard
-                  key={station.id}
-                  station={station}
-                  fits={stationFitsEv(station, profile)}
-                  showDistance={showDistance}
-                />
-              ))}
-            </div>
+            <>
+              <div className="charger-grid">
+                {listed.map((station) => (
+                  <ChargerCard
+                    key={station.id}
+                    station={station}
+                    fits={stationFitsEv(station, profile)}
+                    showDistance={showDistance}
+                  />
+                ))}
+              </div>
+              <ShowMore shown={listed.length} total={visible.length} onMore={() => setListLimit((value) => value + LIST_PAGE)} />
+            </>
           )}
         </div>
       ) : (
@@ -805,17 +815,20 @@ export function ChargeExplorer() {
                   </div>
                 </div>
               ) : (
-                <ul className="station-list">
-                  {visible.map((station) => (
-                    <StationListItem
-                      key={station.id}
-                      station={station}
-                      fits={stationFitsEv(station, profile)}
-                      showDistance={showDistance}
-                      onSelect={selectStation}
-                    />
-                  ))}
-                </ul>
+                <>
+                  <ul className="station-list">
+                    {listed.map((station) => (
+                      <StationListItem
+                        key={station.id}
+                        station={station}
+                        fits={stationFitsEv(station, profile)}
+                        showDistance={showDistance}
+                        onSelect={selectStation}
+                      />
+                    ))}
+                  </ul>
+                  <ShowMore shown={listed.length} total={visible.length} onMore={() => setListLimit((value) => value + LIST_PAGE)} />
+                </>
               )}
             </div>
           </>
@@ -1130,6 +1143,16 @@ function uniquePlugs(station: NearbyStation): string[] {
 
 function trimKw(kw: number): string {
   return Number.isInteger(kw) ? String(kw) : String(Math.round(kw * 10) / 10);
+}
+
+function ShowMore({ shown, total, onMore }: { shown: number; total: number; onMore: () => void }) {
+  if (shown >= total) return null;
+  const next = Math.min(24, total - shown);
+  return (
+    <button type="button" className="chip show-more" onClick={onMore}>
+      Show {next} more
+    </button>
+  );
 }
 
 function LocateIcon() {
