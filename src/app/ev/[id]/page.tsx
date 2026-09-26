@@ -8,6 +8,7 @@ import {
   accessCopy,
   formatUpdated,
   phoneHref,
+  sourceLabel,
   speedLabel,
   stationCaution,
 } from "@/lib/nepal/format";
@@ -175,7 +176,7 @@ export default async function StationPage({ params }: { params: Params }) {
                   rel="noopener noreferrer"
                   className="ink-link"
                 >
-                  {source.name}
+                  {sourceLabel(source.name)}
                 </a>
               </li>
             ))}

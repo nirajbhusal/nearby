@@ -9,6 +9,7 @@ export type NomadPin = {
   name: string;
   lat: number;
   lng: number;
+  kind?: "stay" | "cowork" | "cafe";
 };
 
 type Props = {
@@ -49,7 +50,8 @@ export default function NomadMap({ pins }: Props) {
       for (const pin of pins) {
         const element = document.createElement("div");
         element.className = "map-pin-wrap";
-        element.innerHTML = '<span class="map-dot nomad-dot"></span>';
+        const kind = pin.kind === "cafe" ? "cafe" : pin.kind === "stay" ? "stay" : "cowork";
+        element.innerHTML = `<span class="map-dot nomad-dot nomad-${kind}"></span>`;
         element.title = pin.name;
         new Marker({ element, anchor: "center" })
           .setLngLat([pin.lng, pin.lat])

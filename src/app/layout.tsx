@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       { url: "/nearby/icons/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/nearby/apple-touch-icon.png", sizes: "180x180" }],
-    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#30D158" }],
+    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#00F5A0" }],
   },
   openGraph: {
     title: `${SITE_NAME} — EV charging in Nepal`,

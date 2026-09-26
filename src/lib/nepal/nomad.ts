@@ -56,6 +56,13 @@ export type NomadCity = {
   visa: NomadNote[];
   sim: NomadNote[];
   tips: NomadNote[];
+  /** Verified stays. Empty until `nomad-stays` data is added. */
+  stays?: NomadStay[];
+};
+
+export type NomadStay = NomadPlace & {
+  type: string;
+  features: string[];
 };
 
 export const nomadCities = nomadJson.cities as NomadCity[];

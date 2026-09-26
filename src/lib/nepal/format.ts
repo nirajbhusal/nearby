@@ -32,6 +32,14 @@ export function formatKm(km: number): string {
   return `${Math.round(km)} km`;
 }
 
+/** Drop raw directory ids. The sheet should name the directory, not a UUID. */
+export function sourceLabel(name: string): string {
+  if (/ev nepal directory/i.test(name)) return "EV Nepal directory";
+  if (/aircharge/i.test(name)) return "AirCharge directory";
+  if (/techmandu/i.test(name)) return "Techmandu list";
+  return name.replace(/, (station|location) id .+$/i, "");
+}
+
 export function speedLabel(speed: string): string {
   if (speed === "fast") return "Fast DC";
   if (speed === "slow") return "Slow AC";

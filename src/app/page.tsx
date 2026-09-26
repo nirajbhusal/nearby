@@ -41,12 +41,6 @@ export default function HomePage() {
   return (
     <main className="home">
       <section className="home-hero">
-        <div className="hero-mesh" aria-hidden>
-          <svg viewBox="0 0 400 160" preserveAspectRatio="none">
-            <path d="M0 120 L40 96 L78 108 L120 70 L168 92 L210 48 L258 86 L310 54 L352 88 L400 60 L400 160 L0 160 Z" />
-            <path d="M0 138 L60 118 L110 128 L170 100 L230 122 L290 96 L360 116 L400 104 L400 160 L0 160 Z" />
-          </svg>
-        </div>
         <p className="eyebrow">Nepal</p>
         <h1 className="font-display hero-title">Find it nearby.</h1>
         <p className="lede">
