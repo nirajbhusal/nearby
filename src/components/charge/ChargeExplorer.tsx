@@ -10,6 +10,7 @@ import {
   PLUG_FILTERS,
   activeFilterCount,
   evIndex,
+  maxKw,
   networkLabel,
   stationsInScope,
   stationsNear,
@@ -21,6 +22,7 @@ import {
   formatKm,
   formatUpdated,
   phoneHref,
+  sourceLabel,
   speedLabel,
   stationCaution,
 } from "@/lib/nepal/format";
@@ -30,6 +32,7 @@ import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ViewToggle } from "@/components/ViewToggle";
 
 const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
   ssr: false,
@@ -106,21 +109,35 @@ function StationExtras({ id }: { id: string }) {
         </p>
       ) : null}
       {extra.sources.length > 0 ? (
-        <ul className="source-list">
-          {extra.sources.map((source) => (
-            <li key={source.url + source.name}>
+        <p className="fine">
+          Source:{" "}
+          {dedupedSources(extra.sources).map((source, index) => (
+            <span key={source.url + source.label}>
+              {index > 0 ? " · " : null}
               <a href={source.url} target="_blank" rel="noopener noreferrer">
-                {source.name}
+                {source.label}
               </a>
-            </li>
+            </span>
           ))}
-        </ul>
+        </p>
       ) : (
         <p className="fine">Source link not listed.</p>
       )}
       <p className="fine">Curated · last updated {formatUpdated(extra.last_verified)}</p>
     </div>
   );
+}
+
+function dedupedSources(sources: { name: string; url: string }[]) {
+  const seen = new Set<string>();
+  const rows: { label: string; url: string }[] = [];
+  for (const source of sources) {
+    const label = sourceLabel(source.name);
+    if (seen.has(label)) continue;
+    seen.add(label);
+    rows.push({ label, url: source.url });
+  }
+  return rows;
 }
 
 function plugMark(type: string): string {
@@ -365,6 +382,7 @@ export function ChargeExplorer() {
     setSnap(order[index]);
   }
 
+  const cards = state.view === "cards";
   const count = stations.length;
   const filterCount = activeFilterCount(filters);
   const scopeText =
@@ -378,15 +396,17 @@ export function ChargeExplorer() {
   const caution = selected ? stationCaution(selected.name, selected.caution) : null;
 
   return (
-    <div className="charge-stage">
+    <div className={cards ? "charge-cards-page" : "charge-stage"}>
       <h1 className="sr-only">EV chargers in Nepal</h1>
-      <ChargeMap
-        stations={mapStations}
-        origin={origin}
-        selectedId={selected?.id ?? null}
-        showYou={origin.kind === "geolocation"}
-        onSelect={selectStation}
-      />
+      {cards ? null : (
+        <ChargeMap
+          stations={mapStations}
+          origin={origin}
+          selectedId={selected?.id ?? null}
+          showYou={origin.kind === "geolocation"}
+          onSelect={selectStation}
+        />
+      )}
 
       <div className="charge-search" ref={searchRef}>
         <form
@@ -432,6 +452,15 @@ export function ChargeExplorer() {
             <LocateIcon />
           </button>
         </form>
+        <ViewToggle
+          label="Charger view"
+          value={state.view}
+          options={[
+            { id: "map", label: "Map" },
+            { id: "cards", label: "Cards" },
+          ]}
+          onChange={(id) => replace({ view: id === "cards" ? "cards" : "map" })}
+        />
         {state.near ? (
           <p className="search-note" role="status">
             Finding your location…
@@ -483,6 +512,43 @@ export function ChargeExplorer() {
         ) : null}
       </div>
 
+      {cards ? (
+        <div className="charge-card-board">
+          <div className="filter-row" role="group" aria-label="Charger filters">
+            <FilterChips
+              fast={state.fast}
+              plugs={state.plugs}
+              network={state.network}
+              networks={networks}
+              networkOpen={networkOpen}
+              onFast={() => replace({ fast: !stateRef.current.fast })}
+              onPlug={togglePlug}
+              onNetworkOpen={() => setNetworkOpen((open) => !open)}
+              onNetwork={(network) => {
+                replace({ network });
+                setNetworkOpen(false);
+              }}
+            />
+          </div>
+          <p className="sheet-summary-inline" aria-live="polite">
+            {summary}
+            {filterCount > 0 ? (
+              <button type="button" className="text-btn" onClick={clearFilters}>
+                Clear {filterCount}
+              </button>
+            ) : null}
+          </p>
+          {count === 0 ? (
+            <p className="empty-inline">{emptyCopy(filters, radiusKm)}</p>
+          ) : (
+            <div className="charger-grid">
+              {stations.map((station) => (
+                <ChargerCard key={station.id} station={station} />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
       <section
         className="charge-panel"
         data-snap={snap}
@@ -526,67 +592,28 @@ export function ChargeExplorer() {
               )}
             </div>
             <div className="filter-row" role="group" aria-label="Charger filters">
-                <button
-                  type="button"
-                  className={state.fast ? "chip chip-on" : "chip"}
-                  aria-pressed={state.fast}
-                  onClick={() => replace({ fast: !stateRef.current.fast })}
-                >
-                  Fast only
-                </button>
-                {PLUG_FILTERS.map((plug) => (
-                  <button
-                    key={plug.id}
-                    type="button"
-                    className={state.plugs.includes(plug.id) ? "chip chip-on" : "chip"}
-                    aria-pressed={state.plugs.includes(plug.id)}
-                    onClick={() => togglePlug(plug.id)}
-                  >
-                    {plug.label}
-                  </button>
-                ))}
-                <div className="network-menu">
-                  <button
-                    type="button"
-                    className={state.network ? "chip chip-on" : "chip"}
-                    aria-expanded={networkOpen}
-                    aria-haspopup="listbox"
-                    onClick={() => setNetworkOpen((open) => !open)}
-                  >
-                    {state.network ? networkLabel(state.network === "unbranded" ? null : state.network) : "Network"}
-                  </button>
-                  {networkOpen ? (
-                    <ul role="listbox" aria-label="Network" className="network-list">
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            replace({ network: null });
-                            setNetworkOpen(false);
-                          }}
-                        >
-                          Any network
-                        </button>
-                      </li>
-                      {networks.map(([key, amount]) => (
-                        <li key={key}>
-                          <button
-                            type="button"
-                            aria-pressed={state.network === key}
-                            onClick={() => {
-                              replace({ network: key });
-                              setNetworkOpen(false);
-                            }}
-                          >
-                            <span>{key === "unbranded" ? "Unbranded" : key}</span>
-                            <span className="fine">{amount}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </div>
+              <FilterChips
+                fast={state.fast}
+                plugs={state.plugs}
+                network={state.network}
+                networks={networks}
+                networkOpen={networkOpen}
+                onFast={() => replace({ fast: !stateRef.current.fast })}
+                onPlug={togglePlug}
+                onNetworkOpen={() => setNetworkOpen((open) => !open)}
+                onNetwork={(network) => {
+                  replace({ network });
+                  setNetworkOpen(false);
+                }}
+              />
             </div>
+            {count > 0 ? (
+              <ul className="peek-list station-list">
+                {stations.slice(0, 3).map((station) => (
+                  <StationListItem key={station.id} station={station} onSelect={selectStation} />
+                ))}
+              </ul>
+            ) : null}
             <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">
@@ -612,30 +639,7 @@ export function ChargeExplorer() {
               ) : (
                 <ul className="station-list">
                   {stations.map((station) => (
-                    <li key={station.id}>
-                      <button
-                        type="button"
-                        className="station-row"
-                        onClick={() => selectStation(station.id)}
-                      >
-                        <span className="station-row-main">
-                          <span className="station-name">{station.name}</span>
-                          <span className="station-meta">
-                            {networkLabel(station.network)} · {formatKm(station.distanceKm)}
-                          </span>
-                        </span>
-                        <span className={`speed-badge speed-${station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown"}`}>
-                          {station.speed === "fast" ? "Fast" : station.speed === "slow" ? "AC" : "—"}
-                        </span>
-                        <span className="plug-row" aria-hidden="true">
-                          {uniquePlugs(station).map((type) => (
-                            <span key={type} className="plug-mark" title={type}>
-                              {plugMark(type)}
-                            </span>
-                          ))}
-                        </span>
-                      </button>
-                    </li>
+                    <StationListItem key={station.id} station={station} onSelect={selectStation} />
                   ))}
                 </ul>
               )}
@@ -643,7 +647,139 @@ export function ChargeExplorer() {
           </>
         )}
       </section>
+      )}
     </div>
+  );
+}
+
+function FilterChips({
+  fast,
+  plugs,
+  network,
+  networks,
+  networkOpen,
+  onFast,
+  onPlug,
+  onNetworkOpen,
+  onNetwork,
+}: {
+  fast: boolean;
+  plugs: PlugFilter[];
+  network: string | null;
+  networks: [string, number][];
+  networkOpen: boolean;
+  onFast: () => void;
+  onPlug: (id: PlugFilter) => void;
+  onNetworkOpen: () => void;
+  onNetwork: (network: string | null) => void;
+}) {
+  return (
+    <>
+      <button type="button" className={fast ? "chip chip-on" : "chip"} aria-pressed={fast} onClick={onFast}>
+        Fast only
+      </button>
+      {PLUG_FILTERS.map((plug) => (
+        <button
+          key={plug.id}
+          type="button"
+          className={plugs.includes(plug.id) ? "chip chip-on" : "chip"}
+          aria-pressed={plugs.includes(plug.id)}
+          onClick={() => onPlug(plug.id)}
+        >
+          {plug.label}
+        </button>
+      ))}
+      <div className="network-menu">
+        <button
+          type="button"
+          className={network ? "chip chip-on" : "chip"}
+          aria-expanded={networkOpen}
+          aria-haspopup="listbox"
+          onClick={onNetworkOpen}
+        >
+          {network ? networkLabel(network === "unbranded" ? null : network) : "Network"}
+        </button>
+        {networkOpen ? (
+          <ul role="listbox" aria-label="Network" className="network-list">
+            <li>
+              <button type="button" onClick={() => onNetwork(null)}>
+                Any network
+              </button>
+            </li>
+            {networks.map(([key, amount]) => (
+              <li key={key}>
+                <button type="button" aria-pressed={network === key} onClick={() => onNetwork(key)}>
+                  <span>{key === "unbranded" ? "Unbranded" : key}</span>
+                  <span className="fine">{amount}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    </>
+  );
+}
+
+function StationListItem({
+  station,
+  onSelect,
+}: {
+  station: NearbyStation;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <li>
+      <button type="button" className="station-row" onClick={() => onSelect(station.id)}>
+        <span className="station-row-main">
+          <span className="station-name">{station.name}</span>
+          <span className="station-meta">
+            {networkLabel(station.network)} · {formatKm(station.distanceKm)}
+          </span>
+        </span>
+        <span className={`speed-badge speed-${station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown"}`}>
+          {station.speed === "fast" ? "Fast" : station.speed === "slow" ? "AC" : "—"}
+        </span>
+        <span className="plug-row" aria-hidden="true">
+          {uniquePlugs(station).map((type) => (
+            <span key={type} className="plug-mark" title={type}>
+              {plugMark(type)}
+            </span>
+          ))}
+        </span>
+      </button>
+    </li>
+  );
+}
+
+function ChargerCard({ station }: { station: NearbyStation }) {
+  const call = phoneHref(station.phone);
+  const kw = maxKw(station);
+  const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
+  const area = station.address || [station.city, station.district].filter(Boolean).join(", ");
+  return (
+    <article className="charger-card">
+      <header>
+        <h2>{station.name}</h2>
+        <span className={`speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
+      </header>
+      <p className="station-meta">
+        {formatKm(station.distanceKm)}
+        {area ? ` · ${area}` : ""}
+      </p>
+      <p className="charger-kw">{kw != null ? `${trimKw(kw)} kW` : "kW not listed"}</p>
+      <ul className="connector-chips">
+        {uniquePlugs(station).length === 0 ? <li>Connectors not listed</li> : uniquePlugs(station).map((type) => <li key={type}>{type}</li>)}
+      </ul>
+      <div className="card-actions">
+        <NavigateLinks lat={station.lat} lng={station.lng} />
+        {call ? (
+          <a className="btn-secondary" href={call}>
+            Call
+          </a>
+        ) : null}
+      </div>
+    </article>
   );
 }
 

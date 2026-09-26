@@ -12,6 +12,7 @@ export type ChargeState = {
   radius: number | null;
   radiusSet: boolean;
   near: boolean;
+  view: "map" | "cards";
 };
 
 type SearchReader = {
@@ -42,6 +43,7 @@ export function readChargeState(sp: SearchReader): ChargeState {
     radius,
     radiusSet,
     near: sp.get("near") === "1",
+    view: sp.get("view") === "cards" ? "cards" : "map",
   };
 }
 
@@ -60,6 +62,7 @@ export function writeChargeSearch(state: ChargeState): string {
   if (state.network) sp.set("net", state.network);
   if (state.radiusSet) sp.set("r", state.radius == null ? "all" : String(state.radius));
   if (state.near) sp.set("near", "1");
+  if (state.view === "cards") sp.set("view", "cards");
   const query = sp.toString();
   return query ? `?${query}` : "";
 }

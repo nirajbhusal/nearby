@@ -51,7 +51,7 @@ const COPY = {
   jobs: {
     kicker: "Jobs",
     title: "Tech work nearby",
-    intro: "Companies and open roles around the place you pick. Office pins are city centroids, and each role links to the company’s own page.",
+    intro: "Open roles as cards, with an optional map. Centroid offices share one city pin until street coordinates arrive.",
   },
   learn: {
     kicker: "Learn",
