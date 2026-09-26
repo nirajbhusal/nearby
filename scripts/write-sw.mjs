@@ -36,7 +36,7 @@ for (const file of walk(join(outDir, "_next/static"))) {
   urls.add(`/nearby/${rel}`);
 }
 
-const body = `const CACHE = "nearby-shell-v2";
+const body = `const CACHE = "nearby-shell-v3";
 const PRECACHE = ${JSON.stringify([...urls], null, 2)};
 
 self.addEventListener("install", (event) => {
@@ -77,19 +77,27 @@ self.addEventListener("fetch", (event) => {
 
   if (request.mode === "navigate") {
     const indexPath = url.pathname.endsWith("/") ? url.pathname + "index.html" : url.pathname;
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
+    event.respondWith((async () => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 1600);
+      try {
+        const response = await fetch(request, { signal: controller.signal });
+        clearTimeout(timer);
+        if (response && response.ok) {
           const copy = response.clone();
-          caches.open(CACHE).then((cache) => cache.put(request, copy));
-          return response;
-        })
-        .catch(async () =>
+          caches.open(CACHE).then((cache) => cache.put(request, copy)).catch(() => {});
+        }
+        return response;
+      } catch (error) {
+        clearTimeout(timer);
+        return (
           (await caches.match(request)) ||
           (await caches.match(indexPath)) ||
-          (await caches.match("/nearby/index.html"))
-        )
-    );
+          (await caches.match("/nearby/index.html")) ||
+          Promise.reject(error)
+        );
+      }
+    })());
     return;
   }
 

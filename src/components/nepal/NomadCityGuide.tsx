@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { DistanceText } from "@/components/DistanceText";
 import { NomadMapSlot } from "@/components/nepal/NomadMapSlot";
 import { SaveButton } from "@/components/SaveButton";

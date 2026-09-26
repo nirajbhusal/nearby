@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { useSyncExternalStore, useState } from "react";
 import { BookOpen, ChevronLeft, ChevronRight, Compass, Download, Info, Share, User } from "lucide-react";
 import { useInstallOffer } from "@/components/InstallPrompt";
@@ -102,12 +102,13 @@ export function ProfileScreen() {
 
   return (
     <main className="page-wrap profile-page">
-      <header className="profile-head">
+      <header className="page-hero profile-head">
         <span className="avatar-face avatar-lg" style={{ background: profile.color }} aria-hidden>
           {initial || <User size={22} strokeWidth={2.2} />}
         </span>
         <div className="profile-head-copy">
-          <h1>{name}</h1>
+          <p className="eyebrow">Profile</p>
+          <h1 className="page-title">{name}</h1>
           <p>{profile.homeCity || "Home city not set"}</p>
         </div>
         <a className="btn-secondary" href="#edit">

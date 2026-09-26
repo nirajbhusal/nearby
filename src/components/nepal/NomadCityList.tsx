@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/SiteLink";
 import { useProfile } from "@/lib/profile-store";
 import { nomadCities } from "@/lib/nepal/nomad";
 
