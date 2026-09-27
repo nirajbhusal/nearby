@@ -4140,6 +4140,7 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
 .station-list {
   position: relative;
   display: block;
+  box-sizing: content-box;
   margin: 4px 0 0;
   padding: 0;
   overflow: hidden;
