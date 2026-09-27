@@ -1,9 +1,13 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 type Props = {
   className?: string;
   title?: string;
 };
 
-/** Monochrome location mark. Colour comes from currentColor. */
+/** Location pin for maps and “open on the map”. Not the brand mark. */
 export function LogoMark({ className, title }: Props) {
   return (
     <svg className={className} viewBox="0 0 32 32" role={title ? "img" : "presentation"} aria-hidden={title ? undefined : true} aria-label={title}>
@@ -17,10 +21,85 @@ export function LogoMark({ className, title }: Props) {
   );
 }
 
-export function Wordmark({ className }: { className?: string }) {
+function placeEye(origin: number, scaleY: number) {
+  const drop = 8 * (1 - scaleY);
+  return `translate(${origin} ${drop.toFixed(2)}) scale(1 ${scaleY.toFixed(3)})`;
+}
+
+/** Brand mark: the same two pills as Peek. Blinks, and otherwise stays still. */
+export function BrandEyes({ className, title }: Props) {
+  const leftRef = useRef<SVGGElement>(null);
+  const rightRef = useRef<SVGGElement>(null);
+  const labelled = Boolean(title);
+
+  useEffect(() => {
+    const left = leftRef.current;
+    const right = rightRef.current;
+    if (!left || !right) return;
+    let stopped = false;
+    let frame = 0;
+    let timer = 0;
+
+    const place = (scaleY: number) => {
+      left.setAttribute("transform", placeEye(0, scaleY));
+      right.setAttribute("transform", placeEye(16, scaleY));
+    };
+    const blink = () => {
+      const start = performance.now();
+      const step = (now: number) => {
+        if (stopped) return;
+        const p = Math.min(1, (now - start) / 170);
+        const scaleY = p < 0.42 ? 1 - (p / 0.42) * 0.88 : 0.12 + ((p - 0.42) / 0.58) * 0.88;
+        place(scaleY);
+        if (p < 1) frame = requestAnimationFrame(step);
+        else place(1);
+      };
+      frame = requestAnimationFrame(step);
+    };
+    const arm = () => {
+      timer = window.setTimeout(() => {
+        if (!document.hidden) blink();
+        arm();
+      }, 8000 + Math.random() * 7000);
+    };
+    const onVis = () => {
+      window.clearTimeout(timer);
+      if (!document.hidden) arm();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    arm();
+    return () => {
+      stopped = true;
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
+
+  return (
+    <svg
+      className={className ? `logo-eyes ${className}` : "logo-eyes"}
+      viewBox="0 0 26 16"
+      role={labelled ? "img" : "presentation"}
+      aria-hidden={labelled ? undefined : true}
+      aria-label={title}
+    >
+      <g ref={leftRef} className="peek-eye">
+        <rect width="10" height="16" rx="5" />
+        <circle className="peek-glint" cx="6.7" cy="4.3" r="1.45" />
+      </g>
+      <g ref={rightRef} className="peek-eye" transform="translate(16 0)">
+        <rect width="10" height="16" rx="5" />
+        <circle className="peek-glint" cx="6.7" cy="4.3" r="1.45" />
+      </g>
+    </svg>
+  );
+}
+
+export function Wordmark({ className, mark = true }: { className?: string; mark?: boolean }) {
   return (
     <span className={className ?? "wordmark"}>
-      <LogoMark className="logo-mark" />
+      {mark ? <BrandEyes /> : null}
       Nearby
     </span>
   );

@@ -14,7 +14,7 @@ import {
   User,
   Zap,
 } from "lucide-react";
-import { LogoMark, Wordmark } from "@/components/brand/Logo";
+import { BrandEyes, Wordmark } from "@/components/brand/Logo";
 import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
@@ -133,8 +133,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <ThemeMenuButton />
           </div>
           <header className={path === "/" ? "mobile-top is-home" : "mobile-top"} data-route={path}>
-            <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
-              {path === "/" ? <Wordmark /> : <LogoMark className="logo-mark" />}
+            <a className="brand-lockup" href={toHref("/")} aria-label={path === "/" ? undefined : "Nearby"}>
+              {path === "/" ? <Wordmark mark={false} /> : <BrandEyes />}
             </a>
             {path === "/" ? <span className="mobile-title" /> : <p className="mobile-title">{pageTitle(path)}</p>}
             <div className="mobile-actions">
