@@ -8,7 +8,7 @@ export const SITE_TITLE = "Nearby · All within reach";
 export const SITE_DESCRIPTION =
   "Nearby is a Nepal guide to EV chargers, tech jobs, events, and places to learn AI.";
 
-const OG_IMAGE = `${SITE_URL}/og.png`;
+const OG_IMAGE = `${SITE_URL}/og.png?v=eyes`;
 
 export function pageMeta(title: string, description: string, path = "/"): Metadata {
   const url = `${SITE_URL}${path.endsWith("/") ? path : `${path}/`}`;

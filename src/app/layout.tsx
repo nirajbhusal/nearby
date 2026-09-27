@@ -41,13 +41,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/nearby/icon.svg", type: "image/svg+xml" },
-      { url: "/nearby/favicon.ico", sizes: "32x32" },
-      { url: "/nearby/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/nearby/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/nearby/icon.svg?v=eyes", type: "image/svg+xml" },
+      { url: "/nearby/favicon.ico?v=eyes", sizes: "32x32" },
+      { url: "/nearby/icons/icon-192.png?v=eyes", sizes: "192x192", type: "image/png" },
+      { url: "/nearby/icons/icon-512.png?v=eyes", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/nearby/apple-touch-icon.png", sizes: "180x180" }],
-    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#0a0a0a" }],
+    apple: [{ url: "/nearby/apple-touch-icon.png?v=eyes", sizes: "180x180" }],
+    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg?v=eyes", color: "#0a0a0a" }],
   },
   openGraph: {
     title: SITE_TITLE,
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     type: "website",
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: SITE_TITLE }],
+    images: [{ url: `${SITE_URL}/og.png?v=eyes`, width: 1200, height: 630, alt: SITE_TITLE }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [`${SITE_URL}/og.png`],
+    images: [`${SITE_URL}/og.png?v=eyes`],
   },
   other: {
     "apple-mobile-web-app-capable": "yes",
@@ -80,14 +80,14 @@ export default function RootLayout({
         <script id="theme-boot" dangerouslySetInnerHTML={{ __html: themeBoot }} />
         <script id="intro-boot" dangerouslySetInnerHTML={{ __html: introBoot }} />
         <link rel="manifest" href="/nearby/manifest-light.webmanifest" media="(prefers-color-scheme: light)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1170x2532.png" media="(prefers-color-scheme: light) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1170x2532.png" media="(prefers-color-scheme: dark) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1179x2556.png" media="(prefers-color-scheme: light) and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1179x2556.png" media="(prefers-color-scheme: dark) and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1290x2796.png" media="(prefers-color-scheme: light) and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1290x2796.png" media="(prefers-color-scheme: dark) and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1125x2436.png" media="(prefers-color-scheme: light) and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
-        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1125x2436.png" media="(prefers-color-scheme: dark) and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1170x2532.png?v=eyes" media="(prefers-color-scheme: light) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1170x2532.png?v=eyes" media="(prefers-color-scheme: dark) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1179x2556.png?v=eyes" media="(prefers-color-scheme: light) and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1179x2556.png?v=eyes" media="(prefers-color-scheme: dark) and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1290x2796.png?v=eyes" media="(prefers-color-scheme: light) and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1290x2796.png?v=eyes" media="(prefers-color-scheme: dark) and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1125x2436.png?v=eyes" media="(prefers-color-scheme: light) and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1125x2436.png?v=eyes" media="(prefers-color-scheme: dark) and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
       </head>
       <body className="flex min-h-full flex-col bg-[var(--bg)] text-[var(--graphite)]">
         <Script id="flight-fetch" strategy="beforeInteractive">

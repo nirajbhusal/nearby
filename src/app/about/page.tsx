@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SiteLink as Link } from "@/components/SiteLink";
-import { LogoMark } from "@/components/brand/Logo";
+import { BrandEyes } from "@/components/brand/Logo";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
@@ -15,7 +15,7 @@ export default function AboutPage() {
       <header className="page-hero">
         <p className="eyebrow">About</p>
         <h1 className="font-display page-title">Nearby, for Nepal</h1>
-        <LogoMark className="logo-mark hero-mark" title="Nearby" />
+        <BrandEyes className="hero-mark" title="Nearby" />
       </header>
       <div className="prose">
         <p>

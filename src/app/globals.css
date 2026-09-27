@@ -1741,6 +1741,15 @@ body:has(.charge-stage) {
   font-size: var(--type-body);
 }
 .logo-mark { width: 1.15rem; height: 1.15rem; color: var(--accent); }
+.logo-eyes {
+  width: 22px;
+  height: calc(22px * 16 / 26);
+  display: block;
+  flex: none;
+  color: var(--graphite);
+  overflow: visible;
+}
+.logo-eyes.hero-mark { width: 56px; height: calc(56px * 16 / 26); margin-top: 4px; }
 .mobile-bar-actions { display: flex; align-items: center; gap: 0.75rem; }
 .theme-toggle,
 .icon-btn {
@@ -3668,6 +3677,7 @@ body:has(.charge-stage) .charge-frame {
     flex-shrink: 0;
   }
   .side-nav .wordmark { font-size: 0; }
+  .side-nav .brand-lockup { align-items: center; width: 100%; }
   .side-nav a span, .side-collapse { display: none; }
   .side-nav a { justify-content: center; padding: 0; }
   .side-foot .segment { flex-direction: column; }
@@ -3687,6 +3697,7 @@ body:has(.charge-stage) .charge-frame {
 @media (min-width: 1024px) {
   .app-shell:not(.is-collapsed) .side-nav { width: 248px; padding: 16px 12px; }
   .app-shell:not(.is-collapsed) .side-nav .wordmark { font-size: var(--type-body); }
+  .app-shell:not(.is-collapsed) .side-nav .brand-lockup { align-items: flex-start; width: auto; }
   .app-shell:not(.is-collapsed) .side-nav a span,
   .app-shell:not(.is-collapsed) .side-collapse { display: inline-flex; }
   .app-shell:not(.is-collapsed) .side-nav a { justify-content: flex-start; padding: 0 10px; }
@@ -3737,8 +3748,8 @@ body:has(.charge-stage) .charge-frame {
   40% { transform: translateY(-3px); }
   100% { transform: none; }
 }
-html[data-intro="play"] .home .home-peek { opacity: 0; }
-html[data-intro="done"] .home .home-peek { opacity: 1; }
+html[data-intro="play"] .home .home-peek { opacity: 0; animation: fade-up 200ms ease 620ms forwards; }
+html[data-intro="done"] .home .home-peek { opacity: 1; animation: none; }
 .start-screen .day-greeting {
   margin: 0 0 8px;
   font-size: var(--type-footnote);
@@ -3790,7 +3801,7 @@ html[data-intro="done"] .home .home-peek { opacity: 1; }
 .prompt-card .scene, .tile-art { width: 88px; height: 64px; color: var(--graphite); }
 .tile-art { width: 100%; height: 72px; }
 .mobile-top.is-home .mobile-title { display: block; }
-.mobile-top .logo-mark { width: 28px; height: 28px; color: var(--graphite); }
+.mobile-top .logo-eyes { width: 22px; height: calc(22px * 16 / 26); color: var(--graphite); }
 .search-pill {
   display: flex;
   align-items: center;
@@ -4032,66 +4043,61 @@ html[data-intro="done"] .home .home-peek { opacity: 1; }
 html[data-intro="play"] .intro-splash {
   position: fixed;
   inset: 0;
-  z-index: 45;
+  z-index: 80;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   background: var(--bg);
   color: var(--graphite);
   pointer-events: none;
-  animation: intro-hold 900ms linear forwards;
+  animation: intro-hold 1100ms linear forwards;
 }
 @keyframes intro-hold {
-  0%, 72% { opacity: 1; }
+  0%, 78% { opacity: 1; }
   100% { opacity: 0; visibility: hidden; }
 }
-.intro-mark { position: relative; width: 72px; height: 72px; }
-.intro-pin {
-  width: 44px;
-  height: 44px;
+.intro-eyes {
+  width: 72px;
+  height: calc(72px * 16 / 26);
   display: block;
-  margin: 10px auto 0;
-  animation: pin-drop 480ms cubic-bezier(0.2, 1.45, 0.36, 1) both;
+  color: var(--fg);
+  overflow: visible;
+  animation: intro-pop 260ms cubic-bezier(.16, 1.35, .32, 1) both;
 }
-@keyframes pin-drop {
-  0% { transform: translateY(-28px); opacity: 0; }
-  62% { transform: translateY(3px); opacity: 1; }
-  100% { transform: translateY(0); opacity: 1; }
+@keyframes intro-pop {
+  from { transform: scale(.62); opacity: 0; }
+  to { transform: none; opacity: 1; }
 }
-.intro-ripple {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  width: 16px;
-  height: 16px;
-  margin: -8px 0 0 -8px;
-  border: 1.5px solid var(--graphite);
-  border-radius: 999px;
-  opacity: 0;
-  animation: intro-ripple 640ms ease-out 80ms 1;
+.intro-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: intro-act 1100ms linear both;
 }
-@keyframes intro-ripple {
-  0% { transform: scale(0.5); opacity: 0.5; }
-  100% { transform: scale(3.6); opacity: 0; }
+@keyframes intro-act {
+  0%, 28% { transform: scaleY(1) translateY(0); }
+  38% { transform: scaleY(0.14) translateY(0); }
+  48% { transform: scaleY(1) translateY(0); }
+  64% { transform: scaleY(1) translateY(4px); }
+  80%, 100% { transform: scaleY(1) translateY(1.4px); }
 }
 .intro-word,
-.intro-tag { margin: 0; opacity: 0; animation: intro-fade 260ms ease 200ms forwards; }
+.intro-tag { margin: 0; opacity: 0; animation: intro-fade 220ms ease 180ms forwards; }
 .intro-word { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; }
 .intro-tag { color: var(--ink-muted); font-size: 17px; }
 @keyframes intro-fade { to { opacity: 1; } }
 html[data-intro="play"] .home .reveal-greet,
 html[data-intro="play"] .home .composer,
 html[data-intro="play"] .home .prompt-card { opacity: 0; }
-html[data-intro="play"] .home .reveal-greet { animation: fade-up 240ms ease 360ms forwards; }
-html[data-intro="play"] .home .composer { animation: fade-up 240ms ease 420ms forwards; }
-html[data-intro="play"] .home .prompt-card:nth-child(1) { animation: fade-up 220ms ease 480ms forwards; }
-html[data-intro="play"] .home .prompt-card:nth-child(2) { animation: fade-up 220ms ease 530ms forwards; }
-html[data-intro="play"] .home .prompt-card:nth-child(3) { animation: fade-up 220ms ease 580ms forwards; }
-html[data-intro="play"] .home .prompt-card:nth-child(4) { animation: fade-up 220ms ease 630ms forwards; }
-html[data-intro="play"] .home .prompt-card:nth-child(5) { animation: fade-up 220ms ease 680ms forwards; }
-html[data-intro="play"] .home .prompt-card:nth-child(6) { animation: fade-up 220ms ease 730ms forwards; }
+html[data-intro="play"] .home .reveal-greet { animation: fade-up 200ms ease 640ms forwards; }
+html[data-intro="play"] .home .composer { animation: fade-up 200ms ease 700ms forwards; }
+html[data-intro="play"] .home .prompt-card:nth-child(1) { animation: fade-up 180ms ease 760ms forwards; }
+html[data-intro="play"] .home .prompt-card:nth-child(2) { animation: fade-up 180ms ease 800ms forwards; }
+html[data-intro="play"] .home .prompt-card:nth-child(3) { animation: fade-up 180ms ease 840ms forwards; }
+html[data-intro="play"] .home .prompt-card:nth-child(4) { animation: fade-up 180ms ease 880ms forwards; }
+html[data-intro="play"] .home .prompt-card:nth-child(5) { animation: fade-up 180ms ease 920ms forwards; }
+html[data-intro="play"] .home .prompt-card:nth-child(6) { animation: fade-up 180ms ease 960ms forwards; }
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }

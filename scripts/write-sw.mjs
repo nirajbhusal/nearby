@@ -27,6 +27,7 @@ const shell = [
   "icon.svg",
   "favicon.ico",
   "og.png",
+  "og-dark.png",
   "apple-touch-icon.png",
 ];
 
@@ -36,7 +37,7 @@ for (const file of walk(join(outDir, "_next/static"))) {
   urls.add(`/nearby/${rel}`);
 }
 
-const body = `const CACHE = "nearby-shell-v3";
+const body = `const CACHE = "nearby-shell-v4";
 const PRECACHE = ${JSON.stringify([...urls], null, 2)};
 
 self.addEventListener("install", (event) => {

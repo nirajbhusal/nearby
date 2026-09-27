@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { LogoMark } from "@/components/brand/Logo";
 
 /** Visual only. Pointers pass through, and the first tap ends the intro. */
 export function IntroSplash() {
@@ -13,7 +12,7 @@ export function IntroSplash() {
       }
     };
     window.addEventListener("pointerdown", skip, { once: true });
-    const timer = window.setTimeout(skip, 900);
+    const timer = window.setTimeout(skip, 1100);
     return () => {
       window.removeEventListener("pointerdown", skip);
       window.clearTimeout(timer);
@@ -22,10 +21,18 @@ export function IntroSplash() {
 
   return (
     <div className="intro-splash" aria-hidden="true">
-      <div className="intro-mark">
-        <span className="intro-ripple" />
-        <LogoMark className="intro-pin" />
-      </div>
+      <svg className="intro-eyes" viewBox="0 0 26 16" aria-hidden="true">
+        <g className="intro-eye peek-eye">
+          <rect width="10" height="16" rx="5" />
+          <circle className="peek-glint" cx="6.7" cy="4.3" r="1.45" />
+        </g>
+        <g transform="translate(16 0)">
+          <g className="intro-eye peek-eye">
+            <rect width="10" height="16" rx="5" />
+            <circle className="peek-glint" cx="6.7" cy="4.3" r="1.45" />
+          </g>
+        </g>
+      </svg>
       <p className="intro-word">Nearby</p>
       <p className="intro-tag">All within reach.</p>
     </div>
