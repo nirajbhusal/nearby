@@ -342,6 +342,17 @@ export const NEPAL: PlaceHit = {
   province: null,
 };
 
+/** Charge distances when the visitor has not shared a place. Ratnapark. */
+export const RATNAPARK: PlaceHit = {
+  label: "Kathmandu",
+  lat: 27.7061,
+  lng: 85.3148,
+  kind: "city",
+  city: "Kathmandu",
+  district: "Kathmandu",
+  province: "Bagmati",
+};
+
 export const KATHMANDU: PlaceHit = resolvePlace("Kathmandu") ?? {
   label: "Kathmandu",
   lat: 27.70884,
