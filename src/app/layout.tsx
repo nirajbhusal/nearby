@@ -17,6 +17,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
@@ -74,12 +75,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`} data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script id="theme-boot" dangerouslySetInnerHTML={{ __html: themeBoot }} />
+      </head>
       <body className="flex min-h-full flex-col bg-[var(--bg)] text-[var(--graphite)]">
         <Script id="flight-fetch" strategy="beforeInteractive">
           {flightFetchBoot}
-        </Script>
-        <Script id="theme-boot" strategy="beforeInteractive">
-          {themeBoot}
         </Script>
         <AppShell>{children}</AppShell>
       </body>

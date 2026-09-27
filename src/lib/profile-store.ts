@@ -99,11 +99,17 @@ export function writeUnits(unit: DistanceUnit) {
 }
 
 export function applyThemeChoice(choice: ThemeChoice) {
+  const next: ThemeChoice = choice === "auto" ? "system" : choice;
   document.documentElement.dataset.todLock = "";
-  paintTheme(choice, { ignoreQuery: true });
+  paintTheme(next, { ignoreQuery: true });
   try {
-    localStorage.setItem(THEME_CHOICE_KEY, choice);
-    localStorage.setItem(THEME_KEY, document.documentElement.dataset.theme || "dark");
+    if (next === "system") {
+      localStorage.removeItem(THEME_CHOICE_KEY);
+      localStorage.removeItem(THEME_KEY);
+    } else {
+      localStorage.setItem(THEME_CHOICE_KEY, next);
+      localStorage.removeItem(THEME_KEY);
+    }
   } catch {
     /* private mode */
   }
@@ -149,7 +155,7 @@ export function useUnits(): DistanceUnit {
 }
 
 export function useThemeChoice(): ThemeChoice {
-  return useSyncExternalStore(subscribe(THEME_EVENT), readThemeChoice, () => "auto");
+  return useSyncExternalStore(subscribe(THEME_EVENT), readThemeChoice, () => "system");
 }
 
 export function isSaved(items: SavedRecord[], kind: SavedRecord["kind"], id: string): boolean {

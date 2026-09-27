@@ -1,4 +1,4 @@
-import { THEME_KEY, type ThemeChoice } from "@/lib/local-profile";
+import type { ThemeChoice } from "@/lib/local-profile";
 
 export type DayPeriod = "morning" | "afternoon" | "evening" | "night";
 
@@ -80,10 +80,39 @@ function computePaint(choice: ThemeChoice, _ignoreQuery: boolean): Paint {
   return { period, theme, atmosphere: "plain", greeting };
 }
 
+const THEME_COLOR = { light: "#ffffff", dark: "#0a0a0a" } as const;
+
+/** Browser chrome follows an explicit choice, and the system when that choice is cleared. */
+export function syncBrowserChrome(theme: "light" | "dark", choice: ThemeChoice) {
+  if (typeof document === "undefined") return;
+  const explicit = choice === "light" || choice === "dark";
+  const root = document.documentElement;
+  root.style.colorScheme = theme;
+  let scheme = document.querySelector('meta[name="color-scheme"]');
+  if (!scheme) {
+    scheme = document.createElement("meta");
+    scheme.setAttribute("name", "color-scheme");
+    document.head.appendChild(scheme);
+  }
+  scheme.setAttribute("content", explicit ? theme : "light dark");
+  const override = document.querySelector('meta[name="theme-color"][data-theme-override]');
+  if (explicit) {
+    const meta = override ?? document.createElement("meta");
+    meta.setAttribute("name", "theme-color");
+    meta.setAttribute("data-theme-override", "1");
+    meta.setAttribute("content", THEME_COLOR[theme]);
+    meta.removeAttribute("media");
+    if (!meta.parentNode) document.head.appendChild(meta);
+  } else if (override) {
+    override.remove();
+  }
+}
+
 /** Apply the theme and time-of-day atmosphere. Returns true when the look changed. */
 export function paintTheme(choice: ThemeChoice, opts?: { ignoreQuery?: boolean; fade?: boolean }): boolean {
   if (typeof document === "undefined") return false;
-  const next = computePaint(choice, opts?.ignoreQuery === true);
+  const stored = choice === "auto" ? "system" : choice;
+  const next = computePaint(stored, opts?.ignoreQuery === true);
   const root = document.documentElement;
   const changed =
     root.dataset.theme !== next.theme ||
@@ -92,18 +121,12 @@ export function paintTheme(choice: ThemeChoice, opts?: { ignoreQuery?: boolean; 
     root.dataset.greeting !== next.greeting;
   const apply = () => {
     root.dataset.theme = next.theme;
-    root.dataset.themeChoice = choice;
+    root.dataset.themeChoice = stored;
     root.dataset.atmosphere = "plain";
     root.dataset.tod = next.period;
     root.dataset.greeting = next.greeting;
     root.dataset.todLock = "";
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", next.theme === "light" ? "#ffffff" : "#0a0a0a");
-    try {
-      localStorage.setItem(THEME_KEY, next.theme);
-    } catch {
-      /* private mode */
-    }
+    syncBrowserChrome(next.theme, stored);
     if (changed) {
       window.dispatchEvent(new Event("nearby-theme"));
       window.dispatchEvent(new Event("nearby-tod"));
@@ -128,5 +151,37 @@ export function readGreeting(): string {
 
 export const TOD_EVENT = "nearby-tod";
 
-/** Runs in <head> before first paint. Keep in sync with paintTheme. */
-export const themeBoot = `(function(){function hour(){try{var parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kathmandu",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date());for(var i=0;i<parts.length;i++){if(parts[i].type==="hour")return parseInt(parts[i].value,10)}}catch(e){}return new Date().getHours()}function period(h){if(h>=5&&h<11)return"morning";if(h>=11&&h<16)return"afternoon";if(h>=16&&h<19)return"evening";return"night"}function greet(p){return p==="morning"?"Good morning":p==="afternoon"?"Good afternoon":p==="evening"?"Good evening":"Good night"}try{var p=period(hour());var choice="system";try{var stored=localStorage.getItem("nearby-theme-choice");var legacy=localStorage.getItem("nearby-theme");if(stored==="light"||stored==="dark"||stored==="system"||stored==="auto")choice=stored==="auto"?"system":stored;else if(legacy==="light"||legacy==="dark")choice=legacy}catch(e){}var theme=choice==="light"||choice==="dark"?choice:(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");var root=document.documentElement;root.dataset.theme=theme;root.dataset.themeChoice=choice;root.dataset.tod=p;root.dataset.atmosphere="plain";root.dataset.greeting=greet(p);root.dataset.todLock="";var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute("content",theme==="light"?"#ffffff":"#0a0a0a")}catch(e){document.documentElement.dataset.theme="dark";document.documentElement.dataset.atmosphere="plain"}})();`;
+/** Runs in <head> before first paint. Keep in sync with paintTheme / syncBrowserChrome. */
+export const themeBoot = `(function(){
+function hour(){try{var parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kathmandu",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date());for(var i=0;i<parts.length;i++){if(parts[i].type==="hour")return parseInt(parts[i].value,10)}}catch(e){}return new Date().getHours()}
+function period(h){if(h>=5&&h<11)return"morning";if(h>=11&&h<16)return"afternoon";if(h>=16&&h<19)return"evening";return"night"}
+function greet(p){return p==="morning"?"Good morning":p==="afternoon"?"Good afternoon":p==="evening"?"Good evening":"Good night"}
+function choice(){try{var stored=localStorage.getItem("nearby-theme-choice");if(stored==="light"||stored==="dark")return stored;if(stored==="auto"||stored==="system")return"system"}catch(e){}return"system"}
+function apply(nextChoice){
+  var theme=nextChoice==="light"||nextChoice==="dark"?nextChoice:(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+  var root=document.documentElement;
+  var p=period(hour());
+  root.dataset.theme=theme;
+  root.dataset.themeChoice=nextChoice;
+  root.dataset.tod=p;
+  root.dataset.atmosphere="plain";
+  root.dataset.greeting=greet(p);
+  root.dataset.todLock="";
+  root.style.colorScheme=theme;
+  var explicit=nextChoice==="light"||nextChoice==="dark";
+  var scheme=document.querySelector('meta[name="color-scheme"]');
+  if(!scheme){scheme=document.createElement("meta");scheme.setAttribute("name","color-scheme");document.head.appendChild(scheme)}
+  scheme.setAttribute("content",explicit?theme:"light dark");
+  var override=document.querySelector('meta[name="theme-color"][data-theme-override]');
+  if(explicit){
+    if(!override){override=document.createElement("meta");override.setAttribute("name","theme-color");override.setAttribute("data-theme-override","1");document.head.appendChild(override)}
+    override.setAttribute("content",theme==="light"?"#ffffff":"#0a0a0a");
+    override.removeAttribute("media");
+  }else if(override){override.remove()}
+}
+try{
+  apply(choice());
+  var media=matchMedia("(prefers-color-scheme: light)");
+  if(media.addEventListener)media.addEventListener("change",function(){var current=document.documentElement.dataset.themeChoice||"system";if(current==="system"||current==="auto")apply("system")});
+}catch(e){document.documentElement.dataset.theme="dark";document.documentElement.dataset.atmosphere="plain"}
+})();`;
