@@ -144,10 +144,12 @@ export function SwipeRow({
     setDx(0);
   }
 
+  const side = dx > 0 ? "save" : dx < 0 ? "share" : null;
+
   return (
     <div
       ref={row}
-      className={dragging || dx !== 0 ? "swipe-row is-swiping" : "swipe-row"}
+      className={side ? "swipe-row is-swiping" : "swipe-row"}
       data-swipe="1"
       data-item-id={item.id}
       onPointerDown={onPointerDown}
@@ -159,13 +161,20 @@ export function SwipeRow({
         setDx(0);
       }}
     >
-      <div className="swipe-action is-save" aria-hidden>
-        <Heart className={pop ? "swipe-heart is-pop" : "swipe-heart"} size={22} strokeWidth={1.5} fill={on ? "currentColor" : "none"} />
-      </div>
-      <div className="swipe-action is-share" aria-hidden>
-        <Share size={20} strokeWidth={1.5} />
-      </div>
-      <div className={dragging ? "swipe-face is-dragging" : "swipe-face"} style={{ transform: `translateX(${dx}px)` }}>
+      {side === "save" ? (
+        <div className="swipe-action is-save" aria-hidden>
+          <Heart className={pop ? "swipe-heart is-pop" : "swipe-heart"} size={22} strokeWidth={1.5} fill={on ? "currentColor" : "none"} />
+        </div>
+      ) : null}
+      {side === "share" ? (
+        <div className="swipe-action is-share" aria-hidden>
+          <Share size={20} strokeWidth={1.5} />
+        </div>
+      ) : null}
+      <div
+        className={dragging ? "swipe-face is-dragging" : "swipe-face"}
+        style={dx !== 0 ? { transform: `translateX(${dx}px)` } : undefined}
+      >
         {children}
       </div>
     </div>

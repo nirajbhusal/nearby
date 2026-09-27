@@ -18,8 +18,43 @@ import {
 } from "@/lib/nepal/ev";
 import { directionQuery } from "@/lib/nepal/networks";
 
-const ROW = 88;
 const OVERSCAN = 8;
+const ROW_PAD = 28;
+const TITLE_LINE = 22;
+const META_LINE = 18;
+const PLUG_LINE = 24;
+
+/** Copy column after the monogram, directions button, and chevron. */
+function copyWidth(listWidth: number): number {
+  return Math.max(96, listWidth - 16 - 40 - 12 - 84);
+}
+
+function rowHeight(station: NearbyStation, width: number): number {
+  const copy = copyWidth(width);
+  const titleLines = Math.min(2, Math.max(1, Math.ceil((station.name.length * 9.1) / copy)));
+  const fast = station.speed === "fast" ? 46 : 0;
+  let plugLines = 1;
+  if (isApproximate(station)) {
+    plugLines = 148 + fast > copy ? 2 : 1;
+  } else {
+    const parts = connectorLine(station).split(" · ").filter(Boolean);
+    const widths = (parts.length ? parts : ["Connectors not listed"]).map((part) => part.length * 7.2 + 18);
+    if (fast) widths.push(fast);
+    let line = 0;
+    let lines = 1;
+    for (const item of widths) {
+      if (line > 0 && line + 6 + item > copy) {
+        lines += 1;
+        line = item;
+      } else {
+        line = line === 0 ? item : line + 6 + item;
+      }
+    }
+    plugLines = Math.min(2, lines);
+  }
+  const plugs = plugLines * PLUG_LINE + (plugLines - 1) * 6;
+  return Math.max(76, ROW_PAD + titleLines * TITLE_LINE + 4 + META_LINE + plugs);
+}
 
 export function SortControl({
   value,
@@ -68,28 +103,43 @@ export function StationList({
   onHover: (id: string | null) => void;
 }) {
   const hostRef = useRef<HTMLUListElement>(null);
+  const [listWidth, setListWidth] = useState(360);
   const [range, setRange] = useState({ start: 0, end: 24 });
+  const layout = useRef({ offsets: [] as number[], heights: [] as number[], total: 0 });
+  const nextHeights = stations.map((station) => rowHeight(station, listWidth));
+  const nextOffsets = new Array<number>(stations.length);
+  let total = 0;
+  for (let index = 0; index < stations.length; index += 1) {
+    nextOffsets[index] = total;
+    total += nextHeights[index];
+  }
+  layout.current = { offsets: nextOffsets, heights: nextHeights, total };
 
   useEffect(() => {
     const host = hostRef.current;
     const scroller = host?.closest(".sheet-body, .charge-list-page") as HTMLElement | null;
     if (!host || !scroller) return;
     const update = () => {
+      const width = host.clientWidth || 360;
+      setListWidth((prev) => (prev === width ? prev : width));
+      const { offsets: tops, heights: rows } = layout.current;
       const hostTop =
         host.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
-      const start = Math.max(0, Math.floor((scroller.scrollTop - hostTop) / ROW) - OVERSCAN);
-      const end = Math.min(stations.length, start + Math.ceil(scroller.clientHeight / ROW) + OVERSCAN * 2);
+      const viewTop = scroller.scrollTop - hostTop;
+      const start = Math.max(0, indexAt(tops, rows, viewTop - 76 * OVERSCAN));
+      const end = Math.min(stations.length, indexAt(tops, rows, viewTop + scroller.clientHeight + 76 * OVERSCAN) + 1);
       setRange((prev) => (prev.start === start && prev.end === end ? prev : { start, end }));
     };
     update();
     scroller.addEventListener("scroll", update, { passive: true });
     const observer = new ResizeObserver(update);
     observer.observe(scroller);
+    observer.observe(host);
     return () => {
       scroller.removeEventListener("scroll", update);
       observer.disconnect();
     };
-  }, [stations.length]);
+  }, [stations.length, listWidth]);
 
   return (
     <>
@@ -97,30 +147,49 @@ export function StationList({
     <ul
       ref={hostRef}
       className="station-list"
-      style={{ height: stations.length * ROW }}
+      style={{ height: layout.current.total }}
       onPointerLeave={() => onHover(null)}
     >
-      {stations.slice(range.start, range.end).map((station, index) => (
-        <StationRow
-          key={station.id}
-          station={station}
-          top={(range.start + index) * ROW}
-          showDistance={showDistance}
-          unit={unit}
-          selected={station.id === selectedId}
-          fits={fits(station)}
-          onSelect={onSelect}
-          onHover={onHover}
-        />
-      ))}
+      {stations.slice(range.start, range.end).map((station, index) => {
+        const at = range.start + index;
+        return (
+          <StationRow
+            key={station.id}
+            station={station}
+            top={layout.current.offsets[at] ?? 0}
+            height={layout.current.heights[at] ?? 76}
+            last={at === stations.length - 1}
+            showDistance={showDistance}
+            unit={unit}
+            selected={station.id === selectedId}
+            fits={fits(station)}
+            onSelect={onSelect}
+            onHover={onHover}
+          />
+        );
+      })}
     </ul>
     </>
   );
 }
 
+function indexAt(offsets: number[], heights: number[], y: number): number {
+  if (offsets.length === 0) return 0;
+  let lo = 0;
+  let hi = offsets.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (offsets[mid] + heights[mid] <= y) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
 function StationRow({
   station,
   top,
+  height,
+  last,
   showDistance,
   unit,
   selected,
@@ -130,6 +199,8 @@ function StationRow({
 }: {
   station: NearbyStation;
   top: number;
+  height: number;
+  last: boolean;
   showDistance: boolean;
   unit: DistanceUnit;
   selected: boolean;
@@ -138,7 +209,10 @@ function StationRow({
   onHover: (id: string | null) => void;
 }) {
   const mono = networkMonogram(station.network_id || station.network);
-  const plugs = connectorLine(station);
+  const plugs = connectorLine(station)
+    .split(" · ")
+    .map((part) => part.trim())
+    .filter(Boolean);
   const approx = isApproximate(station);
   const meta = [
     stationArea(station),
@@ -154,9 +228,9 @@ function StationRow({
   };
   return (
     <li
-      className={selected ? "station-line is-selected" : "station-line"}
+      className={`station-line${selected ? " is-selected" : ""}${last ? " is-last" : ""}`}
       data-station={station.id}
-      style={{ top }}
+      style={{ top, height }}
     >
       <SwipeRow item={saved} share={{ title: station.name, text: station.name, url: chargeHref(station.id) }}>
         <div
@@ -185,8 +259,14 @@ function StationRow({
                     </svg>
                     Approx. location
                   </span>
+                ) : plugs.length > 0 ? (
+                  plugs.map((plug) => (
+                    <span className="plug-pill" key={plug}>
+                      {plug}
+                    </span>
+                  ))
                 ) : (
-                  <span className="plug-text">{plugs || "Connectors not listed"}</span>
+                  <span className="plug-pill">Connectors not listed</span>
                 )}
                 {station.speed === "fast" ? <span className="fast-tag">Fast</span> : null}
               </span>
