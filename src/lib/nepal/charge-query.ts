@@ -1,4 +1,5 @@
 import { PLUG_FILTERS, type PlugFilter } from "@/lib/nepal/ev";
+import { canonicalNetworkId, orderNetworkIds } from "@/lib/nepal/networks";
 
 export type ChargeState = {
   q: string;
@@ -7,7 +8,8 @@ export type ChargeState = {
   station: string | null;
   fast: boolean;
   plugs: PlugFilter[];
-  network: string | null;
+  networks: string[];
+  exact: boolean;
   /** Used only when `radiusSet` is true. Null means the whole scope. */
   radius: number | null;
   radiusSet: boolean;
@@ -22,6 +24,17 @@ export type ChargeState = {
 type SearchReader = {
   get(name: string): string | null;
 };
+
+function readNetworks(sp: SearchReader): string[] {
+  const raw = sp.get("network") || "";
+  const fromParam = raw
+    .split(",")
+    .map((part) => canonicalNetworkId(part))
+    .filter((id): id is string => Boolean(id));
+  if (fromParam.length) return orderNetworkIds(fromParam);
+  const legacy = canonicalNetworkId(sp.get("net"));
+  return legacy ? [legacy] : [];
+}
 
 function readSheet(value: string | null): ChargeState["sheet"] {
   if (value === "peek" || value === "half" || value === "full") return value;
@@ -48,7 +61,8 @@ export function readChargeState(sp: SearchReader): ChargeState {
     station: sp.get("station") || sp.get("id"),
     fast: sp.get("fast") === "1",
     plugs,
-    network: sp.get("net"),
+    networks: readNetworks(sp),
+    exact: sp.get("exact") === "1",
     radius,
     radiusSet,
     near: sp.get("near") === "1",
@@ -70,12 +84,15 @@ export function writeChargeSearch(state: ChargeState): string {
   for (const plug of PLUG_FILTERS) {
     if (state.plugs.includes(plug.id)) sp.set(plug.id, "1");
   }
-  if (state.network) sp.set("net", state.network);
+  if (state.networks.length) sp.set("network", orderNetworkIds(state.networks).join(","));
+  if (state.exact) sp.set("exact", "1");
   if (state.radiusSet) sp.set("r", state.radius == null ? "all" : String(state.radius));
   if (state.near) sp.set("near", "1");
   if (state.view === "list") sp.set("view", "list");
   if (state.province && !state.q && state.lat == null) sp.set("province", state.province);
   if (state.sheet) sp.set("sheet", state.sheet);
-  const query = sp.toString();
+  const query = sp
+    .toString()
+    .replace(/(^|&)network=([^&]*)/g, (_, prefix: string, value: string) => `${prefix}network=${value.replace(/%2C/gi, ",")}`);
   return query ? `?${query}` : "";
 }

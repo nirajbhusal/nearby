@@ -12,9 +12,13 @@ import {
 assert.equal(networkMonogram("NEA"), "NEA");
 assert.equal(networkMonogram("MAW Vriddhi"), "MAW");
 assert.equal(networkMonogram("CG"), "CG");
+assert.equal(networkMonogram("CG Motors"), "CG");
 assert.equal(networkMonogram("GadiCharge"), "GC");
 assert.equal(networkMonogram(null), null);
-assert.equal(networkMonogram("Tata (Sipradi)"), "TS");
+assert.equal(networkMonogram("Tata (Sipradi)"), "TATA");
+assert.equal(networkMonogram("ElectriVa"), "EV");
+assert.equal(networkMonogram("BYD"), "BYD");
+assert.equal(networkMonogram("MG"), "MG");
 
 const bhaktapur = evIndex.find((station) => station.id === "np-ev-evnepal-8646df46");
 assert.ok(bhaktapur);
@@ -65,6 +69,8 @@ function row(id: string, province: string, distanceKm: number, kw: number, speed
     speed,
     access: "public",
     phone: null,
+    network_id: null,
+    geo_precision: "exact",
     plugs: [{ type: "CCS2", kw, n: 1 }],
     caution: null,
     distanceKm,

@@ -2,6 +2,7 @@ import { SiteLink as Link } from "@/components/SiteLink";
 import { notFound } from "next/navigation";
 import { BookingSlot } from "@/components/nepal/BookingSlot";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
+import { directionQuery, isApproximatePlace, networkById } from "@/lib/nepal/networks";
 import { LogoMark } from "@/components/brand/Logo";
 import { pageMeta } from "@/lib/site";
 import {
@@ -54,6 +55,9 @@ export default async function StationPage({ params }: { params: Params }) {
     station.city ? `&q=${encodeURIComponent(station.city)}` : ""
   }`;
   const updated = formatUpdated(station.last_verified);
+  const network = networkById(station.network_id);
+  const approximate = isApproximatePlace(station.geo_precision);
+  const town = station.city || station.district;
 
   return (
     <main className="mx-auto w-full max-w-xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
@@ -74,12 +78,43 @@ export default async function StationPage({ params }: { params: Params }) {
             {station.name}
           </h1>
           <p className="text-lg leading-relaxed text-[var(--ink-muted)]">
-            {[station.network, station.operator].filter(Boolean).join(" · ") ||
+            {[network?.name || station.network, station.operator].filter(Boolean).join(" · ") ||
               "Operator not listed"}
           </p>
+          {approximate ? (
+            <p className="text-sm text-[var(--ink-muted)]">Approximate location (town only)</p>
+          ) : null}
+          {network?.website ? (
+            <p>
+              <a href={network.website} className="ink-link" target="_blank" rel="noopener noreferrer">
+                {network.website.replace(/^https?:\/\//, "")}
+              </a>
+            </p>
+          ) : null}
+          {network && (network.apps.ios || network.apps.android) ? (
+            <p className="text-sm">
+              Get the app{" "}
+              {network.apps.ios ? (
+                <a href={network.apps.ios} className="ink-link" target="_blank" rel="noopener noreferrer">
+                  iOS
+                </a>
+              ) : null}
+              {network.apps.ios && network.apps.android ? " · " : null}
+              {network.apps.android ? (
+                <a href={network.apps.android} className="ink-link" target="_blank" rel="noopener noreferrer">
+                  Android
+                </a>
+              ) : null}
+            </p>
+          ) : null}
         </div>
 
-        <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
+        <NavigateLinks
+          lat={station.lat}
+          lng={station.lng}
+          name={station.name}
+          search={approximate ? directionQuery(station) : null}
+        />
 
         <dl className="detail-list space-y-4">
           <div>
@@ -149,10 +184,10 @@ export default async function StationPage({ params }: { params: Params }) {
               Location
             </dt>
             <dd className="mt-1 text-[var(--ink-muted)]">
-              {station.geo_precision === "exact"
-                ? "Coordinates come from a published source."
-                : "Location is approximate."}{" "}
-              {station.lat.toFixed(5)}, {station.lng.toFixed(5)}
+              {approximate
+                ? `Approximate location (town only)${town ? ` · ${town}` : ""}. Directions search for the place instead of this point.`
+                : "Coordinates come from a published source."}{" "}
+              {approximate ? null : `${station.lat.toFixed(5)}, ${station.lng.toFixed(5)}`}
             </dd>
           </div>
         </dl>

@@ -9,12 +9,14 @@ import { chargeHref } from "@/lib/item-link";
 import { formatDistance, type DistanceUnit } from "@/lib/local-profile";
 import {
   connectorLine,
+  isApproximate,
   networkLabel,
   networkMonogram,
   stationArea,
   type NearbyStation,
   type StationSort,
 } from "@/lib/nepal/ev";
+import { directionQuery } from "@/lib/nepal/networks";
 
 const ROW = 68;
 const OVERSCAN = 8;
@@ -132,8 +134,9 @@ function StationRow({
   onSelect: (id: string) => void;
   onHover: (id: string | null) => void;
 }) {
-  const mono = networkMonogram(station.network);
+  const mono = networkMonogram(station.network_id || station.network);
   const plugs = connectorLine(station);
+  const approx = isApproximate(station);
   const meta = [
     stationArea(station),
     showDistance ? formatDistance(station.distanceKm, unit) : "",
@@ -172,13 +175,23 @@ function StationRow({
               </span>
               <span className="station-meta">{meta.join(" · ")}</span>
               <span className="station-plugs">
-                <span className="plug-text">{plugs || "Connectors not listed"}</span>
+                {approx ? (
+                  <span className="plug-text approx-note">Approximate location (town only)</span>
+                ) : (
+                  <span className="plug-text">{plugs || "Connectors not listed"}</span>
+                )}
                 {station.speed === "fast" ? <span className="fast-tag">Fast</span> : null}
               </span>
             </span>
             <ChevronRight className="station-chevron" size={18} strokeWidth={1.75} aria-hidden="true" />
           </button>
-          <DirectionsLink lat={station.lat} lng={station.lng} name={station.name} compact />
+          <DirectionsLink
+            lat={station.lat}
+            lng={station.lng}
+            name={station.name}
+            compact
+            search={approx ? directionQuery(station) : null}
+          />
         </div>
       </SwipeRow>
     </li>

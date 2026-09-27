@@ -4257,6 +4257,99 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
 .ev-pin-row.is-hover .ev-pin {
   box-shadow: 0 0 0 3px var(--graphite);
 }
+.network-quick {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  flex: none;
+  padding: 0 0.85rem 0.55rem;
+  scrollbar-width: none;
+}
+.charge-list-page .network-quick {
+  padding-left: 0;
+  padding-right: 0;
+}
+.network-quick .chip {
+  flex: none;
+}
+.chip-count {
+  margin-left: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.network-label {
+  margin: 0 0 6px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.filter-sheet .network-quick {
+  padding-left: 0;
+  padding-right: 0;
+}
+.charge-panel .filter-sheet {
+  padding: 0 0.85rem 0.7rem;
+}
+.approx-note {
+  margin: 0 0 8px;
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+.station-list .approx-note {
+  margin: 0;
+}
+.network-card {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0 0 12px;
+}
+.network-card .net-icon {
+  width: 40px;
+  height: 40px;
+}
+.network-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.app-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+.app-links a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ev-pin.is-approx {
+  background: var(--bg);
+  color: var(--graphite);
+  border: 1.5px dashed var(--graphite);
+  box-shadow: none;
+}
+.ev-pin-row.is-active .ev-pin.is-approx,
+.ev-pin-row.is-hover .ev-pin.is-approx {
+  background: var(--bg);
+  color: var(--graphite);
+  border: 2px dashed var(--graphite);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--graphite) 35%, transparent);
+}
+.ev-pin .pin-mono {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+@media (max-width: 1023px) {
+  .charge-panel[data-snap="peek"] .network-quick,
+  .charge-panel[data-snap="peek"] .filter-sheet {
+    display: none;
+  }
+}
 .station-list .swipe-hint {
   position: absolute;
   left: 62px;

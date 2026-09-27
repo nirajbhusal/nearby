@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { LngLatBounds, Map as MlMap, Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import type { NearbyStation } from "@/lib/nepal/ev";
-import { clusterStations } from "@/components/charge/cluster";
+import { isApproximate, networkMonogram, type NearbyStation } from "@/lib/nepal/ev";
+import { clusterStations, spiderLatLng, stackKey } from "@/components/charge/cluster";
 import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 
 export type MapFrame =
@@ -122,6 +122,8 @@ export default function ChargeMap({
   const hoverRef = useRef(hoveredId);
   const frameRef = useRef(frame);
   const [ready, setReady] = useState(false);
+  const [spiderKey, setSpiderKey] = useState<string | null>(null);
+  const spiderRef = useRef<string | null>(null);
 
   useEffect(() => {
     onSelectRef.current = onSelect;
@@ -222,6 +224,17 @@ export default function ChargeMap({
   }, [ready, key, selectedId]);
 
   useEffect(() => {
+    if (!selectedId) return;
+    const station = stations.find((item) => item.id === selectedId);
+    if (!station) return;
+    const key = stackKey(station);
+    if (stations.filter((item) => stackKey(item) === key).length < 2) return;
+    if (spiderRef.current === key) return;
+    spiderRef.current = key;
+    setSpiderKey(key);
+  }, [selectedId, stations]);
+
+  useEffect(() => {
     if (!ready || !selectedId) return;
     const station = stationsRef.current.find((item) => item.id === selectedId);
     const map = mapRef.current;
@@ -263,6 +276,13 @@ export default function ChargeMap({
         return;
       }
       let pins = clusterStations(stations, zoom);
+      const stacks = new Map<string, NearbyStation[]>();
+      for (const station of stations) {
+        const key = stackKey(station);
+        const list = stacks.get(key);
+        if (list) list.push(station);
+        else stacks.set(key, [station]);
+      }
       const hover = hoverRef.current;
       if (hover && !pins.some((pin) => pin.kind === "station" && pin.station.id === hover)) {
         const hovered = stations.find((station) => station.id === hover);
@@ -291,17 +311,31 @@ export default function ChargeMap({
         const station = pin.station;
         const active = station.id === selectedId;
         const hot = station.id === hoverRef.current && !active;
+        const key = stackKey(station);
+        const stack = stacks.get(key) ?? [station];
+        const index = Math.max(0, stack.findIndex((item) => item.id === station.id));
+        const metersPerPixel = (156543.03 * Math.cos((station.lat * Math.PI) / 180)) / 2 ** zoom;
+        const spread = (spiderRef.current === key ? 36 : 12) * metersPerPixel;
+        const point = spiderLatLng(station.lat, station.lng, index, stack.length, spread);
+        const approx = isApproximate(station);
+        const mono = zoom >= 14 ? networkMonogram(station.network_id || station.network) : null;
+        const mark = mono ? `<span class="pin-mono">${mono}</span>` : BOLT;
         const element = pinButton(
-          `<span class="ev-pin-row${active ? " is-active" : ""}${hot ? " is-hover" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}">${BOLT}</span></span>`,
-          station.name,
+          `<span class="ev-pin-row${active ? " is-active" : ""}${hot ? " is-hover" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}${approx ? " is-approx" : ""}">${mark}</span></span>`,
+          approx ? `${station.name}, approximate location` : station.name,
         );
         element.dataset.station = station.id;
+        if (approx) element.dataset.approx = "1";
         element.addEventListener("click", (event) => {
           event.stopPropagation();
+          if (stack.length > 1 && spiderRef.current !== key) {
+            spiderRef.current = key;
+            setSpiderKey(key);
+          }
           onSelectRef.current(station.id);
         });
         const marker = new Marker({ element, anchor: "center" })
-          .setLngLat([station.lng, station.lat])
+          .setLngLat([point.lng, point.lat])
           .addTo(map);
         if (active || hot) marker.getElement().style.zIndex = "5";
         markers.push(marker);
@@ -314,7 +348,7 @@ export default function ChargeMap({
       map.off("zoomend", draw);
       for (const marker of markers) marker.remove();
     };
-  }, [ready, stations, selectedId, hoveredId, provinces]);
+  }, [ready, stations, selectedId, hoveredId, provinces, spiderKey]);
 
   useEffect(() => {
     if (!ready) return;

@@ -1,5 +1,25 @@
 import type { NearbyStation } from "@/lib/nepal/ev";
 
+export function stackKey(station: { lat: number; lng: number }): string {
+  return `${station.lat.toFixed(5)},${station.lng.toFixed(5)}`;
+}
+
+/** Spread pins that share a coordinate by `meters` around the shared point. */
+export function spiderLatLng(
+  lat: number,
+  lng: number,
+  index: number,
+  count: number,
+  meters: number,
+): { lat: number; lng: number } {
+  if (count < 2 || meters <= 0) return { lat, lng };
+  const angle = (2 * Math.PI * index) / count - Math.PI / 2;
+  const dLat = (meters * Math.cos(angle)) / 111320;
+  const cos = Math.cos((lat * Math.PI) / 180) || 1;
+  const dLng = (meters * Math.sin(angle)) / (111320 * cos);
+  return { lat: lat + dLat, lng: lng + dLng };
+}
+
 export type StationPin = { kind: "station"; station: NearbyStation };
 export type ClusterPin = {
   kind: "cluster";

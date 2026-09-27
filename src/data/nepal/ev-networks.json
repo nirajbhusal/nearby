@@ -1,0 +1,475 @@
+{
+ "generated": "2026-09-27",
+ "note": "`network` values in ev-stations-nepal.json equal `name` here; `network_id` equals `id`. Unbranded/independent stations have network null.",
+ "unbranded_count": 122,
+ "networks": [
+  {
+   "id": "gadicharge",
+   "name": "GadiCharge",
+   "short": "GadiCharge",
+   "full_name": "GadiCharge Pvt. Ltd.",
+   "website": "https://gadicharge.com.np",
+   "apps": {
+    "android": "https://play.google.com/store/apps/details?id=com.gadicharge.evcharge",
+    "ios": "https://apps.apple.com/in/app/gadicharge/id6737194631"
+   },
+   "station_count": 39,
+   "station_count_before": 0,
+   "coordinates": {
+    "exact": 33,
+    "geocoded_poi": 2,
+    "locality": 4,
+    "area": 0
+   },
+   "official_claim": "26 stations / 126 charge points (co-founder Roshan Silwal, LinkedIn, 2025-10-03; company post 2025-09-26); more sites announced since",
+   "aliases": [
+    "Gadi Charge"
+   ],
+   "sources": [
+    {
+     "name": "GadiCharge LinkedIn company posts (station announcements with Google Maps links)",
+     "url": "https://www.linkedin.com/company/gadicharge-pvt-ltd/"
+    },
+    {
+     "name": "Roshan Silwal (co-founder) LinkedIn post: 26 stations, 126 charge points",
+     "url": "https://www.linkedin.com/posts/roshan-silwal-4131a950_quality-convenience-safety-activity-7379811377147850752--x4x"
+    },
+    {
+     "name": "Nepal EV Map (nepalevs.com) station map, operator tag \"Gadi Charge\"",
+     "url": "https://nepalevs.com/charging-station-in-nepal/"
+    }
+   ]
+  },
+  {
+   "id": "nea",
+   "name": "NEA",
+   "short": "NEA",
+   "full_name": "Nepal Electricity Authority (NEA Charge network)",
+   "website": "https://www.nea.org.np",
+   "apps": {
+    "android": "https://play.google.com/store/apps/details?id=com.wanbangauto.neapower",
+    "ios": "https://apps.apple.com/np/app/nea-charge/id1635288488"
+   },
+   "station_count": 43,
+   "station_count_before": 40,
+   "coordinates": {
+    "exact": 43,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": "NEA Charge platform API reports 63 charging units (grouped here into 41 sites); Techmandu (Aug 2024) cites 62 chargers",
+   "aliases": [
+    "Nepal Electricity Authority (NEA)",
+    "MOWSIE (on NEA Charge platform)"
+   ],
+   "sources": [
+    {
+     "name": "NEA Charge platform public station API (findStubGroup)",
+     "url": "https://cpop-cpop.nea.org.np/msapi/findStubGroup"
+    },
+    {
+     "name": "Nepal Press: fast charging stations in 51 places (with list), 2023-09-06",
+     "url": "https://english.nepalpress.com/2023/09/06/fast-charging-stations-come-into-operation-in-51-places-with-list/"
+    },
+    {
+     "name": "Techmandu: NEA building 50 EV charging stations",
+     "url": "https://techmandu.com/nea-building-50-ev-charging-stations-in-nepal/"
+    }
+   ]
+  },
+  {
+   "id": "maw-vriddhi",
+   "name": "MAW Vriddhi",
+   "short": "MAW",
+   "full_name": "MAW Vriddhi (MAW Group) – MAW EV Charging / MAW Speed Charging",
+   "website": "https://mawevcharging.com",
+   "apps": {
+    "android": "https://play.google.com/store/apps/details?id=com.csn.maw",
+    "ios": "https://apps.apple.com/np/app/maw-speed-charging/id6744535070"
+   },
+   "station_count": 120,
+   "station_count_before": 103,
+   "coordinates": {
+    "exact": 120,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": "Official list shows 91 entries; MAW claims 139+ operational (Technology Khabar, 2025-11-13)",
+   "aliases": [
+    "MAW",
+    "Maw Vriddhi"
+   ],
+   "sources": [
+    {
+     "name": "MAW EV Charging official station list",
+     "url": "https://mawevcharging.com/charging-stations"
+    }
+   ]
+  },
+  {
+   "id": "cg-motors",
+   "name": "CG Motors",
+   "short": "CG",
+   "full_name": "CG Motors / CG EV (Chaudhary Group) charging network",
+   "website": "https://cg-ev.com",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 88,
+   "station_count_before": 8,
+   "coordinates": {
+    "exact": 20,
+    "geocoded_poi": 0,
+    "locality": 56,
+    "area": 12
+   },
+   "official_claim": "Official table lists 132 charger rows (272 charging points claimed in Feb 2025); grouped here into 88 sites",
+   "aliases": [
+    "CG",
+    "CG EV",
+    "Chaudhary Group"
+   ],
+   "sources": [
+    {
+     "name": "CG EV official charger-station list",
+     "url": "https://cg-ev.com/charger-station"
+    },
+    {
+     "name": "CG Motors charging network page",
+     "url": "https://gac.cgmotors.com.np/chargingnetwork"
+    }
+   ]
+  },
+  {
+   "id": "tata-sipradi",
+   "name": "Tata (Sipradi)",
+   "short": "Tata",
+   "full_name": "Tata Motors Nepal (Sipradi Trading) charging network",
+   "website": "https://sipradi.com.np",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 94,
+   "station_count_before": 94,
+   "coordinates": {
+    "exact": 94,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [
+    "TATA",
+    "Tata",
+    "Sipradi"
+   ],
+   "sources": [
+    {
+     "name": "Sipradi Trading",
+     "url": "https://sipradi.com.np"
+    }
+   ]
+  },
+  {
+   "id": "electriva",
+   "name": "ElectriVa",
+   "short": "ElectriVa",
+   "full_name": "ElectriVa Nepal (Zivah International Pvt. Ltd.)",
+   "website": "https://www.electrivanepal.com",
+   "apps": {
+    "android": "https://play.google.com/store/apps/details?id=com.electrivanepal",
+    "ios": "https://apps.apple.com/np/app/electriva-nepal/id6747898140"
+   },
+   "station_count": 26,
+   "station_count_before": 26,
+   "coordinates": {
+    "exact": 26,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [
+    "Electriva"
+   ],
+   "sources": [
+    {
+     "name": "ElectriVa Nepal (site returned 522 at build time)",
+     "url": "https://www.electrivanepal.com/home"
+    }
+   ]
+  },
+  {
+   "id": "mg",
+   "name": "MG",
+   "short": "MG",
+   "full_name": "MG Motor Nepal dealer chargers",
+   "website": "https://www.mgmotor.com.np",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 25,
+   "station_count_before": 24,
+   "coordinates": {
+    "exact": 25,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": [
+    {
+     "name": "MG Motor Nepal",
+     "url": "https://www.mgmotor.com.np"
+    }
+   ]
+  },
+  {
+   "id": "byd",
+   "name": "BYD",
+   "short": "BYD",
+   "full_name": "BYD Nepal (Cimex) dealer/partner chargers",
+   "website": null,
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 23,
+   "station_count_before": 23,
+   "coordinates": {
+    "exact": 23,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": [
+    {
+     "name": "Techmandu brand table (BYD charging stations)",
+     "url": "https://techmandu.com/ev-charging-stations-in-nepal/"
+    }
+   ]
+  },
+  {
+   "id": "hyundai",
+   "name": "Hyundai",
+   "short": "Hyundai",
+   "full_name": "Hyundai Nepal (Laxmi Intercontinental) dealer chargers",
+   "website": null,
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 18,
+   "station_count_before": 18,
+   "coordinates": {
+    "exact": 18,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": [
+    {
+     "name": "Techmandu brand table (Hyundai charging stations)",
+     "url": "https://techmandu.com/ev-charging-stations-in-nepal/"
+    }
+   ]
+  },
+  {
+   "id": "thee-go",
+   "name": "Thee Go",
+   "short": "theeGO",
+   "full_name": "thee GO (N.E.V. Nepal Pvt. Ltd.) Chargepoint",
+   "website": "https://motors.theego.com.np/charging-network/",
+   "apps": {
+    "android": "https://play.google.com/store/apps/details?id=com.chargepoint.theegoev",
+    "ios": "https://apps.apple.com/app/id6748582148"
+   },
+   "station_count": 17,
+   "station_count_before": 16,
+   "coordinates": {
+    "exact": 17,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": "\"over 70 charging stations (both NEA and thee GO Chargepoint)\"; no station list published",
+   "aliases": [
+    "theeGO",
+    "Thee-Go",
+    "TheeGO Chargepoint"
+   ],
+   "sources": [
+    {
+     "name": "thee GO Motors charging network page",
+     "url": "https://motors.theego.com.np/charging-network/"
+    }
+   ]
+  },
+  {
+   "id": "yatri-energy",
+   "name": "Yatri Energy",
+   "short": "Yatri",
+   "full_name": "Yatri Energy",
+   "website": "https://yatrienergy.com",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 5,
+   "station_count_before": 5,
+   "coordinates": {
+    "exact": 5,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": [
+    {
+     "name": "Yatri Energy",
+     "url": "https://yatrienergy.com"
+    }
+   ]
+  },
+  {
+   "id": "aircharge",
+   "name": "AirCharge",
+   "short": "AirCharge",
+   "full_name": "AirCharge (Air Charged Pvt. Ltd.)",
+   "website": "https://www.aircharged.com",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 11,
+   "station_count_before": 1,
+   "coordinates": {
+    "exact": 10,
+    "geocoded_poi": 1,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": "17 own stations listed by locality",
+   "aliases": [
+    "Air Charge"
+   ],
+   "sources": [
+    {
+     "name": "AirCharge station pages",
+     "url": "https://www.aircharged.com/charging-stations-in-nepal"
+    }
+   ]
+  },
+  {
+   "id": "kia",
+   "name": "Kia",
+   "short": "Kia",
+   "full_name": "Kia Nepal dealer chargers",
+   "website": "https://www.kia.com/np",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 2,
+   "station_count_before": 0,
+   "coordinates": {
+    "exact": 2,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": [
+    {
+     "name": "Kia Nepal",
+     "url": "https://www.kia.com/np"
+    }
+   ]
+  },
+  {
+   "id": "dfsk",
+   "name": "DFSK",
+   "short": "DFSK",
+   "full_name": "DFSK EV Nepal (Green Automobiles)",
+   "website": null,
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 2,
+   "station_count_before": 1,
+   "coordinates": {
+    "exact": 2,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": []
+  },
+  {
+   "id": "gwm",
+   "name": "GWM",
+   "short": "GWM",
+   "full_name": "Great Wall Motor (GWM Nepal) dealer chargers",
+   "website": "https://www.gwmnepal.com",
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 1,
+   "station_count_before": 1,
+   "coordinates": {
+    "exact": 1,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [
+    "Great Wall Motor"
+   ],
+   "sources": [
+    {
+     "name": "GWM Nepal",
+     "url": "https://www.gwmnepal.com"
+    }
+   ]
+  },
+  {
+   "id": "plug-n-sip",
+   "name": "Plug n Sip",
+   "short": "Plug n Sip",
+   "full_name": "Plug n Sip Cafe",
+   "website": null,
+   "apps": {
+    "android": null,
+    "ios": null
+   },
+   "station_count": 1,
+   "station_count_before": 1,
+   "coordinates": {
+    "exact": 1,
+    "geocoded_poi": 0,
+    "locality": 0,
+    "area": 0
+   },
+   "official_claim": null,
+   "aliases": [],
+   "sources": []
+  }
+ ]
+}

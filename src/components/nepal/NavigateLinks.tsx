@@ -23,6 +23,10 @@ export function googleMapsDir(lat: number, lng: number): string {
   return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 }
 
+export function googleMapsSearch(query: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
 export function directionsHref(lat: number, lng: number, name: string, platform: Platform): string {
   const q = encodeURIComponent(name);
   if (platform === "android") return `geo:${lat},${lng}?q=${lat},${lng}(${q})`;
@@ -30,21 +34,32 @@ export function directionsHref(lat: number, lng: number, name: string, platform:
   return googleMapsDir(lat, lng);
 }
 
+/** Town-only records search by name, not the town-centre coordinate. */
+export function directionsSearchHref(query: string, platform: Platform): string {
+  const q = encodeURIComponent(query);
+  if (platform === "android") return `geo:0,0?q=${q}`;
+  if (platform === "ios") return `maps://?q=${q}`;
+  return googleMapsSearch(query);
+}
+
 export function DirectionsLink({
   lat,
   lng,
   name = "Destination",
   compact = false,
+  search = null,
 }: {
   lat: number;
   lng: number;
   name?: string;
   prominent?: boolean;
   compact?: boolean;
+  /** When set, directions search for this place instead of routing to coordinates. */
+  search?: string | null;
 }) {
   const platform = useSyncExternalStore(subscribe, detectPlatform, () => "desktop" as Platform);
-  const href = directionsHref(lat, lng, name, platform);
-  const google = googleMapsDir(lat, lng);
+  const href = search ? directionsSearchHref(search, platform) : directionsHref(lat, lng, name, platform);
+  const google = search ? googleMapsSearch(search) : googleMapsDir(lat, lng);
   const external = platform === "desktop";
   if (compact) {
     return (
@@ -83,11 +98,13 @@ export function NavigateLinks({
   lat,
   lng,
   name,
+  search = null,
 }: {
   lat: number;
   lng: number;
   prominent?: boolean;
   name?: string;
+  search?: string | null;
 }) {
-  return <DirectionsLink lat={lat} lng={lng} name={name} />;
+  return <DirectionsLink lat={lat} lng={lng} name={name} search={search} />;
 }

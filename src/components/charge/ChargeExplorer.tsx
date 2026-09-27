@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Suspense, use, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { List, Map as MapIcon } from "lucide-react";
+import { List, Map as MapIcon, Zap } from "lucide-react";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { BASE_PATH } from "@/lib/base-path";
 import { readChargeState, writeChargeSearch, type ChargeState } from "@/lib/nepal/charge-query";
@@ -12,7 +12,9 @@ import {
   activeFilterCount,
   defaultStationSort,
   evIndex,
+  isApproximate,
   networkLabel,
+  networkMonogram,
   sortStations,
   stationsInScope,
   stationsNear,
@@ -20,6 +22,7 @@ import {
   type PlugFilter,
   type StationSort,
 } from "@/lib/nepal/ev";
+import { directionQuery, networkById, networkChipRows, type NetworkChip } from "@/lib/nepal/networks";
 import {
   accessCopy,
   formatUpdated,
@@ -205,9 +208,10 @@ export function ChargeExplorer() {
       radiusKm,
       fastOnly: state.fast,
       plugs: state.plugs,
-      network: state.network,
+      networks: state.networks,
+      exactOnly: state.exact,
     }),
-    [radiusKm, state.fast, state.plugs, state.network]
+    [radiusKm, state.fast, state.plugs, state.networks, state.exact]
   );
   const stations = useMemo(() => stationsNear(origin, filters), [origin, filters]);
   const profile = useProfile();
@@ -228,7 +232,6 @@ export function ChargeExplorer() {
   const sort = sortPick ?? defaultStationSort(origin.kind);
   const ordered = useMemo(() => sortStations(visible, sort), [visible, sort]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const scope = useMemo(() => stationsInScope(origin, radiusKm), [origin, radiusKm]);
   const selected = useMemo(() => {
     if (!state.station) return null;
     const inList = stations.find((station) => station.id === state.station);
@@ -246,14 +249,15 @@ export function ChargeExplorer() {
     return [...visible, selected];
   }, [visible, selected]);
 
-  const networks = useMemo(() => {
+  const networkCounts = useMemo(() => {
+    const rows = stationsNear(origin, { ...filters, networks: [] });
     const counts = new Map<string, number>();
-    for (const station of scope) {
-      const key = station.network ?? "unbranded";
-      counts.set(key, (counts.get(key) ?? 0) + 1);
+    for (const station of rows) {
+      const id = station.network_id || "unbranded";
+      counts.set(id, (counts.get(id) ?? 0) + 1);
     }
-    return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-  }, [scope]);
+    return counts;
+  }, [origin, filters]);
 
   const scopeLabel = origin.kind === "country" ? "" : origin.label;
   const [draft, setDraft] = useState(scopeLabel);
@@ -275,7 +279,8 @@ export function ChargeExplorer() {
   }, [snapKey, urlSnap]);
   const [geoMessage, setGeoMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [networkOpen, setNetworkOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [moreNetworks, setMoreNetworks] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const dragRef = useRef<{ y: number; snap: Snap; height: number; t: number } | null>(null);
@@ -452,8 +457,14 @@ export function ChargeExplorer() {
 
   function clearFilters() {
     setFitsOnly(false);
-    replace({ fast: false, plugs: [], network: null });
-    setNetworkOpen(false);
+    replace({ fast: false, plugs: [], networks: [], exact: false });
+    setFiltersOpen(false);
+  }
+
+  function toggleNetwork(id: string) {
+    const current = stateRef.current.networks;
+    const networks = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
+    replace({ networks });
   }
 
   function widen(next: number | null) {
@@ -568,6 +579,54 @@ export function ChargeExplorer() {
         </button>
       ))}
     </div>
+  );
+
+  const chipRows = networkChipRows(networkCounts);
+  const showMore =
+    moreNetworks || state.networks.some((id) => chipRows.more.some((chip) => chip.id === id));
+
+  function networkRow() {
+    return (
+      <NetworkChipRow
+        primary={chipRows.primary}
+        moreChips={chipRows.more}
+        showMore={showMore}
+        selected={state.networks}
+        onToggle={toggleNetwork}
+        onClear={() => replace({ networks: [] })}
+        onMore={() => setMoreNetworks((open) => !open)}
+      />
+    );
+  }
+
+  const filterSheet = filtersOpen ? (
+    <div className="filter-sheet">
+      <p className="network-label">Network</p>
+      {networkRow()}
+      <button
+        type="button"
+        className={state.exact ? "chip chip-on" : "chip"}
+        aria-pressed={state.exact}
+        onClick={() => replace({ exact: !stateRef.current.exact })}
+      >
+        Exact locations only
+      </button>
+    </div>
+  ) : null;
+
+  const filterChips = (
+    <FilterChips
+      fast={state.fast}
+      plugs={state.plugs}
+      filtersOpen={filtersOpen}
+      filtersMarked={filtersOpen || state.exact}
+      fits={fitsOnly}
+      showFits={carReady}
+      onFits={() => setFitsOnly((on) => !on)}
+      onFast={() => replace({ fast: !stateRef.current.fast })}
+      onPlug={togglePlug}
+      onFilters={() => setFiltersOpen((open) => !open)}
+    />
   );
 
   const searchPanel = (
@@ -751,24 +810,9 @@ export function ChargeExplorer() {
           <div className="cards-toggle">{viewToggle}</div>
           {searchPanel}
           <div className="filter-row" role="group" aria-label="Charger filters">
-            <FilterChips
-              fast={state.fast}
-              plugs={state.plugs}
-              network={state.network}
-              networks={networks}
-              networkOpen={networkOpen}
-              fits={fitsOnly}
-              showFits={carReady}
-              onFits={() => setFitsOnly((on) => !on)}
-              onFast={() => replace({ fast: !stateRef.current.fast })}
-              onPlug={togglePlug}
-              onNetworkOpen={() => setNetworkOpen((open) => !open)}
-              onNetwork={(network) => {
-                replace({ network });
-                setNetworkOpen(false);
-              }}
-            />
+            {filterChips}
           </div>
+          {filterSheet}
           <div className="sheet-summary-inline list-head">
             <p aria-live="polite">{summary}</p>
             <SortControl value={sort} onChange={setSortPick} />
@@ -778,6 +822,7 @@ export function ChargeExplorer() {
               </button>
             ) : null}
           </div>
+          {networkRow()}
           {count === 0 ? (
             <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
           ) : (
@@ -842,25 +887,11 @@ export function ChargeExplorer() {
                 <span className="fine">{origin.label}</span>
               )}
             </div>
+            {networkRow()}
             <div className="filter-row" role="group" aria-label="Charger filters">
-              <FilterChips
-                fast={state.fast}
-                plugs={state.plugs}
-                network={state.network}
-                networks={networks}
-                networkOpen={networkOpen}
-                fits={fitsOnly}
-                showFits={carReady}
-                onFits={() => setFitsOnly((on) => !on)}
-                onFast={() => replace({ fast: !stateRef.current.fast })}
-                onPlug={togglePlug}
-                onNetworkOpen={() => setNetworkOpen((open) => !open)}
-                onNetwork={(network) => {
-                  replace({ network });
-                  setNetworkOpen(false);
-                }}
-              />
+              {filterChips}
             </div>
+            {filterSheet}
             <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">
@@ -906,32 +937,36 @@ export function ChargeExplorer() {
 function FilterChips({
   fast,
   plugs,
-  network,
-  networks,
-  networkOpen,
+  filtersOpen,
+  filtersMarked,
   fits,
   showFits,
   onFits,
   onFast,
   onPlug,
-  onNetworkOpen,
-  onNetwork,
+  onFilters,
 }: {
   fast: boolean;
   plugs: PlugFilter[];
-  network: string | null;
-  networks: [string, number][];
-  networkOpen: boolean;
+  filtersOpen: boolean;
+  filtersMarked: boolean;
   fits: boolean;
   showFits: boolean;
   onFits: () => void;
   onFast: () => void;
   onPlug: (id: PlugFilter) => void;
-  onNetworkOpen: () => void;
-  onNetwork: (network: string | null) => void;
+  onFilters: () => void;
 }) {
   return (
     <>
+      <button
+        type="button"
+        className={filtersMarked ? "chip chip-on" : "chip"}
+        aria-expanded={filtersOpen}
+        onClick={onFilters}
+      >
+        Filters
+      </button>
       {showFits ? (
         <button type="button" className={fits ? "chip chip-on" : "chip"} aria-pressed={fits} onClick={onFits}>
           Fits my car
@@ -951,35 +986,55 @@ function FilterChips({
           {plug.label}
         </button>
       ))}
-      <div className="network-menu">
-        <button
-          type="button"
-          className={network ? "chip chip-on" : "chip"}
-          aria-expanded={networkOpen}
-          aria-haspopup="listbox"
-          onClick={onNetworkOpen}
-        >
-          {network ? networkLabel(network === "unbranded" ? null : network) : "Network"}
-        </button>
-        {networkOpen ? (
-          <ul role="listbox" aria-label="Network" className="network-list">
-            <li>
-              <button type="button" onClick={() => onNetwork(null)}>
-                Any network
-              </button>
-            </li>
-            {networks.map(([key, amount]) => (
-              <li key={key}>
-                <button type="button" aria-pressed={network === key} onClick={() => onNetwork(key)}>
-                  <span>{key === "unbranded" ? "Unbranded" : key}</span>
-                  <span className="fine">{amount}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
     </>
+  );
+}
+
+function NetworkChipRow({
+  primary,
+  moreChips,
+  showMore,
+  selected,
+  onToggle,
+  onClear,
+  onMore,
+}: {
+  primary: NetworkChip[];
+  moreChips: NetworkChip[];
+  showMore: boolean;
+  selected: string[];
+  onToggle: (id: string) => void;
+  onClear: () => void;
+  onMore: () => void;
+}) {
+  const chips = showMore ? [...primary, ...moreChips] : primary;
+  return (
+    <div className="network-quick" role="group" aria-label="Network">
+      <button
+        type="button"
+        className={selected.length === 0 ? "chip chip-on" : "chip"}
+        aria-pressed={selected.length === 0}
+        onClick={onClear}
+      >
+        All
+      </button>
+      {chips.map((chip) => (
+        <button
+          key={chip.id}
+          type="button"
+          data-network={chip.id}
+          className={selected.includes(chip.id) ? "chip chip-on" : "chip"}
+          aria-pressed={selected.includes(chip.id)}
+          onClick={() => onToggle(chip.id)}
+        >
+          {chip.label}
+          <span className="chip-count">{chip.count}</span>
+        </button>
+      ))}
+      <button type="button" className={showMore ? "chip chip-on" : "chip"} aria-expanded={showMore} onClick={onMore}>
+        More
+      </button>
+    </div>
   );
 }
 
@@ -1003,6 +1058,10 @@ function StationSheet({
   onShare: () => void;
 }) {
   const access = accessCopy(station.access);
+  const network = networkById(station.network_id);
+  const mono = networkMonogram(station.network_id || station.network);
+  const approx = isApproximate(station);
+  const apps = network ? [network.apps.ios, network.apps.android].filter(Boolean) : [];
   return (
     <div className="station-sheet">
       <div className="station-sheet-top">
@@ -1018,7 +1077,7 @@ function StationSheet({
         {fits ? <FitMark /> : null}
       </h2>
       <p className="station-meta">
-        {networkLabel(station.network)}
+        {network?.name || networkLabel(station.network)}
         {showDistance ? (
           <>
             {" · "}
@@ -1027,10 +1086,47 @@ function StationSheet({
         ) : null}
         {station.city ? ` · ${station.city}` : ""}
       </p>
+      {approx ? <p className="approx-note">Approximate location (town only)</p> : null}
+      <div className="network-card">
+        <span className="net-icon" aria-hidden="true">
+          {mono ? <span className="mono">{mono}</span> : <Zap size={16} strokeWidth={1.75} />}
+        </span>
+        <div>
+          <p className="network-name">{network?.name || networkLabel(station.network)}</p>
+          {network?.full_name && network.full_name !== network.name ? (
+            <p className="fine">{network.full_name}</p>
+          ) : null}
+          {network?.website ? (
+            <a className="ink-link" href={network.website} target="_blank" rel="noopener noreferrer">
+              {network.website.replace(/^https?:\/\//, "")}
+            </a>
+          ) : null}
+          {apps.length > 0 ? (
+            <p className="app-links">
+              Get the app
+              {network?.apps.ios ? (
+                <a href={network.apps.ios} target="_blank" rel="noopener noreferrer">
+                  iOS
+                </a>
+              ) : null}
+              {network?.apps.android ? (
+                <a href={network.apps.android} target="_blank" rel="noopener noreferrer">
+                  Android
+                </a>
+              ) : null}
+            </p>
+          ) : null}
+        </div>
+      </div>
       <div className="station-actions">
         <SaveButton item={chargerSave(station)} />
         <ShareButton title={station.name} url={chargeHref(station.id)} />
-        <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
+        <NavigateLinks
+          lat={station.lat}
+          lng={station.lng}
+          name={station.name}
+          search={approx ? directionQuery(station) : null}
+        />
         {call ? (
           <a className="btn-secondary" href={call}>
             Call

@@ -15,12 +15,14 @@ export type EvIndexStation = {
   name: string;
   operator: string | null;
   network: string | null;
+  network_id: string | null;
   address: string | null;
   city: string | null;
   district: string | null;
   province: string | null;
   lat: number;
   lng: number;
+  geo_precision: string | null;
   speed: string;
   access: string;
   phone: string | null;
@@ -39,6 +41,7 @@ export type EvStation = {
   name: string;
   operator: string | null;
   network: string | null;
+  network_id: string | null;
   address: string | null;
   city: string | null;
   district: string | null;
