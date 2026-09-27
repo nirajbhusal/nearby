@@ -54,29 +54,40 @@ export function usePeekState(initial: PeekState = "idle") {
   return [state, setState] as const;
 }
 
+const VB_W = 26;
+const EYE_GAP = 16;
+
+function placeEye(origin: number, x: number, y: number, scaleY: number) {
+  const drop = 8 * (1 - scaleY) + y;
+  return `translate(${(origin + x).toFixed(2)} ${drop.toFixed(2)}) scale(1 ${scaleY.toFixed(3)})`;
+}
+
 export function Peek({ size = 56, state = "idle" }: { size?: number; state?: PeekState }) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const leftEye = useRef<SVGGElement>(null);
-  const rightEye = useRef<SVGGElement>(null);
-  const leftPupil = useRef<SVGCircleElement>(null);
-  const rightPupil = useRef<SVGCircleElement>(null);
+  const leftRef = useRef<SVGGElement>(null);
+  const rightRef = useRef<SVGGElement>(null);
   const stateRef = useRef(state);
+  const sizeRef = useRef(size);
   stateRef.current = state;
+  sizeRef.current = size;
 
   useEffect(() => {
     const release = watchPointer();
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reduced = motion.matches;
-    const onMotion = () => { reduced = motion.matches; };
+    const onMotion = () => {
+      reduced = motion.matches;
+    };
     motion.addEventListener("change", onMotion);
 
     let frame = 0;
-    let nextBlink = performance.now() + span(3000, 6000);
+    let nextBlink = performance.now() + span(2200, 4200);
     let blinkAt = -1;
-    let nextGlance = performance.now() + span(4000, 8000);
+    let blinkPair = false;
+    let nextGlance = performance.now() + span(2800, 5200);
     let glance = { x: 0, y: 0, until: 0 };
     let dart = { x: 0, y: 0, until: 0 };
-    let pupil = { x: 0, y: 0 };
+    let pos = { x: 0, y: 0 };
     let mode = stateRef.current;
     let modeAt = performance.now();
     let pausedAt = 0;
@@ -90,6 +101,7 @@ export function Peek({ size = 56, state = "idle" }: { size?: number; state?: Pee
         glance.until += drift;
         dart.until += drift;
         modeAt += drift;
+        if (blinkAt > 0) blinkAt += drift;
         pausedAt = 0;
       }
     };
@@ -108,63 +120,75 @@ export function Peek({ size = 56, state = "idle" }: { size?: number; state?: Pee
 
       if (now >= nextBlink && mode !== "found") {
         blinkAt = now;
-        nextBlink = now + span(3000, 6000);
+        if (mode === "idle" && !blinkPair && Math.random() < 0.28) {
+          nextBlink = now + 320;
+          blinkPair = true;
+        } else {
+          blinkPair = false;
+          nextBlink = now + span(2800, 5600);
+        }
       }
-      let scale = 1;
+
+      let blink = 1;
       const age = now - blinkAt;
       if (age >= 0 && age < 150) {
         const p = age / 150;
-        scale = p < 0.42 ? 1 - (p / 0.42) * 0.9 : 0.1 + ((p - 0.42) / 0.58) * 0.9;
+        blink = p < 0.42 ? 1 - (p / 0.42) * 0.92 : 0.08 + ((p - 0.42) / 0.58) * 0.92;
       }
-      if (!reduced && mode === "found") scale = 0.5;
 
-      let tx = 0;
-      let ty = 0;
+      const px = sizeRef.current;
+      const maxX = Math.min(3.6, px * 0.16) * (VB_W / px);
+      const maxY = maxX * 0.7;
+      let goalX = 0;
+      let goalY = 0;
+      let base = 1;
       const fresh = now - ptr.t < 1500;
-      if (!reduced && (mode === "looking" || mode === "thinking")) {
+
+      if (reduced) {
+        if (mode === "empty") base = 0.82;
+      } else if (mode === "looking") {
         if (now >= dart.until) {
-          dart = { x: span(-1, 1), y: span(-0.75, 0.75), until: now + (mode === "thinking" ? 640 : 200) };
+          dart = { x: span(-1, 1), y: span(-0.8, 0.8), until: now + span(110, 200) };
         }
-        tx = dart.x;
-        ty = dart.y;
-      } else if (!reduced && mode === "empty") {
-        tx = -0.45;
-        ty = 0.82;
-      } else if (!reduced && mode === "found") {
-        ty = -0.4;
-      } else if (!reduced && mode === "greet" && now - modeAt < 1100) {
-        ty = 0.78;
-      } else if (!reduced && fresh && svgRef.current) {
+        goalX = dart.x * maxX;
+        goalY = dart.y * maxY;
+      } else if (mode === "thinking") {
+        goalX = Math.sin((now - modeAt) / 420) * maxX;
+        goalY = -0.9 * maxY;
+      } else if (mode === "empty") {
+        goalX = -0.75 * maxX;
+        goalY = 0.95 * maxY;
+        base = 0.78;
+      } else if (mode === "found") {
+        goalY = -0.2 * maxY;
+      } else if (mode === "greet" && now - modeAt < 1100) {
+        goalY = 0.85 * maxY;
+      } else if (fresh && svgRef.current) {
         const rect = svgRef.current.getBoundingClientRect();
         const dx = ptr.x - (rect.left + rect.width / 2);
-        const dy = ptr.y - (rect.top + rect.height * 0.38);
+        const dy = ptr.y - (rect.top + rect.height / 2);
         const len = Math.hypot(dx, dy) || 1;
         const mag = Math.min(1, len / 120);
-        tx = (dx / len) * mag;
-        ty = (dy / len) * mag;
-      } else if (!reduced && mode === "idle") {
+        goalX = (dx / len) * mag * maxX;
+        goalY = (dy / len) * mag * maxY;
+      } else if (mode === "idle") {
         if (now >= nextGlance) {
           const dir = Math.random() < 0.5 ? -1 : 1;
-          glance = { x: dir * 0.86, y: span(-0.12, 0.16), until: now + span(320, 560) };
-          nextGlance = now + span(4000, 8000);
+          glance = { x: dir, y: span(-0.15, 0.2), until: now + span(380, 640) };
+          nextGlance = now + span(3600, 7000);
         }
         if (now < glance.until) {
-          tx = glance.x;
-          ty = glance.y;
+          goalX = glance.x * maxX;
+          goalY = glance.y * maxY;
         }
       }
 
-      pupil.x += (tx - pupil.x) * 0.2;
-      pupil.y += (ty - pupil.y) * 0.2;
-      const px = (pupil.x * 1.05).toFixed(2);
-      const py = (pupil.y * 0.72).toFixed(2);
-      const squash = scale.toFixed(2);
-      leftPupil.current?.setAttribute("cx", px);
-      leftPupil.current?.setAttribute("cy", py);
-      rightPupil.current?.setAttribute("cx", px);
-      rightPupil.current?.setAttribute("cy", py);
-      leftEye.current?.setAttribute("transform", `translate(13.15 12.05) scale(1 ${squash})`);
-      rightEye.current?.setAttribute("transform", `translate(18.85 12.05) scale(1 ${squash})`);
+      const ease = !reduced && mode === "looking" ? 0.62 : 0.2;
+      pos.x += (goalX - pos.x) * ease;
+      pos.y += (goalY - pos.y) * ease;
+      const scaleY = mode === "found" ? 1 : base * blink;
+      leftRef.current?.setAttribute("transform", placeEye(0, pos.x, pos.y, scaleY));
+      rightRef.current?.setAttribute("transform", placeEye(EYE_GAP, pos.x, pos.y, scaleY));
     };
     frame = requestAnimationFrame(tick);
     return () => {
@@ -181,22 +205,24 @@ export function Peek({ size = 56, state = "idle" }: { size?: number; state?: Pee
       className="peek"
       data-state={state}
       width={size}
-      height={size}
-      viewBox="0 0 32 32"
+      height={(size * 16) / 26}
+      viewBox="0 0 26 16"
       aria-hidden="true"
     >
       <g className="peek-body">
-        <path
-          className="peek-pin"
-          d="M16 2.2c-6.2 0-10.8 4.6-10.8 10.6 0 7.4 8.8 16 10.1 17.2.4.4 1 .4 1.4 0 1.3-1.2 10.1-9.8 10.1-17.2C26.8 6.8 22.2 2.2 16 2.2Z"
-        />
-        <g ref={leftEye} className="peek-eye" transform="translate(13.15 12.05)">
-          <ellipse className="peek-sclera" rx="2.35" ry="2.5" />
-          <circle ref={leftPupil} className="peek-pupil" r="1.02" />
+        <g ref={leftRef} className="peek-eye">
+          <g className="peek-open">
+            <rect width="10" height="16" rx="5" />
+            <circle className="peek-glint" cx="6.7" cy="4.3" r="1.45" />
+          </g>
+          <path className="peek-arc" d="M1.15 9.5 Q5 2.2 8.85 9.5" />
         </g>
-        <g ref={rightEye} className="peek-eye" transform="translate(18.85 12.05)">
-          <ellipse className="peek-sclera" rx="2.35" ry="2.5" />
-          <circle ref={rightPupil} className="peek-pupil" r="1.02" />
+        <g ref={rightRef} className="peek-eye" transform="translate(16 0)">
+          <g className="peek-open">
+            <rect width="10" height="16" rx="5" />
+            <circle className="peek-glint" cx="6.7" cy="4.3" r="1.45" />
+          </g>
+          <path className="peek-arc" d="M1.15 9.5 Q5 2.2 8.85 9.5" />
         </g>
       </g>
     </svg>
