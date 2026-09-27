@@ -4,6 +4,7 @@ import Script from "next/script";
 import { AppShell } from "@/components/AppShell";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import { flightFetchBoot } from "@/lib/flight-fetch";
+import { introBoot } from "@/lib/intro";
 import { themeBoot } from "@/lib/tod";
 import "./globals.css";
 
@@ -77,6 +78,16 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} h-full antialiased`} data-theme="dark" suppressHydrationWarning>
       <head>
         <script id="theme-boot" dangerouslySetInnerHTML={{ __html: themeBoot }} />
+        <script id="intro-boot" dangerouslySetInnerHTML={{ __html: introBoot }} />
+        <link rel="manifest" href="/nearby/manifest-light.webmanifest" media="(prefers-color-scheme: light)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1170x2532.png" media="(prefers-color-scheme: light) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1170x2532.png" media="(prefers-color-scheme: dark) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1179x2556.png" media="(prefers-color-scheme: light) and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1179x2556.png" media="(prefers-color-scheme: dark) and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1290x2796.png" media="(prefers-color-scheme: light) and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1290x2796.png" media="(prefers-color-scheme: dark) and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/light-1125x2436.png" media="(prefers-color-scheme: light) and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="/nearby/splash/dark-1125x2436.png" media="(prefers-color-scheme: dark) and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
       </head>
       <body className="flex min-h-full flex-col bg-[var(--bg)] text-[var(--graphite)]">
         <Script id="flight-fetch" strategy="beforeInteractive">

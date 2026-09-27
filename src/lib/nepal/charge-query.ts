@@ -45,7 +45,7 @@ export function readChargeState(sp: SearchReader): ChargeState {
     q: (sp.get("place") || sp.get("q") || "").trim(),
     lat: Number.isFinite(lat) ? lat : null,
     lng: Number.isFinite(lng) ? lng : null,
-    station: sp.get("station"),
+    station: sp.get("station") || sp.get("id"),
     fast: sp.get("fast") === "1",
     plugs,
     network: sp.get("net"),

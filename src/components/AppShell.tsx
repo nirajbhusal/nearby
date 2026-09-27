@@ -19,6 +19,8 @@ import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
 import { toHref } from "@/components/SiteLink";
+import { IntroSplash } from "@/components/motion/IntroSplash";
+import { ToastHost } from "@/components/motion/ToastHost";
 import { ThemeChoiceControl, ThemeMenuButton, ThemeSync } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
@@ -191,6 +193,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       ) : null}
+      <IntroSplash />
+      <ToastHost />
       <ThemeSync />
       <InstallBridge />
       <RegisterSW />

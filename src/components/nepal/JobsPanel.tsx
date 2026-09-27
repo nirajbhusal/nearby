@@ -8,12 +8,17 @@ import { ViewToggle } from "@/components/ViewToggle";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { DistanceText } from "@/components/DistanceText";
+import { DetailSheet } from "@/components/motion/DetailSheet";
+import { SwipeRow } from "@/components/motion/SwipeRow";
 import { SaveButton } from "@/components/SaveButton";
+import { ShareButton } from "@/components/ShareButton";
+import { jobHref } from "@/lib/item-link";
 import { categoryLabel, formatUpdated } from "@/lib/nepal/format";
 import { jobInterestMatch, preferMatches } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 import {
   companiesNear,
+  findJobRole,
   jobCategories,
   jobCities,
   jobMapPins,
@@ -50,7 +55,16 @@ function shortArea(card: JobRoleCard): string {
 
 function RoleCard({ card }: { card: JobRoleCard }) {
   const area = shortArea(card);
+  const href = jobHref(card.key);
+  const saved = {
+    id: card.key,
+    kind: "job" as const,
+    title: card.title,
+    subtitle: card.company.name,
+    href,
+  };
   return (
+    <SwipeRow item={saved} share={{ title: card.title, text: `${card.title} · ${card.company.name}`, url: href }}>
     <article className="role-card app-card">
       <div className="role-mark" aria-hidden>
         {initial(card.company.name)}
@@ -83,18 +97,12 @@ function RoleCard({ card }: { card: JobRoleCard }) {
           <a className="btn-secondary card-action" href={card.url} target="_blank" rel="noopener noreferrer">
             Apply
           </a>
-          <SaveButton
-            item={{
-              id: card.key,
-              kind: "job",
-              title: card.title,
-              subtitle: card.company.name,
-              href: card.url,
-            }}
-          />
+          <SaveButton item={saved} />
+          <ShareButton title={card.title} text={card.company.name} url={href} />
         </div>
       </div>
     </article>
+    </SwipeRow>
   );
 }
 
@@ -103,6 +111,12 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") === "map" ? "map" : "cards";
+  const focusId = searchParams.get("id");
+  const [focusClosed, setFocusClosed] = useState(false);
+  useEffect(() => {
+    setFocusClosed(false);
+  }, [focusId]);
+  const focused = focusId && !focusClosed ? findJobRole(focusId) : null;
   const category = searchParams.get("category");
   const [city, setCity] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -251,6 +265,30 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
         </>
       )}
       <CuratedNote />
+      {focused ? (
+        <DetailSheet title={focused.title} onClose={() => setFocusClosed(true)}>
+          <h2>{focused.title}</h2>
+          <p className="card-sub">
+            {focused.company.name}
+            {focused.placeLabel ? ` · ${focused.placeLabel}` : ""}
+          </p>
+          <div className="card-footer">
+            <a className="btn-secondary card-action" href={focused.url} target="_blank" rel="noopener noreferrer">
+              Apply
+            </a>
+            <SaveButton
+              item={{
+                id: focused.key,
+                kind: "job",
+                title: focused.title,
+                subtitle: focused.company.name,
+                href: jobHref(focused.key),
+              }}
+            />
+            <ShareButton title={focused.title} text={focused.company.name} url={jobHref(focused.key)} />
+          </div>
+        </DetailSheet>
+      ) : null}
     </div>
   );
 }

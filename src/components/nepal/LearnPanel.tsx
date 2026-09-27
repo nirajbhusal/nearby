@@ -1,12 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { GraduationCap, MapPin } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
+import { DetailSheet } from "@/components/motion/DetailSheet";
+import { SwipeRow } from "@/components/motion/SwipeRow";
+import { SaveButton } from "@/components/SaveButton";
+import { ShareButton } from "@/components/ShareButton";
+import { learnHref } from "@/lib/item-link";
 import { learnTypeLabel, modeLabel } from "@/lib/nepal/format";
-import { learnNear, learnTypes, type NearbyLearn } from "@/lib/nepal/learn";
+import { learnNear, learnPlaces, learnTypes, type NearbyLearn } from "@/lib/nepal/learn";
 import type { PlaceHit } from "@/lib/nepal/types";
 
 const MODES = [
@@ -17,7 +23,16 @@ const MODES = [
 
 function PlaceCard({ row }: { row: NearbyLearn }) {
   const { place } = row;
+  const href = learnHref(place.slug);
+  const saved = {
+    id: place.slug,
+    kind: "learn" as const,
+    title: place.name,
+    subtitle: place.city ?? "",
+    href,
+  };
   return (
+    <SwipeRow item={saved} share={{ title: place.name, text: place.name, url: href }}>
     <article className="app-card">
       <h3>
         {place.website ? (
@@ -51,18 +66,28 @@ function PlaceCard({ row }: { row: NearbyLearn }) {
           ))}
         </ul>
       ) : null}
-      {place.website ? (
-        <div className="card-footer">
+      <div className="card-footer">
+        {place.website ? (
           <a href={place.website} target="_blank" rel="noopener noreferrer" className="btn-secondary card-action">
             Open
           </a>
-        </div>
-      ) : null}
+        ) : null}
+        <SaveButton item={saved} />
+        <ShareButton title={place.name} url={href} />
+      </div>
     </article>
+    </SwipeRow>
   );
 }
 
 export function LearnPanel({ origin }: { origin: PlaceHit }) {
+  const searchParams = useSearchParams();
+  const focusId = searchParams.get("id");
+  const [focusClosed, setFocusClosed] = useState(false);
+  useEffect(() => {
+    setFocusClosed(false);
+  }, [focusId]);
+  const focused = focusId && !focusClosed ? learnPlaces.find((place) => place.slug === focusId) ?? null : null;
   const [type, setType] = useState<string | null>(null);
   const [mode, setMode] = useState<string | null>(null);
   const types = useMemo(() => learnTypes(), []);
@@ -133,6 +158,29 @@ export function LearnPanel({ origin }: { origin: PlaceHit }) {
         </section>
       ) : null}
       <CuratedNote />
+      {focused ? (
+        <DetailSheet title={focused.name} onClose={() => setFocusClosed(true)}>
+          <h2>{focused.name}</h2>
+          <p className="card-sub">{[focused.city, learnTypeLabel(focused.type)].filter(Boolean).join(" · ")}</p>
+          <div className="card-footer">
+            {focused.website ? (
+              <a className="btn-secondary card-action" href={focused.website} target="_blank" rel="noopener noreferrer">
+                Open
+              </a>
+            ) : null}
+            <SaveButton
+              item={{
+                id: focused.slug,
+                kind: "learn",
+                title: focused.name,
+                subtitle: focused.city ?? "",
+                href: learnHref(focused.slug),
+              }}
+            />
+            <ShareButton title={focused.name} url={learnHref(focused.slug)} />
+          </div>
+        </DetailSheet>
+      ) : null}
     </div>
   );
 }

@@ -6,7 +6,11 @@ import { DirectionsLink } from "@/components/nepal/NavigateLinks";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { DistanceText } from "@/components/DistanceText";
 import { NomadMapSlot } from "@/components/nepal/NomadMapSlot";
+import { DetailSheet } from "@/components/motion/DetailSheet";
+import { SwipeRow } from "@/components/motion/SwipeRow";
 import { SaveButton } from "@/components/SaveButton";
+import { ShareButton } from "@/components/ShareButton";
+import { stayHref, workHref } from "@/lib/item-link";
 import {
   mappedWork,
   stayInArea,
@@ -20,8 +24,18 @@ import {
 
 type Layer = "stay" | "cowork" | "cafe";
 
-export function NomadCityGuide({ city }: { city: NomadCity }) {
+export function NomadCityGuide({
+  city,
+  stayId = null,
+  workId = null,
+}: {
+  city: NomadCity;
+  stayId?: string | null;
+  workId?: string | null;
+}) {
   const [areaName, setAreaName] = useState<string | null>(null);
+  const [asList, setAsList] = useState(false);
+  const [closedFocus, setClosedFocus] = useState<string | null>(null);
   const [layers, setLayers] = useState<Record<Layer, boolean>>({
     stay: true,
     cowork: true,
@@ -55,6 +69,11 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
   function chooseArea(name: string) {
     setAreaName((current) => (current === name ? null : name));
   }
+
+  const focusKey = stayId || workId || "";
+  const focusedStay = stayId && closedFocus !== focusKey ? city.stays.find((place) => place.id === stayId) ?? null : null;
+  const focusedWork =
+    !focusedStay && workId && closedFocus !== focusKey ? city.coworking.find((place) => place.id === workId) ?? null : null;
 
   return (
     <main className={showMap ? "page-wrap nomad-guide is-map" : "page-wrap nomad-guide"}>
@@ -157,19 +176,29 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
       </section>
 
       <section className="nomad-section">
-        <h2>Stays</h2>
+        <div className="block-head">
+          <h2>Stays</h2>
+          <div className="seg" role="group" aria-label="List layout">
+            <button type="button" aria-pressed={!asList} onClick={() => setAsList(false)}>
+              Cards
+            </button>
+            <button type="button" aria-pressed={asList} onClick={() => setAsList(true)}>
+              List
+            </button>
+          </div>
+        </div>
         <p className="section-lead">{areaName ? `In ${areaName}.` : `${stays.length} verified stays.`}</p>
         {stays.length === 0 ? (
           <p className="empty-inline">No verified stays are listed for this area.</p>
         ) : (
-          <StayPage stays={stays} citySlug={city.slug} cityName={city.shortName} />
+          <StayPage stays={stays} citySlug={city.slug} cityName={city.shortName} asList={asList} />
         )}
       </section>
 
       <section className="nomad-section">
         <h2>Coworking</h2>
         <p className="section-lead">{areaName ? `In ${areaName}.` : `${coworking.length} verified spaces.`}</p>
-        <PlaceCarousel places={coworking} city={city} saveKind="cowork" />
+        <PlaceCarousel places={coworking} city={city} saveKind="cowork" asList={asList} />
       </section>
       <section className="nomad-section">
         <h2>Cafés</h2>
@@ -228,6 +257,43 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
           All nomad cities
         </Link>
       </p>
+      {focusedStay ? (
+        <DetailSheet title={focusedStay.name} onClose={() => setClosedFocus(focusKey)}>
+          <h2>{focusedStay.name}</h2>
+          <p className="card-sub">{focusedStay.area || city.shortName}</p>
+          {focusedStay.priceShort ? <p>{focusedStay.priceShort}</p> : null}
+          <div className="card-footer">
+            <SaveButton
+              item={{
+                id: focusedStay.id,
+                kind: "stay",
+                title: focusedStay.name,
+                subtitle: city.shortName,
+                href: stayHref(city.slug, focusedStay.id),
+              }}
+            />
+            <ShareButton title={focusedStay.name} text={focusedStay.name} url={stayHref(city.slug, focusedStay.id)} />
+          </div>
+        </DetailSheet>
+      ) : null}
+      {focusedWork ? (
+        <DetailSheet title={focusedWork.name} onClose={() => setClosedFocus(focusKey)}>
+          <h2>{focusedWork.name}</h2>
+          <p className="card-sub">{focusedWork.area || city.shortName}</p>
+          <div className="card-footer">
+            <SaveButton
+              item={{
+                id: focusedWork.id,
+                kind: "cowork",
+                title: focusedWork.name,
+                subtitle: city.shortName,
+                href: workHref(city.slug, focusedWork.id),
+              }}
+            />
+            <ShareButton title={focusedWork.name} text={focusedWork.name} url={workHref(city.slug, focusedWork.id)} />
+          </div>
+        </DetailSheet>
+      ) : null}
     </main>
   );
 }
@@ -287,10 +353,12 @@ function StayPage({
   stays,
   citySlug,
   cityName,
+  asList,
 }: {
   stays: NomadStay[];
   citySlug: string;
   cityName: string;
+  asList: boolean;
 }) {
   const page = 8;
   const [limit, setLimit] = useState(page);
@@ -301,9 +369,9 @@ function StayPage({
   const shown = stays.slice(0, limit);
   return (
     <>
-      <div className="nomad-carousel">
+      <div className={asList ? "card-list nomad-stack" : "nomad-carousel"}>
         {shown.map((place) => (
-          <StayCard key={place.id} citySlug={citySlug} cityName={cityName} place={place} />
+          <StayCard key={place.id} citySlug={citySlug} cityName={cityName} place={place} swipe={asList} />
         ))}
       </div>
       {limit < stays.length ? (
@@ -315,9 +383,27 @@ function StayPage({
   );
 }
 
-function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: string; cityName: string }) {
+function StayCard({
+  place,
+  citySlug,
+  cityName,
+  swipe,
+}: {
+  place: NomadStay;
+  citySlug: string;
+  cityName: string;
+  swipe: boolean;
+}) {
   const chips = place.features.slice(0, 3);
-  return (
+  const href = stayHref(citySlug, place.id);
+  const saved = {
+    id: place.id,
+    kind: "stay" as const,
+    title: place.name,
+    subtitle: cityName,
+    href,
+  };
+  const card = (
     <article className="stay-card nomad-tile">
       <div className="tile-body">
         <div className="tile-title">
@@ -347,15 +433,8 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
             Open
           </a>
         ) : null}
-        <SaveButton
-          item={{
-            id: place.id,
-            kind: "stay",
-            title: place.name,
-            subtitle: cityName,
-            href: `/nomad/${citySlug}`,
-          }}
-        />
+        <SaveButton item={saved} />
+        <ShareButton title={place.name} text={place.name} url={href} />
         <details className="stay-more">
           <summary>Details</summary>
         {place.address ? <p>{place.address}</p> : null}
@@ -401,22 +480,35 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
       </div>
     </article>
   );
+  if (!swipe) return card;
+  return (
+    <SwipeRow item={saved} share={{ title: place.name, text: place.name, url: href }}>
+      {card}
+    </SwipeRow>
+  );
 }
 
 function PlaceCarousel({
   places,
   city,
   saveKind,
+  asList = false,
 }: {
   places: NomadWorkPlace[];
   city: NomadCity;
   saveKind?: "cowork";
+  asList?: boolean;
 }) {
   const ordered = [...places].sort((a, b) => a.name.localeCompare(b.name));
   if (ordered.length === 0) return <p className="empty-inline">Not listed for this area.</p>;
   return (
-    <div className="nomad-carousel">
-      {ordered.map((place) => (
+    <div className={asList ? "card-list nomad-stack" : "nomad-carousel"}>
+      {ordered.map((place) => {
+        const href = saveKind ? workHref(city.slug, place.id) : `/nomad/${city.slug}`;
+        const saved = saveKind
+          ? { id: place.id, kind: saveKind, title: place.name, subtitle: city.shortName, href }
+          : null;
+        const card = (
         <article key={place.id} className="nomad-tile">
           <div className="tile-body">
             <div className="tile-title">
@@ -438,20 +530,18 @@ function PlaceCarousel({
                 Open
               </a>
             ) : null}
-            {saveKind ? (
-              <SaveButton
-                item={{
-                  id: place.id,
-                  kind: saveKind,
-                  title: place.name,
-                  subtitle: city.shortName,
-                  href: `/nomad/${city.slug}`,
-                }}
-              />
-            ) : null}
+            {saved ? <SaveButton item={saved} /> : null}
+            {saved ? <ShareButton title={place.name} text={place.name} url={href} /> : null}
           </div>
         </article>
-      ))}
+        );
+        if (!asList || !saved) return card;
+        return (
+          <SwipeRow key={place.id} item={saved} share={{ title: place.name, text: place.name, url: href }}>
+            {card}
+          </SwipeRow>
+        );
+      })}
     </div>
   );
 }

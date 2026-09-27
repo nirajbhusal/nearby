@@ -28,7 +28,10 @@ import {
 import { evReady, formatDistance, stationFitsEv } from "@/lib/local-profile";
 import { useProfile, useUnits } from "@/lib/profile-store";
 import { DistanceText } from "@/components/DistanceText";
+import { SwipeRow } from "@/components/motion/SwipeRow";
 import { FitMark, SaveButton } from "@/components/SaveButton";
+import { ShareButton } from "@/components/ShareButton";
+import { chargeHref } from "@/lib/item-link";
 import { haversineKm } from "@/lib/geo";
 import { defaultRadiusKm, NEPAL, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
 import {
@@ -269,7 +272,8 @@ export function ChargeExplorer() {
   const [copied, setCopied] = useState(false);
   const [networkOpen, setNetworkOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{ y: number; snap: Snap } | null>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const dragRef = useRef<{ y: number; snap: Snap; height: number; t: number } | null>(null);
 
   useEffect(() => {
     stateRef.current = state;
@@ -451,10 +455,7 @@ export function ChargeExplorer() {
   }
 
   async function shareStation(station: NearbyStation) {
-    const url = new URL(
-      `${BASE_PATH}/charge/${writeChargeSearch({ ...state, station: station.id, near: false })}`,
-      window.location.origin
-    ).toString();
+    const url = new URL(`${BASE_PATH}${chargeHref(station.id)}`, window.location.origin).toString();
     if (navigator.share) {
       try {
         await navigator.share({ title: station.name, text: station.name, url });
@@ -473,20 +474,39 @@ export function ChargeExplorer() {
   }
 
   function onHandlePointerDown(event: React.PointerEvent<HTMLButtonElement>) {
-    dragRef.current = { y: event.clientY, snap };
+    const panel = panelRef.current;
+    dragRef.current = {
+      y: event.clientY,
+      snap,
+      height: panel?.getBoundingClientRect().height ?? 0,
+      t: performance.now(),
+    };
+    panel?.classList.add("is-dragging");
     event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function onHandlePointerMove(event: React.PointerEvent<HTMLButtonElement>) {
+    const start = dragRef.current;
+    const panel = panelRef.current;
+    if (!start || !panel) return;
+    const next = Math.min(window.innerHeight - 96, Math.max(120, start.height + (start.y - event.clientY)));
+    panel.style.height = `${next}px`;
   }
 
   function onHandlePointerUp(event: React.PointerEvent<HTMLButtonElement>) {
     const start = dragRef.current;
     dragRef.current = null;
+    const panel = panelRef.current;
+    panel?.classList.remove("is-dragging");
     if (!start) return;
     const dy = start.y - event.clientY;
+    const velocity = dy / Math.max(1, performance.now() - start.t);
     const order: Snap[] = ["peek", "half", "full"];
     let index = order.indexOf(start.snap);
-    if (dy > 36) index = Math.min(order.length - 1, index + 1);
-    else if (dy < -36) index = Math.max(0, index - 1);
-    else index = (index + 1) % order.length;
+    if (Math.abs(dy) < 12 && Math.abs(velocity) < 0.2) index = (index + 1) % order.length;
+    else if (dy > 28 || velocity > 0.45) index = Math.min(order.length - 1, index + 1);
+    else if (dy < -28 || velocity < -0.45) index = Math.max(0, index - 1);
+    if (panel) panel.style.height = "";
     setSnap(order[index]);
   }
 
@@ -758,6 +778,7 @@ export function ChargeExplorer() {
         </div>
       ) : (
       <section
+        ref={panelRef}
         className="charge-panel"
         data-snap={snap}
         data-mode={selected ? "station" : "list"}
@@ -770,6 +791,7 @@ export function ChargeExplorer() {
             snap === "full" ? "Shrink the list" : snap === "half" ? "Expand the list" : "Show the list"
           }
           onPointerDown={onHandlePointerDown}
+          onPointerMove={onHandlePointerMove}
           onPointerUp={onHandlePointerUp}
         >
           <span className="sheet-grab" />
@@ -960,8 +982,10 @@ function StationListItem({
   showDistance: boolean;
   onSelect: (id: string) => void;
 }) {
+  const saved = chargerSave(station);
   return (
     <li className="station-line">
+      <SwipeRow item={saved} share={{ title: station.name, text: station.name, url: chargeHref(station.id) }}>
       <button type="button" className="station-row" onClick={() => onSelect(station.id)}>
         <span className="station-row-main">
           <span className="station-name">
@@ -989,7 +1013,9 @@ function StationListItem({
           ))}
         </span>
       </button>
-      <SaveButton item={chargerSave(station)} />
+      <SaveButton item={saved} />
+      <ShareButton title={station.name} url={chargeHref(station.id)} />
+      </SwipeRow>
     </li>
   );
 }
@@ -1020,7 +1046,9 @@ function ChargerCard({
   const kw = maxKw(station);
   const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
   const area = shortStationArea(station);
+  const saved = chargerSave(station);
   return (
+    <SwipeRow item={saved} share={{ title: station.name, text: station.name, url: chargeHref(station.id) }}>
     <article className="charger-card">
       <header>
         <h2>
@@ -1028,7 +1056,8 @@ function ChargerCard({
           {fits ? <FitMark /> : null}
         </h2>
         <span className="card-tools">
-          <SaveButton item={chargerSave(station)} />
+          <SaveButton item={saved} />
+          <ShareButton title={station.name} url={chargeHref(station.id)} />
         </span>
       </header>
       <p className="card-sub">{[networkLabel(station.network), area].filter(Boolean).join(" · ")}</p>
@@ -1055,6 +1084,7 @@ function ChargerCard({
         ) : null}
       </div>
     </article>
+    </SwipeRow>
   );
 }
 
@@ -1104,6 +1134,7 @@ function StationSheet({
       </p>
       <div className="station-actions">
         <SaveButton item={chargerSave(station)} />
+        <ShareButton title={station.name} url={chargeHref(station.id)} />
         <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
         {call ? (
           <a className="btn-secondary" href={call}>
@@ -1156,7 +1187,7 @@ function chargerSave(station: NearbyStation) {
     kind: "charger" as const,
     title: station.name,
     subtitle: station.city ?? "",
-    href: `/charge?station=${station.id}`,
+    href: chargeHref(station.id),
   };
 }
 

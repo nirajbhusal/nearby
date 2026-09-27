@@ -25,6 +25,7 @@ const SAVED_ROWS: { kind: SavedKind; label: string }[] = [
   { kind: "event", label: "Events" },
   { kind: "stay", label: "Stays" },
   { kind: "cowork", label: "Coworking" },
+  { kind: "learn", label: "Learn" },
 ];
 
 function subscribeHash(onChange: () => void) {
@@ -129,21 +130,34 @@ export function ProfileScreen() {
         </div>
       </section>
 
-      <section className="settings-group" aria-labelledby="profile-saved">
+      <section id="saved" className="settings-group" aria-labelledby="profile-saved">
         <h2 id="profile-saved">Saved</h2>
-        <div className="settings-list">
-          {SAVED_ROWS.map((row) => (
-            <a key={row.kind} className="settings-row" href={`#saved-${row.kind}`}>
-              <span className="settings-copy">
-                <strong>{row.label}</strong>
-              </span>
-              <span className="row-count">
-                {counts[row.kind]}
-                <ChevronRight size={18} aria-hidden />
-              </span>
-            </a>
-          ))}
-        </div>
+        {saved.length === 0 ? <p className="group-note">Nothing saved here yet.</p> : null}
+        {SAVED_ROWS.map((row) => {
+          const rows = saved.filter((item) => item.kind === row.kind);
+          if (rows.length === 0) return null;
+          return (
+            <div key={row.kind} className="saved-group">
+              <h3>
+                {row.label}
+                <span className="row-count">{counts[row.kind]}</span>
+              </h3>
+              <div className="settings-list">
+                {rows.map((item) => (
+                  <div key={`${item.kind}:${item.id}`} className="settings-row">
+                    <Link href={item.href} className="settings-copy">
+                      <strong>{item.title}</strong>
+                      {item.subtitle ? <small>{item.subtitle}</small> : null}
+                    </Link>
+                    <button type="button" className="text-btn" onClick={() => toggleSaved(item)}>
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </section>
 
       <section className="settings-group" aria-labelledby="profile-explore">
