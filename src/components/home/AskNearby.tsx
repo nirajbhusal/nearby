@@ -164,10 +164,15 @@ export function AskNearby() {
     setPlace("Near me");
     setOpenPlaces(false);
     setPeek("looking");
+    const started = performance.now();
     const finish = (next: "found" | "empty") => {
       if (geoToken.current !== token) return;
-      geoToken.current = 0;
-      setPeek(next);
+      const wait = Math.max(0, 720 - (performance.now() - started));
+      window.setTimeout(() => {
+        if (geoToken.current !== token) return;
+        geoToken.current = 0;
+        setPeek(next);
+      }, wait);
     };
     if (!navigator.geolocation) {
       window.setTimeout(() => finish("found"), 420);
