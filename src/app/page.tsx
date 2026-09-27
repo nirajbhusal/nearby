@@ -6,7 +6,7 @@ import { stationsInScope } from "@/lib/nepal/ev";
 import { eventTiming, eventsNear, nepalEvents } from "@/lib/nepal/events";
 import { companiesNear } from "@/lib/nepal/jobs";
 import { KATHMANDU } from "@/lib/nepal/places";
-import { SITE_TAGLINE, pageMeta } from "@/lib/site";
+import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
   "Nearby · All within reach",
@@ -26,11 +26,10 @@ export default function HomePage() {
   return (
     <main className="home">
       <section className="start-screen">
-        <p className="brand-tag">{SITE_TAGLINE}</p>
-        <h1 className="font-display hero-title">Everything near you, in one place.</h1>
         <div className="reveal-greet">
           <DayGreeting />
         </div>
+        <h1 className="font-display hero-title">Everything near you, in one place.</h1>
         <AskNearby />
         <div className="prompt-grid">
           <PromptCard href="/charge?near=1&fast=1" title="Fast chargers near me" scene="charge" />
