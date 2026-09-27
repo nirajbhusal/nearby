@@ -67,42 +67,32 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
             Pokhara
           </Link>
         </div>
-        <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="city-art" />
-        <p className="eyebrow">Nomad</p>
-        <h1 className="font-display page-title">{city.shortName}</h1>
-        {city.headline ? <p className="lede">{city.headline}</p> : null}
-        <div className="seg city-view" role="group" aria-label="Guide view">
-          <button type="button" aria-pressed={!showMap} onClick={() => setShowMap(false)}>
-            Guide
-          </button>
-          <button type="button" aria-pressed={showMap} onClick={() => setShowMap(true)}>
-            Map
-          </button>
+        <div className="city-hero-body">
+          <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="city-art" />
+          <div className="section-hero-copy">
+            <p className="eyebrow">Nomad</p>
+            <h1 className="font-display page-title">{city.shortName}</h1>
+            {city.headline ? <p className="lede">{city.headline}</p> : null}
+            <div className="seg city-view" role="group" aria-label="Guide view">
+              <button type="button" aria-pressed={!showMap} onClick={() => setShowMap(false)}>
+                Guide
+              </button>
+              <button type="button" aria-pressed={showMap} onClick={() => setShowMap(true)}>
+                Map
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
       <ul className="stat-grid">
-        {city.reference.map((stat) => (
+        {statCells(city).map((stat) => (
           <li key={stat.label}>
             <span>{stat.label}</span>
             <strong>{stat.value}</strong>
-            {stat.note ? <small>{stat.note}</small> : null}
+            {stat.source ? <small>{stat.source}</small> : null}
           </li>
         ))}
-        {city.visa[0] ? (
-          <li>
-            <span>Visa</span>
-            <strong>{city.visa[0].title}</strong>
-            <small>{brief(city.visa[0].body)}</small>
-          </li>
-        ) : null}
-        {city.season[0] ? (
-          <li>
-            <span>Best season</span>
-            <strong>{brief(city.season[0].body)}</strong>
-            <small>{city.season[0].title}</small>
-          </li>
-        ) : null}
       </ul>
       <p className="ref-line">
         {city.referenceLine}
@@ -126,9 +116,11 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
             {city.areas.map((area) => {
               const on = area.name === areaName;
               return (
-                <article key={area.name} className={on ? "area-card is-on" : "area-card"}>
+                <article key={area.name} className={on ? "area-card nomad-tile is-on" : "area-card nomad-tile"}>
+                  <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="tile-art" />
                   <h3>{area.name}</h3>
-                  {area.blurb ? <p>{area.blurb}</p> : null}
+                  <p className="card-sub">{area.tags[0] || city.shortName}</p>
+                  {area.blurb ? <p>{brief(area.blurb)}</p> : null}
                   {area.tags.length > 0 ? (
                     <ul className="connector-chips">
                       {area.tags.map((tag) => (
@@ -136,9 +128,12 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
                       ))}
                     </ul>
                   ) : null}
-                  <button type="button" className="btn-secondary" aria-pressed={on} onClick={() => chooseArea(area.name)}>
-                    {on ? "Showing this area" : "Show stays here"}
-                  </button>
+                  <div className="tile-actions">
+                    {area.lat != null && area.lng != null ? <DirectionsLink lat={area.lat} lng={area.lng} name={area.name} /> : null}
+                    <button type="button" className="btn-secondary" aria-pressed={on} onClick={() => chooseArea(area.name)}>
+                      {on ? "Showing this area" : "Show stays here"}
+                    </button>
+                  </div>
                   {area.sources.length > 0 ? (
                     <details className="source-disclosure">
                       <summary>Sources</summary>
@@ -161,7 +156,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
       </section>
 
       <section className="nomad-section">
-        <h2>Places to stay</h2>
+        <h2>Stays</h2>
         <p className="section-lead">{areaName ? `In ${areaName}.` : `${stays.length} verified stays.`}</p>
         {stays.length === 0 ? (
           <p className="empty-inline">No verified stays are listed for this area.</p>
@@ -171,12 +166,14 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
       </section>
 
       <section className="nomad-section">
-        <h2>Work nearby</h2>
-        <p className="section-lead">
-          {areaName ? `In ${areaName}.` : `${coworking.length} coworking spaces, ${cafes.length} cafés.`}
-        </p>
-        <PlaceList title="Coworking" places={coworking} city={city} saveKind="cowork" />
-        <PlaceList title="Cafés" places={cafes} city={city} />
+        <h2>Coworking</h2>
+        <p className="section-lead">{areaName ? `In ${areaName}.` : `${coworking.length} verified spaces.`}</p>
+        <PlaceCarousel places={coworking} city={city} saveKind="cowork" scene="jobs" />
+      </section>
+      <section className="nomad-section">
+        <h2>Cafés</h2>
+        <p className="section-lead">{areaName ? `In ${areaName}.` : `${cafes.length} places to work from.`}</p>
+        <PlaceCarousel places={cafes} city={city} scene="cafe" />
       </section>
 
       <section className={showMap ? "nomad-section nomad-map-open" : "nomad-section"} id="nomad-map">
@@ -239,6 +236,23 @@ function brief(body: string): string {
   return sentence.length > 96 ? `${sentence.slice(0, 93)}…` : sentence;
 }
 
+function monogram(name: string): string {
+  const parts = name.split(/\s+/).filter((part) => /[A-Za-z]/.test(part[0] ?? ""));
+  const letters = (parts.length > 1 ? parts.slice(0, 2) : [name]).map((part) => part[0]?.toUpperCase() ?? "");
+  return letters.join("").slice(0, 2) || "•";
+}
+
+function statCells(city: NomadCity): { label: string; value: string; source: string | null }[] {
+  const cost = city.reference.find((stat) => /cost/i.test(stat.label));
+  const internet = city.reference.find((stat) => /internet/i.test(stat.label));
+  const cells: { label: string; value: string; source: string | null }[] = [];
+  if (cost) cells.push({ label: "Cost per month", value: cost.value, source: cost.note });
+  if (internet) cells.push({ label: "Internet", value: internet.value, source: internet.note });
+  if (city.visa[0]) cells.push({ label: "Visa", value: city.visa[0].title, source: brief(city.visa[0].body) });
+  if (city.season[0]) cells.push({ label: "Best season", value: brief(city.season[0].body), source: city.season[0].title });
+  return cells;
+}
+
 function sourceLabel(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, "");
@@ -273,7 +287,7 @@ function StayPage({
   const shown = stays.slice(0, limit);
   return (
     <>
-      <div className="stay-grid">
+      <div className="nomad-carousel">
         {shown.map((place) => (
           <StayCard key={place.id} citySlug={citySlug} cityName={cityName} place={place} />
         ))}
@@ -290,9 +304,11 @@ function StayPage({
 function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: string; cityName: string }) {
   const chips = place.features.slice(0, 3);
   return (
-    <article className="stay-card">
+    <article className="stay-card nomad-tile">
+      <span className="monogram" aria-hidden>{monogram(place.name)}</span>
       <h3>{place.name}</h3>
-      <p className="card-sub">{[stayTypeLabel(place.type), place.area || cityName].filter(Boolean).join(" · ")}</p>
+      <p className="card-sub">{place.area || cityName}</p>
+      <p className="tile-fact">{place.priceShort || stayTypeLabel(place.type)}</p>
       <div className="meta-row">
         {place.priceShort ? <span className="meta-chip tabular">{place.priceShort}</span> : null}
         {chips.map((feature) => (
@@ -365,55 +381,46 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
   );
 }
 
-function PlaceList({
-  title,
+function PlaceCarousel({
   places,
   city,
+  scene,
   saveKind,
 }: {
-  title: string;
   places: NomadWorkPlace[];
   city: NomadCity;
+  scene: "jobs" | "cafe";
   saveKind?: "cowork";
 }) {
   const ordered = [...places].sort((a, b) => a.name.localeCompare(b.name));
+  if (ordered.length === 0) return <p className="empty-inline">Not listed for this area.</p>;
   return (
-    <div className="work-block">
-      <h3>{title}</h3>
-      {ordered.length === 0 ? (
-        <p className="empty-inline">Not listed for this area.</p>
-      ) : (
-        <ul className="work-list">
-          {ordered.map((place) => (
-            <li key={place.id}>
-              {saveKind ? (
-                <SaveButton
-                  item={{
-                    id: place.id,
-                    kind: saveKind,
-                    title: place.name,
-                    subtitle: city.shortName,
-                    href: `/nomad/${city.slug}`,
-                  }}
-                />
-              ) : null}
-              <span>
-                {place.url ? (
-                  <a href={place.url} target="_blank" rel="noopener noreferrer">
-                    {place.name}
-                  </a>
-                ) : (
-                  place.name
-                )}
-                {place.area ? <small>{place.area}</small> : null}
-                {place.lat != null && place.lng != null ? (
-                  <DirectionsLink lat={place.lat} lng={place.lng} name={place.name} />
-                ) : null}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="nomad-carousel">
+      {ordered.map((place) => (
+        <article key={place.id} className="nomad-tile">
+          <SceneArt scene={scene} className="tile-art" />
+          <span className="monogram" aria-hidden>
+            {monogram(place.name)}
+          </span>
+          <h3>{place.name}</h3>
+          <p className="card-sub">{place.area || city.shortName}</p>
+          {place.note ? <p className="tile-fact">{brief(place.note)}</p> : null}
+          <div className="tile-actions">
+            {place.lat != null && place.lng != null ? <DirectionsLink lat={place.lat} lng={place.lng} name={place.name} /> : null}
+            {saveKind ? (
+              <SaveButton
+                item={{
+                  id: place.id,
+                  kind: saveKind,
+                  title: place.name,
+                  subtitle: city.shortName,
+                  href: `/nomad/${city.slug}`,
+                }}
+              />
+            ) : null}
+          </div>
+        </article>
+      ))}
     </div>
   );
 }

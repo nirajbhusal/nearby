@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import {
   BookOpen,
@@ -14,7 +14,7 @@ import {
   User,
   Zap,
 } from "lucide-react";
-import { Wordmark } from "@/components/brand/Logo";
+import { LogoMark, Wordmark } from "@/components/brand/Logo";
 import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
@@ -22,6 +22,7 @@ import { toHref } from "@/components/SiteLink";
 import { ThemeChoiceControl, ThemeSync } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
+import { isChargeRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
 
 const NAV = [
   { href: "/", label: "Home", icon: House },
@@ -39,31 +40,25 @@ const TABS = [
   { href: "/events", label: "Events", icon: Calendar },
 ] as const;
 
-function active(pathname: string, href: string): boolean {
-  if (href === "/") return pathname === "/";
-  if (href === "/charge") return pathname.startsWith("/charge") || pathname.startsWith("/ev");
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function pageTitle(pathname: string): string {
-  if (pathname.startsWith("/charge") || pathname.startsWith("/ev")) return "Charge";
-  if (pathname.startsWith("/jobs")) return "Jobs";
-  if (pathname.startsWith("/events")) return "Events";
-  if (pathname.startsWith("/learn")) return "Learn";
-  if (pathname.startsWith("/nomad/pokhara")) return "Pokhara";
-  if (pathname.startsWith("/nomad")) return "Nomad";
-  if (pathname.startsWith("/profile")) return "Profile";
-  if (pathname.startsWith("/about")) return "About";
-  return "Nearby";
-}
-
-function moreActive(pathname: string): boolean {
-  return ["/learn", "/nomad", "/profile", "/about"].some((href) => active(pathname, href));
+function subscribeLocation(onStoreChange: () => void) {
+  window.addEventListener("popstate", onStoreChange);
+  window.addEventListener("pageshow", onStoreChange);
+  window.addEventListener("hashchange", onStoreChange);
+  return () => {
+    window.removeEventListener("popstate", onStoreChange);
+    window.removeEventListener("pageshow", onStoreChange);
+    window.removeEventListener("hashchange", onStoreChange);
+  };
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname() || "/";
-  const charge = pathname.startsWith("/charge");
+  const routerPath = usePathname() || "/";
+  const path = useSyncExternalStore(
+    subscribeLocation,
+    () => normalizeRoute(window.location.pathname),
+    () => normalizeRoute(routerPath),
+  );
+  const charge = isChargeRoute(path);
   const profile = useProfile();
   const initial = profileInitial(profile.name);
   const [collapsed, setCollapsed] = useState(false);
@@ -84,7 +79,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMore(false);
-  }, [pathname]);
+  }, [path]);
 
   return (
     <>
@@ -110,7 +105,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <nav className="side-links">
             {NAV.map((item) => {
               const Icon = item.icon;
-              const on = active(pathname, item.href);
+              const on = tabActive(path, item.href);
               return (
                 <a key={item.href} href={toHref(item.href)} aria-current={on ? "page" : undefined}>
                   <Icon size={20} strokeWidth={1.5} aria-hidden />
@@ -120,11 +115,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             })}
           </nav>
           <div className="side-foot">
-            <a href={toHref("/profile#saved")} aria-current={pathname.startsWith("/profile") ? undefined : undefined}>
+            <a href={toHref("/profile#saved")}>
               <Bookmark size={20} strokeWidth={1.5} aria-hidden />
               <span>Saved</span>
             </a>
-            <a href={toHref("/profile")} aria-current={active(pathname, "/profile") ? "page" : undefined}>
+            <a href={toHref("/profile")} aria-current={tabActive(path, "/profile") ? "page" : undefined}>
               {initial ? <AvatarFace className="tab-avatar" /> : <User size={20} strokeWidth={1.5} aria-hidden />}
               <span>Profile</span>
             </a>
@@ -132,11 +127,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
         <div className="shell-main">
-          <header className="mobile-top">
-            <a className="brand-lockup" href={toHref("/")}>
-              <Wordmark />
+          <header className={path === "/" ? "mobile-top is-home" : "mobile-top"} data-route={path}>
+            <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
+              {path === "/" ? <Wordmark /> : <LogoMark className="logo-mark" />}
             </a>
-            <p className="mobile-title">{pageTitle(pathname)}</p>
+            {path === "/" ? <span className="mobile-title" /> : <p className="mobile-title">{pageTitle(path)}</p>}
             <a className="icon-btn" href={toHref("/profile")} aria-label="Profile">
               {initial ? <AvatarFace className="tab-avatar" /> : <User size={20} strokeWidth={1.5} aria-hidden />}
             </a>
@@ -154,7 +149,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <nav className="tab-bar" aria-label="Sections">
         {TABS.map((tab) => {
           const Icon = tab.icon;
-          const on = active(pathname, tab.href);
+          const on = tabActive(path, tab.href);
           return (
             <a key={tab.href} href={toHref(tab.href)} aria-current={on ? "page" : undefined}>
               <Icon size={24} strokeWidth={1.5} aria-hidden />
@@ -162,7 +157,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </a>
           );
         })}
-        <button type="button" aria-expanded={more} aria-current={moreActive(pathname) ? "page" : undefined} onClick={() => setMore((open) => !open)}>
+        <button type="button" aria-expanded={more} aria-current={moreActive(path) ? "page" : undefined} onClick={() => setMore((open) => !open)}>
           <Ellipsis size={24} strokeWidth={1.5} aria-hidden />
           <span>More</span>
         </button>

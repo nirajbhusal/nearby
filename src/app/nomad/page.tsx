@@ -1,4 +1,5 @@
-import { NomadCityList } from "@/components/nepal/NomadCityList";
+import { NomadCityGuide } from "@/components/nepal/NomadCityGuide";
+import { getNomadCity } from "@/lib/nepal/nomad";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
@@ -8,18 +9,7 @@ export const metadata = pageMeta(
 );
 
 export default function NomadIndexPage() {
-  return (
-    <main className="page-wrap">
-      <header className="page-hero">
-        <p className="eyebrow">Nomad</p>
-        <h1 className="font-display page-title">Work from here</h1>
-        <p className="lede">
-          A city guide for people spending a month with a laptop. Every figure
-          on these pages names its source and the date it was current. Sections
-          without a verified source stay empty on purpose.
-        </p>
-      </header>
-      <NomadCityList />
-    </main>
-  );
+  const city = getNomadCity("kathmandu");
+  if (!city) return null;
+  return <NomadCityGuide city={city} />;
 }
