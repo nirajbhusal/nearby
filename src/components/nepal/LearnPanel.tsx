@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
-import { GraduationCap, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
 import { DetailSheet } from "@/components/motion/DetailSheet";
 import { SwipeRow } from "@/components/motion/SwipeRow";
@@ -134,7 +134,6 @@ export function LearnPanel({ origin }: { origin: PlaceHit }) {
       </p>
       {near.length === 0 ? (
         <EmptyState
-          icon={GraduationCap}
           title="No places in this view"
           body={`No in-person programs matched near ${origin.label}. Online options stay listed below when they exist.`}
         />

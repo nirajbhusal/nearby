@@ -52,12 +52,13 @@ import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
 import { SortControl, StationList } from "@/components/charge/StationList";
+import { Peek, PeekLoading } from "@/components/peek/Peek";
 
 const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
   ssr: false,
   loading: () => (
     <div className="charge-map">
-      <div className="map-skeleton" role="status" aria-label="Loading map" />
+      <PeekLoading label="Loading map" />
     </div>
   ),
 });
@@ -833,9 +834,10 @@ export function ChargeExplorer() {
         {viewToggle}
         </div>
         {state.near ? (
-          <p className="search-note" role="status">
-            Finding your location…
-          </p>
+          <div className="peek-empty" role="status">
+            <Peek size={64} state="looking" />
+            <p className="search-note">Finding your location…</p>
+          </div>
         ) : null}
         {geoMessage ? (
           <p className="search-note" role="alert">
@@ -922,7 +924,10 @@ export function ChargeExplorer() {
             {countRow}
           </div>
           {count === 0 ? (
-            <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
+            <div className="peek-empty">
+              <Peek size={64} state="empty" />
+              <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
+            </div>
           ) : (
             <div className="charge-results">
               <StationList
@@ -982,6 +987,7 @@ export function ChargeExplorer() {
             <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">
+                  <Peek size={64} state="empty" />
                   <p>{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
                   <div className="widen-row">
                     {radiusKm != null && radiusKm < 50 ? (

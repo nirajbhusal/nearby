@@ -6,6 +6,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { isApproximate, networkMonogram, type NearbyStation } from "@/lib/nepal/ev";
 import { clusterStations, spiderLatLng, stackKey } from "@/components/charge/cluster";
 import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
+import { Peek } from "@/components/peek/Peek";
 
 export type MapFrame =
   | { mode: "bounds"; bbox: [number, number, number, number] }
@@ -383,7 +384,11 @@ export default function ChargeMap({
           <LocateIcon />
         </button>
       </div>
-      {ready ? null : <div className="map-skeleton" role="status" aria-label="Loading map" />}
+      {ready ? null : (
+        <div className="map-skeleton peek-stage" role="status" aria-label="Loading map">
+          <Peek size={64} state="looking" />
+        </div>
+      )}
     </div>
   );
 }

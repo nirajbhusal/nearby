@@ -4,6 +4,7 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SceneArt } from "@/components/illustrations/Scenes";
+import { PeekEmpty } from "@/components/peek/Peek";
 import { EventsPanel } from "@/components/nepal/EventsPanel";
 import { JobsPanel } from "@/components/nepal/JobsPanel";
 import { LearnPanel } from "@/components/nepal/LearnPanel";
@@ -84,6 +85,7 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
   }
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [locating, setLocating] = useState(false);
   const suggestions = useMemo(() => suggestPlaces(draft), [draft]);
 
   function go(hit: PlaceHit) {
@@ -101,17 +103,22 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
       setMessage("Location is not available in this browser. Search a city instead.");
       return;
     }
+    setLocating(true);
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const named = await reverseGeocode(pos.coords.latitude, pos.coords.longitude);
         const hit = (named && resolvePlace(named)) || null;
+        setLocating(false);
         if (!hit) {
           setMessage("That location is outside the places Nearby knows. Search a city.");
           return;
         }
         go(hit);
       },
-      () => setMessage("Location access was blocked. Search a city, or pick a recent place."),
+      () => {
+        setLocating(false);
+        setMessage("Location access was blocked. Search a city, or pick a recent place.");
+      },
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
     );
   }
@@ -159,6 +166,11 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
             Near me
           </button>
         </form>
+        {locating ? (
+          <PeekEmpty state="looking">
+            <p className="search-note">Finding your location…</p>
+          </PeekEmpty>
+        ) : null}
         {q && !resolved ? (
           <p className="search-note" role="status">
             No match for “{q}”. Showing Kathmandu.

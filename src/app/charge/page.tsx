@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { ChargeExplorer } from "@/components/charge/ChargeExplorer";
+import { PeekLoading } from "@/components/peek/Peek";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
@@ -13,7 +14,7 @@ export default function ChargePage() {
     <Suspense
       fallback={
         <div className="charge-stage">
-          <div className="map-skeleton" role="status" aria-label="Loading the charger map" />
+          <PeekLoading label="Loading the charger map" />
         </div>
       }
     >

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useSyncExternalStore, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
-import { Calendar, CalendarOff, MapPin, Tag } from "lucide-react";
+import { Calendar, MapPin, Tag } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
 import { DetailSheet } from "@/components/motion/DetailSheet";
 import { SwipeRow } from "@/components/motion/SwipeRow";
@@ -169,7 +169,6 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
 
       {grouped.today.length + grouped.week.length + grouped.later.length === 0 ? (
         <EmptyState
-          icon={CalendarOff}
           title="Nothing dated coming up"
           body={`No upcoming events matched near ${origin.label}.`}
         />

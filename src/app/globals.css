@@ -27,6 +27,7 @@
   --paper: #141414;
   --paper-deep: #1c1c1c;
   --graphite: #ededed;
+  --fg: var(--graphite);
   --ink-muted: #a1a1a1;
   --ink-faint: #a1a1a1;
   --accent: #ededed;
@@ -57,6 +58,7 @@
   --paper: #ffffff;
   --paper-deep: #f7f7f7;
   --graphite: #0a0a0a;
+  --fg: var(--graphite);
   --ink-muted: #525252;
   --ink-faint: #525252;
   --accent: #0a0a0a;
@@ -1331,7 +1333,7 @@ body:has(.charge-stage) {
 }
 
 .coming-soon { margin-top: 0.8rem; }
-.empty-block { padding: 0.4rem 0.2rem 0.8rem; }
+.empty-block { display: grid; justify-items: center; gap: 8px; padding: 0.4rem 0.2rem 0.8rem; text-align: center; }
 .source-list a,
 .fine-link,
 .fine a {
@@ -3705,6 +3707,45 @@ body:has(.charge-stage) .charge-frame {
 /* Follow-up: centred home, richer headers, nomad tiles, neutral charge sheet. */
 .shell-main .home { width: min(100% - 32px, 720px); margin-inline: auto; }
 .start-screen { max-width: none; width: 100%; margin-inline: 0; text-align: center; }
+.home-peek { display: flex; justify-content: center; margin: 0 0 12px; }
+.peek { display: block; flex: none; color: var(--fg); pointer-events: none; overflow: visible; }
+.peek-pin { fill: currentColor; }
+.peek-sclera { fill: var(--bg); }
+.peek-pupil { fill: currentColor; }
+.peek-empty, .peek-stage { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.peek-stage { place-items: center; }
+.peek-inline { display: flex; align-items: center; gap: 8px; }
+.empty-state .peek, .peek-empty .peek, .peek-stage .peek { color: var(--fg); }
+@media (prefers-reduced-motion: no-preference) {
+  .peek[data-state="greet"] .peek-body {
+    transform-origin: 50% 78%;
+    animation: peek-pop 520ms cubic-bezier(.16, 1.3, .32, 1) both;
+  }
+  .peek[data-state="found"] .peek-body {
+    transform-origin: 50% 78%;
+    animation: peek-bounce 680ms ease-out both;
+  }
+  .peek[data-state="empty"] .peek-body { transform: rotate(-7deg); transform-origin: 50% 72%; }
+  .peek[data-state="thinking"] .peek-body {
+    transform-origin: 50% 72%;
+    animation: peek-think 1.3s ease-in-out infinite;
+  }
+}
+@keyframes peek-pop {
+  from { transform: translateY(4px) scale(.7); }
+  to { transform: none; }
+}
+@keyframes peek-bounce {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-3px); }
+  100% { transform: none; }
+}
+@keyframes peek-think {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+html[data-intro="play"] .home .home-peek { opacity: 0; }
+html[data-intro="done"] .home .home-peek { opacity: 1; }
 .start-screen .day-greeting {
   margin: 0 0 8px;
   font-size: var(--type-footnote);

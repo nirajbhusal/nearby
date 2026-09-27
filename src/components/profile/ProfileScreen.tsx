@@ -5,6 +5,7 @@ import { useSyncExternalStore, useState } from "react";
 import { BookOpen, ChevronLeft, ChevronRight, Compass, Download, Info, Share, User } from "lucide-react";
 import { useInstallOffer } from "@/components/InstallPrompt";
 import { ThemeChoiceControl } from "@/components/ThemeToggle";
+import { PeekEmpty } from "@/components/peek/Peek";
 import {
   AVATAR_COLORS,
   CONNECTOR_OPTIONS,
@@ -78,7 +79,9 @@ export function ProfileScreen() {
         </button>
         <h1 className="page-title">{savedKind.label}</h1>
         {rows.length === 0 ? (
-          <p className="group-note">Nothing saved here yet.</p>
+          <PeekEmpty>
+            <p className="group-note">Nothing saved here yet.</p>
+          </PeekEmpty>
         ) : (
           <div className="settings-list">
             {rows.map((item) => (
@@ -132,7 +135,11 @@ export function ProfileScreen() {
 
       <section id="saved" className="settings-group" aria-labelledby="profile-saved">
         <h2 id="profile-saved">Saved</h2>
-        {saved.length === 0 ? <p className="group-note">Nothing saved here yet.</p> : null}
+        {saved.length === 0 ? (
+          <PeekEmpty>
+            <p className="group-note">Nothing saved here yet.</p>
+          </PeekEmpty>
+        ) : null}
         {SAVED_ROWS.map((row) => {
           const rows = saved.filter((item) => item.kind === row.kind);
           if (rows.length === 0) return null;
