@@ -27,6 +27,8 @@ assert.equal(connectorLine(bhaktapur), "CCS2 40 kW · GB/T 80 kW");
 
 assert.equal(defaultStationSort("geolocation"), "nearest");
 assert.equal(defaultStationSort("city"), "nearest");
+assert.equal(defaultStationSort("area"), "nearest");
+assert.equal(defaultStationSort("district"), "nearest");
 assert.equal(defaultStationSort("province"), "az");
 assert.equal(defaultStationSort("country"), "az");
 
@@ -61,6 +63,54 @@ assert.equal(
 assert.equal(
   stationPlaceName({ name: "GadiCharge-Citizen Bank, Durbarmarg", network: "GadiCharge", network_id: "gadicharge" }),
   "Citizen Bank, Durbarmarg",
+);
+assert.equal(
+  stationPlaceName({
+    name: "AirCharge Fast Charging, Hotel Harati Crown, Bidur",
+    network: "AirCharge",
+    network_id: "aircharge",
+  }),
+  "Hotel Harati Crown, Bidur",
+);
+assert.equal(
+  stationPlaceName({
+    name: "Tata Power EZ Charge - Lakeside, Pokhara",
+    network: "Tata (Sipradi)",
+    network_id: "tata-sipradi",
+  }),
+  "Lakeside, Pokhara",
+);
+assert.equal(
+  stationPlaceName({ name: "theeGO - Thamel", network: "Thee Go", network_id: "thee-go" }),
+  "Thamel",
+);
+assert.equal(
+  stationPlaceName({ name: "theeGO Chargepoint, Kathmandu", network: "Thee Go", network_id: "thee-go" }),
+  "Kathmandu",
+);
+assert.equal(
+  stationPlaceName({ name: "NEA Charging Station CCS, Kharipati", network: "NEA", network_id: "nea" }),
+  "CCS, Kharipati",
+);
+assert.equal(
+  stationPlaceName({ name: "NEA CCS Ratnapark", network: "NEA", network_id: "nea" }),
+  "NEA CCS Ratnapark",
+);
+assert.equal(
+  stationPlaceName({ name: "CG Charging Station", network: "CG Motors", network_id: "cg-motors" }),
+  "CG Charging Station",
+);
+assert.equal(
+  stationPlaceName({ name: "AirCharge Fast Charging, Hotel Harati Crown, Bidur", network: null }),
+  "AirCharge Fast Charging, Hotel Harati Crown, Bidur",
+);
+assert.equal(
+  stationPlaceName({
+    name: "TATA Motors Lalitpur - JB Automotive Company",
+    network: "Tata (Sipradi)",
+    network_id: "tata-sipradi",
+  }),
+  "TATA Motors Lalitpur - JB Automotive Company",
 );
 
 console.log("charge list checks passed");

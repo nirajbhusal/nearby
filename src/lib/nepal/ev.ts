@@ -176,7 +176,10 @@ export function networkLabel(network: string | null): string {
   return network || "Unbranded";
 }
 
-/** Drop a leading "GadiCharge - " when the monogram and meta already name the network. */
+const GENERIC_PREFIX =
+  "fast\\s+charging(?:\\s+station)?|dc\\s+charging(?:\\s+station)?|ev\\s+(?:charging\\s+)?station|charging\\s+station|charge\\s*points?|chargepoint|charging";
+
+/** Place name for a list row. The sheet still shows `station.name`. */
 export function stationPlaceName(station: {
   name: string;
   network: string | null;
@@ -189,11 +192,30 @@ export function stationPlaceName(station: {
   );
   const unique = [...new Set(labels.map((label) => label.trim()))].sort((a, b) => b.length - a.length);
   for (const label of unique) {
-    const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const stripped = name.replace(new RegExp(`^${escaped}\\s*[-–—:]\\s*`, "i"), "").trim();
-    if (stripped && stripped !== name) return stripped;
+    const stripped = stripNetworkPrefix(name, label);
+    if (stripped) return stripped;
   }
   return name;
+}
+
+function stripNetworkPrefix(name: string, label: string): string | null {
+  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const head = new RegExp(`^${escaped}\\b`, "i");
+  const matched = head.exec(name);
+  if (!matched) return null;
+  const rest = name.slice(matched[0].length);
+  const immediate = /^\s*[-–—:,]\s*(.+)$/.exec(rest);
+  if (immediate?.[1]?.trim()) return immediate[1].trim();
+  const generic = new RegExp(`^\\s+(?:${GENERIC_PREFIX})\\b\\s*[-–—:,]?\\s*(.*)$`, "i").exec(rest);
+  const genericRest = generic?.[1]?.trim();
+  if (genericRest && genericRest.length >= 2) return genericRest;
+  const branded =
+    /^(?:\s+(?:power|ez|charge|charging|fast|station|stations|ev|dc|motors?|network|points?)){1,6}\s*[-–—:]\s+(.+)$/i.exec(
+      rest,
+    );
+  const brandedRest = branded?.[1]?.trim();
+  if (brandedRest && brandedRest.length >= 2) return brandedRest;
+  return null;
 }
 
 function trimKw(kw: number): string {
@@ -235,10 +257,10 @@ export function stationArea(station: EvIndexStation): string {
 
 export type StationSort = "nearest" | "fastest" | "az";
 
-/** Distance when a location or city is set; otherwise A–Z inside each province. */
+/** Nearest for Near me, a saved point, or a searched city. A–Z only with no place. */
 export function defaultStationSort(kind: PlaceKind): StationSort {
-  if (kind === "geolocation" || kind === "city" || kind === "area" || kind === "district") return "nearest";
-  return "az";
+  if (kind === "country" || kind === "province") return "az";
+  return "nearest";
 }
 
 export function sortStations(rows: NearbyStation[], sort: StationSort): NearbyStation[] {

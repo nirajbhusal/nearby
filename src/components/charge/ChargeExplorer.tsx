@@ -768,7 +768,14 @@ export function ChargeExplorer() {
 
   const countRow = (
     <div className={listPage ? "sheet-summary-inline list-head" : "sheet-summary list-head"}>
-      <p aria-live="polite">{summary}</p>
+      <div className="list-head-copy">
+        <p aria-live="polite">{summary}</p>
+        {origin.kind === "country" ? (
+          <button type="button" className="locate-link" onClick={locate}>
+            Use my location
+          </button>
+        ) : null}
+      </div>
       <div className="list-head-tools">
         <SortControl value={sort} onChange={setSortPick} />
       </div>
@@ -792,7 +799,7 @@ export function ChargeExplorer() {
           <input
             id="charger-search"
             value={draft}
-            placeholder="Search Kathmandu, Pokhara, Lakeside…"
+            placeholder="Search places"
             autoComplete="off"
             role="combobox"
             aria-expanded={searchOpen}
