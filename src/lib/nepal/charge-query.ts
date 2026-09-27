@@ -1,4 +1,4 @@
-import { PLUG_FILTERS, type PlugFilter } from "@/lib/nepal/ev";
+import { PLUG_FILTERS, type PlugFilter, type StationSort } from "@/lib/nepal/ev";
 import { canonicalNetworkId, orderNetworkIds } from "@/lib/nepal/networks";
 
 export type ChargeState = {
@@ -19,6 +19,8 @@ export type ChargeState = {
   province: string | null;
   /** Bottom sheet height. Null uses the default for the current mode. */
   sheet: "peek" | "half" | "full" | null;
+  /** Null is the default, Nearest, and is omitted from the URL. */
+  sort: Exclude<StationSort, "nearest"> | null;
 };
 
 type SearchReader = {
@@ -69,7 +71,13 @@ export function readChargeState(sp: SearchReader): ChargeState {
     view: sp.get("view") === "map" ? "map" : "list",
     province: (sp.get("province") || "").trim().toLowerCase() || null,
     sheet: readSheet(sp.get("sheet")),
+    sort: readSort(sp.get("sort")),
   };
+}
+
+function readSort(value: string | null): ChargeState["sort"] {
+  if (value === "fastest" || value === "az") return value;
+  return null;
 }
 
 export function writeChargeSearch(state: ChargeState): string {
@@ -91,6 +99,7 @@ export function writeChargeSearch(state: ChargeState): string {
   if (state.view === "map") sp.set("view", "map");
   if (state.province && !state.q && state.lat == null) sp.set("province", state.province);
   if (state.sheet) sp.set("sheet", state.sheet);
+  if (state.sort) sp.set("sort", state.sort);
   const query = sp
     .toString()
     .replace(/(^|&)network=([^&]*)/g, (_, prefix: string, value: string) => `${prefix}network=${value.replace(/%2C/gi, ",")}`);

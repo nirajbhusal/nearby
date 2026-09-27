@@ -257,9 +257,8 @@ export function stationArea(station: EvIndexStation): string {
 
 export type StationSort = "nearest" | "fastest" | "az";
 
-/** Nearest for Near me, a saved point, or a searched city. A–Z only with no place. */
-export function defaultStationSort(kind: PlaceKind): StationSort {
-  if (kind === "country" || kind === "province") return "az";
+/** The charge list opens on Nearest. Fastest and A–Z are explicit choices. */
+export function defaultStationSort(_kind?: PlaceKind): StationSort {
   return "nearest";
 }
 

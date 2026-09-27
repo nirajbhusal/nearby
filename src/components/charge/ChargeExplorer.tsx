@@ -10,7 +10,6 @@ import { readChargeState, writeChargeSearch, type ChargeState } from "@/lib/nepa
 import {
   PLUG_FILTERS,
   activeFilterCount,
-  defaultStationSort,
   evIndex,
   isApproximate,
   networkLabel,
@@ -21,7 +20,6 @@ import {
   stationsNear,
   type NearbyStation,
   type PlugFilter,
-  type StationSort,
 } from "@/lib/nepal/ev";
 import { directionQuery, networkById, networkChipRows, type NetworkChip } from "@/lib/nepal/networks";
 import {
@@ -39,7 +37,7 @@ import { FitMark, SaveButton } from "@/components/SaveButton";
 import { ShareButton } from "@/components/ShareButton";
 import { chargeHref } from "@/lib/item-link";
 import { haversineKm } from "@/lib/geo";
-import { defaultRadiusKm, NEPAL, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
+import { defaultRadiusKm, NEPAL, RATNAPARK, resolvePlace, suggestPlaces } from "@/lib/nepal/places";
 import {
   MAJOR_CITIES,
   NEPAL_BBOX,
@@ -52,7 +50,7 @@ import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
 import { SortControl, StationList } from "@/components/charge/StationList";
-import { Peek, PeekLoading } from "@/components/peek/Peek";
+import { Peek, PeekLoading, usePeekState } from "@/components/peek/Peek";
 
 const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
   ssr: false,
@@ -223,6 +221,11 @@ export function ChargeExplorer() {
     }
     return NEPAL;
   }, [state.q, state.lat, state.lng, state.province]);
+  // No shared place yet: keep the whole country, but measure Nearest from Ratnapark.
+  const measured = useMemo(
+    () => (origin.kind === "country" ? { ...origin, lat: RATNAPARK.lat, lng: RATNAPARK.lng } : origin),
+    [origin],
+  );
 
   const radiusKm = state.radiusSet ? state.radius : defaultRadiusKm(origin);
   const filters = useMemo(
@@ -235,7 +238,7 @@ export function ChargeExplorer() {
     }),
     [radiusKm, state.fast, state.plugs, state.networks, state.exact]
   );
-  const stations = useMemo(() => stationsNear(origin, filters), [origin, filters]);
+  const stations = useMemo(() => stationsNear(measured, filters), [measured, filters]);
   const profile = useProfile();
   const unit = useUnits();
   const carReady = evReady(profile);
@@ -244,16 +247,11 @@ export function ChargeExplorer() {
     if (!fitsOnly || !carReady) return stations;
     return stations.filter((station) => stationFitsEv(station, profile));
   }, [stations, fitsOnly, carReady, profile]);
-  const [sortPick, setSortPick] = useState<StationSort | null>(null);
-  const sortScope = `${origin.kind}|${origin.label}`;
-  const [sortScopeSeen, setSortScopeSeen] = useState(sortScope);
-  if (sortScope !== sortScopeSeen) {
-    setSortScopeSeen(sortScope);
-    setSortPick(null);
-  }
-  const sort = sortPick ?? defaultStationSort(origin.kind);
+  const sort = state.sort ?? "nearest";
   const ordered = useMemo(() => sortStations(visible, sort), [visible, sort]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [peek, setPeek] = usePeekState("idle");
+  const locateGesture = useRef(false);
   const selected = useMemo(() => {
     if (!state.station) return null;
     const inList = stations.find((station) => station.id === state.station);
@@ -262,9 +260,9 @@ export function ChargeExplorer() {
     if (!raw) return null;
     return {
       ...raw,
-      distanceKm: haversineKm(origin.lat, origin.lng, raw.lat, raw.lng),
+      distanceKm: haversineKm(measured.lat, measured.lng, raw.lat, raw.lng),
     };
-  }, [state.station, stations, origin]);
+  }, [state.station, stations, measured]);
 
   const mapStations = useMemo(() => {
     if (!selected || visible.some((station) => station.id === selected.id)) return visible;
@@ -361,6 +359,10 @@ export function ChargeExplorer() {
     if (!navigator.geolocation) {
       queueMicrotask(() => {
         if (cancel) return;
+        if (locateGesture.current) {
+          locateGesture.current = false;
+          setPeek("idle");
+        }
         setGeoMessage("Location is not available in this browser. Search a city instead.");
         replace({ near: false });
       });
@@ -379,6 +381,10 @@ export function ChargeExplorer() {
         const label = resolved?.label ?? named ?? "Your location";
         if (resolved) rememberPlace(resolved.label);
         setGeoMessage(null);
+        if (locateGesture.current) {
+          locateGesture.current = false;
+          setPeek("found");
+        }
         replace({
           near: false,
           lat,
@@ -390,6 +396,10 @@ export function ChargeExplorer() {
       },
       () => {
         if (cancel) return;
+        if (locateGesture.current) {
+          locateGesture.current = false;
+          setPeek("idle");
+        }
         setGeoMessage("Location access was blocked. Search a city, or pick a recent place.");
         replace({ near: false });
       },
@@ -506,6 +516,8 @@ export function ChargeExplorer() {
   }
 
   function locate() {
+    locateGesture.current = true;
+    setPeek("looking");
     setGeoMessage(null);
     setSearchOpen(false);
     replace({ near: true, station: null });
@@ -607,7 +619,7 @@ export function ChargeExplorer() {
       ? `${count} in ${origin.label}`
       : origin.kind === "country" || radiusKm == null
         ? origin.kind === "country"
-          ? `${count} charger${count === 1 ? "" : "s"}`
+          ? `${count} charger${count === 1 ? "" : "s"} · near Kathmandu`
           : `${count} charger${count === 1 ? "" : "s"} in ${origin.label}`
         : origin.kind === "geolocation"
           ? `${count} charger${count === 1 ? "" : "s"} within ${within}`
@@ -618,8 +630,7 @@ export function ChargeExplorer() {
       : origin.kind === "province"
         ? { mode: "bounds", bbox: (provinceByName(origin.province)?.bbox ?? NEPAL_BBOX) }
         : { mode: "point", lng: origin.lng, lat: origin.lat, zoom: origin.kind === "geolocation" ? 13 : 13 };
-  const showDistance =
-    origin.kind === "geolocation" || origin.kind === "city" || origin.kind === "area" || origin.kind === "district";
+  const showDistance = true;
   const cityChips = MAJOR_CITIES.map((name) => {
     const hit = resolvePlace(name);
     return {
@@ -778,7 +789,10 @@ export function ChargeExplorer() {
         ) : null}
       </div>
       <div className="list-head-tools">
-        <SortControl value={sort} onChange={setSortPick} />
+        <SortControl
+          value={sort}
+          onChange={(next) => replace({ sort: next === "nearest" ? null : next })}
+        />
       </div>
     </div>
   );
@@ -833,10 +847,10 @@ export function ChargeExplorer() {
         </form>
         {viewToggle}
         </div>
-        {state.near ? (
+        {peek === "looking" || peek === "found" ? (
           <div className="peek-empty" role="status">
-            <Peek size={64} state="looking" />
-            <p className="search-note">Finding your location…</p>
+            <Peek size={64} state={peek} />
+            {peek === "looking" ? <p className="search-note">Finding your location…</p> : null}
           </div>
         ) : null}
         {geoMessage ? (

@@ -4234,9 +4234,7 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   min-width: 0;
   max-width: 100%;
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
 }
 .locate-link {
   margin: 0;

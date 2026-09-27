@@ -29,8 +29,9 @@ assert.equal(defaultStationSort("geolocation"), "nearest");
 assert.equal(defaultStationSort("city"), "nearest");
 assert.equal(defaultStationSort("area"), "nearest");
 assert.equal(defaultStationSort("district"), "nearest");
-assert.equal(defaultStationSort("province"), "az");
-assert.equal(defaultStationSort("country"), "az");
+assert.equal(defaultStationSort("province"), "nearest");
+assert.equal(defaultStationSort("country"), "nearest");
+assert.equal(defaultStationSort(), "nearest");
 
 const rows = [
   row("b", "Bagmati", 4, 20, "slow"),
@@ -56,6 +57,13 @@ assert.equal(readChargeState({ get: () => null }).view, "list");
 assert.equal(readChargeState({ get: (name) => (name === "view" ? "map" : null) }).view, "map");
 assert.equal(writeChargeSearch({ ...legacy, view: "list" }), "");
 assert.equal(writeChargeSearch({ ...legacy, view: "map" }), "?view=map");
+assert.equal(readChargeState({ get: () => null }).sort, null);
+assert.equal(readChargeState({ get: (name) => (name === "sort" ? "az" : null) }).sort, "az");
+assert.equal(readChargeState({ get: (name) => (name === "sort" ? "fastest" : null) }).sort, "fastest");
+assert.equal(readChargeState({ get: (name) => (name === "sort" ? "nearest" : null) }).sort, null);
+assert.equal(writeChargeSearch({ ...legacy, sort: "az" }), "?sort=az");
+assert.equal(writeChargeSearch({ ...legacy, sort: "fastest" }), "?sort=fastest");
+assert.equal(writeChargeSearch({ ...legacy, sort: null }), "");
 assert.equal(
   stationPlaceName({ name: "GadiCharge - Bluebird Complex, Thapathali", network: "GadiCharge", network_id: "gadicharge" }),
   "Bluebird Complex, Thapathali",
