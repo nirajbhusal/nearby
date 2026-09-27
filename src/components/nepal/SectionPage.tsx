@@ -121,18 +121,22 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
 
   return (
     <main className="page-wrap">
-      <header className="page-hero">
-        <SceneArt scene={section === "jobs" ? "jobs" : section === "learn" ? "learn" : "events"} className="page-art" />
-        <p className="eyebrow">{copy.kicker}</p>
-        <h1 className="font-display page-title">{copy.title}</h1>
-        <p className="lede">{copy.intro}</p>
+      <header className="page-hero section-hero">
+        <div className="section-hero-top">
+          <SceneArt scene={section === "jobs" ? "jobs" : section === "learn" ? "learn" : "events"} className="page-art" />
+          <div className="section-hero-copy">
+            <p className="eyebrow">{copy.kicker}</p>
+            <h1 className="font-display page-title">{copy.title}</h1>
+            <p className="lede">{copy.intro}</p>
+          </div>
+        </div>
         {section === "events" ? (
           <p className="fine">
             Looking for a class instead? <Link href="/learn">Places to learn AI</Link>
           </p>
         ) : null}
         <form
-          className="page-search"
+          className="page-search search-pill"
           role="search"
           onSubmit={(event) => {
             event.preventDefault();
@@ -155,7 +159,7 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
             }}
             onFocus={() => setOpen(true)}
           />
-          <button type="button" className="btn-secondary" onClick={locate}>
+          <button type="button" className="place-chip" onClick={locate}>
             Near me
           </button>
         </form>

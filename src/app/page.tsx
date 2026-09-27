@@ -1,4 +1,3 @@
-import { LogoMark } from "@/components/brand/Logo";
 import { AskNearby, PromptCard } from "@/components/home/AskNearby";
 import { toHref } from "@/components/SiteLink";
 import { formatWhen } from "@/lib/nepal/format";
@@ -26,7 +25,6 @@ export default function HomePage() {
   return (
     <main className="home">
       <section className="start-screen">
-        <LogoMark className="logo-mark start-logo" />
         <p className="brand-tag">{SITE_TAGLINE}</p>
         <h1 className="font-display hero-title">Everything near you, in one place.</h1>
         <AskNearby />
@@ -44,7 +42,7 @@ export default function HomePage() {
           <h2>Nearby now</h2>
           <span className="fine">{upcoming} upcoming</span>
         </div>
-        <ul className="now-list">
+        <ul className="now-list now-grid">
           {charger ? (
             <li>
               <a href={toHref(`/ev/${charger.id}`)}>

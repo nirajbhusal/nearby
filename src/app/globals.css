@@ -42,6 +42,8 @@
   --fast: #ededed;
   --ac: #a1a1a1;
   --unknown: #a1a1a1;
+  --illu-fill: rgba(255, 255, 255, 0.06);
+  --illu-fill-2: rgba(255, 255, 255, 0.12);
   --background: var(--bg);
   --foreground: var(--graphite);
   color-scheme: dark;
@@ -70,6 +72,8 @@
   --fast: #0a0a0a;
   --ac: #525252;
   --unknown: #525252;
+  --illu-fill: #f3f3f3;
+  --illu-fill-2: #e7e7e7;
   --background: var(--bg);
   --foreground: var(--graphite);
   color-scheme: light;
@@ -3526,4 +3530,101 @@ body:has(.charge-stage) .charge-frame { min-height: 100dvh; height: 100dvh; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Follow-up: centred home, richer headers, nomad tiles, neutral charge sheet. */
+.shell-main .home { width: min(100% - 48px, 1100px); margin-inline: auto; }
+.start-screen { max-width: 720px; margin-inline: auto; text-align: center; }
+.section-hero-top, .city-hero-body { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.section-hero-copy { min-width: 0; }
+.page-art, .city-art { width: 200px; height: 148px; color: var(--graphite); }
+.prompt-card .scene, .tile-art { width: 88px; height: 64px; color: var(--graphite); }
+.tile-art { width: 100%; height: 72px; }
+.mobile-top.is-home .mobile-title { display: none; }
+.mobile-top .logo-mark { width: 28px; height: 28px; color: var(--graphite); }
+.search-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  margin-top: 16px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.search-pill input,
+.search-pill input:focus {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--graphite);
+  box-shadow: none;
+  padding: 0;
+}
+.page-wrap:has(.jobs-board) .lede,
+.page-wrap:has(.jobs-board) .eyebrow { display: block; }
+.jobs-toolbar { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: nowrap; }
+.jobs-toolbar .fine { flex: 1 1 auto; min-width: 0; max-width: none; white-space: normal; }
+.jobs-toolbar .seg { flex: 0 0 auto; }
+.nomad-guide .area-carousel,
+.nomad-guide .nomad-carousel,
+.nomad-guide .stay-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  grid-template-columns: none;
+  padding-bottom: 8px;
+}
+.nomad-tile {
+  flex: 0 0 min(260px, 82%);
+  scroll-snap-align: start;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.monogram {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--graphite);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 700;
+}
+.tile-fact { margin: 0; color: var(--ink-muted); font-size: var(--type-footnote); }
+.tile-actions, .nomad-tile .card-footer { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.stat-grid { grid-template-columns: 1fr 1fr; }
+.charge-panel, .station-sheet {
+  background: var(--bg-elevated);
+  color: var(--graphite);
+  border-color: var(--line);
+}
+.charger-card, .station-line {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--graphite);
+}
+.page-search input, .charge-search input {
+  background: var(--surface);
+  color: var(--graphite);
+  border-color: var(--line);
+}
+@media (min-width: 768px) {
+  .section-hero-top, .city-hero-body { flex-direction: row; align-items: center; gap: 28px; }
+  .page-art, .city-art { width: 220px; height: 160px; }
+}
+@media (min-width: 1024px) {
+  .prompt-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .now-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 }

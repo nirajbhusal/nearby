@@ -159,7 +159,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           label="Jobs view"
           value={view}
           options={[
-            { id: "cards", label: "Cards" },
+            { id: "cards", label: "List" },
             { id: "map", label: "Map" },
           ]}
           onChange={setView}
