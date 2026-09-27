@@ -1,4 +1,5 @@
 import { AskNearby, PromptCard } from "@/components/home/AskNearby";
+import { HomePeek } from "@/components/peek/Peek";
 import { DayGreeting } from "@/components/home/DayGreeting";
 import { NepalClock } from "@/components/home/NepalClock";
 import { toHref } from "@/components/SiteLink";
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <main className="home">
       <section className="start-screen">
+        <HomePeek />
         <div className="reveal-greet">
           <NepalClock />
           <DayGreeting />

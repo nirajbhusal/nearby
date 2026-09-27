@@ -3,10 +3,11 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Briefcase, Calendar, MapPin, Tag } from "lucide-react";
+import { Calendar, MapPin, Tag } from "lucide-react";
 import { ViewToggle } from "@/components/ViewToggle";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
+import { Peek } from "@/components/peek/Peek";
 import { DistanceText } from "@/components/DistanceText";
 import { DetailSheet } from "@/components/motion/DetailSheet";
 import { SwipeHint, SwipeRow } from "@/components/motion/SwipeRow";
@@ -29,7 +30,11 @@ import type { PlaceHit } from "@/lib/nepal/types";
 
 const JobsMap = dynamic(() => import("@/components/nepal/JobsMap"), {
   ssr: false,
-  loading: () => <div className="jobs-map map-skeleton" role="status" aria-label="Loading map" />,
+  loading: () => (
+    <div className="jobs-map map-skeleton peek-stage" role="status" aria-label="Loading map">
+      <Peek size={64} state="looking" />
+    </div>
+  ),
 });
 
 function initial(name: string): string {
@@ -210,7 +215,6 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
       {view === "map" ? (
         pins.length === 0 ? (
           <EmptyState
-            icon={Briefcase}
             title="No offices to map"
             body="None of the matching companies has a coordinate. Try another city, or switch to cards."
           />
@@ -246,7 +250,6 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
         )
       ) : cards.length === 0 ? (
         <EmptyState
-          icon={Briefcase}
           title="No open roles in this view"
           body={`Nothing matched near ${origin.label}. Try another city, or clear the filters.`}
         />

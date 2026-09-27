@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { MapPin, Search } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { MapPin } from "lucide-react";
 import { SceneArt } from "@/components/illustrations/Scenes";
+import { Peek, PeekEmpty, usePeekState } from "@/components/peek/Peek";
 import { toHref } from "@/components/SiteLink";
 import { evIndex } from "@/lib/nepal/ev";
 import { nepalEvents } from "@/lib/nepal/events";
@@ -122,14 +123,62 @@ function searchAll(query: string, place: string): Hit[] {
 
 const GROUPS: Group[] = ["Chargers", "Jobs", "Events", "Learn", "Nomad"];
 
+function useWideSearch() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const query = window.matchMedia("(min-width: 768px)");
+      query.addEventListener("change", onChange);
+      return () => query.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia("(min-width: 768px)").matches,
+    () => false,
+  );
+}
+
 export function AskNearby() {
   const [draft, setDraft] = useState("");
   const [place, setPlace] = useState<(typeof PLACES)[number]>("Near me");
   const [openPlaces, setOpenPlaces] = useState(false);
+  const [peek, setPeek] = usePeekState("idle");
+  const geoToken = useRef(0);
+  const wide = useWideSearch();
   const hits = useMemo(() => searchAll(draft, place), [draft, place]);
   const grouped = GROUPS.map((group) => ({ group, rows: hits.filter((hit) => hit.group === group) })).filter(
     (entry) => entry.rows.length > 0,
   );
+
+  useEffect(() => {
+    if (geoToken.current) return;
+    const query = draft.trim();
+    if (query.length < 2) {
+      setPeek("idle");
+      return;
+    }
+    setPeek("thinking");
+    const id = window.setTimeout(() => setPeek(hits.length ? "found" : "empty"), 240);
+    return () => window.clearTimeout(id);
+  }, [draft, hits.length, setPeek]);
+
+  function askNearMe() {
+    const token = ++geoToken.current;
+    setPlace("Near me");
+    setOpenPlaces(false);
+    setPeek("looking");
+    const finish = (next: "found" | "empty") => {
+      if (geoToken.current !== token) return;
+      geoToken.current = 0;
+      setPeek(next);
+    };
+    if (!navigator.geolocation) {
+      window.setTimeout(() => finish("found"), 420);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      () => finish(draft.trim().length >= 2 && hits.length === 0 ? "empty" : "found"),
+      () => finish("empty"),
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 },
+    );
+  }
 
   return (
     <form className="composer" role="search" onSubmit={(event) => event.preventDefault()}>
@@ -137,11 +186,11 @@ export function AskNearby() {
         Ask Nearby
       </label>
       <div className="composer-bar">
-        <Search size={20} strokeWidth={1.5} aria-hidden />
+        <Peek size={20} state={peek} />
         <input
           id="ask-nearby"
           value={draft}
-          placeholder="Ask Nearby… chargers, jobs, events, places to work"
+          placeholder={wide ? "What's nearby? Chargers, jobs, events, places to work" : "What's nearby?"}
           autoComplete="off"
           onChange={(event) => setDraft(event.target.value)}
         />
@@ -157,6 +206,11 @@ export function AskNearby() {
                   <button
                     type="button"
                     onClick={() => {
+                      if (item === "Near me") {
+                        askNearMe();
+                        return;
+                      }
+                      geoToken.current = 0;
                       setPlace(item);
                       setOpenPlaces(false);
                     }}
@@ -172,7 +226,9 @@ export function AskNearby() {
       {draft.trim().length >= 2 ? (
         <div className="composer-results" aria-live="polite">
           {grouped.length === 0 ? (
-            <p className="empty-inline">Nothing matched. Try “charger”, “AI”, or a city name.</p>
+            <PeekEmpty>
+              <p className="empty-inline">Nothing matched. Try “charger”, “AI”, or a city name.</p>
+            </PeekEmpty>
           ) : (
             grouped.map((entry) => (
               <section key={entry.group}>

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { SceneArt } from "@/components/illustrations/Scenes";
+import { PeekEmpty } from "@/components/peek/Peek";
 import { DirectionsLink } from "@/components/nepal/NavigateLinks";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { DistanceText } from "@/components/DistanceText";
@@ -128,7 +129,9 @@ export function NomadCityGuide({
         <h2>Best areas to live</h2>
         <p className="section-lead">Swipe the areas. Show stays to filter the list.</p>
         {city.areas.length === 0 ? (
-          <p className="empty-inline">Areas are not listed yet.</p>
+          <PeekEmpty>
+            <p className="empty-inline">Areas are not listed yet.</p>
+          </PeekEmpty>
         ) : (
           <div className="area-carousel">
             {city.areas.map((area) => {
@@ -189,7 +192,9 @@ export function NomadCityGuide({
         </div>
         <p className="section-lead">{areaName ? `In ${areaName}.` : `${stays.length} verified stays.`}</p>
         {stays.length === 0 ? (
-          <p className="empty-inline">No verified stays are listed for this area.</p>
+          <PeekEmpty>
+            <p className="empty-inline">No verified stays are listed for this area.</p>
+          </PeekEmpty>
         ) : (
           <StayPage stays={stays} citySlug={city.slug} cityName={city.shortName} asList={asList} />
         )}
@@ -221,7 +226,9 @@ export function NomadCityGuide({
         {pins.length > 0 ? (
           <NomadMapSlot pins={pins} />
         ) : (
-          <p className="empty-inline nomad-map-empty">No mapped points for the layers that are on.</p>
+          <PeekEmpty>
+            <p className="empty-inline nomad-map-empty">No mapped points for the layers that are on.</p>
+          </PeekEmpty>
         )}
         {city.osmCredit ? <p className="fine">{city.osmCredit}</p> : null}
       </section>
@@ -500,7 +507,13 @@ function PlaceCarousel({
   asList?: boolean;
 }) {
   const ordered = [...places].sort((a, b) => a.name.localeCompare(b.name));
-  if (ordered.length === 0) return <p className="empty-inline">Not listed for this area.</p>;
+  if (ordered.length === 0) {
+    return (
+      <PeekEmpty>
+        <p className="empty-inline">Not listed for this area.</p>
+      </PeekEmpty>
+    );
+  }
   return (
     <div className={asList ? "card-list nomad-stack" : "nomad-carousel"}>
       {ordered.map((place) => {
