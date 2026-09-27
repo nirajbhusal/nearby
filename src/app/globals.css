@@ -2095,7 +2095,7 @@ select {
   grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: start;
-  padding: 12px 14px;
+  padding: 12px 14px 16px;
 }
 .role-card .meta-row {
   flex-wrap: nowrap;
@@ -3036,6 +3036,13 @@ svg { stroke-width: 1.75; }
   grid-template-columns: 1fr;
   gap: 16px;
 }
+.role-grid,
+.card-list {
+  gap: 12px;
+}
+.event-card {
+  padding-bottom: 16px;
+}
 .maplibregl-ctrl-attrib,
 .maplibregl-ctrl-attrib a {
   font-size: var(--type-caption) !important;
@@ -3970,36 +3977,48 @@ html[data-intro="done"] .home .reveal-greet,
 html[data-intro="done"] .home .composer,
 html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
 
-.swipe-row { position: relative; overflow: hidden; touch-action: pan-y; border-radius: 1.15rem; background: transparent; }
+.swipe-row {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+  border-radius: 20px;
+  background: transparent;
+}
 .swipe-face {
   position: relative;
   z-index: 1;
-  background: transparent;
+  margin: 0;
+  background-color: var(--surface);
   border-radius: inherit;
   transition: transform 280ms cubic-bezier(0.2, 1.15, 0.36, 1);
 }
 .swipe-face.is-dragging { transition: none; }
 .swipe-action {
+  display: none;
   position: absolute;
-  inset: 0 auto 0 0;
+  inset: 0;
   width: 46%;
-  height: 100%;
-  display: flex;
+  height: auto;
+  margin: 0;
   align-items: center;
   border-radius: inherit;
   background: color-mix(in srgb, var(--graphite) 10%, var(--surface));
   color: var(--graphite);
-  opacity: 0;
+  pointer-events: none;
 }
-.swipe-row.is-swiping .swipe-action { opacity: 1; }
-.swipe-action.is-save { left: 0; padding-left: 18px; }
+.swipe-row.is-swiping .swipe-action { display: flex; }
+.swipe-action.is-save { left: 0; right: auto; padding-left: 18px; }
 .swipe-action.is-share { left: auto; right: 0; justify-content: flex-end; padding-right: 18px; }
-.swipe-face > .role-card { content-visibility: visible; }
-.station-line .swipe-face {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  gap: 0.4rem;
-  align-items: center;
+.swipe-face > .role-card,
+.swipe-face > .app-card,
+.swipe-face > .nomad-tile {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+  margin: 0;
+  background-color: var(--surface);
 }
 .swipe-hint {
   margin: 0 2px 8px;
@@ -4068,23 +4087,38 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 8px 12px;
 }
 .list-head p {
+  flex: 1 1 12rem;
   min-width: 0;
   margin: 0;
+}
+.list-head-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex: none;
+}
+.list-head-tools .text-btn,
+.list-head-tools .fine {
+  min-height: 28px;
+  padding: 0;
+  white-space: nowrap;
 }
 .charge-list-page .list-head {
   position: sticky;
   top: 0;
-  z-index: 4;
-  margin: 0 0 4px;
-  padding: 8px 0;
-  background: var(--bg);
+  z-index: 6;
+  margin: 0 -0.85rem 8px;
+  padding: 10px 0.85rem;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--line);
 }
 .sort-seg {
   display: inline-flex;
-  margin-left: auto;
+  margin-left: 0;
   padding: 2px;
   border-radius: 999px;
   background: var(--surface-2);
@@ -4106,66 +4140,72 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
 .station-list {
   position: relative;
   display: block;
-  margin: 0;
+  box-sizing: content-box;
+  margin: 4px 0 0;
   padding: 0;
+  overflow: hidden;
   list-style: none;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
 }
 .station-list .station-line {
   position: absolute;
   left: 0;
   right: 0;
-  height: 88px;
   display: block;
+  min-height: 76px;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: transparent;
+  background: var(--surface);
   border: 0;
   border-radius: 0;
   content-visibility: visible;
-  contain-intrinsic-size: auto 88px;
+  contain-intrinsic-size: auto 116px;
 }
 .station-list .station-line::after {
   content: "";
   position: absolute;
-  left: 62px;
-  right: 0;
+  z-index: 2;
+  left: 68px;
+  right: 16px;
   bottom: 0;
   height: 1px;
   background: var(--line);
   pointer-events: none;
 }
+.station-list .station-line.is-last::after { display: none; }
 .station-list .swipe-row,
 .station-list .swipe-face,
-.station-list .station-row {
-  height: 88px;
+.station-list .station-row,
+.station-list .station-open {
+  height: 100%;
+  min-height: 76px;
   border-radius: 0;
 }
-.station-list .swipe-face {
+.station-list .swipe-face,
+.station-list .station-row {
   display: block;
-  background: var(--bg);
+  background-color: var(--surface);
 }
 .station-list .station-row {
   position: relative;
-  display: block;
   width: 100%;
   margin: 0;
   padding: 0;
-  background: transparent;
   border: 0;
-  border-radius: 0;
 }
 .station-list .station-line.is-selected .station-row,
 .station-list .station-row:hover {
-  background: color-mix(in srgb, var(--graphite) 6%, transparent);
+  background-color: color-mix(in srgb, var(--graphite) 6%, var(--surface));
 }
 .station-open {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  height: 88px;
-  padding: 0 72px 0 12px;
+  padding: 14px 80px 14px 16px;
   border: 0;
   background: transparent;
   text-align: left;
@@ -4198,12 +4238,11 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1px;
+  gap: 2px;
   min-width: 0;
   flex: 1;
 }
-.station-list .station-meta,
-.station-list .plug-text {
+.station-list .station-meta {
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -4215,29 +4254,42 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   -webkit-line-clamp: 2;
   overflow: hidden;
   white-space: normal;
-  font-size: 15px;
+  overflow-wrap: break-word;
+  font-size: 17px;
   font-weight: 600;
-  line-height: 18px;
-  max-height: 36px;
+  line-height: 22px;
+  max-height: 44px;
   letter-spacing: -0.02em;
 }
-.station-list .station-meta,
-.station-list .station-plugs {
+.station-list .station-meta {
   color: var(--ink-muted);
   font-size: 13px;
-  line-height: 16px;
+  line-height: 18px;
 }
 .station-plugs {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
   max-width: 100%;
+  max-height: 54px;
   overflow: hidden;
 }
-.plug-text {
-  flex: 1 1 auto;
-  min-width: 0;
+.plug-pill {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
 }
 .approx-pill {
   display: inline-flex;
@@ -4270,19 +4322,20 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   position: absolute;
   z-index: 2;
   top: 50%;
-  right: 36px;
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
+  right: 26px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
   transform: translateY(-50%);
 }
 .station-chevron {
   position: absolute;
   top: 50%;
-  right: 10px;
-  width: 18px;
-  height: 18px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
   transform: translateY(-50%);
   color: var(--ink-muted);
   pointer-events: none;

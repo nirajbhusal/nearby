@@ -839,12 +839,14 @@ export function ChargeExplorer() {
           {filterSheet}
           <div className="sheet-summary-inline list-head">
             <p aria-live="polite">{summary}</p>
-            <SortControl value={sort} onChange={setSortPick} />
-            {filterCount > 0 ? (
-              <button type="button" className="text-btn" onClick={clearFilters}>
-                Clear {filterCount}
-              </button>
-            ) : null}
+            <div className="list-head-tools">
+              <SortControl value={sort} onChange={setSortPick} />
+              {filterCount > 0 ? (
+                <button type="button" className="text-btn" onClick={clearFilters}>
+                  Clear {filterCount}
+                </button>
+              ) : null}
+            </div>
           </div>
           {networkRow()}
           {count === 0 ? (
@@ -902,14 +904,16 @@ export function ChargeExplorer() {
             {searchPanel}
             <div className="sheet-summary list-head">
               <p aria-live="polite">{summary}</p>
-              <SortControl value={sort} onChange={setSortPick} />
-              {filterCount > 0 ? (
-                <button type="button" className="text-btn" onClick={clearFilters}>
-                  Clear {filterCount}
-                </button>
-              ) : origin.kind === "country" ? null : (
-                <span className="fine">{origin.label}</span>
-              )}
+              <div className="list-head-tools">
+                <SortControl value={sort} onChange={setSortPick} />
+                {filterCount > 0 ? (
+                  <button type="button" className="text-btn" onClick={clearFilters}>
+                    Clear {filterCount}
+                  </button>
+                ) : origin.kind === "country" ? null : (
+                  <span className="fine">{origin.label}</span>
+                )}
+              </div>
             </div>
             {networkRow()}
             <div className="filter-row h-scroll" role="group" aria-label="Charger filters">
