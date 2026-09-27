@@ -1047,7 +1047,7 @@ function ChargerCard({
         ))}
       </div>
       <div className="card-actions">
-        <NavigateLinks lat={station.lat} lng={station.lng} />
+        <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
         {call ? (
           <a className="btn-secondary card-action" href={call}>
             Call
@@ -1104,7 +1104,7 @@ function StationSheet({
       </p>
       <div className="station-actions">
         <SaveButton item={chargerSave(station)} />
-        <NavigateLinks lat={station.lat} lng={station.lng} prominent />
+        <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
         {call ? (
           <a className="btn-secondary" href={call}>
             Call

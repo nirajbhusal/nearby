@@ -56,8 +56,8 @@ function hasWebGL(): boolean {
 
 function paint(theme: MapTheme): { line: string; fill: string } {
   return theme === "light"
-    ? { line: "#0b6e56", fill: "#0b6e56" }
-    : { line: "#7dffe0", fill: "#00f5a0" };
+    ? { line: "#0a0a0a", fill: "#0a0a0a" }
+    : { line: "#ededed", fill: "#ededed" };
 }
 
 export default function NepalMap({ provinces }: Props) {

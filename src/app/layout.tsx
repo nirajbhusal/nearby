@@ -18,8 +18,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#F5F5F7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
 
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       { url: "/nearby/icons/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/nearby/apple-touch-icon.png", sizes: "180x180" }],
-    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#00F5A0" }],
+    other: [{ rel: "mask-icon", url: "/nearby/safari-pinned-tab.svg", color: "#0a0a0a" }],
   },
   openGraph: {
     title: SITE_TITLE,

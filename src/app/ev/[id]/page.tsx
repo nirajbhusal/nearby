@@ -79,7 +79,7 @@ export default async function StationPage({ params }: { params: Params }) {
           </p>
         </div>
 
-        <NavigateLinks lat={station.lat} lng={station.lng} />
+        <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
 
         <dl className="detail-list space-y-4">
           <div>

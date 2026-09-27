@@ -3,6 +3,7 @@
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { SceneArt } from "@/components/illustrations/Scenes";
 import { EventsPanel } from "@/components/nepal/EventsPanel";
 import { JobsPanel } from "@/components/nepal/JobsPanel";
 import { LearnPanel } from "@/components/nepal/LearnPanel";
@@ -121,6 +122,7 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
   return (
     <main className="page-wrap">
       <header className="page-hero">
+        <SceneArt scene={section === "jobs" ? "jobs" : section === "learn" ? "learn" : "events"} className="page-art" />
         <p className="eyebrow">{copy.kicker}</p>
         <h1 className="font-display page-title">{copy.title}</h1>
         <p className="lede">{copy.intro}</p>
