@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronRight, Zap } from "lucide-react";
 import { DirectionsLink } from "@/components/nepal/NavigateLinks";
-import { SwipeRow } from "@/components/motion/SwipeRow";
+import { SwipeHint, SwipeRow } from "@/components/motion/SwipeRow";
 import { FitMark } from "@/components/SaveButton";
 import { chargeHref } from "@/lib/item-link";
 import { formatDistance, type DistanceUnit } from "@/lib/local-profile";
@@ -18,7 +18,7 @@ import {
 } from "@/lib/nepal/ev";
 import { directionQuery } from "@/lib/nepal/networks";
 
-const ROW = 68;
+const ROW = 88;
 const OVERSCAN = 8;
 
 export function SortControl({
@@ -92,6 +92,8 @@ export function StationList({
   }, [stations.length]);
 
   return (
+    <>
+    <SwipeHint />
     <ul
       ref={hostRef}
       className="station-list"
@@ -112,6 +114,7 @@ export function StationList({
         />
       ))}
     </ul>
+    </>
   );
 }
 
@@ -176,7 +179,12 @@ function StationRow({
               <span className="station-meta">{meta.join(" · ")}</span>
               <span className="station-plugs">
                 {approx ? (
-                  <span className="plug-text approx-note">Approximate location (town only)</span>
+                  <span className="approx-pill">
+                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                      <circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 1.5" />
+                    </svg>
+                    Approx. location
+                  </span>
                 ) : (
                   <span className="plug-text">{plugs || "Connectors not listed"}</span>
                 )}

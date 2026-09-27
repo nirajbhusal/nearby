@@ -8,6 +8,8 @@ import { hapticTick, shareOrCopy } from "@/lib/item-link";
 import { showToast } from "@/lib/toast";
 
 const USED_KEY = "nearby-swipe-used";
+const SEEN_KEY = "nearby-swipe-hint-seen";
+const USED_EVENT = "nearby-swipe-used";
 
 type Drag = {
   x: number;
@@ -20,10 +22,34 @@ type Drag = {
 function markSwipeUsed() {
   try {
     localStorage.setItem(USED_KEY, "1");
+    localStorage.setItem(SEEN_KEY, "1");
   } catch {
     /* private mode */
   }
-  document.querySelectorAll(".swipe-row.is-hint").forEach((node) => node.classList.remove("is-hint"));
+  window.dispatchEvent(new Event(USED_EVENT));
+}
+
+/** One line above a list. Hidden after a swipe, and on the next visit. */
+export function SwipeHint() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    let hide = false;
+    try {
+      hide = localStorage.getItem(USED_KEY) === "1" || localStorage.getItem(SEEN_KEY) === "1";
+      if (!hide) localStorage.setItem(SEEN_KEY, "1");
+    } catch {
+      return;
+    }
+    if (hide) return;
+    setShow(true);
+    const onUsed = () => setShow(false);
+    window.addEventListener(USED_EVENT, onUsed);
+    return () => window.removeEventListener(USED_EVENT, onUsed);
+  }, []);
+
+  if (!show) return null;
+  return <p className="swipe-hint">Swipe to save or share</p>;
 }
 
 export function SwipeRow({
@@ -42,26 +68,12 @@ export function SwipeRow({
   const [dx, setDx] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [pop, setPop] = useState(false);
-  const [hint, setHint] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (localStorage.getItem(USED_KEY) === "1") return;
-    } catch {
-      return;
-    }
-    const win = window as Window & { __nearbyHint?: boolean };
-    if (win.__nearbyHint) return;
-    win.__nearbyHint = true;
-    setHint(true);
-  }, []);
 
   function commitSave() {
     const removing = on;
     toggleSaved(item);
     hapticTick();
     markSwipeUsed();
-    setHint(false);
     if (!removing) {
       setPop(true);
       window.setTimeout(() => setPop(false), 320);
@@ -71,7 +83,6 @@ export function SwipeRow({
 
   function commitShare() {
     markSwipeUsed();
-    setHint(false);
     hapticTick();
     void shareOrCopy(share);
   }
@@ -136,7 +147,7 @@ export function SwipeRow({
   return (
     <div
       ref={row}
-      className={hint ? "swipe-row is-hint" : "swipe-row"}
+      className={dragging || dx !== 0 ? "swipe-row is-swiping" : "swipe-row"}
       data-swipe="1"
       data-item-id={item.id}
       onPointerDown={onPointerDown}
@@ -157,7 +168,6 @@ export function SwipeRow({
       <div className={dragging ? "swipe-face is-dragging" : "swipe-face"} style={{ transform: `translateX(${dx}px)` }}>
         {children}
       </div>
-      {hint ? <p className="swipe-hint">Swipe to save or share</p> : null}
     </div>
   );
 }

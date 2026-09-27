@@ -9,7 +9,7 @@ import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { DistanceText } from "@/components/DistanceText";
 import { DetailSheet } from "@/components/motion/DetailSheet";
-import { SwipeRow } from "@/components/motion/SwipeRow";
+import { SwipeHint, SwipeRow } from "@/components/motion/SwipeRow";
 import { SaveButton } from "@/components/SaveButton";
 import { ShareButton } from "@/components/ShareButton";
 import { jobHref } from "@/lib/item-link";
@@ -252,6 +252,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
         />
       ) : (
         <>
+          <SwipeHint />
           <div className="role-grid">
             {shown.map((card) => (
               <RoleCard key={card.key} card={card} />
