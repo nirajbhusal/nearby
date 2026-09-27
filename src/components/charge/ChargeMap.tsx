@@ -24,6 +24,7 @@ type Props = {
   origin: { lat: number; lng: number };
   frame: MapFrame;
   selectedId: string | null;
+  hoveredId?: string | null;
   showYou: boolean;
   provinces: ProvinceBubble[] | null;
   onSelect: (id: string) => void;
@@ -104,6 +105,7 @@ export default function ChargeMap({
   origin,
   frame,
   selectedId,
+  hoveredId = null,
   showYou,
   provinces,
   onSelect,
@@ -117,6 +119,7 @@ export default function ChargeMap({
   const stationsRef = useRef(stations);
   const provincesRef = useRef(provinces);
   const selectedRef = useRef(selectedId);
+  const hoverRef = useRef(hoveredId);
   const frameRef = useRef(frame);
   const [ready, setReady] = useState(false);
 
@@ -126,6 +129,7 @@ export default function ChargeMap({
     stationsRef.current = stations;
     provincesRef.current = provinces;
     selectedRef.current = selectedId;
+    hoverRef.current = hoveredId;
     frameRef.current = frame;
   });
 
@@ -258,7 +262,13 @@ export default function ChargeMap({
         }
         return;
       }
-      for (const pin of clusterStations(stations, zoom)) {
+      let pins = clusterStations(stations, zoom);
+      const hover = hoverRef.current;
+      if (hover && !pins.some((pin) => pin.kind === "station" && pin.station.id === hover)) {
+        const hovered = stations.find((station) => station.id === hover);
+        if (hovered) pins = pins.concat({ kind: "station", station: hovered });
+      }
+      for (const pin of pins) {
         if (pin.kind === "cluster") {
           const size = pin.count >= 40 ? "xl" : pin.count >= 12 ? "lg" : "md";
           const element = pinButton(
@@ -280,10 +290,12 @@ export default function ChargeMap({
         }
         const station = pin.station;
         const active = station.id === selectedId;
+        const hot = station.id === hoverRef.current && !active;
         const element = pinButton(
-          `<span class="ev-pin-row${active ? " is-active" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}">${BOLT}</span></span>`,
+          `<span class="ev-pin-row${active ? " is-active" : ""}${hot ? " is-hover" : ""}"><span class="ev-pin speed-${speedClass(station.speed)}">${BOLT}</span></span>`,
           station.name,
         );
+        element.dataset.station = station.id;
         element.addEventListener("click", (event) => {
           event.stopPropagation();
           onSelectRef.current(station.id);
@@ -291,7 +303,7 @@ export default function ChargeMap({
         const marker = new Marker({ element, anchor: "center" })
           .setLngLat([station.lng, station.lat])
           .addTo(map);
-        if (active) marker.getElement().style.zIndex = "5";
+        if (active || hot) marker.getElement().style.zIndex = "5";
         markers.push(marker);
       }
     };
@@ -302,7 +314,7 @@ export default function ChargeMap({
       map.off("zoomend", draw);
       for (const marker of markers) marker.remove();
     };
-  }, [ready, stations, selectedId, provinces]);
+  }, [ready, stations, selectedId, hoveredId, provinces]);
 
   useEffect(() => {
     if (!ready) return;
