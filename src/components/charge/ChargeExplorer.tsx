@@ -3,19 +3,22 @@
 import dynamic from "next/dynamic";
 import { Suspense, use, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { List, Map as MapIcon } from "lucide-react";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { BASE_PATH } from "@/lib/base-path";
 import { readChargeState, writeChargeSearch, type ChargeState } from "@/lib/nepal/charge-query";
 import {
   PLUG_FILTERS,
   activeFilterCount,
+  defaultStationSort,
   evIndex,
-  maxKw,
   networkLabel,
+  sortStations,
   stationsInScope,
   stationsNear,
   type NearbyStation,
   type PlugFilter,
+  type StationSort,
 } from "@/lib/nepal/ev";
 import {
   accessCopy,
@@ -28,7 +31,6 @@ import {
 import { evReady, formatDistance, stationFitsEv } from "@/lib/local-profile";
 import { useProfile, useUnits } from "@/lib/profile-store";
 import { DistanceText } from "@/components/DistanceText";
-import { SwipeRow } from "@/components/motion/SwipeRow";
 import { FitMark, SaveButton } from "@/components/SaveButton";
 import { ShareButton } from "@/components/ShareButton";
 import { chargeHref } from "@/lib/item-link";
@@ -45,7 +47,7 @@ import type { MapFrame } from "@/components/charge/ChargeMap";
 import { reverseGeocode } from "@/lib/reverse-geocode";
 import type { EvStation, PlaceHit } from "@/lib/nepal/types";
 import { NavigateLinks } from "@/components/nepal/NavigateLinks";
-import { ViewToggle } from "@/components/ViewToggle";
+import { SortControl, StationList } from "@/components/charge/StationList";
 
 const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
   ssr: false,
@@ -216,13 +218,16 @@ export function ChargeExplorer() {
     if (!fitsOnly || !carReady) return stations;
     return stations.filter((station) => stationFitsEv(station, profile));
   }, [stations, fitsOnly, carReady, profile]);
-  const LIST_PAGE = 12;
-  const [listLimit, setListLimit] = useState(LIST_PAGE);
-  const listKey = `${origin.kind}|${origin.label}|${state.fast}|${state.plugs.join(",")}|${state.network ?? ""}|${fitsOnly}|${radiusKm ?? "all"}`;
-  useEffect(() => {
-    setListLimit(LIST_PAGE);
-  }, [listKey]);
-  const listed = visible.slice(0, listLimit);
+  const [sortPick, setSortPick] = useState<StationSort | null>(null);
+  const sortScope = `${origin.kind}|${origin.label}`;
+  const [sortScopeSeen, setSortScopeSeen] = useState(sortScope);
+  if (sortScope !== sortScopeSeen) {
+    setSortScopeSeen(sortScope);
+    setSortPick(null);
+  }
+  const sort = sortPick ?? defaultStationSort(origin.kind);
+  const ordered = useMemo(() => sortStations(visible, sort), [visible, sort]);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const scope = useMemo(() => stationsInScope(origin, radiusKm), [origin, radiusKm]);
   const selected = useMemo(() => {
     if (!state.station) return null;
@@ -431,9 +436,10 @@ export function ChargeExplorer() {
   }
 
   function selectStation(id: string) {
+    setHoveredId(null);
     setSnapState("half");
     setSearchOpen(false);
-    replace({ station: id, sheet: null });
+    replace({ station: id, sheet: null, view: "map" });
   }
 
   function togglePlug(id: PlugFilter) {
@@ -510,7 +516,7 @@ export function ChargeExplorer() {
     setSnap(order[index]);
   }
 
-  const cards = state.view === "cards";
+  const listMode = state.view === "list";
   const count = visible.length;
   const filterCount = activeFilterCount(filters) + (fitsOnly && carReady ? 1 : 0);
   const within = radiusKm == null ? "" : formatDistance(radiusKm, unit);
@@ -542,15 +548,26 @@ export function ChargeExplorer() {
   const call = selected ? phoneHref(selected.phone) : null;
   const caution = selected ? stationCaution(selected.name, selected.caution) : null;
   const viewToggle = (
-    <ViewToggle
-      label="Charger view"
-      value={state.view}
-      options={[
-        { id: "map", label: "Map" },
-        { id: "cards", label: "Cards" },
-      ]}
-      onChange={(id) => replace({ view: id === "cards" ? "cards" : "map" })}
-    />
+    <div className="seg" role="tablist" aria-label="Charger view">
+      {(
+        [
+          { id: "map" as const, label: "Map", icon: <MapIcon size={16} strokeWidth={1.75} aria-hidden /> },
+          { id: "list" as const, label: "List", icon: <List size={16} strokeWidth={1.75} aria-hidden /> },
+        ]
+      ).map((option) => (
+        <button
+          key={option.id}
+          type="button"
+          role="tab"
+          aria-selected={state.view === option.id}
+          className={state.view === option.id ? "is-on" : undefined}
+          onClick={() => replace({ view: option.id })}
+        >
+          {option.icon}
+          {option.label}
+        </button>
+      ))}
+    </div>
   );
 
   const searchPanel = (
@@ -582,7 +599,7 @@ export function ChargeExplorer() {
             }}
             onFocus={() => {
               setSearchOpen(true);
-              if (!cards && snap !== "full") setSnap("full");
+              if (!listMode && snap !== "full") setSnap("full");
             }}
             onKeyDown={(event) => {
               if (event.key === "ArrowDown") {
@@ -596,13 +613,14 @@ export function ChargeExplorer() {
               }
             }}
           />
-          {cards ? (
+          {listMode ? (
             <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
               <LocateIcon />
             </button>
           ) : (
-            <button type="button" className="peek-cards" onClick={() => replace({ view: "cards" })}>
-              Cards
+            <button type="button" className="peek-cards" onClick={() => replace({ view: "list" })}>
+              <List size={16} strokeWidth={1.75} aria-hidden />
+              List
             </button>
           )}
         </form>
@@ -701,14 +719,15 @@ export function ChargeExplorer() {
   );
 
   return (
-    <div className={cards ? "charge-cards-page" : "charge-stage"}>
+    <div className={listMode ? "charge-list-page charge-cards-page" : "charge-stage"}>
       <h1 className="sr-only">EV chargers</h1>
-      {cards ? null : (
+      {listMode ? null : (
         <ChargeMap
           stations={mapStations}
           origin={origin}
           frame={frame}
           selectedId={selected?.id ?? null}
+          hoveredId={hoveredId}
           showYou={origin.kind === "geolocation"}
           provinces={
             origin.kind === "country"
@@ -727,7 +746,7 @@ export function ChargeExplorer() {
         />
       )}
 
-      {cards ? (
+      {listMode ? (
         <div className="charge-card-board">
           <div className="cards-toggle">{viewToggle}</div>
           {searchPanel}
@@ -750,30 +769,27 @@ export function ChargeExplorer() {
               }}
             />
           </div>
-          <p className="sheet-summary-inline" aria-live="polite">
-            {summary}
+          <div className="sheet-summary-inline list-head">
+            <p aria-live="polite">{summary}</p>
+            <SortControl value={sort} onChange={setSortPick} />
             {filterCount > 0 ? (
               <button type="button" className="text-btn" onClick={clearFilters}>
                 Clear {filterCount}
               </button>
             ) : null}
-          </p>
+          </div>
           {count === 0 ? (
             <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
           ) : (
-            <>
-              <div className="charger-grid">
-                {listed.map((station) => (
-                  <ChargerCard
-                    key={station.id}
-                    station={station}
-                    fits={stationFitsEv(station, profile)}
-                    showDistance={showDistance}
-                  />
-                ))}
-              </div>
-              <ShowMore shown={listed.length} total={visible.length} onMore={() => setListLimit((value) => value + LIST_PAGE)} />
-            </>
+            <StationList
+              stations={ordered}
+              showDistance={showDistance}
+              unit={unit}
+              selectedId={selected?.id ?? null}
+              fits={(station) => stationFitsEv(station, profile)}
+              onSelect={selectStation}
+              onHover={setHoveredId}
+            />
           )}
         </div>
       ) : (
@@ -815,8 +831,9 @@ export function ChargeExplorer() {
         ) : (
           <>
             {searchPanel}
-            <div className="sheet-summary">
+            <div className="sheet-summary list-head">
               <p aria-live="polite">{summary}</p>
+              <SortControl value={sort} onChange={setSortPick} />
               {filterCount > 0 ? (
                 <button type="button" className="text-btn" onClick={clearFilters}>
                   Clear {filterCount}
@@ -867,20 +884,15 @@ export function ChargeExplorer() {
                   </div>
                 </div>
               ) : (
-                <>
-                  <ul className="station-list">
-                    {listed.map((station) => (
-                      <StationListItem
-                        key={station.id}
-                        station={station}
-                        fits={stationFitsEv(station, profile)}
-                        showDistance={showDistance}
-                        onSelect={selectStation}
-                      />
-                    ))}
-                  </ul>
-                  <ShowMore shown={listed.length} total={visible.length} onMore={() => setListLimit((value) => value + LIST_PAGE)} />
-                </>
+                <StationList
+                  stations={ordered}
+                  showDistance={showDistance}
+                  unit={unit}
+                  selectedId={state.station}
+                  fits={(station) => stationFitsEv(station, profile)}
+                  onSelect={selectStation}
+                  onHover={setHoveredId}
+                />
               )}
             </div>
           </>
@@ -968,123 +980,6 @@ function FilterChips({
         ) : null}
       </div>
     </>
-  );
-}
-
-function StationListItem({
-  station,
-  fits,
-  showDistance,
-  onSelect,
-}: {
-  station: NearbyStation;
-  fits: boolean;
-  showDistance: boolean;
-  onSelect: (id: string) => void;
-}) {
-  const saved = chargerSave(station);
-  return (
-    <li className="station-line">
-      <SwipeRow item={saved} share={{ title: station.name, text: station.name, url: chargeHref(station.id) }}>
-      <button type="button" className="station-row" onClick={() => onSelect(station.id)}>
-        <span className="station-row-main">
-          <span className="station-name">
-            {station.name}
-            {fits ? <FitMark /> : null}
-          </span>
-          <span className="station-meta">
-            {networkLabel(station.network)}
-            {showDistance ? (
-              <>
-                {" · "}
-                <DistanceText km={station.distanceKm} />
-              </>
-            ) : null}
-          </span>
-        </span>
-        <span className={`speed-badge speed-${station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown"}`}>
-          {station.speed === "fast" ? "Fast" : station.speed === "slow" ? "AC" : "—"}
-        </span>
-        <span className="plug-row" aria-hidden="true">
-          {uniquePlugs(station).map((type) => (
-            <span key={type} className="plug-mark" title={type}>
-              {plugMark(type)}
-            </span>
-          ))}
-        </span>
-      </button>
-      <SaveButton item={saved} />
-      <ShareButton title={station.name} url={chargeHref(station.id)} />
-      </SwipeRow>
-    </li>
-  );
-}
-
-function shortStationArea(station: NearbyStation): string {
-  const raw = station.address || "";
-  const parts = raw
-    .split(",")
-    .map((part) => part.replace(/\(.*?\)/g, "").trim())
-    .filter((part) => part && !/^nepal$/i.test(part) && !/plus code/i.test(part));
-  const street = /\b(marg|road|rd|sadak|street|path|lane|tole)\b/i;
-  const local = parts.filter((part, index) => !(index === 0 && street.test(part)));
-  const area = (local.length ? local : parts).slice(-2).join(", ");
-  if (area) return area;
-  return [station.city, station.district].filter(Boolean).join(", ");
-}
-
-function ChargerCard({
-  station,
-  fits,
-  showDistance,
-}: {
-  station: NearbyStation;
-  fits: boolean;
-  showDistance: boolean;
-}) {
-  const call = phoneHref(station.phone);
-  const kw = maxKw(station);
-  const speed = station.speed === "slow" || station.speed === "fast" ? station.speed : "unknown";
-  const area = shortStationArea(station);
-  const saved = chargerSave(station);
-  return (
-    <SwipeRow item={saved} share={{ title: station.name, text: station.name, url: chargeHref(station.id) }}>
-    <article className="charger-card">
-      <header>
-        <h2>
-          {station.name}
-          {fits ? <FitMark /> : null}
-        </h2>
-        <span className="card-tools">
-          <SaveButton item={saved} />
-          <ShareButton title={station.name} url={chargeHref(station.id)} />
-        </span>
-      </header>
-      <p className="card-sub">{[networkLabel(station.network), area].filter(Boolean).join(" · ")}</p>
-      <div className="meta-row">
-        <span className={`meta-chip speed-badge speed-${speed}`}>{speedLabel(station.speed)}</span>
-        {kw != null ? <span className="meta-chip tabular">{trimKw(kw)} kW</span> : null}
-        {showDistance ? (
-          <span className="meta-chip tabular">
-            <DistanceText km={station.distanceKm} />
-          </span>
-        ) : null}
-        {uniquePlugs(station).slice(0, 3).map((type) => (
-          <span key={type} className="meta-chip">
-            {type}
-          </span>
-        ))}
-      </div>
-      <div className="card-actions">
-        <NavigateLinks lat={station.lat} lng={station.lng} name={station.name} />
-        {call ? (
-          <a className="btn-secondary card-action" href={call}>
-            Call
-          </a>
-        ) : null}
-      </div>
-    </article>
-    </SwipeRow>
   );
 }
 
@@ -1209,27 +1104,8 @@ function emptyCopy(
   return `No chargers match these filters ${within}.`;
 }
 
-function uniquePlugs(station: NearbyStation): string[] {
-  const seen: string[] = [];
-  for (const plug of station.plugs) {
-    const mark = plug.type.startsWith("GB/T") ? "GB/T" : plug.type;
-    if (!seen.includes(mark)) seen.push(mark);
-  }
-  return seen.slice(0, 3);
-}
-
 function trimKw(kw: number): string {
   return Number.isInteger(kw) ? String(kw) : String(Math.round(kw * 10) / 10);
-}
-
-function ShowMore({ shown, total, onMore }: { shown: number; total: number; onMore: () => void }) {
-  if (shown >= total) return null;
-  const next = Math.min(24, total - shown);
-  return (
-    <button type="button" className="chip show-more" onClick={onMore}>
-      Show {next} more
-    </button>
-  );
 }
 
 function LocateIcon() {

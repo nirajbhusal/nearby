@@ -12,7 +12,7 @@ export type ChargeState = {
   radius: number | null;
   radiusSet: boolean;
   near: boolean;
-  view: "map" | "cards";
+  view: "map" | "list";
   /** Province slug. Used when the map is scoped to a province rather than a search. */
   province: string | null;
   /** Bottom sheet height. Null uses the default for the current mode. */
@@ -52,7 +52,7 @@ export function readChargeState(sp: SearchReader): ChargeState {
     radius,
     radiusSet,
     near: sp.get("near") === "1",
-    view: sp.get("view") === "cards" ? "cards" : "map",
+    view: sp.get("view") === "list" || sp.get("view") === "cards" ? "list" : "map",
     province: (sp.get("province") || "").trim().toLowerCase() || null,
     sheet: readSheet(sp.get("sheet")),
   };
@@ -73,7 +73,7 @@ export function writeChargeSearch(state: ChargeState): string {
   if (state.network) sp.set("net", state.network);
   if (state.radiusSet) sp.set("r", state.radius == null ? "all" : String(state.radius));
   if (state.near) sp.set("near", "1");
-  if (state.view === "cards") sp.set("view", "cards");
+  if (state.view === "list") sp.set("view", "list");
   if (state.province && !state.q && state.lat == null) sp.set("province", state.province);
   if (state.sheet) sp.set("sheet", state.sheet);
   const query = sp.toString();

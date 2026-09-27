@@ -1,6 +1,6 @@
 import { haversineKm } from "@/lib/geo";
 import { defaultRadiusKm } from "@/lib/nepal/places";
-import type { EvIndexStation, PlaceHit } from "@/lib/nepal/types";
+import type { EvIndexStation, PlaceHit, PlaceKind } from "@/lib/nepal/types";
 import indexJson from "@/data/nepal/ev-index.json";
 
 export const evIndex = indexJson as EvIndexStation[];
@@ -158,4 +158,88 @@ export function activeFilterCount(filters: EvFilters): number {
 
 export function networkLabel(network: string | null): string {
   return network || "Unbranded";
+}
+
+const NETWORK_MONOGRAMS: Record<string, string> = {
+  NEA: "NEA",
+  "MAW Vriddhi": "MAW",
+  CG: "CG",
+  GadiCharge: "GC",
+};
+
+/** Short mark for the row icon. Known networks stay stable; others use initials. */
+export function networkMonogram(network: string | null): string | null {
+  if (!network) return null;
+  const known = NETWORK_MONOGRAMS[network];
+  if (known) return known;
+  const words = network.replace(/[()]/g, " ").split(/\s+/).filter(Boolean);
+  if (words.length === 0) return null;
+  if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
+  return words
+    .slice(0, 3)
+    .map((word) => word[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+function trimKw(kw: number): string {
+  return Number.isInteger(kw) ? String(kw) : String(Math.round(kw * 10) / 10);
+}
+
+function plugLabel(type: string): string {
+  if (type === "GB/T DC") return "GB/T";
+  if (type === "GB/T AC") return "GB/T AC";
+  return type;
+}
+
+/** Compact connector line, keeping the highest kW for each plug. */
+export function connectorLine(station: EvIndexStation): string {
+  const best = new Map<string, number | null>();
+  for (const plug of station.plugs) {
+    const label = plugLabel(plug.type);
+    const prev = best.get(label);
+    if (prev === undefined) best.set(label, plug.kw);
+    else if (plug.kw != null && (prev == null || plug.kw > prev)) best.set(label, plug.kw);
+  }
+  return [...best.entries()]
+    .map(([label, kw]) => (kw != null ? `${label} ${trimKw(kw)} kW` : label))
+    .join(" · ");
+}
+
+export function stationArea(station: EvIndexStation): string {
+  const raw = station.address || "";
+  const parts = raw
+    .split(",")
+    .map((part) => part.replace(/\(.*?\)/g, "").trim())
+    .filter((part) => part && !/^nepal$/i.test(part) && !/plus code/i.test(part));
+  const street = /\b(marg|road|rd|sadak|street|path|lane|tole)\b/i;
+  const local = parts.filter((part, index) => !(index === 0 && street.test(part)));
+  const area = (local.length ? local : parts).slice(-2).join(", ");
+  if (area) return area;
+  return [station.city, station.district].filter(Boolean).join(", ");
+}
+
+export type StationSort = "nearest" | "fastest" | "az";
+
+/** Distance when a location or city is set; otherwise A–Z inside each province. */
+export function defaultStationSort(kind: PlaceKind): StationSort {
+  if (kind === "geolocation" || kind === "city" || kind === "area" || kind === "district") return "nearest";
+  return "az";
+}
+
+export function sortStations(rows: NearbyStation[], sort: StationSort): NearbyStation[] {
+  const next = rows.slice();
+  if (sort === "nearest") {
+    next.sort((a, b) => a.distanceKm - b.distanceKm || a.name.localeCompare(b.name));
+    return next;
+  }
+  if (sort === "fastest") {
+    next.sort((a, b) => (maxKw(b) ?? -1) - (maxKw(a) ?? -1) || a.name.localeCompare(b.name));
+    return next;
+  }
+  next.sort((a, b) => {
+    const province = (a.province || "\uffff").localeCompare(b.province || "\uffff");
+    if (province !== 0) return province;
+    return a.name.localeCompare(b.name);
+  });
+  return next;
 }
