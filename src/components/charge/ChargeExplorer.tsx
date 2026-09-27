@@ -744,23 +744,25 @@ export function ChargeExplorer() {
   );
 
   const chipRow = (
-    <div className="charge-chip-row h-scroll" role="group" aria-label="Charger filters">
+    <div className="charge-chip-row" role="group" aria-label="Charger filters">
       {filterChips}
-      <NetworkChipRow
-        embedded
-        primary={chipRows.primary}
-        moreChips={chipRows.more}
-        showMore={showMore}
-        selected={state.networks}
-        onToggle={toggleNetwork}
-        onClear={() => replace({ networks: [] })}
-        onMore={() => setMoreNetworks((open) => !open)}
-      />
       {filterCount > 0 ? (
         <button type="button" className="text-btn chip-clear" onClick={clearFilters}>
           Clear {filterCount}
         </button>
       ) : null}
+      <div className="charge-chip-scroll h-scroll">
+        <NetworkChipRow
+          embedded
+          primary={chipRows.primary}
+          moreChips={chipRows.more}
+          showMore={showMore}
+          selected={state.networks}
+          onToggle={toggleNetwork}
+          onClear={() => replace({ networks: [] })}
+          onMore={() => setMoreNetworks((open) => !open)}
+        />
+      </div>
     </div>
   );
 

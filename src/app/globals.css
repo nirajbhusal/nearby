@@ -898,6 +898,11 @@ body:has(.charge-stage) {
 .charge-search-top .seg {
   flex: none;
 }
+.charge-search-top .seg button {
+  gap: 4px;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+}
 
 .charge-search form {
   display: flex;
@@ -2012,9 +2017,17 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  overflow-x: auto;
+  overflow: hidden;
   flex: none;
   padding: 8px 0;
+}
+.charge-chip-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-x: auto;
   scrollbar-width: none;
 }
 .charge-panel .charge-chip-row {
