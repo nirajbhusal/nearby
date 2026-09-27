@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { Navigation } from "lucide-react";
 
 type Platform = "ios" | "android" | "desktop";
 
@@ -33,16 +34,31 @@ export function DirectionsLink({
   lat,
   lng,
   name = "Destination",
+  compact = false,
 }: {
   lat: number;
   lng: number;
   name?: string;
   prominent?: boolean;
+  compact?: boolean;
 }) {
   const platform = useSyncExternalStore(subscribe, detectPlatform, () => "desktop" as Platform);
   const href = directionsHref(lat, lng, name, platform);
   const google = googleMapsDir(lat, lng);
   const external = platform === "desktop";
+  if (compact) {
+    return (
+      <a
+        className="icon-btn directions-icon"
+        href={href}
+        aria-label={`Directions to ${name}`}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+      >
+        <Navigation size={18} strokeWidth={1.5} aria-hidden />
+      </a>
+    );
+  }
   return (
     <div className="directions">
       <a

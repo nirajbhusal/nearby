@@ -146,8 +146,8 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
   return (
     <div className="space-y-6 text-left">
       <p className="text-sm text-[var(--ink-muted)]">
-        Near {origin.label}, using today&apos;s date in NPT. A missing price stays blank.
-        {profile.eventInterests.length > 0 ? " Matching interests are listed first." : ""}
+        Near {origin.label}
+        {profile.eventInterests.length > 0 ? ". Matching interests are listed first." : ""}
       </p>
       <div className="space-y-3">
         <ChipRow label="Type">
