@@ -15,6 +15,7 @@ import {
   isApproximate,
   networkLabel,
   networkMonogram,
+  plugMatches,
   sortStations,
   stationsInScope,
   stationsNear,
@@ -62,6 +63,25 @@ const ChargeMap = dynamic(() => import("@/components/charge/ChargeMap"), {
 });
 
 const RECENT_KEY = "nearby-recent-places";
+const VIEW_KEY = "nearby-charge-view";
+
+function subscribeDesktop(onChange: () => void) {
+  const query = window.matchMedia("(min-width: 1024px)");
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+function desktopNow() {
+  return window.matchMedia("(min-width: 1024px)").matches;
+}
+
+function rememberChargeView(view: "map" | "list") {
+  try {
+    localStorage.setItem(VIEW_KEY, view);
+  } catch {
+    /* private mode */
+  }
+}
 const EMPTY_RECENT: string[] = [];
 let recentCache = EMPTY_RECENT;
 let recentRaw = "";
@@ -172,6 +192,7 @@ export function ChargeExplorer() {
   const state = useMemo(() => readChargeState(searchParams), [searchParams]);
   const stateRef = useRef(state);
   const recent = useSyncExternalStore(subscribeRecent, readRecent, () => EMPTY_RECENT);
+  const desktop = useSyncExternalStore(subscribeDesktop, desktopNow, () => false);
 
   const origin: PlaceHit = useMemo(() => {
     const named = state.q ? resolvePlace(state.q) : null;
@@ -258,6 +279,14 @@ export function ChargeExplorer() {
     }
     return counts;
   }, [origin, filters]);
+  const plugCounts = useMemo(() => {
+    const rows = stationsNear(origin, { ...filters, plugs: [] });
+    const counts = new Map<PlugFilter, number>();
+    for (const plug of PLUG_FILTERS) {
+      counts.set(plug.id, rows.filter((station) => plugMatches(station, plug.id)).length);
+    }
+    return counts;
+  }, [origin, filters]);
 
   const scopeLabel = origin.kind === "country" ? "" : origin.label;
   const [draft, setDraft] = useState(scopeLabel);
@@ -288,6 +317,23 @@ export function ChargeExplorer() {
   useEffect(() => {
     stateRef.current = state;
   });
+
+  useEffect(() => {
+    const explicit = new URLSearchParams(window.location.search).get("view");
+    if (explicit === "map" || explicit === "list" || explicit === "cards") {
+      rememberChargeView(explicit === "map" ? "map" : "list");
+      return;
+    }
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(VIEW_KEY);
+    } catch {
+      return;
+    }
+    if (saved === "map") replace({ view: "map" });
+    // Mount-only: a first visit stays on the list, a saved map choice comes back.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function setSnap(next: Snap) {
     setSnapState(next);
@@ -551,7 +597,7 @@ export function ChargeExplorer() {
     setSnap(order[index]);
   }
 
-  const listMode = state.view === "list";
+  const listPage = state.view === "list" && !desktop;
   const count = visible.length;
   const filterCount = activeFilterCount(filters) + (fitsOnly && carReady ? 1 : 0);
   const within = radiusKm == null ? "" : formatDistance(radiusKm, unit);
@@ -596,7 +642,10 @@ export function ChargeExplorer() {
           role="tab"
           aria-selected={state.view === option.id}
           className={state.view === option.id ? "is-on" : undefined}
-          onClick={() => replace({ view: option.id })}
+          onClick={() => {
+            rememberChargeView(option.id);
+            replace({ view: option.id });
+          }}
         >
           {option.icon}
           {option.label}
@@ -609,24 +658,67 @@ export function ChargeExplorer() {
   const showMore =
     moreNetworks || state.networks.some((id) => chipRows.more.some((chip) => chip.id === id));
 
-  function networkRow() {
-    return (
-      <NetworkChipRow
-        primary={chipRows.primary}
-        moreChips={chipRows.more}
-        showMore={showMore}
-        selected={state.networks}
-        onToggle={toggleNetwork}
-        onClear={() => replace({ networks: [] })}
-        onMore={() => setMoreNetworks((open) => !open)}
-      />
-    );
-  }
-
   const filterSheet = filtersOpen ? (
     <div className="filter-sheet">
-      <p className="network-label">Network</p>
-      {networkRow()}
+      <p className="network-label">Place</p>
+      <div className="scope-row h-scroll" role="group" aria-label="Scope">
+        <button
+          type="button"
+          className={origin.kind === "country" ? "chip chip-on" : "chip"}
+          aria-pressed={origin.kind === "country"}
+          onClick={chooseNepal}
+        >
+          All {evIndex.length}
+        </button>
+        {provinceRecords.map((province) => {
+          const on = origin.kind === "province" && origin.province === province.name;
+          return (
+            <button
+              key={province.slug}
+              type="button"
+              className={on ? "chip chip-on" : "chip"}
+              aria-pressed={on}
+              onClick={() => chooseProvince(province.slug)}
+            >
+              {province.name} {province.count}
+            </button>
+          );
+        })}
+        {cityChips.map((city) => {
+          const on = origin.kind === "city" && origin.city === city.name;
+          return (
+            <button
+              key={city.name}
+              type="button"
+              className={on ? "chip chip-on" : "chip"}
+              aria-pressed={on}
+              onClick={() => {
+                const hit = resolvePlace(city.name);
+                if (hit) choosePlace(hit);
+              }}
+            >
+              {city.name} {city.count}
+            </button>
+          );
+        })}
+      </div>
+      <p className="network-label">Connector</p>
+      <div className="scope-row h-scroll" role="group" aria-label="Connector">
+        {PLUG_FILTERS.map((plug) => {
+          const on = state.plugs.includes(plug.id);
+          return (
+            <button
+              key={plug.id}
+              type="button"
+              className={on ? "chip chip-on" : "chip"}
+              aria-pressed={on}
+              onClick={() => togglePlug(plug.id)}
+            >
+              {plug.label} {plugCounts.get(plug.id) ?? 0}
+            </button>
+          );
+        })}
+      </div>
       <button
         type="button"
         className={state.exact ? "chip chip-on" : "chip"}
@@ -641,20 +733,49 @@ export function ChargeExplorer() {
   const filterChips = (
     <FilterChips
       fast={state.fast}
-      plugs={state.plugs}
       filtersOpen={filtersOpen}
-      filtersMarked={filtersOpen || state.exact}
+      filtersMarked={filtersOpen || state.exact || state.plugs.length > 0 || origin.kind === "province" || origin.kind === "city"}
       fits={fitsOnly}
       showFits={carReady}
       onFits={() => setFitsOnly((on) => !on)}
       onFast={() => replace({ fast: !stateRef.current.fast })}
-      onPlug={togglePlug}
       onFilters={() => setFiltersOpen((open) => !open)}
     />
   );
 
+  const chipRow = (
+    <div className="charge-chip-row h-scroll" role="group" aria-label="Charger filters">
+      {filterChips}
+      <NetworkChipRow
+        embedded
+        primary={chipRows.primary}
+        moreChips={chipRows.more}
+        showMore={showMore}
+        selected={state.networks}
+        onToggle={toggleNetwork}
+        onClear={() => replace({ networks: [] })}
+        onMore={() => setMoreNetworks((open) => !open)}
+      />
+      {filterCount > 0 ? (
+        <button type="button" className="text-btn chip-clear" onClick={clearFilters}>
+          Clear {filterCount}
+        </button>
+      ) : null}
+    </div>
+  );
+
+  const countRow = (
+    <div className={listPage ? "sheet-summary-inline list-head" : "sheet-summary list-head"}>
+      <p aria-live="polite">{summary}</p>
+      <div className="list-head-tools">
+        <SortControl value={sort} onChange={setSortPick} />
+      </div>
+    </div>
+  );
+
   const searchPanel = (
       <div className="charge-search" ref={searchRef}>
+        <div className="charge-search-top">
         <form
           role="search"
           onSubmit={(event) => {
@@ -682,7 +803,7 @@ export function ChargeExplorer() {
             }}
             onFocus={() => {
               setSearchOpen(true);
-              if (!listMode && snap !== "full") setSnap("full");
+              if (!listPage && !desktop && snap !== "full") setSnap("full");
             }}
             onKeyDown={(event) => {
               if (event.key === "ArrowDown") {
@@ -696,57 +817,11 @@ export function ChargeExplorer() {
               }
             }}
           />
-          {listMode ? (
-            <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
-              <LocateIcon />
-            </button>
-          ) : (
-            <button type="button" className="peek-cards" onClick={() => replace({ view: "list" })}>
-              <List size={16} strokeWidth={1.75} aria-hidden />
-              List
-            </button>
-          )}
-        </form>
-        <div className="scope-row h-scroll" role="group" aria-label="Scope">
-          <button
-            type="button"
-            className={origin.kind === "country" ? "chip chip-on" : "chip"}
-            aria-pressed={origin.kind === "country"}
-            onClick={chooseNepal}
-          >
-            All {evIndex.length}
+          <button type="button" className="locate-btn" onClick={locate} aria-label="Chargers near me">
+            <LocateIcon />
           </button>
-          {provinceRecords.map((province) => {
-            const on = origin.kind === "province" && origin.province === province.name;
-            return (
-              <button
-                key={province.slug}
-                type="button"
-                className={on ? "chip chip-on" : "chip"}
-                aria-pressed={on}
-                onClick={() => chooseProvince(province.slug)}
-              >
-                {province.name} {province.count}
-              </button>
-            );
-          })}
-          {cityChips.map((city) => {
-            const on = origin.kind === "city" && origin.city === city.name;
-            return (
-              <button
-                key={city.name}
-                type="button"
-                className={on ? "chip chip-on" : "chip"}
-                aria-pressed={on}
-                onClick={() => {
-                  const hit = resolvePlace(city.name);
-                  if (hit) choosePlace(hit);
-                }}
-              >
-                {city.name} {city.count}
-              </button>
-            );
-          })}
+        </form>
+        {viewToggle}
         </div>
         {state.near ? (
           <p className="search-note" role="status">
@@ -802,9 +877,9 @@ export function ChargeExplorer() {
   );
 
   return (
-    <div className={listMode ? "charge-list-page charge-cards-page" : "charge-stage"}>
+    <div className={listPage ? "charge-list-page charge-cards-page" : "charge-stage"}>
       <h1 className="sr-only">EV chargers</h1>
-      {listMode ? null : (
+      {listPage ? null : (
         <ChargeMap
           stations={mapStations}
           origin={origin}
@@ -829,38 +904,26 @@ export function ChargeExplorer() {
         />
       )}
 
-      {listMode ? (
+      {listPage ? (
         <div className="charge-card-board">
-          <div className="cards-toggle">{viewToggle}</div>
           {searchPanel}
-          <div className="filter-row h-scroll" role="group" aria-label="Charger filters">
-            {filterChips}
-          </div>
+          {chipRow}
           {filterSheet}
-          <div className="sheet-summary-inline list-head">
-            <p aria-live="polite">{summary}</p>
-            <div className="list-head-tools">
-              <SortControl value={sort} onChange={setSortPick} />
-              {filterCount > 0 ? (
-                <button type="button" className="text-btn" onClick={clearFilters}>
-                  Clear {filterCount}
-                </button>
-              ) : null}
-            </div>
-          </div>
-          {networkRow()}
+          {countRow}
           {count === 0 ? (
             <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
           ) : (
-            <StationList
-              stations={ordered}
-              showDistance={showDistance}
-              unit={unit}
-              selectedId={selected?.id ?? null}
-              fits={(station) => stationFitsEv(station, profile)}
-              onSelect={selectStation}
-              onHover={setHoveredId}
-            />
+            <div className="charge-results">
+              <StationList
+                stations={ordered}
+                showDistance={showDistance}
+                unit={unit}
+                selectedId={selected?.id ?? null}
+                fits={(station) => stationFitsEv(station, profile)}
+                onSelect={selectStation}
+                onHover={setHoveredId}
+              />
+            </div>
           )}
         </div>
       ) : (
@@ -902,24 +965,9 @@ export function ChargeExplorer() {
         ) : (
           <>
             {searchPanel}
-            <div className="sheet-summary list-head">
-              <p aria-live="polite">{summary}</p>
-              <div className="list-head-tools">
-                <SortControl value={sort} onChange={setSortPick} />
-                {filterCount > 0 ? (
-                  <button type="button" className="text-btn" onClick={clearFilters}>
-                    Clear {filterCount}
-                  </button>
-                ) : origin.kind === "country" ? null : (
-                  <span className="fine">{origin.label}</span>
-                )}
-              </div>
-            </div>
-            {networkRow()}
-            <div className="filter-row h-scroll" role="group" aria-label="Charger filters">
-              {filterChips}
-            </div>
+            {chipRow}
             {filterSheet}
+            {countRow}
             <div className="sheet-body">
               {count === 0 ? (
                 <div className="empty-block">
@@ -964,25 +1012,21 @@ export function ChargeExplorer() {
 
 function FilterChips({
   fast,
-  plugs,
   filtersOpen,
   filtersMarked,
   fits,
   showFits,
   onFits,
   onFast,
-  onPlug,
   onFilters,
 }: {
   fast: boolean;
-  plugs: PlugFilter[];
   filtersOpen: boolean;
   filtersMarked: boolean;
   fits: boolean;
   showFits: boolean;
   onFits: () => void;
   onFast: () => void;
-  onPlug: (id: PlugFilter) => void;
   onFilters: () => void;
 }) {
   return (
@@ -1003,17 +1047,6 @@ function FilterChips({
       <button type="button" className={fast ? "chip chip-on" : "chip"} aria-pressed={fast} onClick={onFast}>
         Fast only
       </button>
-      {PLUG_FILTERS.map((plug) => (
-        <button
-          key={plug.id}
-          type="button"
-          className={plugs.includes(plug.id) ? "chip chip-on" : "chip"}
-          aria-pressed={plugs.includes(plug.id)}
-          onClick={() => onPlug(plug.id)}
-        >
-          {plug.label}
-        </button>
-      ))}
     </>
   );
 }
@@ -1026,6 +1059,7 @@ function NetworkChipRow({
   onToggle,
   onClear,
   onMore,
+  embedded = false,
 }: {
   primary: NetworkChip[];
   moreChips: NetworkChip[];
@@ -1034,10 +1068,11 @@ function NetworkChipRow({
   onToggle: (id: string) => void;
   onClear: () => void;
   onMore: () => void;
+  embedded?: boolean;
 }) {
   const chips = showMore ? [...primary, ...moreChips] : primary;
-  return (
-    <div className="network-quick h-scroll" role="group" aria-label="Network">
+  const buttons = (
+    <>
       <button
         type="button"
         className={selected.length === 0 ? "chip chip-on" : "chip"}
@@ -1062,6 +1097,12 @@ function NetworkChipRow({
       <button type="button" className={showMore ? "chip chip-on" : "chip"} aria-expanded={showMore} onClick={onMore}>
         More
       </button>
+    </>
+  );
+  if (embedded) return buttons;
+  return (
+    <div className="network-quick h-scroll" role="group" aria-label="Network">
+      {buttons}
     </div>
   );
 }

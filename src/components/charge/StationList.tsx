@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronRight, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 import { DirectionsLink } from "@/components/nepal/NavigateLinks";
 import { SwipeHint, SwipeRow } from "@/components/motion/SwipeRow";
 import { FitMark } from "@/components/SaveButton";
@@ -13,47 +13,62 @@ import {
   networkLabel,
   networkMonogram,
   stationArea,
+  stationPlaceName,
   type NearbyStation,
   type StationSort,
 } from "@/lib/nepal/ev";
 import { directionQuery } from "@/lib/nepal/networks";
 
 const OVERSCAN = 8;
-const ROW_PAD = 28;
+const ROW_PAD = 36;
 const TITLE_LINE = 22;
-const META_LINE = 18;
-const PLUG_LINE = 24;
+const META_LINE = 20;
+const PLUG_LINE = 26;
 
-/** Copy column after the monogram, directions button, and chevron. */
+/** Copy column after the 44px monogram and the 44px directions button. */
 function copyWidth(listWidth: number): number {
-  return Math.max(96, listWidth - 16 - 40 - 12 - 84);
+  return Math.max(96, listWidth - 16 - 44 - 12 - 72);
 }
 
-function rowHeight(station: NearbyStation, width: number): number {
+function wrappedLines(text: string, width: number, charPx: number, max: number): number {
+  if (!text) return 1;
+  return Math.min(max, Math.max(1, Math.ceil((text.length * charPx) / width)));
+}
+
+function rowHeight(station: NearbyStation, width: number, unit: DistanceUnit, showDistance: boolean): number {
   const copy = copyWidth(width);
-  const titleLines = Math.min(2, Math.max(1, Math.ceil((station.name.length * 9.1) / copy)));
-  const fast = station.speed === "fast" ? 46 : 0;
+  const title = stationPlaceName(station);
+  const titleLines = wrappedLines(title, copy, 9.1, 2);
+  const meta = [
+    stationArea(station),
+    showDistance ? formatDistance(station.distanceKm, unit) : "",
+    networkLabel(station.network),
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const metaLines = wrappedLines(meta, copy, 8.2, 2);
+  const fast = station.speed === "fast" ? 52 : 0;
   let plugLines = 1;
   if (isApproximate(station)) {
-    plugLines = 148 + fast > copy ? 2 : 1;
+    plugLines = 160 + fast > copy ? 2 : 1;
   } else {
     const parts = connectorLine(station).split(" · ").filter(Boolean);
-    const widths = (parts.length ? parts : ["Connectors not listed"]).map((part) => part.length * 7.2 + 18);
+    const widths = (parts.length ? parts : ["Connectors not listed"]).map((part) => part.length * 7.6 + 20);
     if (fast) widths.push(fast);
     let line = 0;
     let lines = 1;
     for (const item of widths) {
-      if (line > 0 && line + 6 + item > copy) {
+      if (line > 0 && line + 8 + item > copy) {
         lines += 1;
         line = item;
       } else {
-        line = line === 0 ? item : line + 6 + item;
+        line = line === 0 ? item : line + 8 + item;
       }
     }
     plugLines = Math.min(2, lines);
   }
-  const plugs = plugLines * PLUG_LINE + (plugLines - 1) * 6;
-  return Math.max(76, ROW_PAD + titleLines * TITLE_LINE + 4 + META_LINE + plugs);
+  const plugs = plugLines * PLUG_LINE + (plugLines - 1) * 8;
+  return Math.max(96, ROW_PAD + titleLines * TITLE_LINE + 4 + metaLines * META_LINE + 8 + plugs);
 }
 
 export function SortControl({
@@ -106,7 +121,7 @@ export function StationList({
   const [listWidth, setListWidth] = useState(360);
   const [range, setRange] = useState({ start: 0, end: 24 });
   const layout = useRef({ offsets: [] as number[], heights: [] as number[], total: 0 });
-  const nextHeights = stations.map((station) => rowHeight(station, listWidth));
+  const nextHeights = stations.map((station) => rowHeight(station, listWidth, unit, showDistance));
   const nextOffsets = new Array<number>(stations.length);
   let total = 0;
   for (let index = 0; index < stations.length; index += 1) {
@@ -139,7 +154,7 @@ export function StationList({
       scroller.removeEventListener("scroll", update);
       observer.disconnect();
     };
-  }, [stations.length, listWidth]);
+  }, [stations.length, listWidth, showDistance, unit]);
 
   return (
     <>
@@ -247,7 +262,7 @@ function StationRow({
             </span>
             <span className="station-copy">
               <span className="station-name">
-                {station.name}
+                {stationPlaceName(station)}
                 {fits ? <FitMark /> : null}
               </span>
               <span className="station-meta">{meta.join(" · ")}</span>
@@ -271,7 +286,6 @@ function StationRow({
                 {station.speed === "fast" ? <span className="fast-tag">Fast</span> : null}
               </span>
             </span>
-            <ChevronRight className="station-chevron" size={18} strokeWidth={1.75} aria-hidden="true" />
           </button>
           <DirectionsLink
             lat={station.lat}
