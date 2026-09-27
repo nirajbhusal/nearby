@@ -132,6 +132,18 @@ export function ktmDay(date: Date): string {
   }).format(date);
 }
 
+/** Today / this week from the Asia/Kathmandu civil date, not the device calendar. */
+export function nptDateBucket(startIso: string | null, now: Date): "today" | "week" | "later" {
+  if (!startIso) return "later";
+  const day = ktmDay(new Date(startIso));
+  const today = ktmDay(now);
+  if (day === today) return "today";
+  const [year, month, date] = today.split("-").map(Number);
+  const weekEnd = new Date(Date.UTC(year, month - 1, date + 7)).toISOString().slice(0, 10);
+  if (day > today && day <= weekEnd) return "week";
+  return "later";
+}
+
 export function formatWhen(startIso: string, endIso: string | null): string {
   const start = new Date(startIso);
   const day: Intl.DateTimeFormatOptions = {

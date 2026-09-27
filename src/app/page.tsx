@@ -1,5 +1,6 @@
 import { AskNearby, PromptCard } from "@/components/home/AskNearby";
 import { DayGreeting } from "@/components/home/DayGreeting";
+import { NepalClock } from "@/components/home/NepalClock";
 import { toHref } from "@/components/SiteLink";
 import { formatWhen } from "@/lib/nepal/format";
 import { stationsInScope } from "@/lib/nepal/ev";
@@ -27,6 +28,7 @@ export default function HomePage() {
     <main className="home">
       <section className="start-screen">
         <div className="reveal-greet">
+          <NepalClock />
           <DayGreeting />
         </div>
         <h1 className="font-display hero-title">Everything near you, in one place.</h1>

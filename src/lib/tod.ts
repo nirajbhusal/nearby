@@ -149,6 +149,18 @@ export function readGreeting(): string {
   return document.documentElement.dataset.greeting || greetingFor(currentPeriod());
 }
 
+/** Keep the greeting on the same Kathmandu clock as the home date line. */
+export function syncNepalGreeting(date = new Date()) {
+  if (typeof document === "undefined") return;
+  const period = currentPeriod(date);
+  const greeting = greetingFor(period);
+  const root = document.documentElement;
+  if (root.dataset.greeting === greeting && root.dataset.tod === period) return;
+  root.dataset.greeting = greeting;
+  root.dataset.tod = period;
+  window.dispatchEvent(new Event(TOD_EVENT));
+}
+
 export const TOD_EVENT = "nearby-tod";
 
 /** Runs in <head> before first paint. Keep in sync with paintTheme / syncBrowserChrome. */

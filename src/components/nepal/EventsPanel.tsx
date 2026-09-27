@@ -13,7 +13,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { eventHref } from "@/lib/item-link";
 import { eventInterestMatch, preferMatches } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
-import { eventTypeLabel, formatWhen, ktmDay } from "@/lib/nepal/format";
+import { eventTypeLabel, formatWhen, nptDateBucket } from "@/lib/nepal/format";
 import {
   EVENT_TYPE_FILTERS,
   eventsNear,
@@ -31,21 +31,6 @@ function subscribeClock() {
 function readClientNow() {
   clientNow ??= Date.now();
   return clientNow;
-}
-
-function addDays(iso: string, days: number): string {
-  const [year, month, day] = iso.split("-").map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day + days));
-  return date.toISOString().slice(0, 10);
-}
-
-function dateBucket(start: string | null, now: Date): "today" | "week" | "later" {
-  if (!start) return "later";
-  const day = ktmDay(new Date(start));
-  const today = ktmDay(now);
-  if (day === today) return "today";
-  if (day > today && day <= addDays(today, 7)) return "week";
-  return "later";
 }
 
 function DateTile({ iso }: { iso: string | null }) {
@@ -144,9 +129,9 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
       preferMatches(rows, profile.eventInterests, (row) => eventInterestMatch(row.event.topics, profile.eventInterests));
     const upcoming = rank(base.upcoming);
     const clock = now ?? new Date();
-    const today = upcoming.filter((row) => dateBucket(row.event.start_date, clock) === "today");
-    const week = upcoming.filter((row) => dateBucket(row.event.start_date, clock) === "week");
-    const later = upcoming.filter((row) => dateBucket(row.event.start_date, clock) === "later");
+    const today = upcoming.filter((row) => nptDateBucket(row.event.start_date, clock) === "today");
+    const week = upcoming.filter((row) => nptDateBucket(row.event.start_date, clock) === "week");
+    const later = upcoming.filter((row) => nptDateBucket(row.event.start_date, clock) === "later");
     return {
       ...base,
       today: weekOnly ? [] : today,
