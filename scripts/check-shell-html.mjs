@@ -30,9 +30,18 @@ function activeLabels(html) {
 
 for (const [file, title, tab] of cases) {
   const html = fs.readFileSync(file, "utf8");
+  const head = html.slice(0, html.indexOf("</head>"));
+  assert.ok(head.includes("nearby-theme-choice"), `${file} theme boot is not in head`);
+  assert.ok(head.includes('name="color-scheme"'), `${file} missing color-scheme`);
+  assert.ok(head.includes('name="theme-color"'), `${file} missing theme-color`);
   const found = html.match(/class="mobile-title"[^>]*>([^<]*)</);
   assert.ok(found, `${file} missing mobile title`);
   assert.equal(found[1], title, `${file} title`);
+  const topStart = html.indexOf('class="mobile-top');
+  const top = html.slice(topStart, html.indexOf("</header>", topStart));
+  assert.ok(top.includes("mobile-actions"), `${file} missing header actions`);
+  assert.ok(top.includes('aria-label="Theme,'), `${file} missing theme button`);
+  assert.ok(top.includes('aria-label="Profile"'), `${file} profile is not in the header actions`);
   const labels = activeLabels(html);
   assert.deepEqual(labels, [tab], `${file} active tabs ${labels.join(",")}`);
   if (tab !== "Charge") assert.equal(html.includes('href="/nearby/charge/" aria-current="page"'), false, `${file} charge tab`);

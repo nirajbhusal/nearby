@@ -262,12 +262,11 @@ export function formatDistance(km: number, unit: DistanceUnit): string {
 }
 
 export function readThemeChoice(): ThemeChoice {
-  if (typeof window === "undefined") return "auto";
+  if (typeof window === "undefined") return "system";
   try {
     const choice = localStorage.getItem(THEME_CHOICE_KEY);
-    if (choice === "auto" || choice === "light" || choice === "dark" || choice === "system") return choice;
-    const legacy = localStorage.getItem(THEME_KEY);
-    if (legacy === "light" || legacy === "dark") return legacy;
+    if (choice === "light" || choice === "dark") return choice;
+    if (choice === "auto" || choice === "system") return "system";
   } catch {
     /* private mode */
   }

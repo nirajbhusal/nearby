@@ -19,7 +19,7 @@ import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
 import { toHref } from "@/components/SiteLink";
-import { ThemeChoiceControl, ThemeSync } from "@/components/ThemeToggle";
+import { ThemeChoiceControl, ThemeMenuButton, ThemeSync } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 import { isChargeRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
@@ -127,14 +127,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
         <div className="shell-main">
+          <div className="desk-theme">
+            <ThemeMenuButton />
+          </div>
           <header className={path === "/" ? "mobile-top is-home" : "mobile-top"} data-route={path}>
             <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
               {path === "/" ? <Wordmark /> : <LogoMark className="logo-mark" />}
             </a>
             {path === "/" ? <span className="mobile-title" /> : <p className="mobile-title">{pageTitle(path)}</p>}
-            <a className="icon-btn" href={toHref("/profile")} aria-label="Profile">
-              {initial ? <AvatarFace className="tab-avatar" /> : <User size={20} strokeWidth={1.5} aria-hidden />}
-            </a>
+            <div className="mobile-actions">
+              <ThemeMenuButton />
+              <a className="icon-btn" href={toHref("/profile")} aria-label="Profile">
+                {initial ? <AvatarFace className="tab-avatar" /> : <User size={20} strokeWidth={1.5} aria-hidden />}
+              </a>
+            </div>
           </header>
           {offline ? (
             <p className="offline-note" role="status">
