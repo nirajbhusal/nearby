@@ -6,6 +6,7 @@ import {
   evIndex,
   networkMonogram,
   sortStations,
+  stationPlaceName,
   type NearbyStation,
 } from "../src/lib/nepal/ev";
 
@@ -49,8 +50,18 @@ assert.deepEqual(
 
 const legacy = readChargeState({ get: (name) => (name === "view" ? "cards" : null) });
 assert.equal(legacy.view, "list");
-assert.equal(writeChargeSearch({ ...legacy, view: "list" }), "?view=list");
-assert.equal(writeChargeSearch({ ...legacy, view: "map" }), "");
+assert.equal(readChargeState({ get: () => null }).view, "list");
+assert.equal(readChargeState({ get: (name) => (name === "view" ? "map" : null) }).view, "map");
+assert.equal(writeChargeSearch({ ...legacy, view: "list" }), "");
+assert.equal(writeChargeSearch({ ...legacy, view: "map" }), "?view=map");
+assert.equal(
+  stationPlaceName({ name: "GadiCharge - Bluebird Complex, Thapathali", network: "GadiCharge", network_id: "gadicharge" }),
+  "Bluebird Complex, Thapathali",
+);
+assert.equal(
+  stationPlaceName({ name: "GadiCharge-Citizen Bank, Durbarmarg", network: "GadiCharge", network_id: "gadicharge" }),
+  "Citizen Bank, Durbarmarg",
+);
 
 console.log("charge list checks passed");
 

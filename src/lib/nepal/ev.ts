@@ -1,6 +1,6 @@
 import { haversineKm } from "@/lib/geo";
 import { defaultRadiusKm } from "@/lib/nepal/places";
-import { isApproximatePlace, networkMonogram } from "@/lib/nepal/networks";
+import { isApproximatePlace, networkById, networkMonogram } from "@/lib/nepal/networks";
 import type { EvIndexStation, PlaceHit, PlaceKind } from "@/lib/nepal/types";
 import indexJson from "@/data/nepal/ev-index.json";
 
@@ -174,6 +174,26 @@ export function activeFilterCount(filters: EvFilters): number {
 
 export function networkLabel(network: string | null): string {
   return network || "Unbranded";
+}
+
+/** Drop a leading "GadiCharge - " when the monogram and meta already name the network. */
+export function stationPlaceName(station: {
+  name: string;
+  network: string | null;
+  network_id?: string | null;
+}): string {
+  const name = station.name.trim();
+  const record = networkById(station.network_id);
+  const labels = [station.network, record?.name, record?.short, ...(record?.aliases ?? [])].filter(
+    (label): label is string => Boolean(label && label.trim()),
+  );
+  const unique = [...new Set(labels.map((label) => label.trim()))].sort((a, b) => b.length - a.length);
+  for (const label of unique) {
+    const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const stripped = name.replace(new RegExp(`^${escaped}\\s*[-–—:]\\s*`, "i"), "").trim();
+    if (stripped && stripped !== name) return stripped;
+  }
+  return name;
 }
 
 function trimKw(kw: number): string {

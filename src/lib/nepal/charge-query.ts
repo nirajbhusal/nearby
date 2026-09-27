@@ -66,7 +66,7 @@ export function readChargeState(sp: SearchReader): ChargeState {
     radius,
     radiusSet,
     near: sp.get("near") === "1",
-    view: sp.get("view") === "list" || sp.get("view") === "cards" ? "list" : "map",
+    view: sp.get("view") === "map" ? "map" : "list",
     province: (sp.get("province") || "").trim().toLowerCase() || null,
     sheet: readSheet(sp.get("sheet")),
   };
@@ -88,7 +88,7 @@ export function writeChargeSearch(state: ChargeState): string {
   if (state.exact) sp.set("exact", "1");
   if (state.radiusSet) sp.set("r", state.radius == null ? "all" : String(state.radius));
   if (state.near) sp.set("near", "1");
-  if (state.view === "list") sp.set("view", "list");
+  if (state.view === "map") sp.set("view", "map");
   if (state.province && !state.q && state.lat == null) sp.set("province", state.province);
   if (state.sheet) sp.set("sheet", state.sheet);
   const query = sp
