@@ -915,10 +915,12 @@ export function ChargeExplorer() {
 
       {listPage ? (
         <div className="charge-card-board">
-          {searchPanel}
-          {chipRow}
-          {filterSheet}
-          {countRow}
+          <div className="charge-list-sticky">
+            {searchPanel}
+            {chipRow}
+            {filterSheet}
+            {countRow}
+          </div>
           {count === 0 ? (
             <p className="empty-inline">{emptyCopy(filters, radiusKm, fitsOnly && carReady)}</p>
           ) : (

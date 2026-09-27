@@ -132,26 +132,38 @@ export function StationList({
 
   useEffect(() => {
     const host = hostRef.current;
-    const scroller = host?.closest(".sheet-body, .charge-list-page") as HTMLElement | null;
-    if (!host || !scroller) return;
+    if (!host) return;
+    const scroller = host.closest(".sheet-body") as HTMLElement | null;
     const update = () => {
       const width = host.clientWidth || 360;
       setListWidth((prev) => (prev === width ? prev : width));
       const { offsets: tops, heights: rows } = layout.current;
-      const hostTop =
-        host.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
-      const viewTop = scroller.scrollTop - hostTop;
-      const start = Math.max(0, indexAt(tops, rows, viewTop - 76 * OVERSCAN));
-      const end = Math.min(stations.length, indexAt(tops, rows, viewTop + scroller.clientHeight + 76 * OVERSCAN) + 1);
+      const view = scroller
+        ? {
+            top: scroller.scrollTop - (host.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop),
+            height: scroller.clientHeight,
+          }
+        : {
+            top: window.scrollY - (host.getBoundingClientRect().top + window.scrollY),
+            height: window.innerHeight,
+          };
+      const start = Math.max(0, indexAt(tops, rows, view.top - 76 * OVERSCAN));
+      const end = Math.min(stations.length, indexAt(tops, rows, view.top + view.height + 76 * OVERSCAN) + 1);
       setRange((prev) => (prev.start === start && prev.end === end ? prev : { start, end }));
     };
     update();
-    scroller.addEventListener("scroll", update, { passive: true });
+    const target: HTMLElement | Window = scroller ?? window;
+    target.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    const viewport = window.visualViewport;
+    viewport?.addEventListener("resize", update);
     const observer = new ResizeObserver(update);
-    observer.observe(scroller);
+    if (scroller) observer.observe(scroller);
     observer.observe(host);
     return () => {
-      scroller.removeEventListener("scroll", update);
+      target.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      viewport?.removeEventListener("resize", update);
       observer.disconnect();
     };
   }, [stations.length, listWidth, showDistance, unit]);
