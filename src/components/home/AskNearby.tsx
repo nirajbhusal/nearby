@@ -8,7 +8,7 @@ import { evIndex } from "@/lib/nepal/ev";
 import { nepalEvents } from "@/lib/nepal/events";
 import { nepalCompanies } from "@/lib/nepal/jobs";
 import { learnPlaces } from "@/lib/nepal/learn";
-import { nomadCities } from "@/lib/nepal/nomad";
+import { NOMAD_INDEX } from "@/lib/nepal/nomad-shared";
 
 type Group = "Chargers" | "Jobs" | "Events" | "Learn" | "Nomad";
 
@@ -104,7 +104,7 @@ function searchAll(query: string, place: string): Hit[] {
   }
 
   if (nomad || broad) {
-    for (const cityGuide of nomadCities) {
+    for (const cityGuide of NOMAD_INDEX) {
       const blob = `${cityGuide.name} ${cityGuide.shortName} ${cityGuide.headline}`.toLowerCase();
       if (!inCity(blob) || (!textHit(blob) && !nomad)) continue;
       if (nomad && words.length > 0 && !textHit(blob)) continue;
@@ -203,7 +203,7 @@ export function PromptCard({
 }: {
   href: string;
   title: string;
-  scene: "charge" | "jobs" | "events" | "learn" | "nomad" | "pokhara";
+  scene: "charge" | "jobs" | "events" | "learn" | "nomad" | "pokhara" | "kathmandu";
 }) {
   return (
     <a className="prompt-card" href={toHref(href)}>

@@ -34,6 +34,7 @@ export default function HomePage() {
           <PromptCard href="/events?q=Kathmandu&when=week" title="Events this week" scene="events" />
           <PromptCard href="/nomad/pokhara" title="Coworking in Pokhara" scene="pokhara" />
           <PromptCard href="/learn?q=Kathmandu" title="Learn AI nearby" scene="learn" />
+          <PromptCard href="/nomad/kathmandu" title="Stays in Kathmandu" scene="kathmandu" />
         </div>
       </section>
 

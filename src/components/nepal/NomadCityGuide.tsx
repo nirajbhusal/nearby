@@ -16,7 +16,7 @@ import {
   type NomadNote,
   type NomadStay,
   type NomadWorkPlace,
-} from "@/lib/nepal/nomad";
+} from "@/lib/nepal/nomad-shared";
 
 type Layer = "stay" | "cowork" | "cafe";
 
@@ -67,10 +67,8 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
             Pokhara
           </Link>
         </div>
-        <div className="city-hero-body">
-          <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="city-art" />
+        <div className="city-banner">
           <div className="section-hero-copy">
-            <p className="eyebrow">Nomad</p>
             <h1 className="font-display page-title">{city.shortName}</h1>
             {city.headline ? <p className="lede">{city.headline}</p> : null}
             <div className="seg city-view" role="group" aria-label="Guide view">
@@ -82,6 +80,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
               </button>
             </div>
           </div>
+          <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="city-art" />
         </div>
       </header>
 
@@ -117,37 +116,39 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
               const on = area.name === areaName;
               return (
                 <article key={area.name} className={on ? "area-card nomad-tile is-on" : "area-card nomad-tile"}>
-                  <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="tile-art" />
-                  <h3>{area.name}</h3>
-                  <p className="card-sub">{area.tags[0] || city.shortName}</p>
-                  {area.blurb ? <p>{brief(area.blurb)}</p> : null}
-                  {area.tags.length > 0 ? (
-                    <ul className="connector-chips">
-                      {area.tags.map((tag) => (
-                        <li key={tag}>{tag}</li>
-                      ))}
-                    </ul>
-                  ) : null}
-                  <div className="tile-actions">
-                    {area.lat != null && area.lng != null ? <DirectionsLink lat={area.lat} lng={area.lng} name={area.name} /> : null}
-                    <button type="button" className="btn-secondary" aria-pressed={on} onClick={() => chooseArea(area.name)}>
-                      {on ? "Showing this area" : "Show stays here"}
-                    </button>
-                  </div>
-                  {area.sources.length > 0 ? (
-                    <details className="source-disclosure">
-                      <summary>Sources</summary>
-                      <ul>
-                        {area.sources.map((url) => (
-                          <li key={url}>
-                            <a href={url} target="_blank" rel="noopener noreferrer">
-                              {sourceLabel(url)}
-                            </a>
-                          </li>
+                  <div className="tile-body">
+                    <h3>{area.name}</h3>
+                    {area.blurb ? <p className="tile-blurb">{brief(area.blurb)}</p> : null}
+                    {area.tags.length > 0 ? (
+                      <ul className="connector-chips">
+                        {area.tags.map((tag) => (
+                          <li key={tag}>{tag}</li>
                         ))}
                       </ul>
-                    </details>
-                  ) : null}
+                    ) : null}
+                  </div>
+                  <div className="tile-actions">
+                    {area.lat != null && area.lng != null ? (
+                      <DirectionsLink compact lat={area.lat} lng={area.lng} name={area.name} />
+                    ) : null}
+                    <button type="button" className={on ? "text-btn is-on" : "text-btn"} aria-pressed={on} onClick={() => chooseArea(area.name)}>
+                      {on ? "Showing stays" : "Show stays"}
+                    </button>
+                    {area.sources.length > 0 ? (
+                      <details className="source-disclosure">
+                        <summary>Sources</summary>
+                        <ul>
+                          {area.sources.map((url) => (
+                            <li key={url}>
+                              <a href={url} target="_blank" rel="noopener noreferrer">
+                                {sourceLabel(url)}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    ) : null}
+                  </div>
                 </article>
               );
             })}
@@ -168,12 +169,12 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
       <section className="nomad-section">
         <h2>Coworking</h2>
         <p className="section-lead">{areaName ? `In ${areaName}.` : `${coworking.length} verified spaces.`}</p>
-        <PlaceCarousel places={coworking} city={city} saveKind="cowork" scene="jobs" />
+        <PlaceCarousel places={coworking} city={city} saveKind="cowork" />
       </section>
       <section className="nomad-section">
         <h2>Cafés</h2>
         <p className="section-lead">{areaName ? `In ${areaName}.` : `${cafes.length} places to work from.`}</p>
-        <PlaceCarousel places={cafes} city={city} scene="cafe" />
+        <PlaceCarousel places={cafes} city={city} />
       </section>
 
       <section className={showMap ? "nomad-section nomad-map-open" : "nomad-section"} id="nomad-map">
@@ -242,14 +243,27 @@ function monogram(name: string): string {
   return letters.join("").slice(0, 2) || "•";
 }
 
-function statCells(city: NomadCity): { label: string; value: string; source: string | null }[] {
+function statCells(city: NomadCity): { label: string; value: string; source: ReactNode }[] {
   const cost = city.reference.find((stat) => /cost/i.test(stat.label));
   const internet = city.reference.find((stat) => /internet/i.test(stat.label));
-  const cells: { label: string; value: string; source: string | null }[] = [];
-  if (cost) cells.push({ label: "Cost per month", value: cost.value, source: cost.note });
-  if (internet) cells.push({ label: "Internet", value: internet.value, source: internet.note });
-  if (city.visa[0]) cells.push({ label: "Visa", value: city.visa[0].title, source: brief(city.visa[0].body) });
-  if (city.season[0]) cells.push({ label: "Best season", value: brief(city.season[0].body), source: city.season[0].title });
+  const cells: { label: string; value: string; source: ReactNode }[] = [];
+  if (cost && city.costLabel) {
+    const sourceLine = `Nomads.com · ${city.asOfLabel}`;
+    cells.push({
+      label: "Cost per month",
+      value: city.costLabel,
+      source: city.sourceUrl ? (
+        <a href={city.sourceUrl} target="_blank" rel="noopener noreferrer">
+          {sourceLine}
+        </a>
+      ) : (
+        sourceLine
+      ),
+    });
+  }
+  if (internet) cells.push({ label: "Internet", value: internet.value, source: city.internetQuality });
+  if (city.visa[0]) cells.push({ label: "Visa", value: city.visa[0].title, source: null });
+  if (city.seasonLabel) cells.push({ label: "Best season", value: city.seasonLabel, source: null });
   return cells;
 }
 
@@ -305,23 +319,31 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
   const chips = place.features.slice(0, 3);
   return (
     <article className="stay-card nomad-tile">
-      <span className="monogram" aria-hidden>{monogram(place.name)}</span>
-      <h3>{place.name}</h3>
-      <p className="card-sub">{place.area || cityName}</p>
-      <p className="tile-fact">{place.priceShort || stayTypeLabel(place.type)}</p>
-      <div className="meta-row">
-        {place.priceShort ? <span className="meta-chip tabular">{place.priceShort}</span> : null}
-        {chips.map((feature) => (
-          <span key={feature} className="meta-chip">
-            {feature}
+      <div className="tile-body">
+        <div className="tile-title">
+          <span className="monogram" aria-hidden>
+            {monogram(place.name)}
           </span>
-        ))}
+          <div>
+            <h3>{place.name}</h3>
+            <p className="card-sub">{place.area || cityName}</p>
+          </div>
+        </div>
+        <p className="tile-fact">{place.priceShort || stayTypeLabel(place.type)}</p>
+        {chips.length > 0 ? (
+          <div className="meta-row">
+            {chips.map((feature) => (
+              <span key={feature} className="meta-chip">
+                {feature}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </div>
-      {place.workLine ? <p className="card-sub">{place.workLine}</p> : null}
-      <div className="card-footer">
-        {place.lat != null && place.lng != null ? <DirectionsLink lat={place.lat} lng={place.lng} name={place.name} /> : null}
+      <div className="tile-actions">
+        {place.lat != null && place.lng != null ? <DirectionsLink compact lat={place.lat} lng={place.lng} name={place.name} /> : null}
         {place.website ? (
-          <a className="btn-secondary card-action" href={place.website} target="_blank" rel="noopener noreferrer">
+          <a className="text-btn" href={place.website} target="_blank" rel="noopener noreferrer">
             Open
           </a>
         ) : null}
@@ -334,9 +356,8 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
             href: `/nomad/${citySlug}`,
           }}
         />
-      </div>
-      <details className="stay-more">
-        <summary>Details</summary>
+        <details className="stay-more">
+          <summary>Details</summary>
         {place.address ? <p>{place.address}</p> : null}
         {place.price && place.price !== place.priceShort ? <p>{place.price}</p> : null}
         {place.features.length > 3 ? (
@@ -376,7 +397,8 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
             ))}
           </p>
         ) : null}
-      </details>
+        </details>
+      </div>
     </article>
   );
 }
@@ -384,12 +406,10 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
 function PlaceCarousel({
   places,
   city,
-  scene,
   saveKind,
 }: {
   places: NomadWorkPlace[];
   city: NomadCity;
-  scene: "jobs" | "cafe";
   saveKind?: "cowork";
 }) {
   const ordered = [...places].sort((a, b) => a.name.localeCompare(b.name));
@@ -398,15 +418,26 @@ function PlaceCarousel({
     <div className="nomad-carousel">
       {ordered.map((place) => (
         <article key={place.id} className="nomad-tile">
-          <SceneArt scene={scene} className="tile-art" />
-          <span className="monogram" aria-hidden>
-            {monogram(place.name)}
-          </span>
-          <h3>{place.name}</h3>
-          <p className="card-sub">{place.area || city.shortName}</p>
-          {place.note ? <p className="tile-fact">{brief(place.note)}</p> : null}
+          <div className="tile-body">
+            <div className="tile-title">
+              <span className="monogram" aria-hidden>
+                {monogram(place.name)}
+              </span>
+              <div>
+                <h3>{place.name}</h3>
+                <p className="card-sub">{place.area || city.shortName}</p>
+              </div>
+            </div>
+          </div>
           <div className="tile-actions">
-            {place.lat != null && place.lng != null ? <DirectionsLink lat={place.lat} lng={place.lng} name={place.name} /> : null}
+            {place.lat != null && place.lng != null ? (
+              <DirectionsLink compact lat={place.lat} lng={place.lng} name={place.name} />
+            ) : null}
+            {place.url ? (
+              <a className="text-btn" href={place.url} target="_blank" rel="noopener noreferrer">
+                Open
+              </a>
+            ) : null}
             {saveKind ? (
               <SaveButton
                 item={{

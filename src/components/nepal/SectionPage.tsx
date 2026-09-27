@@ -51,17 +51,14 @@ function subscribe(onStoreChange: () => void) {
 
 const COPY = {
   jobs: {
-    kicker: "Jobs",
     title: "Tech work nearby",
     intro: "Tech roles around a city.",
   },
   learn: {
-    kicker: "Learn",
     title: "Places to learn AI",
     intro: "Campuses, bootcamps, and communities. Online programs stay in the list even when you search a city.",
   },
   events: {
-    kicker: "Events",
     title: "What’s on nearby",
     intro: "Upcoming meetups and conferences, series that happen regularly, and a collapsed list of recent ones.",
   },
@@ -122,13 +119,12 @@ export function SectionPage({ section }: { section: "jobs" | "learn" | "events" 
   return (
     <main className="page-wrap">
       <header className="page-hero section-hero">
-        <div className="section-hero-top">
-          <SceneArt scene={section === "jobs" ? "jobs" : section === "learn" ? "learn" : "events"} className="page-art" />
+        <div className="section-banner">
           <div className="section-hero-copy">
-            <p className="eyebrow">{copy.kicker}</p>
             <h1 className="font-display page-title">{copy.title}</h1>
             <p className="lede">{copy.intro}</p>
           </div>
+          <SceneArt scene={section === "jobs" ? "jobs" : section === "learn" ? "learn" : "events"} className="page-art" />
         </div>
         {section === "events" ? (
           <p className="fine">
