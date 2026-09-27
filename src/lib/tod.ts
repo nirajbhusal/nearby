@@ -68,22 +68,16 @@ type Paint = {
   greeting: string;
 };
 
-function computePaint(choice: ThemeChoice, ignoreQuery: boolean): Paint {
-  const query = ignoreQuery ? null : readTodQuery();
-  const period = query ?? currentPeriod();
+function computePaint(choice: ThemeChoice, _ignoreQuery: boolean): Paint {
+  const period = currentPeriod();
   const greeting = greetingFor(period);
-  if (query) {
-    return { period, theme: themeForPeriod(period), atmosphere: period, greeting };
-  }
-  if (choice === "light" || choice === "dark") {
-    return { period, theme: choice, atmosphere: "plain", greeting };
-  }
-  if (choice === "system") {
-    const light =
-      typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: light)").matches;
-    return { period, theme: light ? "light" : "dark", atmosphere: "plain", greeting };
-  }
-  return { period, theme: themeForPeriod(period), atmosphere: period, greeting };
+  const theme =
+    choice === "light" || choice === "dark"
+      ? choice
+      : typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: light)").matches
+        ? "light"
+        : "dark";
+  return { period, theme, atmosphere: "plain", greeting };
 }
 
 /** Apply the theme and time-of-day atmosphere. Returns true when the look changed. */
@@ -99,12 +93,12 @@ export function paintTheme(choice: ThemeChoice, opts?: { ignoreQuery?: boolean; 
   const apply = () => {
     root.dataset.theme = next.theme;
     root.dataset.themeChoice = choice;
-    root.dataset.atmosphere = next.atmosphere;
+    root.dataset.atmosphere = "plain";
     root.dataset.tod = next.period;
     root.dataset.greeting = next.greeting;
-    if (opts?.ignoreQuery) root.dataset.todLock = "";
+    root.dataset.todLock = "";
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", next.theme === "light" ? "#F5F5F7" : "#000000");
+    if (meta) meta.setAttribute("content", next.theme === "light" ? "#ffffff" : "#0a0a0a");
     try {
       localStorage.setItem(THEME_KEY, next.theme);
     } catch {
@@ -135,4 +129,4 @@ export function readGreeting(): string {
 export const TOD_EVENT = "nearby-tod";
 
 /** Runs in <head> before first paint. Keep in sync with paintTheme. */
-export const themeBoot = `(function(){function hour(){try{var parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kathmandu",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date());for(var i=0;i<parts.length;i++){if(parts[i].type==="hour")return parseInt(parts[i].value,10)}}catch(e){}return new Date().getHours()}function period(h){if(h>=5&&h<11)return"morning";if(h>=11&&h<16)return"afternoon";if(h>=16&&h<19)return"evening";return"night"}function greet(p){return p==="morning"?"Good morning":p==="afternoon"?"Good afternoon":p==="evening"?"Good evening":"Good night"}function light(p){return p==="morning"||p==="afternoon"}try{var q=new URLSearchParams(location.search).get("tod");var forced=q==="morning"||q==="afternoon"||q==="evening"||q==="night";var p=forced?q:period(hour());var choice="auto";try{var stored=localStorage.getItem("nearby-theme-choice");var legacy=localStorage.getItem("nearby-theme");if(stored==="auto"||stored==="system"||stored==="light"||stored==="dark")choice=stored;else if(legacy==="light"||legacy==="dark")choice=legacy}catch(e){}var theme="dark";var atmosphere="plain";if(forced){theme=light(p)?"light":"dark";atmosphere=p}else if(choice==="light"||choice==="dark"){theme=choice}else if(choice==="system"){theme=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}else{theme=light(p)?"light":"dark";atmosphere=p}var root=document.documentElement;root.dataset.theme=theme;root.dataset.themeChoice=choice;root.dataset.tod=p;root.dataset.atmosphere=atmosphere;root.dataset.greeting=greet(p);root.dataset.todLock=forced?"1":"";var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute("content",theme==="light"?"#F5F5F7":"#000000");var paint=function(){var el=document.getElementById("nearby-greet");if(!el||el.getAttribute("data-filled")==="1")return;var name="";try{var raw=localStorage.getItem("nearby-profile");var profile=raw?JSON.parse(raw):null;if(profile&&typeof profile.name==="string")name=profile.name.trim()}catch(e){}el.textContent=name?root.dataset.greeting+", "+name:root.dataset.greeting;el.setAttribute("data-filled","1")};if(document.getElementById("nearby-greet"))paint();else{var obs=new MutationObserver(function(){if(document.getElementById("nearby-greet")){paint();obs.disconnect()}});obs.observe(document.documentElement,{childList:true,subtree:true})}}catch(e){document.documentElement.dataset.theme="dark";document.documentElement.dataset.atmosphere="night";document.documentElement.dataset.tod="night";document.documentElement.dataset.greeting="Good night"}})();`;
+export const themeBoot = `(function(){function hour(){try{var parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kathmandu",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date());for(var i=0;i<parts.length;i++){if(parts[i].type==="hour")return parseInt(parts[i].value,10)}}catch(e){}return new Date().getHours()}function period(h){if(h>=5&&h<11)return"morning";if(h>=11&&h<16)return"afternoon";if(h>=16&&h<19)return"evening";return"night"}function greet(p){return p==="morning"?"Good morning":p==="afternoon"?"Good afternoon":p==="evening"?"Good evening":"Good night"}try{var p=period(hour());var choice="system";try{var stored=localStorage.getItem("nearby-theme-choice");var legacy=localStorage.getItem("nearby-theme");if(stored==="light"||stored==="dark"||stored==="system"||stored==="auto")choice=stored==="auto"?"system":stored;else if(legacy==="light"||legacy==="dark")choice=legacy}catch(e){}var theme=choice==="light"||choice==="dark"?choice:(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");var root=document.documentElement;root.dataset.theme=theme;root.dataset.themeChoice=choice;root.dataset.tod=p;root.dataset.atmosphere="plain";root.dataset.greeting=greet(p);root.dataset.todLock="";var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute("content",theme==="light"?"#ffffff":"#0a0a0a")}catch(e){document.documentElement.dataset.theme="dark";document.documentElement.dataset.atmosphere="plain"}})();`;

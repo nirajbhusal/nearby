@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { SceneArt } from "@/components/illustrations/Scenes";
 
 export function EmptyState({
   icon: Icon,
@@ -11,7 +12,8 @@ export function EmptyState({
 }) {
   return (
     <div className="empty-state">
-      <Icon size={28} strokeWidth={1.75} aria-hidden />
+      <SceneArt scene="empty" />
+      <Icon size={20} strokeWidth={1.5} aria-hidden />
       <h3>{title}</h3>
       <p>{body}</p>
     </div>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { SceneArt } from "@/components/illustrations/Scenes";
+import { DirectionsLink } from "@/components/nepal/NavigateLinks";
 import { SiteLink as Link } from "@/components/SiteLink";
 import { DistanceText } from "@/components/DistanceText";
 import { NomadMapSlot } from "@/components/nepal/NomadMapSlot";
@@ -25,6 +27,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
     cowork: true,
     cafe: true,
   });
+  const [showMap, setShowMap] = useState(false);
   const listed = city.areas.map((area) => area.name);
   const stays = areaName ? city.stays.filter((stay) => stayInArea(stay, areaName, listed)) : city.stays;
   const coworking = areaName ? city.coworking.filter((place) => workInArea(place, areaName)) : city.coworking;
@@ -54,13 +57,53 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
   }
 
   return (
-    <main className="page-wrap nomad-guide">
-      <header className="page-hero">
+    <main className={showMap ? "page-wrap nomad-guide is-map" : "page-wrap nomad-guide"}>
+      <header className="city-hero">
+        <div className="city-switch" role="group" aria-label="City">
+          <Link href="/nomad/kathmandu" aria-current={city.slug === "kathmandu" ? "page" : undefined}>
+            Kathmandu
+          </Link>
+          <Link href="/nomad/pokhara" aria-current={city.slug === "pokhara" ? "page" : undefined}>
+            Pokhara
+          </Link>
+        </div>
+        <SceneArt scene={city.slug === "pokhara" ? "pokhara" : "kathmandu"} className="city-art" />
         <p className="eyebrow">Nomad</p>
         <h1 className="font-display page-title">{city.shortName}</h1>
         {city.headline ? <p className="lede">{city.headline}</p> : null}
+        <div className="seg city-view" role="group" aria-label="Guide view">
+          <button type="button" aria-pressed={!showMap} onClick={() => setShowMap(false)}>
+            Guide
+          </button>
+          <button type="button" aria-pressed={showMap} onClick={() => setShowMap(true)}>
+            Map
+          </button>
+        </div>
       </header>
 
+      <ul className="stat-grid">
+        {city.reference.map((stat) => (
+          <li key={stat.label}>
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+            {stat.note ? <small>{stat.note}</small> : null}
+          </li>
+        ))}
+        {city.visa[0] ? (
+          <li>
+            <span>Visa</span>
+            <strong>{city.visa[0].title}</strong>
+            <small>{city.visa[0].body}</small>
+          </li>
+        ) : null}
+        {city.season[0] ? (
+          <li>
+            <span>Best season</span>
+            <strong>{city.season[0].title}</strong>
+            <small>{city.season[0].body}</small>
+          </li>
+        ) : null}
+      </ul>
       <p className="ref-line">
         {city.referenceLine}
         {city.sourceUrl ? (
@@ -136,7 +179,7 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
         <PlaceList title="Cafés" places={cafes} city={city} />
       </section>
 
-      <section className="nomad-section">
+      <section className={showMap ? "nomad-section nomad-map-open" : "nomad-section"} id="nomad-map">
         <h2>Map</h2>
         <div className="layer-toggle" role="group" aria-label="Map layers">
           <LayerButton on={layers.stay} label="Stays" onClick={() => setLayers((value) => ({ ...value, stay: !value.stay }))} />
@@ -255,6 +298,7 @@ function StayCard({ place, citySlug, cityName }: { place: NomadStay; citySlug: s
       </div>
       {place.workLine ? <p className="card-sub">{place.workLine}</p> : null}
       <div className="card-footer">
+        {place.lat != null && place.lng != null ? <DirectionsLink lat={place.lat} lng={place.lng} name={place.name} /> : null}
         {place.website ? (
           <a className="btn-secondary card-action" href={place.website} target="_blank" rel="noopener noreferrer">
             Open
@@ -357,6 +401,9 @@ function PlaceList({
                   place.name
                 )}
                 {place.area ? <small>{place.area}</small> : null}
+                {place.lat != null && place.lng != null ? (
+                  <DirectionsLink lat={place.lat} lng={place.lng} name={place.name} />
+                ) : null}
               </span>
             </li>
           ))}

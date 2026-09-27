@@ -103,7 +103,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") === "map" ? "map" : "cards";
-  const [category, setCategory] = useState<string | null>(null);
+  const category = searchParams.get("category");
   const [city, setCity] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedPin, setSelectedPin] = useState<string | null>(null);
@@ -136,6 +136,14 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
     const sp = new URLSearchParams(searchParams.toString());
     if (next === "map") sp.set("view", "map");
     else sp.delete("view");
+    const query = sp.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }
+
+  function setCategory(next: string | null) {
+    const sp = new URLSearchParams(searchParams.toString());
+    if (next) sp.set("category", next);
+    else sp.delete("category");
     const query = sp.toString();
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }

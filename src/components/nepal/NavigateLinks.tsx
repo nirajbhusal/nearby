@@ -1,91 +1,77 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
-import { appleMapsDir, googleMapsDir } from "@/lib/nepal/format";
+import { useSyncExternalStore } from "react";
 
-function prefersAppleMaps(): boolean {
-  if (typeof navigator === "undefined") return false;
+type Platform = "ios" | "android" | "desktop";
+
+function detectPlatform(): Platform {
+  if (typeof navigator === "undefined") return "desktop";
   const ua = navigator.userAgent || "";
-  if (/Android/i.test(ua)) return false;
-  if (/iPhone|iPad|iPod/.test(ua)) return true;
+  if (/Android/i.test(ua)) return "android";
+  if (/iPhone|iPad|iPod/.test(ua)) return "ios";
   const nav = navigator as Navigator & { platform?: string };
-  if (nav.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
-  return /Macintosh|Mac OS X/i.test(ua);
+  if (nav.platform === "MacIntel" && navigator.maxTouchPoints > 1) return "ios";
+  return "desktop";
 }
 
 function subscribe() {
   return () => {};
 }
 
-export function NavigateLinks({
+export function googleMapsDir(lat: number, lng: number): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+}
+
+export function directionsHref(lat: number, lng: number, name: string, platform: Platform): string {
+  const q = encodeURIComponent(name);
+  if (platform === "android") return `geo:${lat},${lng}?q=${lat},${lng}(${q})`;
+  if (platform === "ios") return `maps://?daddr=${lat},${lng}&q=${q}`;
+  return googleMapsDir(lat, lng);
+}
+
+export function DirectionsLink({
   lat,
   lng,
-  prominent = false,
+  name = "Destination",
 }: {
   lat: number;
   lng: number;
+  name?: string;
   prominent?: boolean;
 }) {
-  const appleFirst = useSyncExternalStore(subscribe, prefersAppleMaps, () => false);
-  const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const primary = appleFirst ? appleMapsDir(lat, lng) : googleMapsDir(lat, lng);
-
-  async function copyCoordinates() {
-    const text = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
-    } catch {
-      setCopied(false);
-    }
-  }
-
+  const platform = useSyncExternalStore(subscribe, detectPlatform, () => "desktop" as Platform);
+  const href = directionsHref(lat, lng, name, platform);
+  const google = googleMapsDir(lat, lng);
+  const external = platform === "desktop";
   return (
-    <div className={prominent ? "navigate-prominent" : "navigate-row"}>
-      <div className="nav-split">
-        <a className="btn-primary" href={primary} target="_blank" rel="noopener noreferrer">
-          Navigate
+    <div className="directions">
+      <a
+        className="btn-primary"
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+      >
+        Directions
+      </a>
+      {platform !== "desktop" ? (
+        <a className="text-btn" href={google} target="_blank" rel="noopener noreferrer">
+          Google Maps
         </a>
-        <button
-          type="button"
-          className="btn-primary nav-more"
-          aria-expanded={open}
-          aria-haspopup="dialog"
-          aria-label="More ways to navigate"
-          onClick={() => setOpen((value) => !value)}
-        >
-          <Chevron />
-        </button>
-      </div>
-      {open ? (
-        <div className="nav-sheet" role="dialog" aria-label="Navigate">
-          <button type="button" className="nav-sheet-backdrop" aria-label="Close" onClick={() => setOpen(false)} />
-          <div className="nav-sheet-card">
-            <a href={appleMapsDir(lat, lng)} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
-              Apple Maps
-            </a>
-            <a href={googleMapsDir(lat, lng)} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
-              Google Maps
-            </a>
-            <button type="button" onClick={copyCoordinates}>
-              {copied ? "Copied" : "Copy coordinates"}
-            </button>
-            <button type="button" className="nav-cancel" onClick={() => setOpen(false)}>
-              Cancel
-            </button>
-          </div>
-        </div>
       ) : null}
     </div>
   );
 }
 
-function Chevron() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M6 9.5 12 15l6-5.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+/** @deprecated Use DirectionsLink. Kept so older call sites stay a single link. */
+export function NavigateLinks({
+  lat,
+  lng,
+  name,
+}: {
+  lat: number;
+  lng: number;
+  prominent?: boolean;
+  name?: string;
+}) {
+  return <DirectionsLink lat={lat} lng={lng} name={name} />;
 }

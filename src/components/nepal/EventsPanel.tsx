@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
-import { useState } from "react";
+import { useMemo, useSyncExternalStore, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { Calendar, CalendarOff, MapPin, Tag } from "lucide-react";
@@ -9,7 +9,7 @@ import { DistanceText } from "@/components/DistanceText";
 import { SaveButton } from "@/components/SaveButton";
 import { eventInterestMatch, preferMatches } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
-import { eventTypeLabel, formatWhen } from "@/lib/nepal/format";
+import { eventTypeLabel, formatWhen, ktmDay } from "@/lib/nepal/format";
 import {
   EVENT_TYPE_FILTERS,
   eventsNear,
@@ -28,10 +28,46 @@ function readClientNow() {
   return clientNow;
 }
 
+function addDays(iso: string, days: number): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day + days));
+  return date.toISOString().slice(0, 10);
+}
+
+function dateBucket(start: string | null, now: Date): "today" | "week" | "later" {
+  if (!start) return "later";
+  const day = ktmDay(new Date(start));
+  const today = ktmDay(now);
+  if (day === today) return "today";
+  if (day > today && day <= addDays(today, 7)) return "week";
+  return "later";
+}
+
+function DateTile({ iso }: { iso: string | null }) {
+  if (!iso) {
+    return (
+      <span className="date-tile">
+        <strong>—</strong>
+      </span>
+    );
+  }
+  const date = new Date(iso);
+  const month = new Intl.DateTimeFormat("en", { timeZone: "Asia/Kathmandu", month: "short" }).format(date);
+  const day = new Intl.DateTimeFormat("en", { timeZone: "Asia/Kathmandu", day: "numeric" }).format(date);
+  return (
+    <time className="date-tile" dateTime={iso}>
+      <span>{month}</span>
+      <strong>{day}</strong>
+    </time>
+  );
+}
+
 function EventRow({ row }: { row: NearbyNepalEvent }) {
   const { event } = row;
   return (
-    <article className="app-card">
+    <article className="app-card event-card">
+      <DateTile iso={event.start_date} />
+      <div>
       <h3>{event.title}</h3>
       <p className="card-sub">
         {[event.organizer, event.venue || event.city].filter(Boolean).join(" · ") || event.city}
@@ -75,27 +111,37 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
           }}
         />
       </div>
+      </div>
     </article>
   );
 }
 
 export function EventsPanel({ origin }: { origin: PlaceHit }) {
   const nowMs = useSyncExternalStore(subscribeClock, readClientNow, () => 0);
+  const weekOnly = useSearchParams().get("when") === "week";
   const [type, setType] = useState<string | null>(null);
   const [freeOnly, setFreeOnly] = useState(false);
   const profile = useProfile();
   const grouped = useMemo(() => {
-    const base = eventsNear(origin, { type, freeOnly }, nowMs === 0 ? null : new Date(nowMs));
+    const now = nowMs === 0 ? null : new Date(nowMs);
+    const base = eventsNear(origin, { type, freeOnly }, now);
     const rank = <T extends { event: { topics: string[] } }>(rows: T[]) =>
       preferMatches(rows, profile.eventInterests, (row) => eventInterestMatch(row.event.topics, profile.eventInterests));
+    const upcoming = rank(base.upcoming);
+    const clock = now ?? new Date();
+    const today = upcoming.filter((row) => dateBucket(row.event.start_date, clock) === "today");
+    const week = upcoming.filter((row) => dateBucket(row.event.start_date, clock) === "week");
+    const later = upcoming.filter((row) => dateBucket(row.event.start_date, clock) === "later");
     return {
       ...base,
-      upcoming: rank(base.upcoming),
+      today: weekOnly ? [] : today,
+      week,
+      later: weekOnly ? [] : later,
       recurring: rank(base.recurring),
       past: rank(base.past),
       online: rank(base.online),
     };
-  }, [origin, type, freeOnly, nowMs, profile.eventInterests]);
+  }, [origin, type, freeOnly, nowMs, profile.eventInterests, weekOnly]);
 
   return (
     <div className="space-y-6 text-left">
@@ -121,24 +167,34 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
         </ChipRow>
       </div>
 
-      <section>
-        <h3 className="mb-2 text-sm font-semibold tracking-wide text-[var(--ink-muted)]">
-          Upcoming
-        </h3>
-        {grouped.upcoming.length === 0 ? (
-          <EmptyState
-            icon={CalendarOff}
-            title="Nothing dated coming up"
-            body={`No upcoming events matched near ${origin.label}.`}
-          />
-        ) : (
-          <div className="card-list">
-            {grouped.upcoming.map((row) => (
-              <EventRow key={row.event.id} row={row} />
-            ))}
-          </div>
-        )}
-      </section>
+      {grouped.today.length + grouped.week.length + grouped.later.length === 0 ? (
+        <EmptyState
+          icon={CalendarOff}
+          title="Nothing dated coming up"
+          body={`No upcoming events matched near ${origin.label}.`}
+        />
+      ) : (
+        <>
+          {(
+            [
+              ["Today", grouped.today],
+              ["This week", grouped.week],
+              ["Later", grouped.later],
+            ] as const
+          ).map(([label, rows]) =>
+            rows.length === 0 ? null : (
+              <section key={label}>
+                <h3 className="date-heading">{label}</h3>
+                <div className="card-list">
+                  {rows.map((row) => (
+                    <EventRow key={row.event.id} row={row} />
+                  ))}
+                </div>
+              </section>
+            ),
+          )}
+        </>
+      )}
 
       {grouped.online.some((row) => row.timing === "upcoming") ? (
         <section>

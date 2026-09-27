@@ -271,14 +271,11 @@ export function readThemeChoice(): ThemeChoice {
   } catch {
     /* private mode */
   }
-  return "auto";
+  return "system";
 }
 
 export function resolveTheme(choice: ThemeChoice): "light" | "dark" {
   if (choice === "light" || choice === "dark") return choice;
-  if (choice === "system") {
-    if (typeof window === "undefined") return "dark";
-    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-  }
-  return "dark";
+  if (typeof window === "undefined") return "dark";
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 }
