@@ -1,7 +1,10 @@
 import { haversineKm } from "@/lib/geo";
 import { defaultRadiusKm } from "@/lib/nepal/places";
+import { isApproximatePlace, networkMonogram } from "@/lib/nepal/networks";
 import type { EvIndexStation, PlaceHit, PlaceKind } from "@/lib/nepal/types";
 import indexJson from "@/data/nepal/ev-index.json";
+
+export { networkMonogram };
 
 export const evIndex = indexJson as EvIndexStation[];
 
@@ -20,7 +23,8 @@ export type EvFilters = {
   radiusKm: number | null;
   fastOnly: boolean;
   plugs: PlugFilter[];
-  network: string | null;
+  networks: string[];
+  exactOnly: boolean;
 };
 
 export function emptyEvFilters(origin: PlaceHit): EvFilters {
@@ -28,7 +32,8 @@ export function emptyEvFilters(origin: PlaceHit): EvFilters {
     radiusKm: defaultRadiusKm(origin),
     fastOnly: false,
     plugs: [],
-    network: null,
+    networks: [],
+    exactOnly: false,
   };
 }
 
@@ -46,10 +51,14 @@ export function connectorRank(type: string): number {
   return index === -1 ? CONNECTOR_ORDER.length : index;
 }
 
-function matchesNetwork(station: EvIndexStation, network: string | null): boolean {
-  if (!network) return true;
-  if (network === "unbranded") return !station.network;
-  return station.network === network;
+function matchesNetwork(station: EvIndexStation, networks: string[]): boolean {
+  if (!networks.length) return true;
+  const id = station.network_id || "unbranded";
+  return networks.includes(id);
+}
+
+export function isApproximate(station: { geo_precision: string | null }): boolean {
+  return isApproximatePlace(station.geo_precision);
 }
 
 export function plugMatches(station: EvIndexStation, plug: PlugFilter): boolean {
@@ -102,7 +111,8 @@ export function stationsNear(
     if (!inScope(origin, station, filters.radiusKm)) return false;
     if (filters.fastOnly && station.speed !== "fast") return false;
     if (!matchesPlugs(station, filters.plugs)) return false;
-    if (!matchesNetwork(station, filters.network)) return false;
+    if (!matchesNetwork(station, filters.networks)) return false;
+    if (filters.exactOnly && isApproximate(station)) return false;
     return true;
   });
 
@@ -127,7 +137,8 @@ export function stationsInScope(
     radiusKm,
     fastOnly: false,
     plugs: [],
-    network: null,
+    networks: [],
+    exactOnly: false,
   });
 }
 
@@ -153,32 +164,16 @@ export function pinHint(station: EvIndexStation): string {
 }
 
 export function activeFilterCount(filters: EvFilters): number {
-  return (filters.fastOnly ? 1 : 0) + filters.plugs.length + (filters.network ? 1 : 0);
+  return (
+    (filters.fastOnly ? 1 : 0) +
+    filters.plugs.length +
+    filters.networks.length +
+    (filters.exactOnly ? 1 : 0)
+  );
 }
 
 export function networkLabel(network: string | null): string {
   return network || "Unbranded";
-}
-
-const NETWORK_MONOGRAMS: Record<string, string> = {
-  NEA: "NEA",
-  "MAW Vriddhi": "MAW",
-  CG: "CG",
-  GadiCharge: "GC",
-};
-
-/** Short mark for the row icon. Known networks stay stable; others use initials. */
-export function networkMonogram(network: string | null): string | null {
-  if (!network) return null;
-  const known = NETWORK_MONOGRAMS[network];
-  if (known) return known;
-  const words = network.replace(/[()]/g, " ").split(/\s+/).filter(Boolean);
-  if (words.length === 0) return null;
-  if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
-  return words
-    .slice(0, 3)
-    .map((word) => word[0]?.toUpperCase() ?? "")
-    .join("");
 }
 
 function trimKw(kw: number): string {

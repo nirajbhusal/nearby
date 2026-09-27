@@ -64,8 +64,9 @@ field-verified.
 
 | File | What it is |
 | --- | --- |
-| `ev-stations.json` | 502 EV charging stations (full record, loaded when a station sheet opens and for detail pages) |
-| `ev-index.json` | Slim station list for pins and the list |
+| `ev-stations.json` | EV charging stations (full record, loaded when a station sheet opens and for detail pages) |
+| `ev-index.json` | Slim station list for pins and the list. Counts in the app are computed from this file. |
+| `ev-networks.json` | Charging networks: names, sites, and app links. Pins use monograms, not logos. |
 | `companies.json` | 61 Nepal tech companies and their open roles |
 | `learn.json` | 27 places to learn AI, with programs |
 | `events.json` | 63 tech and AI events |

@@ -42,7 +42,8 @@ export function NearestChargers({ fallback }: { fallback: HomeCharger[] }) {
             radiusKm: 40,
             fastOnly: false,
             plugs: [],
-            network: null,
+            networks: [],
+            exactOnly: false,
           }).slice(0, 4);
           if (cancelled || nearest.length === 0) return;
           setRows(
