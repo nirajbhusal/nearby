@@ -890,9 +890,21 @@ body:has(.charge-stage) {
 }
 
 .charge-search-top form {
-  flex: 1 1 10rem;
+  flex: 1 1 auto;
   min-width: 0;
   width: auto;
+  gap: 0;
+  padding: 0.15rem 0.15rem 0.15rem 0.85rem;
+}
+.charge-search-top .locate-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
 }
 
 .charge-search-top .seg {
@@ -914,6 +926,10 @@ body:has(.charge-stage) {
   background: var(--glass-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow), inset 0 1px 0 var(--highlight);
+}
+.charge-search-top form {
+  gap: 0;
+  padding: 0.15rem 0.15rem 0.15rem 0.85rem;
 }
 
 .charge-search input,
@@ -4147,13 +4163,36 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   align-items: center;
   gap: 8px 12px;
 }
-.list-head p {
-  flex: 1 1 auto;
+.list-head-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   min-width: 0;
+  flex: 1 1 auto;
+  gap: 1px;
+}
+.list-head p {
+  flex: none;
+  min-width: 0;
+  max-width: 100%;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.locate-link {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 .list-head-tools {
   display: flex;
