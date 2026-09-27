@@ -3546,7 +3546,13 @@ svg { stroke-width: 1.5; }
 body:has(.charge-stage) .mobile-top { display: none; }
 body:has(.charge-stage) .app-shell,
 body:has(.charge-stage) .shell-main,
-body:has(.charge-stage) .charge-frame { min-height: 100dvh; height: 100dvh; }
+body:has(.charge-stage) .charge-frame,
+body:has(.charge-list-page),
+body:has(.charge-list-page) .app-shell,
+body:has(.charge-list-page) .shell-main,
+body:has(.charge-list-page) .charge-frame,
+.charge-list-page { min-height: 0; height: 100dvh; }
+body:has(.charge-list-page) { overflow: hidden; }
 .shell-main .page-wrap,
 .shell-main .home { width: min(100% - 32px, 1100px); }
 @media (min-width: 768px) {
@@ -3565,7 +3571,7 @@ body:has(.charge-stage) .charge-frame { min-height: 100dvh; height: 100dvh; }
   .side-nav a { justify-content: center; padding: 0; }
   .side-foot .segment { flex-direction: column; }
   .mobile-top, .tab-bar, .more-layer { display: none; }
-  .shell-main { position: relative; }
+  .shell-main { position: relative; flex: 1; min-width: 0; }
   .desk-theme {
     display: flex;
     position: absolute;
