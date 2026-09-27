@@ -2013,6 +2013,12 @@ select {
   overflow: auto;
   padding: 0.35rem 0.85rem calc(6.4rem + env(safe-area-inset-bottom));
 }
+.charge-list-page.charge-cards-page {
+  flex: none;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
+}
 .charge-cards-page .charge-search {
   position: static;
   left: auto;
@@ -2028,6 +2034,19 @@ select {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
+}
+.charge-list-sticky {
+  position: sticky;
+  top: calc(60px + env(safe-area-inset-top));
+  z-index: 8;
+  margin: 0 -0.85rem;
+  padding: 4px 0.85rem 0;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 -24px 0 var(--bg);
+}
+@media (min-width: 768px) {
+  .charge-list-sticky { top: 0; }
 }
 .charge-chip-row {
   display: flex;
@@ -3629,13 +3648,10 @@ svg { stroke-width: 1.5; }
 body:has(.charge-stage) .mobile-top { display: none; }
 body:has(.charge-stage) .app-shell,
 body:has(.charge-stage) .shell-main,
-body:has(.charge-stage) .charge-frame,
-body:has(.charge-list-page),
-body:has(.charge-list-page) .app-shell,
-body:has(.charge-list-page) .shell-main,
-body:has(.charge-list-page) .charge-frame,
-.charge-list-page { min-height: 0; height: 100dvh; }
-body:has(.charge-list-page) { overflow: hidden; }
+body:has(.charge-stage) .charge-frame {
+  min-height: 0;
+  height: 100dvh;
+}
 .shell-main .page-wrap,
 .shell-main .home { width: min(100% - 32px, 1100px); }
 @media (min-width: 768px) {
@@ -4208,13 +4224,11 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   white-space: nowrap;
 }
 .charge-list-page .list-head {
-  position: sticky;
-  top: 0;
-  z-index: 6;
-  margin: 0 -0.85rem 0;
-  padding: 8px 0.85rem;
-  background-color: var(--bg);
-  border-bottom: 1px solid var(--line);
+  position: static;
+  margin: 0;
+  padding: 8px 0;
+  background: transparent;
+  border-bottom: 0;
 }
 .sort-seg {
   display: inline-flex;
