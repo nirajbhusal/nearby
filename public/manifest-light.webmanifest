@@ -6,8 +6,8 @@
   "scope": "/nearby/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/nearby/icons/icon-192.png",
@@ -32,20 +32,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Find a charger",
-      "short_name": "Charge",
-      "url": "/nearby/charge/?near=1",
-      "icons": [{ "src": "/nearby/icons/icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Events",
-      "short_name": "Events",
-      "url": "/nearby/events/",
-      "icons": [{ "src": "/nearby/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

@@ -170,6 +170,30 @@ export function jobRoleCards(rows: NearbyCompany[]): JobRoleCard[] {
   return cards;
 }
 
+export function findJobRole(id: string): JobRoleCard | null {
+  for (const company of nepalCompanies) {
+    for (const role of company.open_roles) {
+      const key = `${company.slug}:${role.url}:${role.title}`;
+      if (key !== id) continue;
+      const office = company.offices.find((item) => item.city) ?? company.offices[0];
+      return {
+        key,
+        company,
+        title: role.title,
+        url: role.url,
+        location: role.location,
+        seen: role.seen_date,
+        placeLabel: office?.city || "City not listed",
+        address: office?.address ?? null,
+        geoNote: null,
+        distanceKm: null,
+        category: company.category,
+      };
+    }
+  }
+  return null;
+}
+
 export type JobMapKind = "precise" | "area" | "centroid";
 
 export type JobMapPin = {

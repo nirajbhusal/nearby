@@ -1,4 +1,5 @@
-import { NomadCityGuide } from "@/components/nepal/NomadCityGuide";
+import { Suspense } from "react";
+import { NomadIndex } from "@/components/nepal/NomadIndex";
 import { getNomadCity } from "@/lib/nepal/nomad";
 import { pageMeta } from "@/lib/site";
 
@@ -9,7 +10,12 @@ export const metadata = pageMeta(
 );
 
 export default function NomadIndexPage() {
-  const city = getNomadCity("kathmandu");
-  if (!city) return null;
-  return <NomadCityGuide city={city} />;
+  const kathmandu = getNomadCity("kathmandu");
+  const pokhara = getNomadCity("pokhara");
+  if (!kathmandu || !pokhara) return null;
+  return (
+    <Suspense fallback={<main className="page-wrap"><p className="lede">Loading the city guide…</p></main>}>
+      <NomadIndex kathmandu={kathmandu} pokhara={pokhara} />
+    </Suspense>
+  );
 }

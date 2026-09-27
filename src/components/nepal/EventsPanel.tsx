@@ -1,18 +1,23 @@
 "use client";
 
-import { useMemo, useSyncExternalStore, useState } from "react";
+import { useEffect, useMemo, useSyncExternalStore, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Chip, ChipRow, CuratedNote } from "@/components/nepal/Chip";
 import { EmptyState } from "@/components/nepal/EmptyState";
 import { Calendar, CalendarOff, MapPin, Tag } from "lucide-react";
 import { DistanceText } from "@/components/DistanceText";
+import { DetailSheet } from "@/components/motion/DetailSheet";
+import { SwipeRow } from "@/components/motion/SwipeRow";
 import { SaveButton } from "@/components/SaveButton";
+import { ShareButton } from "@/components/ShareButton";
+import { eventHref } from "@/lib/item-link";
 import { eventInterestMatch, preferMatches } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 import { eventTypeLabel, formatWhen, ktmDay } from "@/lib/nepal/format";
 import {
   EVENT_TYPE_FILTERS,
   eventsNear,
+  nepalEvents,
   type NearbyNepalEvent,
 } from "@/lib/nepal/events";
 import type { PlaceHit } from "@/lib/nepal/types";
@@ -64,7 +69,16 @@ function DateTile({ iso }: { iso: string | null }) {
 
 function EventRow({ row }: { row: NearbyNepalEvent }) {
   const { event } = row;
+  const href = eventHref(event.id);
+  const saved = {
+    id: event.id,
+    kind: "event" as const,
+    title: event.title,
+    subtitle: event.city ?? "",
+    href,
+  };
   return (
+    <SwipeRow item={saved} share={{ title: event.title, text: event.title, url: href }}>
     <article className="app-card event-card">
       <DateTile iso={event.start_date} />
       <div>
@@ -101,24 +115,25 @@ function EventRow({ row }: { row: NearbyNepalEvent }) {
             {row.timing === "upcoming" ? "Register" : "Open"}
           </a>
         ) : null}
-        <SaveButton
-          item={{
-            id: event.id,
-            kind: "event",
-            title: event.title,
-            subtitle: event.city ?? "",
-            href: event.url || "/events",
-          }}
-        />
+        <SaveButton item={saved} />
+        <ShareButton title={event.title} text={event.city ?? ""} url={href} />
       </div>
       </div>
     </article>
+    </SwipeRow>
   );
 }
 
 export function EventsPanel({ origin }: { origin: PlaceHit }) {
   const nowMs = useSyncExternalStore(subscribeClock, readClientNow, () => 0);
-  const weekOnly = useSearchParams().get("when") === "week";
+  const searchParams = useSearchParams();
+  const weekOnly = searchParams.get("when") === "week";
+  const focusId = searchParams.get("id");
+  const [focusClosed, setFocusClosed] = useState(false);
+  useEffect(() => {
+    setFocusClosed(false);
+  }, [focusId]);
+  const focused = focusId && !focusClosed ? nepalEvents.find((event) => event.id === focusId) ?? null : null;
   const [type, setType] = useState<string | null>(null);
   const [freeOnly, setFreeOnly] = useState(false);
   const profile = useProfile();
@@ -241,6 +256,29 @@ export function EventsPanel({ origin }: { origin: PlaceHit }) {
       ) : null}
 
       <CuratedNote />
+      {focused ? (
+        <DetailSheet title={focused.title} onClose={() => setFocusClosed(true)}>
+          <h2>{focused.title}</h2>
+          <p className="card-sub">{[focused.organizer, focused.city].filter(Boolean).join(" · ")}</p>
+          <div className="card-footer">
+            {focused.url ? (
+              <a className="btn-secondary card-action" href={focused.url} target="_blank" rel="noopener noreferrer">
+                Open
+              </a>
+            ) : null}
+            <SaveButton
+              item={{
+                id: focused.id,
+                kind: "event",
+                title: focused.title,
+                subtitle: focused.city ?? "",
+                href: eventHref(focused.id),
+              }}
+            />
+            <ShareButton title={focused.title} url={eventHref(focused.id)} />
+          </div>
+        </DetailSheet>
+      ) : null}
     </div>
   );
 }

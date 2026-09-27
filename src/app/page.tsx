@@ -1,4 +1,5 @@
 import { AskNearby, PromptCard } from "@/components/home/AskNearby";
+import { DayGreeting } from "@/components/home/DayGreeting";
 import { toHref } from "@/components/SiteLink";
 import { formatWhen } from "@/lib/nepal/format";
 import { stationsInScope } from "@/lib/nepal/ev";
@@ -27,6 +28,9 @@ export default function HomePage() {
       <section className="start-screen">
         <p className="brand-tag">{SITE_TAGLINE}</p>
         <h1 className="font-display hero-title">Everything near you, in one place.</h1>
+        <div className="reveal-greet">
+          <DayGreeting />
+        </div>
         <AskNearby />
         <div className="prompt-grid">
           <PromptCard href="/charge?near=1&fast=1" title="Fast chargers near me" scene="charge" />
