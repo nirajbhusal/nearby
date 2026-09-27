@@ -93,14 +93,14 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
           <li>
             <span>Visa</span>
             <strong>{city.visa[0].title}</strong>
-            <small>{city.visa[0].body}</small>
+            <small>{brief(city.visa[0].body)}</small>
           </li>
         ) : null}
         {city.season[0] ? (
           <li>
             <span>Best season</span>
-            <strong>{city.season[0].title}</strong>
-            <small>{city.season[0].body}</small>
+            <strong>{brief(city.season[0].body)}</strong>
+            <small>{city.season[0].title}</small>
           </li>
         ) : null}
       </ul>
@@ -232,6 +232,11 @@ export function NomadCityGuide({ city }: { city: NomadCity }) {
       </p>
     </main>
   );
+}
+
+function brief(body: string): string {
+  const sentence = body.split(/(?<=\.)\s/)[0] ?? body;
+  return sentence.length > 96 ? `${sentence.slice(0, 93)}…` : sentence;
 }
 
 function sourceLabel(url: string): string {
