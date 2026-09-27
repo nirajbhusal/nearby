@@ -3599,6 +3599,42 @@ body:has(.charge-stage) .charge-frame { min-height: 100dvh; height: 100dvh; }
   letter-spacing: 0;
   color: var(--ink-muted);
 }
+.start-screen .npt-line {
+  position: relative;
+  margin: 0 0 2px;
+  min-height: var(--type-footnote-lh);
+  font-size: 13px;
+  line-height: var(--type-footnote-lh);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.start-screen .npt-sizer {
+  visibility: hidden;
+  display: inline-block;
+  white-space: nowrap;
+}
+.start-screen .npt-value {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  white-space: nowrap;
+}
+.npt-colon {
+  animation: npt-colon 1.6s ease-in-out infinite;
+}
+@keyframes npt-colon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .npt-colon {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
 .start-screen .hero-title { margin-top: 0; }
 .home-block { width: 100%; max-width: none; margin-inline: 0; }
 .section-hero-top, .city-hero-body { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
