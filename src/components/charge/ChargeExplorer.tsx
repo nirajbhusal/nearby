@@ -374,6 +374,30 @@ export function ChargeExplorer() {
   }, [state.q, state.province, state.near, state.lat, state.station]);
 
   useEffect(() => {
+    const root = document.querySelector(".charge-stage, .charge-list-page");
+    if (!root) return;
+    const nodes = [...root.querySelectorAll<HTMLElement>(".h-scroll")];
+    const update = (node: HTMLElement) => {
+      const overflow = node.scrollWidth - node.clientWidth > 8;
+      const atEnd = node.scrollLeft + node.clientWidth >= node.scrollWidth - 8;
+      node.classList.toggle("is-fade", overflow && !atEnd);
+    };
+    const stops: Array<() => void> = [];
+    for (const node of nodes) {
+      const onScroll = () => update(node);
+      update(node);
+      node.addEventListener("scroll", onScroll, { passive: true });
+      const observer = new ResizeObserver(() => update(node));
+      observer.observe(node);
+      stops.push(() => {
+        node.removeEventListener("scroll", onScroll);
+        observer.disconnect();
+      });
+    }
+    return () => stops.forEach((stop) => stop());
+  }, [filtersOpen, moreNetworks, state.view, state.networks, ordered.length]);
+
+  useEffect(() => {
     function onPointer(event: PointerEvent) {
       if (!searchRef.current?.contains(event.target as Node)) setSearchOpen(false);
     }
@@ -683,7 +707,7 @@ export function ChargeExplorer() {
             </button>
           )}
         </form>
-        <div className="scope-row" role="group" aria-label="Scope">
+        <div className="scope-row h-scroll" role="group" aria-label="Scope">
           <button
             type="button"
             className={origin.kind === "country" ? "chip chip-on" : "chip"}
@@ -809,7 +833,7 @@ export function ChargeExplorer() {
         <div className="charge-card-board">
           <div className="cards-toggle">{viewToggle}</div>
           {searchPanel}
-          <div className="filter-row" role="group" aria-label="Charger filters">
+          <div className="filter-row h-scroll" role="group" aria-label="Charger filters">
             {filterChips}
           </div>
           {filterSheet}
@@ -888,7 +912,7 @@ export function ChargeExplorer() {
               )}
             </div>
             {networkRow()}
-            <div className="filter-row" role="group" aria-label="Charger filters">
+            <div className="filter-row h-scroll" role="group" aria-label="Charger filters">
               {filterChips}
             </div>
             {filterSheet}
@@ -1009,7 +1033,7 @@ function NetworkChipRow({
 }) {
   const chips = showMore ? [...primary, ...moreChips] : primary;
   return (
-    <div className="network-quick" role="group" aria-label="Network">
+    <div className="network-quick h-scroll" role="group" aria-label="Network">
       <button
         type="button"
         className={selected.length === 0 ? "chip chip-on" : "chip"}
