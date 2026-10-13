@@ -14,7 +14,7 @@ import {
   User,
   Zap,
 } from "lucide-react";
-import { BrandEyes, Wordmark } from "@/components/brand/Logo";
+import { BrandEyes } from "@/components/brand/Logo";
 import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
@@ -25,6 +25,7 @@ import { ThemeChoiceControl, ThemeMenuButton, ThemeSync } from "@/components/The
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 import { isChargeRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
+import { sidebarHiddenNow, subscribeSidebar, writeSidebarHidden } from "@/lib/sidebar";
 
 const NAV = [
   { href: "/", label: "Home", icon: House },
@@ -63,7 +64,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const charge = isChargeRoute(path);
   const profile = useProfile();
   const initial = profileInitial(profile.name);
-  const [collapsed, setCollapsed] = useState(false);
+  const sidebarHidden = useSyncExternalStore(subscribeSidebar, sidebarHiddenNow, () => false);
   const [more, setMore] = useState(false);
   const [offline, setOffline] = useState(false);
 
@@ -88,18 +89,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <a href="#content" className="skip-link">
         Skip to content
       </a>
-      <div className={collapsed ? "app-shell is-collapsed" : "app-shell"}>
-        <aside className="side-nav" aria-label="Sections">
+      <div className="app-shell">
+        <aside id="site-sidebar" className="side-nav" aria-label="Sections" aria-hidden={sidebarHidden}>
           <div className="side-brand">
-            <a className="brand-lockup" href={toHref("/")}>
-              <Wordmark />
+            <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
+              <BrandEyes />
             </a>
             <button
               type="button"
               className="icon-btn side-collapse"
-              aria-pressed={collapsed}
-              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              onClick={() => setCollapsed((value) => !value)}
+              aria-expanded={!sidebarHidden}
+              aria-controls="site-sidebar"
+              aria-label="Hide sidebar"
+              onClick={() => {
+                writeSidebarHidden(true);
+                requestAnimationFrame(() => document.querySelector<HTMLButtonElement>(".sidebar-show")?.focus());
+              }}
             >
               <PanelLeft size={20} strokeWidth={1.5} aria-hidden />
             </button>
@@ -129,12 +134,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
         <div className="shell-main">
+          <button
+            type="button"
+            className="sidebar-show"
+            aria-expanded={!sidebarHidden}
+            aria-controls="site-sidebar"
+            aria-label="Show sidebar"
+            onClick={() => {
+              writeSidebarHidden(false);
+              requestAnimationFrame(() => document.querySelector<HTMLButtonElement>(".side-collapse")?.focus());
+            }}
+          >
+            <PanelLeft size={20} strokeWidth={1.5} aria-hidden />
+          </button>
           <div className="desk-theme">
             <ThemeMenuButton />
           </div>
           <header className={path === "/" ? "mobile-top is-home" : "mobile-top"} data-route={path}>
-            <a className="brand-lockup" href={toHref("/")} aria-label={path === "/" ? undefined : "Nearby"}>
-              {path === "/" ? <Wordmark mark={false} /> : <BrandEyes />}
+            <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
+              <BrandEyes />
             </a>
             {path === "/" ? <span className="mobile-title" /> : <p className="mobile-title">{pageTitle(path)}</p>}
             <div className="mobile-actions">

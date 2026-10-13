@@ -95,12 +95,3 @@ export function BrandEyes({ className, title }: Props) {
     </svg>
   );
 }
-
-export function Wordmark({ className, mark = true }: { className?: string; mark?: boolean }) {
-  return (
-    <span className={className ?? "wordmark"}>
-      {mark ? <BrandEyes /> : null}
-      Nearby
-    </span>
-  );
-}
