@@ -1731,15 +1731,6 @@ body:has(.charge-stage) {
   letter-spacing: 0.01em;
   color: var(--ink-muted);
 }
-.wordmark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--graphite);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  font-size: var(--type-body);
-}
 .logo-mark { width: 1.15rem; height: 1.15rem; color: var(--accent); }
 .logo-eyes {
   width: 22px;
@@ -3356,7 +3347,7 @@ svg { stroke-width: 1.5; }
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 60;
+  z-index: 75;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   width: auto;
@@ -3395,7 +3386,12 @@ svg { stroke-width: 1.5; }
 .tab-bar button[aria-expanded="true"] { color: var(--graphite); }
 .tab-bar a[aria-current="page"]::after { content: none; }
 .page-frame { padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
-.more-layer { position: fixed; inset: 0; z-index: 70; }
+.more-layer {
+  position: fixed;
+  inset: 0;
+  bottom: calc(60px + env(safe-area-inset-bottom));
+  z-index: 70;
+}
 .more-scrim { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: rgba(0, 0, 0, 0.45); }
 .more-panel {
   position: absolute;
@@ -3404,7 +3400,7 @@ svg { stroke-width: 1.5; }
   bottom: 0;
   display: grid;
   gap: 4px;
-  padding: 12px 12px calc(16px + env(safe-area-inset-bottom));
+  padding: 12px;
   background: var(--bg-elevated);
   border: 1px solid var(--line);
   border-radius: 24px 24px 0 0;
@@ -3676,9 +3672,10 @@ body:has(.charge-stage) .charge-frame {
     padding: 12px 8px;
     flex-shrink: 0;
   }
-  .side-nav .wordmark { font-size: 0; }
   .side-nav .brand-lockup { align-items: center; width: 100%; }
-  .side-nav a span, .side-collapse { display: none; }
+  .side-nav a span { display: none; }
+  .side-collapse { display: grid; }
+  .side-brand { flex-direction: column; align-items: center; }
   .side-nav a { justify-content: center; padding: 0; }
   .side-foot .segment { flex-direction: column; }
   .mobile-top, .tab-bar, .more-layer { display: none; }
@@ -3695,13 +3692,47 @@ body:has(.charge-stage) .charge-frame {
   .prompt-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (min-width: 1024px) {
-  .app-shell:not(.is-collapsed) .side-nav { width: 248px; padding: 16px 12px; }
-  .app-shell:not(.is-collapsed) .side-nav .wordmark { font-size: var(--type-body); }
-  .app-shell:not(.is-collapsed) .side-nav .brand-lockup { align-items: flex-start; width: auto; }
-  .app-shell:not(.is-collapsed) .side-nav a span,
-  .app-shell:not(.is-collapsed) .side-collapse { display: inline-flex; }
-  .app-shell:not(.is-collapsed) .side-nav a { justify-content: flex-start; padding: 0 10px; }
-  .app-shell:not(.is-collapsed) .side-foot .segment { flex-direction: row; }
+  .side-nav { width: 248px; padding: 16px 12px; }
+  .side-nav .brand-lockup { align-items: flex-start; width: auto; }
+  .side-nav a span { display: inline-flex; }
+  .side-collapse { display: grid; }
+  .side-brand { flex-direction: row; align-items: center; justify-content: space-between; }
+  .side-nav a { justify-content: flex-start; padding: 0 10px; }
+  .side-foot .segment { flex-direction: row; }
+}
+@media (min-width: 768px) {
+  html[data-sidebar="hidden"] .side-nav { display: none; }
+  html[data-sidebar="hidden"] .sidebar-show { display: grid; }
+  html[data-sidebar="hidden"] .charge-list-page.charge-cards-page { padding-top: 56px; }
+}
+@media (min-width: 1024px) {
+  html[data-sidebar="hidden"] .charge-panel { top: 4.25rem; }
+}
+.side-collapse,
+.sidebar-show {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--graphite);
+  background: var(--bg);
+  color: var(--graphite);
+  box-shadow: none;
+  cursor: pointer;
+}
+.sidebar-show {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 45;
+  place-items: center;
+}
+.side-collapse:focus-visible,
+.sidebar-show:focus-visible {
+  outline: 2px solid var(--graphite);
+  outline-offset: 2px;
 }
 @media (max-width: 767px) {
   .side-nav { display: none; }
