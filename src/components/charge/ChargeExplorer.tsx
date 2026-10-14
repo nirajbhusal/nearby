@@ -186,12 +186,13 @@ function plugMark(type: string): string {
 }
 
 function nearbyFrame(stations: NearbyStation[], focus: { lat: number; lng: number }): MapFrame {
-  if (stations.length === 0) return { mode: "point", lng: focus.lng, lat: focus.lat, zoom: 13 };
+  if (stations.length === 0) return { mode: "point", lng: focus.lng, lat: focus.lat, zoom: 14 };
+  const framed = [...stations].sort((a, b) => a.distanceKm - b.distanceKm).slice(0, 12);
   let west = Infinity;
   let south = Infinity;
   let east = -Infinity;
   let north = -Infinity;
-  for (const station of stations) {
+  for (const station of framed) {
     west = Math.min(west, station.lng);
     east = Math.max(east, station.lng);
     south = Math.min(south, station.lat);

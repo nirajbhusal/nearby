@@ -180,6 +180,7 @@ export default function JobsMap({ pins, selectedId, onSelect, scope, onScope }: 
 
     map.on("load", () => {
       if (!alive || !map) return;
+      map.resize();
       fitView(map, pinsRef.current, scopeRef.current);
       draw();
       map.resize();
