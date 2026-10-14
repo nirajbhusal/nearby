@@ -28,15 +28,17 @@ export type ClusterPin = {
   lng: number;
   count: number;
   fast: number;
+  stations: NearbyStation[];
 };
 export type MapPin = StationPin | ClusterPin;
 
-/** Grid clusters while zoomed out. Individual pins (with a kW hint) take over up close. */
+/** Grid clusters while zoomed out. Cells shrink in steps so groups break up as you zoom. */
 export function clusterStations(stations: NearbyStation[], zoom: number): MapPin[] {
-  if (zoom >= 14 || stations.length < 2) {
+  if (zoom >= 12.2 || stations.length < 2) {
     return stations.map((station) => ({ kind: "station", station }));
   }
-  const cell = 360 / 2 ** zoom / 7;
+  const divisor = zoom < 8 ? 4.2 : zoom < 10 ? 7 : zoom < 11.2 ? 10 : 14;
+  const cell = 360 / 2 ** zoom / divisor;
   const groups = new Map<string, NearbyStation[]>();
   for (const station of stations) {
     const key = `${Math.floor(station.lat / cell)}:${Math.floor(station.lng / cell)}`;
@@ -66,6 +68,7 @@ export function clusterStations(stations: NearbyStation[], zoom: number): MapPin
       lng: lng / group.length,
       count: group.length,
       fast,
+      stations: group,
     });
   }
   return pins;

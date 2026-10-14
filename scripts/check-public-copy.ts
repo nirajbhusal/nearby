@@ -25,10 +25,10 @@ for (const city of nomadCities) walk(city, city.slug);
 
 const kathmandu = nomadCities.find((city) => city.slug === "kathmandu");
 const pokhara = nomadCities.find((city) => city.slug === "pokhara");
-assert.equal(kathmandu?.costLabel, "$908/mo");
-assert.equal(pokhara?.costLabel, "$1,030/mo");
-assert.equal(kathmandu?.asOfLabel, "26 Sep 2026");
-assert.equal(pokhara?.asOfLabel, "26 Sep 2026");
+assert.equal(kathmandu?.costLabel, "$890/mo");
+assert.equal(pokhara?.costLabel, "$990/mo");
+assert.equal(kathmandu?.asOfLabel, "14 Oct 2026");
+assert.equal(pokhara?.asOfLabel, "14 Oct 2026");
 assert.ok(kathmandu?.sourceUrl?.includes("nomads.com"));
 assert.ok(pokhara?.sourceUrl?.includes("nomads.com"));
 

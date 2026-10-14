@@ -745,7 +745,7 @@
    "slug": "kathmandu",
    "name": "Kathmandu (incl. Lalitpur/Patan)",
    "source_label": "curated",
-   "hero_blurb": "Nepal's capital sits at about 1,400 m in the Kathmandu Valley, with sister city Lalitpur (Patan) across the Bagmati river. Nomads.com gives it a Nomad Score of 4.11/5 (rank #12) and an estimated nomad cost of living of $908/month (as of 26 Sep 2026).",
+   "hero_blurb": "Nepal's capital sits at about 1,400 m in the Kathmandu Valley, with sister city Lalitpur (Patan) across the Bagmati river. Nomads.com gives it a Nomad Score of 3.97/5 from 296 reviews and an estimated nomad cost of living of $890/month (as of 14 Oct 2026). Rank #12 was last shown on the city page on 26 Sep 2026.",
    "hero_sources": [
     {
      "source_id": "wv_ktm",
@@ -761,12 +761,12 @@
    "stats": [
     {
      "label": "Nomad Score",
-     "value": "4.11",
+     "value": "3.97",
      "unit": "/5",
      "source_name": "Nomads.com – Kathmandu",
      "source_url": "https://nomads.com/kathmandu",
-     "as_of": "2026-09-26",
-     "note": "295 reviews"
+     "as_of": "2026-10-14",
+     "note": "296 reviews"
     },
     {
      "label": "Nomads.com rank",
@@ -779,36 +779,36 @@
     },
     {
      "label": "Cost of living for nomad",
-     "value": 908,
+     "value": 890,
      "unit": "USD/month",
      "source_name": "Nomads.com – Kathmandu",
      "source_url": "https://nomads.com/kathmandu",
-     "as_of": "2026-09-26",
-     "note": "City table shows $908/month; Nomads.com cross-link cards on the same site show '$906 / mo' (matches the owner-provided ~USD 906)."
+     "as_of": "2026-10-14",
+     "note": "City table on 14 Oct 2026 shows $890/month. Rank was not on that page; rank #12 remains the 26 Sep 2026 figure."
     },
     {
      "label": "Cost of living for expat",
-     "value": 685,
+     "value": 668,
      "unit": "USD/month",
      "source_name": "Nomads.com – Kathmandu",
      "source_url": "https://nomads.com/kathmandu",
-     "as_of": "2026-09-26"
+     "as_of": "2026-10-14"
     },
     {
      "label": "Cost of living for family",
-     "value": 1406,
+     "value": 1386,
      "unit": "USD/month",
      "source_name": "Nomads.com – Kathmandu",
      "source_url": "https://nomads.com/kathmandu",
-     "as_of": "2026-09-26"
+     "as_of": "2026-10-14"
     },
     {
      "label": "Cost of living for local",
-     "value": 402,
+     "value": 396,
      "unit": "USD/month",
      "source_name": "Nomads.com – Kathmandu",
      "source_url": "https://nomads.com/kathmandu",
-     "as_of": "2026-09-26"
+     "as_of": "2026-10-14"
     },
     {
      "label": "Internet speed (avg)",
@@ -1001,7 +1001,7 @@
     "rank": 11,
     "cost_usd_month": 906,
     "credited_as": "owner-provided, from Nomads.com",
-    "confirmed": "partially – live page (2026-09-26) shows rank #12 and $908/month in the city table; $906/mo appears on Nomads.com cross-link cards"
+    "confirmed": "Cost table on 14 Oct 2026 shows $890/month for a nomad (expat $668, family $1,386, local $396) and score 3.97/5 from 296 reviews. Rank was not on that page; #12 remains the 26 Sep 2026 city-table figure. Owner-provided cost was $906."
    },
    "coworking": [
     {
@@ -2776,7 +2776,7 @@
    "slug": "pokhara",
    "name": "Pokhara",
    "source_label": "curated",
-   "hero_blurb": "Nepal's second-largest city (about 520,000 people in 2021) sits beside Phewa Lake and is the starting point for most Annapurna treks. Nomads.com gives it a Nomad Score of 3.8/5 (rank #60) and an estimated nomad cost of living of $1,030/month (as of 26 Sep 2026).",
+   "hero_blurb": "Nepal's second-largest city (about 520,000 people in 2021) sits beside Phewa Lake and is the starting point for most Annapurna treks. Nomads.com gives it a Nomad Score of 3.65/5 from 135 reviews and an estimated nomad cost of living of $990/month (as of 14 Oct 2026). Rank #60 was last shown on the city page on 26 Sep 2026.",
    "hero_sources": [
     {
      "source_id": "wv_pkr",
@@ -2792,12 +2792,12 @@
    "stats": [
     {
      "label": "Nomad Score",
-     "value": "3.8",
+     "value": "3.65",
      "unit": "/5",
      "source_name": "Nomads.com – Pokhara",
      "source_url": "https://nomads.com/pokhara",
-     "as_of": "2026-09-26",
-     "note": "134 reviews"
+     "as_of": "2026-10-14",
+     "note": "135 reviews"
     },
     {
      "label": "Nomads.com rank",
@@ -2810,36 +2810,36 @@
     },
     {
      "label": "Cost of living for nomad",
-     "value": 1030,
+     "value": 990,
      "unit": "USD/month",
      "source_name": "Nomads.com – Pokhara",
      "source_url": "https://nomads.com/pokhara",
-     "as_of": "2026-09-26",
-     "note": "City table shows $1,030/month; the page meta description and cross-link cards show '$1,027' (matches the owner-provided ~USD 1,027)."
+     "as_of": "2026-10-14",
+     "note": "City table on 14 Oct 2026 shows $990/month. Rank was not on that page; rank #60 remains the 26 Sep 2026 figure. The 8 Mbps internet row is marked as a national statistic, so the city internet figure stays 45 Mbps."
     },
     {
      "label": "Cost of living for expat",
-     "value": 543,
+     "value": 523,
      "unit": "USD/month",
      "source_name": "Nomads.com – Pokhara",
      "source_url": "https://nomads.com/pokhara",
-     "as_of": "2026-09-26"
+     "as_of": "2026-10-14"
     },
     {
      "label": "Cost of living for family",
-     "value": 949,
+     "value": 967,
      "unit": "USD/month",
      "source_name": "Nomads.com – Pokhara",
      "source_url": "https://nomads.com/pokhara",
-     "as_of": "2026-09-26"
+     "as_of": "2026-10-14"
     },
     {
      "label": "Cost of living for local",
-     "value": 271,
+     "value": 276,
      "unit": "USD/month",
      "source_name": "Nomads.com – Pokhara",
      "source_url": "https://nomads.com/pokhara",
-     "as_of": "2026-09-26"
+     "as_of": "2026-10-14"
     },
     {
      "label": "Internet speed (avg)",
@@ -3031,7 +3031,7 @@
     "rank": 61,
     "cost_usd_month": 1027,
     "credited_as": "owner-provided, from Nomads.com",
-    "confirmed": "partially – live page (2026-09-26) shows rank #60 and $1,030/month in the city table; $1,027 appears in the page description and cross-link cards"
+    "confirmed": "Cost table on 14 Oct 2026 shows $990/month for a nomad (expat $523, family $967, local $276) and score 3.65/5 from 135 reviews. Rank was not on that page; #60 remains the 26 Sep 2026 city-table figure. Owner-provided cost was $1,027."
    },
    "coworking": [
     {

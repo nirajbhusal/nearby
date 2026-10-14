@@ -185,6 +185,28 @@ function plugMark(type: string): string {
   return "·";
 }
 
+function nearbyFrame(stations: NearbyStation[], focus: { lat: number; lng: number }): MapFrame {
+  if (stations.length === 0) return { mode: "point", lng: focus.lng, lat: focus.lat, zoom: 14 };
+  const framed = [...stations].sort((a, b) => a.distanceKm - b.distanceKm).slice(0, 12);
+  let west = Infinity;
+  let south = Infinity;
+  let east = -Infinity;
+  let north = -Infinity;
+  for (const station of framed) {
+    west = Math.min(west, station.lng);
+    east = Math.max(east, station.lng);
+    south = Math.min(south, station.lat);
+    north = Math.max(north, station.lat);
+  }
+  const padLng = Math.max(0.015, (east - west) * 0.18);
+  const padLat = Math.max(0.015, (north - south) * 0.18);
+  return {
+    mode: "bounds",
+    bbox: [west - padLng, south - padLat, east + padLng, north + padLat],
+    maxZoom: 14.2,
+  };
+}
+
 export function ChargeExplorer() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -249,6 +271,24 @@ export function ChargeExplorer() {
   }, [stations, fitsOnly, carReady, profile]);
   const sort = state.sort ?? "nearest";
   const ordered = useMemo(() => sortStations(visible, sort), [visible, sort]);
+  const mapNearby = state.scope !== "all";
+  const focus = origin.kind === "country" ? measured : origin;
+  const mapRadiusKm =
+    mapNearby
+      ? focus.kind === "country" || focus.kind === "province" || radiusKm == null
+        ? 20
+        : radiusKm
+      : null;
+  const mapFilters = useMemo(
+    () => ({ ...filters, radiusKm: mapRadiusKm }),
+    [filters, mapRadiusKm],
+  );
+  const mapPlace = mapNearby ? focus : NEPAL;
+  const mapOrdered = useMemo(() => {
+    const rows = stationsNear(mapPlace, mapFilters);
+    const fitted = !fitsOnly || !carReady ? rows : rows.filter((station) => stationFitsEv(station, profile));
+    return sortStations(fitted, sort);
+  }, [mapPlace, mapFilters, fitsOnly, carReady, profile, sort]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [peek, setPeek] = usePeekState("idle");
   const locateGesture = useRef(false);
@@ -265,9 +305,9 @@ export function ChargeExplorer() {
   }, [state.station, stations, measured]);
 
   const mapStations = useMemo(() => {
-    if (!selected || visible.some((station) => station.id === selected.id)) return visible;
-    return [...visible, selected];
-  }, [visible, selected]);
+    if (!selected || mapOrdered.some((station) => station.id === selected.id)) return mapOrdered;
+    return [...mapOrdered, selected];
+  }, [mapOrdered, selected]);
 
   const networkCounts = useMemo(() => {
     const rows = stationsNear(origin, { ...filters, networks: [] });
@@ -611,7 +651,8 @@ export function ChargeExplorer() {
   }
 
   const listPage = state.view === "list" && !desktop;
-  const count = visible.length;
+  const shown = listPage ? ordered : mapOrdered;
+  const count = shown.length;
   const filterCount = activeFilterCount(filters) + (fitsOnly && carReady ? 1 : 0);
   const within = radiusKm == null ? "" : formatDistance(radiusKm, unit);
   const summary =
@@ -624,12 +665,11 @@ export function ChargeExplorer() {
         : origin.kind === "geolocation"
           ? `${count} charger${count === 1 ? "" : "s"} within ${within}`
           : `${count} within ${within} of ${origin.label}`;
-  const frame: MapFrame =
-    origin.kind === "country"
-      ? { mode: "bounds", bbox: NEPAL_BBOX }
-      : origin.kind === "province"
-        ? { mode: "bounds", bbox: (provinceByName(origin.province)?.bbox ?? NEPAL_BBOX) }
-        : { mode: "point", lng: origin.lng, lat: origin.lat, zoom: origin.kind === "geolocation" ? 13 : 13 };
+  const frame: MapFrame = mapNearby
+    ? nearbyFrame(mapOrdered, focus)
+    : origin.kind === "province"
+      ? { mode: "bounds", bbox: provinceByName(origin.province)?.bbox ?? NEPAL_BBOX, maxZoom: 9 }
+      : { mode: "bounds", bbox: NEPAL_BBOX, maxZoom: 6.8 };
   const showDistance = true;
   const cityChips = MAJOR_CITIES.map((name) => {
     const hit = resolvePlace(name);
@@ -876,8 +916,13 @@ export function ChargeExplorer() {
                   );
                 })
               : null}
-            {suggestionHits.length === 0 ? (
-              <li className="suggest-label">No matching place</li>
+            {!showRecent && suggestionHits.length === 0 ? (
+              <li>
+                <div className="peek-empty">
+                  <Peek size={64} state="empty" />
+                  <p>No matching place. Try a city or neighbourhood.</p>
+                </div>
+              </li>
             ) : (
               suggestionHits.map((hit, index) => (
                 <li key={`${hit.kind}-${hit.label}-${hit.lat}`}>
@@ -912,8 +957,10 @@ export function ChargeExplorer() {
           selectedId={selected?.id ?? null}
           hoveredId={hoveredId}
           showYou={origin.kind === "geolocation"}
+          scope={state.scope}
+          onScope={(scope) => replace({ scope: scope === "nearby" ? "nearby" : "all", province: scope === "all" ? null : stateRef.current.province })}
           provinces={
-            origin.kind === "country"
+            !mapNearby && origin.kind === "country"
               ? provinceRecords.map((province) => ({
                   slug: province.slug,
                   name: province.name,
@@ -1023,7 +1070,7 @@ export function ChargeExplorer() {
                 </div>
               ) : (
                 <StationList
-                  stations={ordered}
+                  stations={shown}
                   showDistance={showDistance}
                   unit={unit}
                   selectedId={state.station}

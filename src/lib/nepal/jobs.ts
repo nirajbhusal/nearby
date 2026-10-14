@@ -58,6 +58,7 @@ export function companiesNear(
     category: string | null;
     city: string | null;
     remoteOnly: boolean;
+    nationwide?: boolean;
   }
 ): { near: NearbyCompany[]; unlocated: NearbyCompany[] } {
   const near: NearbyCompany[] = [];
@@ -89,7 +90,7 @@ export function companiesNear(
       if (!inCity) continue;
     }
 
-    const matches = company.offices.some((item) => isNearRecord(origin, item));
+    const matches = options.nationwide || company.offices.some((item) => isNearRecord(origin, item));
     if (!options.remoteOnly && !matches) continue;
     if (options.city && !company.offices.some((item) => item.city === options.city)) {
       continue;
@@ -218,7 +219,7 @@ function officeKind(precision: string | null): JobMapKind {
  * pin with a halo. Centroid offices share one pin per city, and only offices
  * near the current origin are drawn.
  */
-export function jobMapPins(rows: NearbyCompany[], origin: PlaceHit): JobMapPin[] {
+export function jobMapPins(rows: NearbyCompany[], origin: PlaceHit, nationwide = false): JobMapPin[] {
   const pins = new Map<
     string,
     {
@@ -237,7 +238,7 @@ export function jobMapPins(rows: NearbyCompany[], origin: PlaceHit): JobMapPin[]
     if (row.company.open_roles.length === 0) continue;
     for (const office of row.company.offices) {
       if (office.lat == null || office.lng == null) continue;
-      if (!isNearRecord(origin, office)) continue;
+      if (!nationwide && !isNearRecord(origin, office)) continue;
       const kind = officeKind(office.geo_precision);
       const city = office.city || "City not listed";
       const id =

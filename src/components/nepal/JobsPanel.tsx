@@ -116,6 +116,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") === "map" ? "map" : "cards";
+  const mapScope = searchParams.get("scope") === "all" ? "all" : "nearby";
   const focusId = searchParams.get("id");
   const [focusClosed, setFocusClosed] = useState(false);
   useEffect(() => {
@@ -144,17 +145,32 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
     setLimit(PAGE);
   }, [listKey]);
   const shown = cards.slice(0, limit);
-  const pins = useMemo(() => jobMapPins(near, origin), [near, origin]);
+  const mapRows = useMemo(() => {
+    if (mapScope !== "all") return near;
+    return companiesNear(origin, { category, city: null, remoteOnly: false, nationwide: true }).near;
+  }, [mapScope, near, origin, category]);
+  const pins = useMemo(
+    () => jobMapPins(mapRows, origin, mapScope === "all"),
+    [mapRows, origin, mapScope],
+  );
   const active = pins.find((pin) => pin.id === selectedPin) ?? pins[0] ?? null;
   const pinRoles = useMemo(() => {
     if (!active) return [];
-    return cards.filter((card) => active.slugs.includes(card.company.slug));
-  }, [active, cards]);
+    return jobRoleCards(mapRows).filter((card) => active.slugs.includes(card.company.slug));
+  }, [active, mapRows]);
 
   function setView(next: string) {
     const sp = new URLSearchParams(searchParams.toString());
     if (next === "map") sp.set("view", "map");
     else sp.delete("view");
+    const query = sp.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }
+
+  function setScope(next: "nearby" | "all") {
+    const sp = new URLSearchParams(searchParams.toString());
+    if (next === "all") sp.set("scope", "all");
+    else sp.delete("scope");
     const query = sp.toString();
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }
@@ -174,15 +190,28 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
         <p className="fine tabular">
           {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
         </p>
-        <ViewToggle
-          label="Jobs view"
-          value={view}
-          options={[
-            { id: "cards", label: "List" },
-            { id: "map", label: "Map" },
-          ]}
-          onChange={setView}
-        />
+        <div className="jobs-toggles">
+          {view === "map" ? (
+            <ViewToggle
+              label="Map area"
+              value={mapScope}
+              options={[
+                { id: "nearby", label: "Nearby" },
+                { id: "all", label: "All" },
+              ]}
+              onChange={(id) => setScope(id === "all" ? "all" : "nearby")}
+            />
+          ) : null}
+          <ViewToggle
+            label="Jobs view"
+            value={view}
+            options={[
+              { id: "cards", label: "List" },
+              { id: "map", label: "Map" },
+            ]}
+            onChange={setView}
+          />
+        </div>
       </div>
       <div className="filter-scroll" role="group" aria-label="Category">
         <button type="button" className={filtersOpen ? "chip chip-on" : "chip"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen((open) => !open)}>
@@ -220,7 +249,13 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
           />
         ) : (
           <div className="jobs-map-layout">
-            <JobsMap pins={pins} selectedId={active?.id ?? null} onSelect={setSelectedPin} />
+            <JobsMap
+              pins={pins}
+              selectedId={active?.id ?? null}
+              onSelect={setSelectedPin}
+              scope={mapScope}
+              onScope={setScope}
+            />
             {active ? (
               <section className="jobs-pin-list" aria-label={`Roles in ${active.label}`}>
                 <h3>

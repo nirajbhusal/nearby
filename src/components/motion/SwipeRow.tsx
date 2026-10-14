@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { Heart, Share } from "lucide-react";
 import { isSaved, toggleSaved, useSaved } from "@/lib/profile-store";
 import type { SavedRecord } from "@/lib/local-profile";
@@ -29,8 +29,24 @@ function markSwipeUsed() {
   window.dispatchEvent(new Event(USED_EVENT));
 }
 
-/** One line above a list. Hidden after a swipe, and on the next visit. */
+function touchUi() {
+  return window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 767px)").matches;
+}
+
+function subscribeTouch(onChange: () => void) {
+  const coarse = window.matchMedia("(pointer: coarse)");
+  const narrow = window.matchMedia("(max-width: 767px)");
+  coarse.addEventListener("change", onChange);
+  narrow.addEventListener("change", onChange);
+  return () => {
+    coarse.removeEventListener("change", onChange);
+    narrow.removeEventListener("change", onChange);
+  };
+}
+
+/** One line above a list. Touch screens only, and hidden after a swipe. */
 export function SwipeHint() {
+  const touch = useSyncExternalStore(subscribeTouch, touchUi, () => false);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -48,7 +64,7 @@ export function SwipeHint() {
     return () => window.removeEventListener(USED_EVENT, onUsed);
   }, []);
 
-  if (!show) return null;
+  if (!show || !touch) return null;
   return <p className="swipe-hint">Swipe to save or share</p>;
 }
 

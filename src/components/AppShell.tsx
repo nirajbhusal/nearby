@@ -11,6 +11,7 @@ import {
   Ellipsis,
   House,
   PanelLeft,
+  Search,
   User,
   Zap,
 } from "lucide-react";
@@ -21,11 +22,11 @@ import { RegisterSW } from "@/components/RegisterSW";
 import { toHref } from "@/components/SiteLink";
 import { IntroSplash } from "@/components/motion/IntroSplash";
 import { ToastHost } from "@/components/motion/ToastHost";
-import { ThemeChoiceControl, ThemeMenuButton, ThemeSync } from "@/components/ThemeToggle";
+import { SettingsMenu, ThemeMenuButton, ThemeSync } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 import { isChargeRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
-import { sidebarHiddenNow, subscribeSidebar, writeSidebarHidden } from "@/lib/sidebar";
+import { sidebarRailNow, subscribeSidebar, writeSidebarRail } from "@/lib/sidebar";
 
 const NAV = [
   { href: "/", label: "Home", icon: House },
@@ -64,7 +65,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const charge = isChargeRoute(path);
   const profile = useProfile();
   const initial = profileInitial(profile.name);
-  const sidebarHidden = useSyncExternalStore(subscribeSidebar, sidebarHiddenNow, () => false);
+  const sidebarRail = useSyncExternalStore(subscribeSidebar, sidebarRailNow, () => false);
   const [more, setMore] = useState(false);
   const [offline, setOffline] = useState(false);
 
@@ -90,63 +91,52 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         Skip to content
       </a>
       <div className="app-shell">
-        <aside id="site-sidebar" className="side-nav" aria-label="Sections" aria-hidden={sidebarHidden}>
+        <aside id="site-sidebar" className="side-nav" aria-label="Sections">
           <div className="side-brand">
-            <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
+            <a className="brand-lockup" href={toHref("/")} aria-label="Nearby" data-label="Home">
               <BrandEyes />
             </a>
             <button
               type="button"
               className="icon-btn side-collapse"
-              aria-expanded={!sidebarHidden}
+              data-label={sidebarRail ? "Expand sidebar" : "Collapse sidebar"}
+              aria-expanded={!sidebarRail}
               aria-controls="site-sidebar"
-              aria-label="Hide sidebar"
-              onClick={() => {
-                writeSidebarHidden(true);
-                requestAnimationFrame(() => document.querySelector<HTMLButtonElement>(".sidebar-show")?.focus());
-              }}
+              aria-label={sidebarRail ? "Expand sidebar" : "Collapse sidebar"}
+              onClick={() => writeSidebarRail(!sidebarRail)}
             >
-              <PanelLeft size={20} strokeWidth={1.5} aria-hidden />
+              <PanelLeft size={18} strokeWidth={1.5} aria-hidden />
             </button>
           </div>
+          <a className="nav-row side-ask" href={toHref("/#ask-nearby")} data-label="Ask">
+            <Search size={18} strokeWidth={1.5} aria-hidden />
+            <span>Ask</span>
+          </a>
           <nav className="side-links">
             {NAV.map((item) => {
               const Icon = item.icon;
               const on = tabActive(path, item.href);
               return (
-                <a key={item.href} href={toHref(item.href)} aria-current={on ? "page" : undefined}>
-                  <Icon size={20} strokeWidth={1.5} aria-hidden />
+                <a key={item.href} href={toHref(item.href)} data-label={item.label} aria-current={on ? "page" : undefined}>
+                  <Icon size={18} strokeWidth={1.5} aria-hidden />
                   <span>{item.label}</span>
                 </a>
               );
             })}
           </nav>
           <div className="side-foot">
-            <a href={toHref("/profile#saved")}>
-              <Bookmark size={20} strokeWidth={1.5} aria-hidden />
+            <a href={toHref("/profile#saved")} data-label="Saved">
+              <Bookmark size={18} strokeWidth={1.5} aria-hidden />
               <span>Saved</span>
             </a>
-            <a href={toHref("/profile")} aria-current={tabActive(path, "/profile") ? "page" : undefined}>
-              {initial ? <AvatarFace className="tab-avatar" /> : <User size={20} strokeWidth={1.5} aria-hidden />}
+            <a href={toHref("/profile")} data-label="Profile" aria-current={tabActive(path, "/profile") ? "page" : undefined}>
+              {initial ? <AvatarFace className="tab-avatar" /> : <User size={18} strokeWidth={1.5} aria-hidden />}
               <span>Profile</span>
             </a>
-            <ThemeChoiceControl compact />
+            <SettingsMenu />
           </div>
         </aside>
         <div className="shell-main">
-          <button
-            type="button"
-            className="sidebar-show"
-            aria-expanded={!sidebarHidden}
-            aria-controls="site-sidebar"
-            aria-label="Show sidebar"
-            onClick={() => {
-              writeSidebarHidden(false);
-              requestAnimationFrame(() => document.querySelector<HTMLButtonElement>(".side-collapse")?.focus());
-            }}
-          >
-            <PanelLeft size={20} strokeWidth={1.5} aria-hidden />
-          </button>
           <div className="desk-theme">
             <ThemeMenuButton />
           </div>
@@ -192,22 +182,32 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="more-layer">
           <button type="button" className="more-scrim" aria-label="Close menu" onClick={() => setMore(false)} />
           <div className="more-panel" role="dialog" aria-label="More">
-            <a href={toHref("/learn")}>
-              <BookOpen size={20} strokeWidth={1.5} aria-hidden />
-              Learn
+            <div className="side-brand">
+              <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
+                <BrandEyes />
+              </a>
+            </div>
+            <a className="nav-row side-ask" href={toHref("/#ask-nearby")} onClick={() => setMore(false)}>
+              <Search size={18} strokeWidth={1.5} aria-hidden />
+              <span>Ask</span>
             </a>
-            <a href={toHref("/nomad")}>
-              <Compass size={20} strokeWidth={1.5} aria-hidden />
-              Nomad
+            <a className="nav-row" href={toHref("/learn")} onClick={() => setMore(false)}>
+              <BookOpen size={18} strokeWidth={1.5} aria-hidden />
+              <span>Learn</span>
             </a>
-            <a href={toHref("/profile#saved")}>
-              <Bookmark size={20} strokeWidth={1.5} aria-hidden />
-              Saved
+            <a className="nav-row" href={toHref("/nomad")} onClick={() => setMore(false)}>
+              <Compass size={18} strokeWidth={1.5} aria-hidden />
+              <span>Nomad</span>
             </a>
-            <a href={toHref("/profile")}>
-              <User size={20} strokeWidth={1.5} aria-hidden />
-              Settings
+            <a className="nav-row" href={toHref("/profile#saved")} onClick={() => setMore(false)}>
+              <Bookmark size={18} strokeWidth={1.5} aria-hidden />
+              <span>Saved</span>
             </a>
+            <a className="nav-row" href={toHref("/profile")} onClick={() => setMore(false)}>
+              {initial ? <AvatarFace className="tab-avatar" /> : <User size={18} strokeWidth={1.5} aria-hidden />}
+              <span>Profile</span>
+            </a>
+            <SettingsMenu />
           </div>
         </div>
       ) : null}

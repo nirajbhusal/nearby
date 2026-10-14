@@ -77,14 +77,14 @@ export const NOMAD_INDEX = [
     name: "Kathmandu (incl. Lalitpur/Patan)",
     shortName: "Kathmandu",
     headline:
-      "The capital and its sister city Patan: cafés, coworking and mountain views, from about $908 a month.",
+      "The capital and its sister city Patan: cafés, coworking and mountain views, from about $890 a month.",
   },
   {
     slug: "pokhara",
     name: "Pokhara",
     shortName: "Pokhara",
     headline:
-      "Beside Phewa Lake, where most Annapurna treks begin: lakeside cafés and quieter side streets, from about $1,030 a month.",
+      "Beside Phewa Lake, where most Annapurna treks begin: lakeside cafés and quieter side streets, from about $990 a month.",
   },
 ] as const;
 

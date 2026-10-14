@@ -88,11 +88,11 @@ view the pages use live in `src/lib/nepal/nomad.ts`.
 a price only when the source states one, and distances to the coworking and
 café ids. Leave a stay or a price out rather than adding an unsourced one.
 
-Nomads.com figures shown in the app, labeled “Source: Nomads.com, as of 26 Sep 2026”.
-The ranking changes daily. The app uses the city-table values:
+Nomads.com figures shown in the app. Cost and score were read from the city tables on 14 Oct 2026.
+Rank lines were not on those pages that day, so rank stays the 26 Sep 2026 city-table value.
 
-- Kathmandu: rank #12, cost for a nomad USD 908/month. Nomads.com cross-link cards on the same site show $906.
-- Pokhara: rank #60, cost for a nomad USD 1,030/month. The page description and cross-link cards show $1,027.
+- Kathmandu: rank #12 (26 Sep 2026), Nomad Score 3.97/5 from 296 reviews, cost for a nomad USD 890/month (14 Oct 2026).
+- Pokhara: rank #60 (26 Sep 2026), Nomad Score 3.65/5 from 135 reviews, cost for a nomad USD 990/month (14 Oct 2026). The 8 Mbps internet row on that page is marked as a national statistic, so the city figure stays 45 Mbps.
 
 Credits: OpenStreetMap contributors (map tiles, and some station and stay
 coordinates); public operator directories; official company, campus, and
