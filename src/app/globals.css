@@ -3676,6 +3676,7 @@ body:has(.charge-stage) .charge-frame {
     display: flex;
     position: sticky;
     top: 0;
+    z-index: 40;
     height: 100dvh;
     width: 232px;
     padding: 12px 10px;
