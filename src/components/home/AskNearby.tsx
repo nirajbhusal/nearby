@@ -11,7 +11,7 @@ import { nepalCompanies } from "@/lib/nepal/jobs";
 import { learnPlaces } from "@/lib/nepal/learn";
 import { NOMAD_INDEX } from "@/lib/nepal/nomad-shared";
 
-type Group = "Chargers" | "Jobs" | "Events" | "Learn" | "Nomad";
+type Group = "Charging stations" | "Tech jobs" | "Tech events" | "Learn AI" | "Digital nomads";
 
 type Hit = { group: Group; title: string; meta: string; href: string };
 
@@ -44,7 +44,7 @@ function searchAll(query: string, place: string): Hit[] {
       const blob = `${station.name} ${station.city ?? ""} ${station.address ?? ""} ${station.network ?? ""} ${station.speed}`.toLowerCase();
       if (!inCity(blob) || !textHit(blob)) continue;
       hits.push({
-        group: "Chargers",
+        group: "Charging stations",
         title: station.name,
         meta: [station.city, station.speed].filter(Boolean).join(" · "),
         href: `/ev/${station.id}`,
@@ -62,7 +62,7 @@ function searchAll(query: string, place: string): Hit[] {
       if (!textHit(blob)) continue;
       const role = company.open_roles.find((item) => words.length === 0 || words.some((word) => item.title.toLowerCase().includes(word)));
       hits.push({
-        group: "Jobs",
+        group: "Tech jobs",
         title: role?.title || company.name,
         meta: [company.name, office?.city].filter(Boolean).join(" · "),
         href: `/jobs?q=${encodeURIComponent(office?.city || "Kathmandu")}${company.category ? `&category=${company.category}` : ""}`,
@@ -78,7 +78,7 @@ function searchAll(query: string, place: string): Hit[] {
       const blob = `${item.title} ${item.city ?? ""} ${item.organizer ?? ""} ${item.type}`.toLowerCase();
       if (!inCity(blob) || !textHit(blob)) continue;
       hits.push({
-        group: "Events",
+        group: "Tech events",
         title: item.title,
         meta: [item.city, item.organizer].filter(Boolean).join(" · "),
         href: `/events?q=${encodeURIComponent(item.city || "Kathmandu")}`,
@@ -94,7 +94,7 @@ function searchAll(query: string, place: string): Hit[] {
       const blob = `${placeRow.name} ${placeRow.city ?? ""} ${placeRow.type} ${placeRow.programs.map((item) => item.title).join(" ")}`.toLowerCase();
       if (!inCity(blob) || !textHit(blob)) continue;
       hits.push({
-        group: "Learn",
+        group: "Learn AI",
         title: placeRow.name,
         meta: [placeRow.city, placeRow.type].filter(Boolean).join(" · "),
         href: `/learn?q=${encodeURIComponent(placeRow.city || "Kathmandu")}`,
@@ -110,7 +110,7 @@ function searchAll(query: string, place: string): Hit[] {
       if (!inCity(blob) || (!textHit(blob) && !nomad)) continue;
       if (nomad && words.length > 0 && !textHit(blob)) continue;
       hits.push({
-        group: "Nomad",
+        group: "Digital nomads",
         title: cityGuide.shortName,
         meta: cityGuide.headline || "City guide",
         href: `/nomad/${cityGuide.slug}`,
@@ -121,7 +121,7 @@ function searchAll(query: string, place: string): Hit[] {
   return hits;
 }
 
-const GROUPS: Group[] = ["Chargers", "Jobs", "Events", "Learn", "Nomad"];
+const GROUPS: Group[] = ["Charging stations", "Tech jobs", "Tech events", "Learn AI", "Digital nomads"];
 
 function useWideSearch() {
   return useSyncExternalStore(

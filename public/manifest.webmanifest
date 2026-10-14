@@ -36,13 +36,13 @@
   ],
   "shortcuts": [
     {
-      "name": "Find a charger",
-      "short_name": "Charge",
+      "name": "Charging stations",
+      "short_name": "Charging",
       "url": "/nearby/charge/?near=1",
       "icons": [{ "src": "/nearby/icons/icon-192.png?v=eyes", "sizes": "192x192" }]
     },
     {
-      "name": "Events",
+      "name": "Tech events",
       "short_name": "Events",
       "url": "/nearby/events/",
       "icons": [{ "src": "/nearby/icons/icon-192.png?v=eyes", "sizes": "192x192" }]

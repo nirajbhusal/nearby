@@ -30,16 +30,16 @@ import { sidebarRailNow, subscribeSidebar, writeSidebarRail } from "@/lib/sideba
 
 const NAV = [
   { href: "/", label: "Home", icon: House },
-  { href: "/charge", label: "Charge", icon: Zap },
-  { href: "/jobs", label: "Jobs", icon: Briefcase },
-  { href: "/events", label: "Events", icon: Calendar },
-  { href: "/learn", label: "Learn", icon: BookOpen },
-  { href: "/nomad", label: "Nomad", icon: Compass },
+  { href: "/charge", label: "Charging stations", icon: Zap },
+  { href: "/jobs", label: "Tech jobs", icon: Briefcase },
+  { href: "/events", label: "Tech events", icon: Calendar },
+  { href: "/learn", label: "Learn AI", icon: BookOpen },
+  { href: "/nomad", label: "Digital nomads", icon: Compass },
 ] as const;
 
 const TABS = [
   { href: "/", label: "Home", icon: House },
-  { href: "/charge", label: "Charge", icon: Zap },
+  { href: "/charge", label: "Charging", icon: Zap },
   { href: "/jobs", label: "Jobs", icon: Briefcase },
   { href: "/events", label: "Events", icon: Calendar },
 ] as const;
@@ -185,11 +185,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
             <a className="nav-row" href={toHref("/learn")} onClick={() => setMore(false)}>
               <BookOpen size={18} strokeWidth={1.5} aria-hidden />
-              <span>Learn</span>
+              <span>Learn AI</span>
             </a>
             <a className="nav-row" href={toHref("/nomad")} onClick={() => setMore(false)}>
               <Compass size={18} strokeWidth={1.5} aria-hidden />
-              <span>Nomad</span>
+              <span>Digital nomads</span>
             </a>
             <a className="nav-row" href={toHref("/profile#saved")} onClick={() => setMore(false)}>
               <Bookmark size={18} strokeWidth={1.5} aria-hidden />

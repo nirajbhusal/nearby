@@ -17,12 +17,12 @@ export function isChargeRoute(pathname: string): boolean {
 
 export function pageTitle(pathname: string): string {
   const path = normalizeRoute(pathname);
-  if (isChargeRoute(path)) return "Charge";
-  if (path.startsWith("/jobs")) return "Jobs";
-  if (path.startsWith("/events")) return "Events";
-  if (path.startsWith("/learn")) return "Learn";
+  if (isChargeRoute(path)) return "Charging stations";
+  if (path.startsWith("/jobs")) return "Tech jobs";
+  if (path.startsWith("/events")) return "Tech events";
+  if (path.startsWith("/learn")) return "Learn AI";
   if (path.startsWith("/nomad/pokhara")) return "Pokhara";
-  if (path.startsWith("/nomad")) return "Nomad";
+  if (path.startsWith("/nomad")) return "Digital nomads";
   if (path.startsWith("/profile")) return "Profile";
   if (path.startsWith("/about")) return "About";
   return "Nearby";
