@@ -21,12 +21,12 @@ import {
 import { clearLocalData, toggleSaved, useProfile, useSaved, writeProfile, writeUnits, useUnits } from "@/lib/profile-store";
 
 const SAVED_ROWS: { kind: SavedKind; label: string }[] = [
-  { kind: "charger", label: "Chargers" },
-  { kind: "job", label: "Jobs" },
-  { kind: "event", label: "Events" },
+  { kind: "charger", label: "Charging stations" },
+  { kind: "job", label: "Tech jobs" },
+  { kind: "event", label: "Tech events" },
   { kind: "stay", label: "Stays" },
   { kind: "cowork", label: "Coworking" },
-  { kind: "learn", label: "Learn" },
+  { kind: "learn", label: "Learn AI" },
 ];
 
 function subscribeHash(onChange: () => void) {
@@ -173,14 +173,14 @@ export function ProfileScreen() {
           <Link className="settings-row" href="/learn">
             <BookOpen size={20} strokeWidth={1.9} aria-hidden />
             <span className="settings-copy">
-              <strong>Learn</strong>
+              <strong>Learn AI</strong>
             </span>
             <ChevronRight size={18} aria-hidden />
           </Link>
           <Link className="settings-row" href="/nomad">
             <Compass size={20} strokeWidth={1.9} aria-hidden />
             <span className="settings-copy">
-              <strong>Nomad</strong>
+              <strong>Digital nomads</strong>
               <small>Kathmandu and Pokhara</small>
             </span>
             <ChevronRight size={18} aria-hidden />

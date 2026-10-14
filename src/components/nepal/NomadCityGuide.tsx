@@ -249,19 +249,19 @@ export function NomadCityGuide({
       <section className="nomad-section">
         <div className="link-row">
           <Link className="btn-primary" href={`/charge?q=${encodeURIComponent(city.shortName)}`}>
-            Charge
+            Charging stations
           </Link>
           <Link className="btn-secondary" href={`/events?q=${encodeURIComponent(city.shortName)}`}>
-            Events
+            Tech events
           </Link>
           <Link className="btn-secondary" href={`/jobs?q=${encodeURIComponent(city.shortName)}`}>
-            Jobs
+            Tech jobs
           </Link>
         </div>
       </section>
       <p className="fine">
         <Link href="/nomad" className="fine-link">
-          All nomad cities
+          Digital nomad cities
         </Link>
       </p>
       {focusedStay ? (

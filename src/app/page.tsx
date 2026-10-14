@@ -1,4 +1,4 @@
-import { BookOpen, Briefcase, Calendar, Compass, Zap } from "lucide-react";
+import { HeroSketch, HomeIllustration } from "@/components/home/HomeIllustrations";
 import { HomePeek } from "@/components/peek/Peek";
 import { DayGreeting } from "@/components/home/DayGreeting";
 import { NepalClock } from "@/components/home/NepalClock";
@@ -14,7 +14,7 @@ import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
   "Nearby · All within reach",
-  "Chargers, tech jobs, events and places to learn in Nepal.",
+  "Charging stations, tech jobs, tech events, places to learn AI, and digital nomads.",
   "/",
 );
 
@@ -55,17 +55,20 @@ export default function HomePage() {
   const learn = learnPlaces.length;
   const cities = nomadCities.length;
   const sections = [
-    { href: "/charge", name: "Charge", count: chargers, meta: noun(chargers, "charger", "chargers"), icon: Zap },
-    { href: "/jobs", name: "Jobs", count: roles, meta: noun(roles, "open role", "open roles"), icon: Briefcase },
-    { href: "/events", name: "Events", count: events, meta: noun(events, "coming up", "coming up"), icon: Calendar },
-    { href: "/learn", name: "Learn", count: learn, meta: noun(learn, "place", "places"), icon: BookOpen },
-    { href: "/nomad", name: "Nomad", count: cities, meta: noun(cities, "city", "cities"), icon: Compass },
-  ];
+    { href: "/charge", name: "Charging stations", count: chargers, meta: noun(chargers, "charger", "chargers"), art: "charge" },
+    { href: "/jobs", name: "Tech jobs", count: roles, meta: noun(roles, "open role", "open roles"), art: "jobs" },
+    { href: "/events", name: "Tech events", count: events, meta: noun(events, "coming up", "coming up"), art: "events" },
+    { href: "/learn", name: "Learn AI", count: learn, meta: noun(learn, "place", "places"), art: "learn" },
+    { href: "/nomad", name: "Digital nomads", count: cities, meta: noun(cities, "city", "cities"), art: "nomad" },
+  ] as const;
   return (
     <main className="home">
       <section className="start-screen">
         <div className="home-hero">
-          <HomePeek />
+          <div className="home-hero-row">
+            <HomePeek />
+            <HeroSketch />
+          </div>
           <div className="reveal-greet">
             <DayGreeting />
             <NepalClock />
@@ -73,17 +76,14 @@ export default function HomePage() {
           <h1 className="font-display hero-title">Everything near you, in one place.</h1>
         </div>
         <div className="home-sections">
-          {sections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <a key={section.href} className="home-section" href={toHref(section.href)}>
-                <Icon size={22} strokeWidth={1.5} aria-hidden />
-                <span className="home-section-name">{section.name}</span>
-                <strong className="tabular">{section.count}</strong>
-                <small>{section.meta}</small>
-              </a>
-            );
-          })}
+          {sections.map((section) => (
+            <a key={section.href} className="home-section" href={toHref(section.href)}>
+              <HomeIllustration kind={section.art} />
+              <span className="home-section-name">{section.name}</span>
+              <strong className="tabular">{section.count}</strong>
+              <small>{section.meta}</small>
+            </a>
+          ))}
         </div>
         {upcoming ? (
           <p className="home-next">

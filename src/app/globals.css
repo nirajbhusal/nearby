@@ -3291,7 +3291,10 @@ svg { stroke-width: 1.5; }
   flex: 1 1 auto;
   min-width: 8px;
   margin: 0;
+  overflow: hidden;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: var(--type-subhead);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -3426,6 +3429,8 @@ svg { stroke-width: 1.5; }
 .side-links, .side-foot { display: grid; gap: 2px; }
 .side-ask { margin: 6px 0 8px; }
 .side-foot { margin-top: auto; padding-top: 8px; }
+.side-nav a span,
+.more-panel .nav-row span { white-space: nowrap; }
 .nav-row,
 .side-nav a {
   display: flex;
@@ -3747,6 +3752,8 @@ body:has(.charge-stage) .charge-frame {
   .side-nav { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .home-section:hover .home-illu,
+  .home-hero:hover .home-hero-art { transform: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -4921,6 +4928,19 @@ html[data-sidebar="rail"] .side-profile-row .theme-toggle { position: relative; 
   padding: 28px 8px 4px;
 }
 .home-hero .home-peek { margin: 0; }
+.home-hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+.home-hero-art {
+  width: 132px;
+  height: 62px;
+  color: var(--ink-muted);
+  transition: transform 480ms ease;
+}
+.home-hero:hover .home-hero-art { transform: translateY(-3px); }
 .home-hero .reveal-greet {
   display: grid;
   justify-items: center;
@@ -4957,7 +4977,7 @@ html[data-sidebar="rail"] .side-profile-row .theme-toggle { position: relative; 
   display: grid;
   align-content: start;
   gap: 8px;
-  min-height: 168px;
+  min-height: 220px;
   padding: 22px;
   border-radius: 24px;
   border: 1px solid var(--line);
@@ -4966,8 +4986,15 @@ html[data-sidebar="rail"] .side-profile-row .theme-toggle { position: relative; 
   text-decoration: none;
 }
 .home-section:hover { background: var(--bg-elevated); }
-.home-section svg { width: 22px; height: 22px; }
-.home-section-name { font-size: 15px; font-weight: 600; color: var(--ink-muted); }
+.home-illu {
+  width: 112px;
+  height: 70px;
+  margin-bottom: 10px;
+  color: var(--graphite);
+  transition: transform 480ms ease;
+}
+.home-section:hover .home-illu { transform: translateY(-4px); }
+.home-section-name { font-size: 16px; font-weight: 600; color: var(--graphite); }
 .home-section strong {
   font-size: 34px;
   line-height: 1;

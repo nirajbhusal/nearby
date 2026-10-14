@@ -984,7 +984,7 @@ export function ChargeExplorer() {
 
   return (
     <div className={listPage ? "charge-list-page charge-cards-page" : "charge-stage"}>
-      <h1 className="sr-only">EV chargers</h1>
+      <h1 className="sr-only">Charging stations</h1>
       {listPage ? null : (
         <ChargeMap
           stations={mapStations}

@@ -52,15 +52,15 @@ function subscribe(onStoreChange: () => void) {
 
 const COPY = {
   jobs: {
-    title: "Tech work nearby",
+    title: "Tech jobs",
     intro: "Tech roles around a city.",
   },
   learn: {
-    title: "Places to learn AI",
+    title: "Learn AI",
     intro: "Campuses, bootcamps, and communities. Online programs stay in the list even when you search a city.",
   },
   events: {
-    title: "What’s on nearby",
+    title: "Tech events",
     intro: "Upcoming meetups and conferences, series that happen regularly, and a collapsed list of recent ones.",
   },
 } as const;

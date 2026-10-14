@@ -7,15 +7,15 @@ import fs from "node:fs";
 
 const cases = [
   ["out/index.html", "", "Home"],
-  ["out/charge/index.html", "Charge", "Charge"],
-  ["out/jobs/index.html", "Jobs", "Jobs"],
-  ["out/events/index.html", "Events", "Events"],
-  ["out/learn/index.html", "Learn", "More"],
-  ["out/nomad/index.html", "Nomad", "More"],
-  ["out/nomad/kathmandu/index.html", "Nomad", "More"],
+  ["out/charge/index.html", "Charging stations", "Charging"],
+  ["out/jobs/index.html", "Tech jobs", "Jobs"],
+  ["out/events/index.html", "Tech events", "Events"],
+  ["out/learn/index.html", "Learn AI", "More"],
+  ["out/nomad/index.html", "Digital nomads", "More"],
+  ["out/nomad/kathmandu/index.html", "Digital nomads", "More"],
   ["out/nomad/pokhara/index.html", "Pokhara", "More"],
   ["out/profile/index.html", "Profile", "More"],
-  ["out/ev/np-ev-evnepal-8646df46/index.html", "Charge", "Charge"],
+  ["out/ev/np-ev-evnepal-8646df46/index.html", "Charging stations", "Charging"],
 ];
 
 function activeLabels(html) {
@@ -44,7 +44,7 @@ for (const [file, title, tab] of cases) {
   assert.ok(top.includes('aria-label="Profile"'), `${file} profile is not in the header actions`);
   const labels = activeLabels(html);
   assert.deepEqual(labels, [tab], `${file} active tabs ${labels.join(",")}`);
-  if (tab !== "Charge") assert.equal(html.includes('href="/nearby/charge/" aria-current="page"'), false, `${file} charge tab`);
+  if (tab !== "Charging") assert.equal(html.includes('href="/nearby/charge/" aria-current="page"'), false, `${file} charge tab`);
 }
 
 const nomad = fs.readFileSync("out/nomad/index.html", "utf8");
