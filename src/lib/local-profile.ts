@@ -13,6 +13,7 @@ export const LOCAL_DATA_KEYS = [
   THEME_CHOICE_KEY,
   THEME_KEY,
   "nearby-recent-places",
+  "nearby-map-scope",
   "nearby-install-dismissed",
 ] as const;
 

@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, Monitor, Moon, Settings, Sun } from "lucide-react";
-import { applyThemeChoice, useThemeChoice } from "@/lib/profile-store";
-import type { ThemeChoice } from "@/lib/local-profile";
+import { applyThemeChoice, useThemeChoice, useProfile, useUnits, writeProfile, writeUnits } from "@/lib/profile-store";
+import { HOME_CITY_OPTIONS, type ThemeChoice } from "@/lib/local-profile";
 import { paintTheme } from "@/lib/tod";
 
 const CHOICES: { id: ThemeChoice; label: string }[] = [
@@ -93,6 +93,8 @@ export function ThemeMenuButton() {
 
 export function SettingsMenu() {
   const choice = currentChoice(useThemeChoice());
+  const units = useUnits();
+  const profile = useProfile();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
@@ -118,7 +120,7 @@ export function SettingsMenu() {
         type="button"
         className="nav-row"
         data-label="Settings"
-        aria-haspopup="menu"
+        aria-haspopup="dialog"
         aria-expanded={open}
         aria-label="Settings"
         onClick={() => setOpen((value) => !value)}
@@ -127,19 +129,51 @@ export function SettingsMenu() {
         <span>Settings</span>
       </button>
       {open ? (
-        <div className="theme-popover" role="menu" aria-label="Theme">
+        <div className="theme-popover settings-popover" role="dialog" aria-label="Settings">
+          <p className="settings-pop-label">Distance</p>
+          <div className="settings-pop-row" role="group" aria-label="Distance units">
+            <button type="button" aria-pressed={units === "km"} onClick={() => writeUnits("km")}>
+              km
+            </button>
+            <button type="button" aria-pressed={units === "mi"} onClick={() => writeUnits("mi")}>
+              mi
+            </button>
+          </div>
+          <p className="settings-pop-label">Default place</p>
+          <button
+            type="button"
+            role="radio"
+            aria-checked={profile.homeCity == null}
+            onClick={() => writeProfile({ ...profile, homeCity: null })}
+          >
+            <span>Kathmandu area</span>
+            {profile.homeCity == null ? <Check size={16} strokeWidth={2} aria-hidden /> : <span className="theme-check-gap" aria-hidden />}
+          </button>
+          {HOME_CITY_OPTIONS.map((city) => {
+            const on = profile.homeCity === city;
+            return (
+              <button
+                key={city}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                onClick={() => writeProfile({ ...profile, homeCity: city })}
+              >
+                <span>{city}</span>
+                {on ? <Check size={16} strokeWidth={2} aria-hidden /> : <span className="theme-check-gap" aria-hidden />}
+              </button>
+            );
+          })}
+          <p className="settings-pop-label">Theme</p>
           {CHOICES.map((item) => {
             const on = choice === item.id;
             return (
               <button
                 key={item.id}
                 type="button"
-                role="menuitemradio"
+                role="radio"
                 aria-checked={on}
-                onClick={() => {
-                  applyThemeChoice(item.id);
-                  setOpen(false);
-                }}
+                onClick={() => applyThemeChoice(item.id)}
               >
                 <span>{item.label}</span>
                 {on ? <Check size={16} strokeWidth={2} aria-hidden /> : <span className="theme-check-gap" aria-hidden />}

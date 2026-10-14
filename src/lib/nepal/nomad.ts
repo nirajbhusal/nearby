@@ -345,15 +345,14 @@ function buildCity(raw: CityJson): NomadCity {
   const rank = raw.stats?.find((stat) => stat.label === "Nomads.com rank");
   const cost = raw.stats?.find((stat) => stat.label === "Cost of living for nomad");
   const internet = raw.stats?.find((stat) => stat.label === "Internet speed (avg)");
-  const asOfRaw = [rank?.as_of, cost?.as_of].filter((value): value is string => Boolean(value)).sort().at(-1);
-  const asOfLabel = (asOfRaw && formatUpdated(asOfRaw)) || "14 Oct 2026";
-  const asOf = asOfLabel;
+  const rankAsOf = rank?.as_of ? formatUpdated(rank.as_of) : "";
+  const costAsOf = cost?.as_of ? formatUpdated(cost.as_of) : "";
+  const asOfLabel = costAsOf || rankAsOf || "14 Oct 2026";
   const costText = typeof cost?.value === "number" ? `$${cost.value.toLocaleString("en-US")}/mo` : "";
   const referenceLine = [
-    rank ? `#${rank.value} on Nomads.com` : "",
-    costText,
+    rank ? `#${rank.value} on Nomads.com${rankAsOf ? ` (as of ${rankAsOf})` : ""}` : "",
+    costText ? `${costText}${costAsOf ? ` (as of ${costAsOf})` : ""}` : "",
     internet ? `${internet.value} Mbps avg` : "",
-    `as of ${asOf}`,
   ]
     .filter(Boolean)
     .join(" · ");

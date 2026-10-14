@@ -5,6 +5,7 @@ import { AppShell } from "@/components/AppShell";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import { flightFetchBoot } from "@/lib/flight-fetch";
 import { introBoot } from "@/lib/intro";
+import { mapScopeBoot } from "@/lib/map-scope";
 import { sidebarBoot } from "@/lib/sidebar";
 import { themeBoot } from "@/lib/tod";
 import "./globals.css";
@@ -80,6 +81,7 @@ export default function RootLayout({
       <head>
         <script id="theme-boot" dangerouslySetInnerHTML={{ __html: themeBoot }} />
         <script id="sidebar-boot" dangerouslySetInnerHTML={{ __html: sidebarBoot }} />
+        <script id="map-scope-boot" dangerouslySetInnerHTML={{ __html: mapScopeBoot }} />
         <script id="intro-boot" dangerouslySetInnerHTML={{ __html: introBoot }} />
         <link rel="manifest" href="/nearby/manifest-light.webmanifest" media="(prefers-color-scheme: light)" />
         <link rel="apple-touch-startup-image" href="/nearby/splash/light-1170x2532.png?v=eyes" media="(prefers-color-scheme: light) and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
