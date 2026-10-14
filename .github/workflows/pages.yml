@@ -54,6 +54,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # v4 polls on a fixed interval and cancels the deployment when the
+      # 10-minute limit hits. That cancellation is keyed by commit SHA, so
+      # rerunning the same commit does not publish. v5 backs off between
+      # status checks, and this commit is a new deployment.
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
