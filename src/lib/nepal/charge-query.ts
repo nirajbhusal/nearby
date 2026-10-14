@@ -21,6 +21,8 @@ export type ChargeState = {
   sheet: "peek" | "half" | "full" | null;
   /** Null is the default, Nearest, and is omitted from the URL. */
   sort: Exclude<StationSort, "nearest"> | null;
+  /** Map area. Nearby is the default and is omitted from the URL. */
+  scope: "nearby" | "all";
 };
 
 type SearchReader = {
@@ -72,6 +74,7 @@ export function readChargeState(sp: SearchReader): ChargeState {
     province: (sp.get("province") || "").trim().toLowerCase() || null,
     sheet: readSheet(sp.get("sheet")),
     sort: readSort(sp.get("sort")),
+    scope: sp.get("scope") === "all" ? "all" : "nearby",
   };
 }
 
@@ -100,6 +103,7 @@ export function writeChargeSearch(state: ChargeState): string {
   if (state.province && !state.q && state.lat == null) sp.set("province", state.province);
   if (state.sheet) sp.set("sheet", state.sheet);
   if (state.sort) sp.set("sort", state.sort);
+  if (state.scope === "all") sp.set("scope", "all");
   const query = sp
     .toString()
     .replace(/(^|&)network=([^&]*)/g, (_, prefix: string, value: string) => `${prefix}network=${value.replace(/%2C/gi, ",")}`);

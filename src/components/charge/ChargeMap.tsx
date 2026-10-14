@@ -9,7 +9,7 @@ import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 import { Peek } from "@/components/peek/Peek";
 
 export type MapFrame =
-  | { mode: "bounds"; bbox: [number, number, number, number] }
+  | { mode: "bounds"; bbox: [number, number, number, number]; maxZoom?: number }
   | { mode: "point"; lng: number; lat: number; zoom: number };
 
 export type ProvinceBubble = {
@@ -28,13 +28,15 @@ type Props = {
   hoveredId?: string | null;
   showYou: boolean;
   provinces: ProvinceBubble[] | null;
+  scope: "nearby" | "all";
+  onScope: (scope: "nearby" | "all") => void;
   onSelect: (id: string) => void;
   onProvince: (slug: string) => void;
   onLocate: () => void;
 };
 
 function frameKey(frame: MapFrame): string {
-  if (frame.mode === "bounds") return `b:${frame.bbox.join(",")}`;
+  if (frame.mode === "bounds") return `b:${frame.bbox.join(",")}:${frame.maxZoom ?? ""}`;
   return `p:${frame.lng.toFixed(4)},${frame.lat.toFixed(4)},${frame.zoom}`;
 }
 
@@ -63,7 +65,7 @@ function applyFrame(map: MlMap, frame: MapFrame) {
     map.fitBounds(new LngLatBounds([west, south], [east, north]), {
       padding: framePadding(map),
       duration: 0,
-      maxZoom: country ? 6.8 : 11,
+      maxZoom: frame.maxZoom ?? (country ? 6.8 : 14),
     });
     return;
   }
@@ -109,6 +111,8 @@ export default function ChargeMap({
   hoveredId = null,
   showYou,
   provinces,
+  scope,
+  onScope,
   onSelect,
   onProvince,
   onLocate,
@@ -211,7 +215,6 @@ export default function ChargeMap({
       setReady(false);
     };
     // Map is created once. Origin updates fly in a later effect.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const key = frameKey(frame);
@@ -298,11 +301,21 @@ export default function ChargeMap({
           );
           element.addEventListener("click", (event) => {
             event.stopPropagation();
-            map.flyTo({
-              center: [pin.lng, pin.lat],
-              zoom: Math.min(map.getZoom() + 2, 16),
-              duration: 450,
-            });
+            const bounds = new LngLatBounds();
+            for (const station of pin.stations) bounds.extend([station.lng, station.lat]);
+            const span = Math.max(
+              Math.abs(bounds.getEast() - bounds.getWest()),
+              Math.abs(bounds.getNorth() - bounds.getSouth()),
+            );
+            if (span < 0.01) {
+              map.flyTo({
+                center: [pin.lng, pin.lat],
+                zoom: Math.min(map.getZoom() + 2.2, 15),
+                duration: 450,
+              });
+              return;
+            }
+            map.fitBounds(bounds, { padding: 72, maxZoom: 15, duration: 450 });
           });
           markers.push(
             new Marker({ element, anchor: "center" }).setLngLat([pin.lng, pin.lat]).addTo(map),
@@ -373,6 +386,14 @@ export default function ChargeMap({
   return (
     <div className="charge-map">
       <div ref={holderRef} className="charge-map-canvas" />
+      <div className="map-scope" role="group" aria-label="Map area">
+        <button type="button" aria-pressed={scope === "nearby"} onClick={() => onScope("nearby")}>
+          Nearby
+        </button>
+        <button type="button" aria-pressed={scope === "all"} onClick={() => onScope("all")}>
+          All
+        </button>
+      </div>
       <div className="map-stack">
         <button type="button" aria-label="Zoom in" onClick={() => mapRef.current?.zoomIn({ duration: 200 })}>
           +
