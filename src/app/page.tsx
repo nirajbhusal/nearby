@@ -1,10 +1,15 @@
-import { AskNearby, PromptCard } from "@/components/home/AskNearby";
+import { BookOpen, Briefcase, Calendar, Compass, Zap } from "lucide-react";
 import { HomePeek } from "@/components/peek/Peek";
 import { DayGreeting } from "@/components/home/DayGreeting";
 import { NepalClock } from "@/components/home/NepalClock";
 import { toHref } from "@/components/SiteLink";
+import { evIndex } from "@/lib/nepal/ev";
 import { eventTiming, nepalEvents } from "@/lib/nepal/events";
 import { formatWhen } from "@/lib/nepal/format";
+import { companiesNear, jobRoleCards } from "@/lib/nepal/jobs";
+import { learnPlaces } from "@/lib/nepal/learn";
+import { nomadCities } from "@/lib/nepal/nomad";
+import { NEPAL } from "@/lib/nepal/places";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
@@ -35,25 +40,50 @@ function nextUp(): { href: string; text: string } | null {
   };
 }
 
+function noun(count: number, one: string, many: string) {
+  return count === 1 ? one : many;
+}
+
 export default function HomePage() {
+  const now = new Date();
   const upcoming = nextUp();
+  const chargers = evIndex.length;
+  const roles = jobRoleCards(
+    companiesNear(NEPAL, { category: null, city: null, remoteOnly: false, nationwide: true }).near,
+  ).length;
+  const events = nepalEvents.filter((event) => eventTiming(event, now) !== "past").length;
+  const learn = learnPlaces.length;
+  const cities = nomadCities.length;
+  const sections = [
+    { href: "/charge", name: "Charge", count: chargers, meta: noun(chargers, "charger", "chargers"), icon: Zap },
+    { href: "/jobs", name: "Jobs", count: roles, meta: noun(roles, "open role", "open roles"), icon: Briefcase },
+    { href: "/events", name: "Events", count: events, meta: noun(events, "coming up", "coming up"), icon: Calendar },
+    { href: "/learn", name: "Learn", count: learn, meta: noun(learn, "place", "places"), icon: BookOpen },
+    { href: "/nomad", name: "Nomad", count: cities, meta: noun(cities, "city", "cities"), icon: Compass },
+  ];
   return (
     <main className="home">
       <section className="start-screen">
-        <HomePeek />
-        <div className="reveal-greet">
-          <NepalClock />
-          <DayGreeting />
+        <div className="home-hero">
+          <HomePeek />
+          <div className="reveal-greet">
+            <DayGreeting />
+            <NepalClock />
+          </div>
+          <h1 className="font-display hero-title">Everything near you, in one place.</h1>
         </div>
-        <h1 className="font-display hero-title">Everything near you, in one place.</h1>
-        <AskNearby />
-        <div className="prompt-grid">
-          <PromptCard href="/charge?near=1&fast=1" title="Fast chargers near me" scene="charge" />
-          <PromptCard href="/jobs?q=Kathmandu&category=ai-data" title="AI jobs in Kathmandu" scene="jobs" />
-          <PromptCard href="/events?q=Kathmandu&when=week" title="Events this week" scene="events" />
-          <PromptCard href="/nomad/pokhara" title="Coworking in Pokhara" scene="pokhara" />
-          <PromptCard href="/learn?q=Kathmandu" title="Learn AI nearby" scene="learn" />
-          <PromptCard href="/nomad/kathmandu" title="Stays in Kathmandu" scene="kathmandu" />
+        <div className="home-sections">
+          {sections.map((section) => {
+            const Icon = section.icon;
+            return (
+              <a key={section.href} className="home-section" href={toHref(section.href)}>
+                <Icon size={22} strokeWidth={1.5} aria-hidden />
+                <span className="home-section-name">{section.name}</span>
+                <strong className="tabular">{section.count}</strong>
+                <small>{section.meta}</small>
+              </a>
+            );
+          })}
         </div>
         {upcoming ? (
           <p className="home-next">

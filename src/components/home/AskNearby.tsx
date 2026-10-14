@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { MapPin } from "lucide-react";
-import { SceneArt } from "@/components/illustrations/Scenes";
+import { BrandEyes } from "@/components/brand/Logo";
 import { Peek, PeekEmpty, usePeekState } from "@/components/peek/Peek";
 import { toHref } from "@/components/SiteLink";
 import { evIndex } from "@/lib/nepal/ev";
@@ -135,6 +135,84 @@ function useWideSearch() {
   );
 }
 
+const PROMPTS: { href: string; title: string }[] = [
+  { href: "/charge?near=1&fast=1", title: "Fast chargers near me" },
+  { href: "/jobs?q=Kathmandu&category=ai-data", title: "AI jobs in Kathmandu" },
+  { href: "/events?q=Kathmandu&when=week", title: "Events this week" },
+  { href: "/nomad/pokhara", title: "Coworking in Pokhara" },
+  { href: "/learn?q=Kathmandu", title: "Learn AI nearby" },
+  { href: "/nomad/kathmandu", title: "Stays in Kathmandu" },
+];
+
+function useMacShortcut() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => /Mac|iPhone|iPad/.test(navigator.userAgent),
+    () => false,
+  );
+}
+
+export function AskDock() {
+  const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+  const mac = useMacShortcut();
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setOpen((value) => !value);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    if (!open) {
+      if (wasOpen.current) buttonRef.current?.focus();
+      wasOpen.current = false;
+      return;
+    }
+    wasOpen.current = true;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  return (
+    <>
+      <button
+        ref={buttonRef}
+        type="button"
+        className="ask-fab"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-keyshortcuts="Control+K Meta+K"
+        onClick={() => setOpen(true)}
+      >
+        <BrandEyes className="ask-fab-eyes" />
+        <span>Ask</span>
+      </button>
+      {open ? (
+        <div className="ask-layer">
+          <button type="button" className="ask-scrim" aria-label="Close ask" onClick={() => setOpen(false)} />
+          <div className="ask-sheet" role="dialog" aria-modal="true" aria-label="Ask">
+            <div className="ask-head">
+              <p>Ask</p>
+              <kbd>{mac ? "⌘K" : "Ctrl K"}</kbd>
+            </div>
+            <AskNearby />
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 export function AskNearby() {
   const [draft, setDraft] = useState("");
   const [place, setPlace] = useState<(typeof PLACES)[number]>("Near me");
@@ -146,6 +224,11 @@ export function AskNearby() {
   const grouped = GROUPS.map((group) => ({ group, rows: hits.filter((hit) => hit.group === group) })).filter(
     (entry) => entry.rows.length > 0,
   );
+
+  useEffect(() => {
+    const field = document.getElementById("ask-nearby");
+    if (field instanceof HTMLInputElement) field.focus();
+  }, []);
 
   useEffect(() => {
     if (geoToken.current) return;
@@ -228,6 +311,15 @@ export function AskNearby() {
           ) : null}
         </div>
       </div>
+      {draft.trim().length < 2 ? (
+        <ul className="ask-prompts" aria-label="Suggestions">
+          {PROMPTS.map((prompt) => (
+            <li key={prompt.href}>
+              <a href={toHref(prompt.href)}>{prompt.title}</a>
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {draft.trim().length >= 2 ? (
         <div className="composer-results" aria-live="polite">
           {grouped.length === 0 ? (
@@ -254,22 +346,5 @@ export function AskNearby() {
         </div>
       ) : null}
     </form>
-  );
-}
-
-export function PromptCard({
-  href,
-  title,
-  scene,
-}: {
-  href: string;
-  title: string;
-  scene: "charge" | "jobs" | "events" | "learn" | "nomad" | "pokhara" | "kathmandu";
-}) {
-  return (
-    <a className="prompt-card" href={toHref(href)}>
-      <SceneArt scene={scene === "pokhara" ? "pokhara" : scene} />
-      <span>{title}</span>
-    </a>
   );
 }
