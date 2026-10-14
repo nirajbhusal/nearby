@@ -40,7 +40,7 @@ for (const [file, title, tab] of cases) {
   const topStart = html.indexOf('class="mobile-top');
   const top = html.slice(topStart, html.indexOf("</header>", topStart));
   assert.ok(top.includes("mobile-actions"), `${file} missing header actions`);
-  assert.ok(top.includes('aria-label="Theme,'), `${file} missing theme button`);
+  assert.ok(top.includes('aria-label="Switch to light"') || top.includes('aria-label="Switch to dark"'), `${file} missing theme button`);
   assert.ok(top.includes('aria-label="Profile"'), `${file} profile is not in the header actions`);
   const labels = activeLabels(html);
   assert.deepEqual(labels, [tab], `${file} active tabs ${labels.join(",")}`);
