@@ -325,7 +325,7 @@ function EditProfile({ profile }: { profile: Profile }) {
 
       <section className="settings-group" aria-labelledby="edit-city">
         <h2 id="edit-city">Home city</h2>
-        <p className="group-note">Default place for Jobs, Events, and Nomad. Charge still opens on all chargers.</p>
+        <p className="group-note">Default place when a search is empty. Kathmandu area stays the starting point until a city is chosen.</p>
         <div className="settings-list" role="radiogroup" aria-label="Home city">
           <button
             type="button"

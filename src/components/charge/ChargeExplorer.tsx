@@ -31,6 +31,7 @@ import {
   stationCaution,
 } from "@/lib/nepal/format";
 import { evReady, formatDistance, stationFitsEv } from "@/lib/local-profile";
+import { effectiveMapScope, readMapScope, subscribeMapScope, writeMapScope } from "@/lib/map-scope";
 import { useProfile, useUnits } from "@/lib/profile-store";
 import { DistanceText } from "@/components/DistanceText";
 import { FitMark, SaveButton } from "@/components/SaveButton";
@@ -207,6 +208,18 @@ function nearbyFrame(stations: NearbyStation[], focus: { lat: number; lng: numbe
   };
 }
 
+function orderFrameFirst(stations: NearbyStation[], frame: MapFrame): NearbyStation[] {
+  if (frame.mode !== "bounds" || stations.length === 0) return stations;
+  const [west, south, east, north] = frame.bbox;
+  const inside: NearbyStation[] = [];
+  const outside: NearbyStation[] = [];
+  for (const station of stations) {
+    if (station.lng >= west && station.lng <= east && station.lat >= south && station.lat <= north) inside.push(station);
+    else outside.push(station);
+  }
+  return inside.length && outside.length ? inside.concat(outside) : stations;
+}
+
 export function ChargeExplorer() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -214,6 +227,9 @@ export function ChargeExplorer() {
   const stateRef = useRef(state);
   const recent = useSyncExternalStore(subscribeRecent, readRecent, () => EMPTY_RECENT);
   const desktop = useSyncExternalStore(subscribeDesktop, desktopNow, () => false);
+  const savedScope = useSyncExternalStore(subscribeMapScope, readMapScope, () => "nearby" as const);
+  const scope = effectiveMapScope(searchParams.has("scope"), state.scope, savedScope);
+  const profile = useProfile();
 
   const origin: PlaceHit = useMemo(() => {
     const named = state.q ? resolvePlace(state.q) : null;
@@ -241,8 +257,12 @@ export function ChargeExplorer() {
         province: province.name,
       };
     }
+    if (profile.homeCity) {
+      const home = resolvePlace(profile.homeCity);
+      if (home) return home;
+    }
     return NEPAL;
-  }, [state.q, state.lat, state.lng, state.province]);
+  }, [state.q, state.lat, state.lng, state.province, profile.homeCity]);
   // No shared place yet: keep the whole country, but measure Nearest from Ratnapark.
   const measured = useMemo(
     () => (origin.kind === "country" ? { ...origin, lat: RATNAPARK.lat, lng: RATNAPARK.lng } : origin),
@@ -261,7 +281,6 @@ export function ChargeExplorer() {
     [radiusKm, state.fast, state.plugs, state.networks, state.exact]
   );
   const stations = useMemo(() => stationsNear(measured, filters), [measured, filters]);
-  const profile = useProfile();
   const unit = useUnits();
   const carReady = evReady(profile);
   const [fitsOnly, setFitsOnly] = useState(false);
@@ -271,7 +290,7 @@ export function ChargeExplorer() {
   }, [stations, fitsOnly, carReady, profile]);
   const sort = state.sort ?? "nearest";
   const ordered = useMemo(() => sortStations(visible, sort), [visible, sort]);
-  const mapNearby = state.scope !== "all";
+  const mapNearby = scope !== "all";
   const focus = origin.kind === "country" ? measured : origin;
   const mapRadiusKm =
     mapNearby
@@ -392,6 +411,11 @@ export function ChargeExplorer() {
     stateRef.current = next;
     router.replace(`/charge${search}`, { scroll: false });
   }
+
+  useEffect(() => {
+    if (!searchParams.has("scope")) return;
+    writeMapScope(state.scope);
+  }, [searchParams, state.scope]);
 
   useEffect(() => {
     if (!state.near) return;
@@ -651,25 +675,27 @@ export function ChargeExplorer() {
   }
 
   const listPage = state.view === "list" && !desktop;
-  const shown = listPage ? ordered : mapOrdered;
-  const count = shown.length;
-  const filterCount = activeFilterCount(filters) + (fitsOnly && carReady ? 1 : 0);
-  const within = radiusKm == null ? "" : formatDistance(radiusKm, unit);
-  const summary =
-    origin.kind === "province"
-      ? `${count} in ${origin.label}`
-      : origin.kind === "country" || radiusKm == null
-        ? origin.kind === "country"
-          ? `${count} charger${count === 1 ? "" : "s"} · near Kathmandu`
-          : `${count} charger${count === 1 ? "" : "s"} in ${origin.label}`
-        : origin.kind === "geolocation"
-          ? `${count} charger${count === 1 ? "" : "s"} within ${within}`
-          : `${count} within ${within} of ${origin.label}`;
   const frame: MapFrame = mapNearby
     ? nearbyFrame(mapOrdered, focus)
     : origin.kind === "province"
-      ? { mode: "bounds", bbox: provinceByName(origin.province)?.bbox ?? NEPAL_BBOX, maxZoom: 9 }
+      ? { mode: "bounds", bbox: provinceByName(origin.province)?.bbox ?? NEPAL_BBOX, maxZoom: 9.2 }
       : { mode: "bounds", bbox: NEPAL_BBOX, maxZoom: 6.8 };
+  const shown = mapNearby ? orderFrameFirst(mapOrdered, frame) : mapOrdered;
+  const count = shown.length;
+  const filterCount = activeFilterCount(filters) + (fitsOnly && carReady ? 1 : 0);
+  const within = radiusKm == null ? "" : formatDistance(radiusKm, unit);
+  const chargers = `${count} charger${count === 1 ? "" : "s"}`;
+  const summary = !mapNearby
+    ? chargers
+    : origin.kind === "province"
+      ? `${count} in ${origin.label}`
+      : origin.kind === "country" || radiusKm == null
+        ? origin.kind === "country"
+          ? `${chargers} · near Kathmandu`
+          : `${chargers} in ${origin.label}`
+        : origin.kind === "geolocation"
+          ? `${chargers} within ${within}`
+          : `${count} within ${within} of ${origin.label}`;
   const showDistance = true;
   const cityChips = MAJOR_CITIES.map((name) => {
     const hit = resolvePlace(name);
@@ -829,6 +855,16 @@ export function ChargeExplorer() {
         ) : null}
       </div>
       <div className="list-head-tools">
+        {listPage ? (
+          <div className="map-scope map-scope-inline" role="group" aria-label="Map area">
+            <button type="button" aria-pressed={scope === "nearby"} onClick={() => { writeMapScope("nearby"); replace({ scope: "nearby" }); }}>
+              Nearby
+            </button>
+            <button type="button" aria-pressed={scope === "all"} onClick={() => { writeMapScope("all"); replace({ scope: "all", province: null }); }}>
+              All
+            </button>
+          </div>
+        ) : null}
         <SortControl
           value={sort}
           onChange={(next) => replace({ sort: next === "nearest" ? null : next })}
@@ -957,8 +993,11 @@ export function ChargeExplorer() {
           selectedId={selected?.id ?? null}
           hoveredId={hoveredId}
           showYou={origin.kind === "geolocation"}
-          scope={state.scope}
-          onScope={(scope) => replace({ scope: scope === "nearby" ? "nearby" : "all", province: scope === "all" ? null : stateRef.current.province })}
+          scope={scope}
+          onScope={(next) => {
+            writeMapScope(next);
+            replace({ scope: next, province: next === "all" ? null : stateRef.current.province });
+          }}
           provinces={
             !mapNearby && origin.kind === "country"
               ? provinceRecords.map((province) => ({
@@ -992,7 +1031,7 @@ export function ChargeExplorer() {
           ) : (
             <div className="charge-results">
               <StationList
-                stations={ordered}
+                stations={shown}
                 showDistance={showDistance}
                 unit={unit}
                 selectedId={selected?.id ?? null}

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Calendar, MapPin, Tag } from "lucide-react";
 import { ViewToggle } from "@/components/ViewToggle";
@@ -14,6 +14,7 @@ import { SwipeHint, SwipeRow } from "@/components/motion/SwipeRow";
 import { SaveButton } from "@/components/SaveButton";
 import { ShareButton } from "@/components/ShareButton";
 import { jobHref } from "@/lib/item-link";
+import { effectiveMapScope, readMapScope, subscribeMapScope, writeMapScope } from "@/lib/map-scope";
 import { categoryLabel, formatUpdated } from "@/lib/nepal/format";
 import { jobInterestMatch, preferMatches } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
@@ -116,12 +117,21 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get("view") === "map" ? "map" : "cards";
-  const mapScope = searchParams.get("scope") === "all" ? "all" : "nearby";
+  const savedScope = useSyncExternalStore(subscribeMapScope, readMapScope, () => "nearby" as const);
+  const mapScope = effectiveMapScope(
+    searchParams.has("scope"),
+    searchParams.get("scope") === "all" ? "all" : "nearby",
+    savedScope,
+  );
   const focusId = searchParams.get("id");
   const [focusClosed, setFocusClosed] = useState(false);
   useEffect(() => {
     setFocusClosed(false);
   }, [focusId]);
+  useEffect(() => {
+    if (!searchParams.has("scope")) return;
+    writeMapScope(searchParams.get("scope") === "all" ? "all" : "nearby");
+  }, [searchParams]);
   const focused = focusId && !focusClosed ? findJobRole(focusId) : null;
   const category = searchParams.get("category");
   const [city, setCity] = useState<string | null>(null);
@@ -149,6 +159,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
     if (mapScope !== "all") return near;
     return companiesNear(origin, { category, city: null, remoteOnly: false, nationwide: true }).near;
   }, [mapScope, near, origin, category]);
+  const mapRoleCount = useMemo(() => jobRoleCards(mapRows).length, [mapRows]);
   const pins = useMemo(
     () => jobMapPins(mapRows, origin, mapScope === "all"),
     [mapRows, origin, mapScope],
@@ -168,6 +179,7 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
   }
 
   function setScope(next: "nearby" | "all") {
+    writeMapScope(next);
     const sp = new URLSearchParams(searchParams.toString());
     if (next === "all") sp.set("scope", "all");
     else sp.delete("scope");
@@ -188,7 +200,9 @@ export function JobsPanel({ origin }: { origin: PlaceHit }) {
       <div className="jobs-sticky">
       <div className="jobs-toolbar">
         <p className="fine tabular">
-          {cards.length} open role{cards.length === 1 ? "" : "s"} near {origin.label}.
+          {view === "map" && mapScope === "all"
+            ? `${mapRoleCount} open role${mapRoleCount === 1 ? "" : "s"}`
+            : `${cards.length} open role${cards.length === 1 ? "" : "s"} near ${origin.label}.`}
         </p>
         <div className="jobs-toggles">
           {view === "map" ? (

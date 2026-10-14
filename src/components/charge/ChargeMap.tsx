@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { LngLatBounds, Map as MlMap, Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { isApproximate, networkMonogram, type NearbyStation } from "@/lib/nepal/ev";
-import { clusterStations, spiderLatLng, stackKey } from "@/components/charge/cluster";
+import { clusterByCity, clusterStations, spiderLatLng, stackKey } from "@/components/charge/cluster";
 import { ensureMapWorker, mapStyleUrl, readMapTheme } from "@/lib/map-style";
 import { Peek } from "@/components/peek/Peek";
 
@@ -91,6 +91,16 @@ function LocateIcon() {
       <path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => {
+    if (char === "&") return "&amp;";
+    if (char === "<") return "&lt;";
+    if (char === ">") return "&gt;";
+    if (char === '"') return "&quot;";
+    return "&#39;";
+  });
 }
 
 function pinButton(html: string, label: string): HTMLButtonElement {
@@ -279,7 +289,8 @@ export default function ChargeMap({
         }
         return;
       }
-      let pins = clusterStations(stations, zoom);
+      const cityLevel = zoom < 11;
+      let pins = cityLevel ? clusterByCity(stations) : clusterStations(stations, zoom);
       const stacks = new Map<string, NearbyStation[]>();
       for (const station of stations) {
         const key = stackKey(station);
@@ -294,10 +305,13 @@ export default function ChargeMap({
       }
       for (const pin of pins) {
         if (pin.kind === "cluster") {
+          const cityName = pin.id.startsWith("city:") ? pin.id.slice(5) : "";
           const size = pin.count >= 40 ? "xl" : pin.count >= 12 ? "lg" : "md";
           const element = pinButton(
-            `<span class="ev-cluster size-${size}">${pin.count}</span>`,
-            `${pin.count} chargers`,
+            cityName
+              ? `<span class="city-cluster"><strong>${pin.count}</strong><small>${escapeHtml(cityName)}</small></span>`
+              : `<span class="ev-cluster size-${size}">${pin.count}</span>`,
+            cityName ? `${cityName}, ${pin.count} chargers` : `${pin.count} chargers`,
           );
           element.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -307,6 +321,10 @@ export default function ChargeMap({
               Math.abs(bounds.getEast() - bounds.getWest()),
               Math.abs(bounds.getNorth() - bounds.getSouth()),
             );
+            if (cityName && span > 0.08) {
+              map.flyTo({ center: [pin.lng, pin.lat], zoom: 12.6, duration: 450 });
+              return;
+            }
             if (span < 0.01) {
               map.flyTo({
                 center: [pin.lng, pin.lat],
@@ -315,7 +333,7 @@ export default function ChargeMap({
               });
               return;
             }
-            map.fitBounds(bounds, { padding: 72, maxZoom: 15, duration: 450 });
+            map.fitBounds(bounds, { padding: 72, maxZoom: cityName ? 14.2 : 15, duration: 450 });
           });
           markers.push(
             new Marker({ element, anchor: "center" }).setLngLat([pin.lng, pin.lat]).addTo(map),

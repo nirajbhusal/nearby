@@ -29,6 +29,11 @@ assert.equal(kathmandu?.costLabel, "$890/mo");
 assert.equal(pokhara?.costLabel, "$990/mo");
 assert.equal(kathmandu?.asOfLabel, "14 Oct 2026");
 assert.equal(pokhara?.asOfLabel, "14 Oct 2026");
+assert.match(kathmandu?.referenceLine ?? "", /as of 26 Sep 2026/);
+assert.match(kathmandu?.referenceLine ?? "", /as of 14 Oct 2026/);
+assert.match(pokhara?.referenceLine ?? "", /as of 26 Sep 2026/);
+assert.match(pokhara?.referenceLine ?? "", /as of 14 Oct 2026/);
+assert.equal((kathmandu?.referenceLine ?? "").includes("as of 14 Oct 2026") && (kathmandu?.referenceLine ?? "").indexOf("26 Sep 2026") < (kathmandu?.referenceLine ?? "").indexOf("14 Oct 2026"), true);
 assert.ok(kathmandu?.sourceUrl?.includes("nomads.com"));
 assert.ok(pokhara?.sourceUrl?.includes("nomads.com"));
 
