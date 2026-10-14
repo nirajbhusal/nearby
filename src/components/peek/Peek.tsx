@@ -249,7 +249,7 @@ export function HomePeek() {
   }, [setState]);
   return (
     <div className="home-peek">
-      <Peek size={56} state={state} />
+      <Peek size={88} state={state} />
     </div>
   );
 }

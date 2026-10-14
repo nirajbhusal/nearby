@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Check, Monitor, Moon, Settings, Sun } from "lucide-react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Check, Moon, Settings, Sun } from "lucide-react";
 import { applyThemeChoice, useThemeChoice, useProfile, useUnits, writeProfile, writeUnits } from "@/lib/profile-store";
 import { HOME_CITY_OPTIONS, type ThemeChoice } from "@/lib/local-profile";
 import { paintTheme } from "@/lib/tod";
@@ -30,69 +30,39 @@ export function ThemeSync() {
   return null;
 }
 
-export function ThemeMenuButton() {
-  const choice = currentChoice(useThemeChoice());
-  const [open, setOpen] = useState(false);
-  const root = useRef<HTMLDivElement>(null);
-  const Icon = choice === "light" ? Sun : choice === "dark" ? Moon : Monitor;
-  const label = CHOICES.find((item) => item.id === choice)?.label ?? "System";
+function paintedTheme(): "light" | "dark" {
+  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+}
 
-  useEffect(() => {
-    if (!open) return;
-    const onPointer = (event: PointerEvent) => {
-      if (!root.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("pointerdown", onPointer);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onPointer);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+function subscribePaintedTheme(onChange: () => void) {
+  const media = window.matchMedia("(prefers-color-scheme: light)");
+  media.addEventListener("change", onChange);
+  window.addEventListener("nearby-theme", onChange);
+  return () => {
+    media.removeEventListener("change", onChange);
+    window.removeEventListener("nearby-theme", onChange);
+  };
+}
 
+/** One sun/moon control. System stays the stored default until this is used. */
+export function ThemeToggle() {
+  const painted = useSyncExternalStore(subscribePaintedTheme, paintedTheme, () => "dark" as const);
+  const light = painted === "light";
+  const Icon = light ? Sun : Moon;
   return (
-    <div className="theme-menu" ref={root}>
-      <button
-        type="button"
-        className="icon-btn theme-menu-btn"
-        aria-haspopup="menu"
-        aria-expanded={open}
-        aria-label={`Theme, ${label}`}
-        onClick={() => setOpen((value) => !value)}
-      >
-        <Icon size={20} strokeWidth={1.5} aria-hidden />
-      </button>
-      {open ? (
-        <div className="theme-popover" role="menu" aria-label="Theme">
-          {CHOICES.map((item) => {
-            const on = choice === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                role="menuitemradio"
-                aria-checked={on}
-                onClick={() => {
-                  applyThemeChoice(item.id);
-                  setOpen(false);
-                }}
-              >
-                <span>{item.label}</span>
-                {on ? <Check size={16} strokeWidth={2} aria-hidden /> : <span className="theme-check-gap" aria-hidden />}
-              </button>
-            );
-          })}
-        </div>
-      ) : null}
-    </div>
+    <button
+      type="button"
+      className="theme-toggle"
+      data-label={light ? "Dark" : "Light"}
+      aria-label={light ? "Switch to dark" : "Switch to light"}
+      onClick={() => applyThemeChoice(light ? "dark" : "light")}
+    >
+      <Icon size={18} strokeWidth={1.5} aria-hidden />
+    </button>
   );
 }
 
 export function SettingsMenu() {
-  const choice = currentChoice(useThemeChoice());
   const units = useUnits();
   const profile = useProfile();
   const [open, setOpen] = useState(false);
@@ -160,22 +130,6 @@ export function SettingsMenu() {
                 onClick={() => writeProfile({ ...profile, homeCity: city })}
               >
                 <span>{city}</span>
-                {on ? <Check size={16} strokeWidth={2} aria-hidden /> : <span className="theme-check-gap" aria-hidden />}
-              </button>
-            );
-          })}
-          <p className="settings-pop-label">Theme</p>
-          {CHOICES.map((item) => {
-            const on = choice === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                role="radio"
-                aria-checked={on}
-                onClick={() => applyThemeChoice(item.id)}
-              >
-                <span>{item.label}</span>
                 {on ? <Check size={16} strokeWidth={2} aria-hidden /> : <span className="theme-check-gap" aria-hidden />}
               </button>
             );

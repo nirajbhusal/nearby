@@ -11,18 +11,18 @@ import {
   Ellipsis,
   House,
   PanelLeft,
-  Search,
   User,
   Zap,
 } from "lucide-react";
 import { BrandEyes } from "@/components/brand/Logo";
+import { AskDock } from "@/components/home/AskNearby";
 import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
 import { RegisterSW } from "@/components/RegisterSW";
 import { toHref } from "@/components/SiteLink";
 import { IntroSplash } from "@/components/motion/IntroSplash";
 import { ToastHost } from "@/components/motion/ToastHost";
-import { SettingsMenu, ThemeMenuButton, ThemeSync } from "@/components/ThemeToggle";
+import { SettingsMenu, ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
 import { isChargeRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
@@ -108,10 +108,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <PanelLeft size={18} strokeWidth={1.5} aria-hidden />
             </button>
           </div>
-          <a className="nav-row side-ask" href={toHref("/#ask-nearby")} data-label="Ask">
-            <Search size={18} strokeWidth={1.5} aria-hidden />
-            <span>Ask</span>
-          </a>
           <nav className="side-links">
             {NAV.map((item) => {
               const Icon = item.icon;
@@ -129,24 +125,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Bookmark size={18} strokeWidth={1.5} aria-hidden />
               <span>Saved</span>
             </a>
-            <a href={toHref("/profile")} data-label="Profile" aria-current={tabActive(path, "/profile") ? "page" : undefined}>
-              {initial ? <AvatarFace className="tab-avatar" /> : <User size={18} strokeWidth={1.5} aria-hidden />}
-              <span>Profile</span>
-            </a>
+            <div className="side-profile-row">
+              <a href={toHref("/profile")} data-label="Profile" aria-current={tabActive(path, "/profile") ? "page" : undefined}>
+                {initial ? <AvatarFace className="tab-avatar" /> : <User size={18} strokeWidth={1.5} aria-hidden />}
+                <span>Profile</span>
+              </a>
+              <ThemeToggle />
+            </div>
             <SettingsMenu />
           </div>
         </aside>
         <div className="shell-main">
-          <div className="desk-theme">
-            <ThemeMenuButton />
-          </div>
           <header className={path === "/" ? "mobile-top is-home" : "mobile-top"} data-route={path}>
             <a className="brand-lockup" href={toHref("/")} aria-label="Nearby">
               <BrandEyes />
             </a>
             {path === "/" ? <span className="mobile-title" /> : <p className="mobile-title">{pageTitle(path)}</p>}
             <div className="mobile-actions">
-              <ThemeMenuButton />
+              <ThemeToggle />
               <a className="icon-btn" href={toHref("/profile")} aria-label="Profile">
                 {initial ? <AvatarFace className="tab-avatar" /> : <User size={20} strokeWidth={1.5} aria-hidden />}
               </a>
@@ -187,10 +183,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <BrandEyes />
               </a>
             </div>
-            <a className="nav-row side-ask" href={toHref("/#ask-nearby")} onClick={() => setMore(false)}>
-              <Search size={18} strokeWidth={1.5} aria-hidden />
-              <span>Ask</span>
-            </a>
             <a className="nav-row" href={toHref("/learn")} onClick={() => setMore(false)}>
               <BookOpen size={18} strokeWidth={1.5} aria-hidden />
               <span>Learn</span>
@@ -211,6 +203,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       ) : null}
+      <AskDock />
       <IntroSplash />
       <ToastHost />
       <ThemeSync />
