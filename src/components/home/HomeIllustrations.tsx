@@ -61,12 +61,13 @@ function JobsSketch() {
 function EventsSketch() {
   return (
     <>
-      <path d="M34 34c8-12 18-16 30-16s22 4 30 16" {...line} />
-      <path d="M26 34h76" {...line} />
-      <path d="M30 34v5M98 34v5" {...line} />
-      <rect x="16" y="44" width="96" height="26" rx="6" {...line} />
-      <path d="M44 44v26" {...line} strokeDasharray="1.8 3.2" />
-      <path d="M68 52l2.4 4.6 5 .7-3.7 3.4 1 4.8L68 63.2 63.3 65.5l1-4.8-3.7-3.4 5-.7z" {...line} />
+      <path d="M36 32c8-12 18-16 28-16s20 4 28 16" {...line} />
+      <path d="M28 32h72" {...line} />
+      <path d="M34 32v6M94 32v6" {...line} />
+      <rect x="18" y="46" width="92" height="24" rx="5" {...line} />
+      <path d="M46 46v24" {...line} strokeDasharray="1.8 3.2" />
+      <path d="M78 52v12M72 58h12" {...line} />
+      <path d="M74 54l8 8M82 54l-8 8" {...line} />
     </>
   );
 }
