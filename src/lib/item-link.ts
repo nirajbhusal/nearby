@@ -49,6 +49,11 @@ export function chargeHref(id: string): string {
   return `/charge/?id=${encodeURIComponent(id)}`;
 }
 
+export function foodHref(id: string, city: "kathmandu" | "pokhara" = "kathmandu"): string {
+  const cityParam = city === "pokhara" ? "&city=pokhara" : "";
+  return `/food/?id=${encodeURIComponent(id)}${cityParam}`;
+}
+
 export function jobHref(id: string): string {
   return `/jobs/?id=${encodeURIComponent(id)}`;
 }

@@ -6,7 +6,7 @@ export const SITE_TAGLINE = "All within reach.";
 export const SITE_TITLE = "Nearby · All within reach";
 /** Search and share text. The visible tagline does not repeat the country. */
 export const SITE_DESCRIPTION =
-  "Nearby is a Nepal guide to charging stations, tech jobs, tech events, places to learn AI, and digital nomads.";
+  "Nearby is a guide to charging stations, cafés and food, tech jobs, tech events, places to learn AI, and digital nomads.";
 
 const OG_IMAGE = `${SITE_URL}/og.png?v=eyes`;
 

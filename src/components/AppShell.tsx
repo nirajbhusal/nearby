@@ -12,6 +12,7 @@ import {
   House,
   PanelLeft,
   User,
+  Utensils,
   Zap,
 } from "lucide-react";
 import { BrandEyes } from "@/components/brand/Logo";
@@ -25,12 +26,13 @@ import { ToastHost } from "@/components/motion/ToastHost";
 import { SettingsMenu, ThemeSync, ThemeToggle } from "@/components/ThemeToggle";
 import { profileInitial } from "@/lib/local-profile";
 import { useProfile } from "@/lib/profile-store";
-import { isChargeRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
+import { isChargeRoute, isFoodRoute, moreActive, normalizeRoute, pageTitle, tabActive } from "@/lib/route-chrome";
 import { sidebarRailNow, subscribeSidebar, writeSidebarRail } from "@/lib/sidebar";
 
 const NAV = [
   { href: "/", label: "Home", icon: House },
   { href: "/charge", label: "Charging stations", icon: Zap },
+  { href: "/food", label: "Cafés & food", icon: Utensils },
   { href: "/jobs", label: "Tech jobs", icon: Briefcase },
   { href: "/events", label: "Tech events", icon: Calendar },
   { href: "/learn", label: "Learn AI", icon: BookOpen },
@@ -40,6 +42,7 @@ const NAV = [
 const TABS = [
   { href: "/", label: "Home", icon: House },
   { href: "/charge", label: "Charging", icon: Zap },
+  { href: "/food", label: "Food", icon: Utensils },
   { href: "/jobs", label: "Jobs", icon: Briefcase },
   { href: "/events", label: "Events", icon: Calendar },
 ] as const;
@@ -62,7 +65,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     () => normalizeRoute(window.location.pathname),
     () => normalizeRoute(routerPath),
   );
-  const charge = isChargeRoute(path);
+  const charge = isChargeRoute(path) || isFoodRoute(path);
   const profile = useProfile();
   const initial = profileInitial(profile.name);
   const sidebarRail = useSyncExternalStore(subscribeSidebar, sidebarRailNow, () => false);

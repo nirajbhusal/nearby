@@ -8,6 +8,7 @@ import fs from "node:fs";
 const cases = [
   ["out/index.html", "", "Home"],
   ["out/charge/index.html", "Charging stations", "Charging"],
+  ["out/food/index.html", "Cafés &amp; food", "Food"],
   ["out/jobs/index.html", "Tech jobs", "Jobs"],
   ["out/events/index.html", "Tech events", "Events"],
   ["out/learn/index.html", "Learn AI", "More"],
@@ -65,6 +66,7 @@ const pages = [
   "out/nomad/kathmandu/index.html",
   "out/nomad/pokhara/index.html",
   "out/charge/index.html",
+  "out/food/index.html",
 ];
 for (const file of pages) {
   const text = visible(fs.readFileSync(file, "utf8"));

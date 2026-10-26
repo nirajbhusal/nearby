@@ -20,7 +20,7 @@ export const LOCAL_DATA_KEYS = [
 export type ThemeChoice = "auto" | "system" | "light" | "dark";
 export type DistanceUnit = "km" | "mi";
 export type ConnectorId = "ccs2" | "gbt" | "chademo" | "t2";
-export type SavedKind = "charger" | "job" | "event" | "stay" | "cowork" | "learn";
+export type SavedKind = "charger" | "job" | "event" | "stay" | "cowork" | "learn" | "food";
 
 export type Profile = {
   name: string;
@@ -156,7 +156,8 @@ export function parseSaved(raw: string | null): SavedRecord[] {
           row.kind !== "event" &&
           row.kind !== "stay" &&
           row.kind !== "cowork" &&
-          row.kind !== "learn")
+          row.kind !== "learn" &&
+          row.kind !== "food")
       ) {
         continue;
       }
@@ -182,6 +183,7 @@ export function savedCounts(items: SavedRecord[]) {
     stay: items.filter((item) => item.kind === "stay").length,
     cowork: items.filter((item) => item.kind === "cowork").length,
     learn: items.filter((item) => item.kind === "learn").length,
+    food: items.filter((item) => item.kind === "food").length,
   };
 }
 

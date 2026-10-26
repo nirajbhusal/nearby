@@ -22,6 +22,7 @@ import { clearLocalData, toggleSaved, useProfile, useSaved, writeProfile, writeU
 
 const SAVED_ROWS: { kind: SavedKind; label: string }[] = [
   { kind: "charger", label: "Charging stations" },
+  { kind: "food", label: "Cafés & food" },
   { kind: "job", label: "Tech jobs" },
   { kind: "event", label: "Tech events" },
   { kind: "stay", label: "Stays" },
