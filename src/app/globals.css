@@ -4643,15 +4643,6 @@ html[data-intro="done"] .home .prompt-card { opacity: 1; animation: none; }
   -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent);
   mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent);
 }
-.home-next {
-  margin: 18px auto 0;
-  max-width: 40rem;
-  font-size: 13px;
-  line-height: 1.45;
-  color: var(--ink-muted);
-}
-.home-next a { color: inherit; text-decoration: none; }
-.home-next a:hover { text-decoration: underline; }
 .map-scope-inline {
   position: static;
   top: auto;
@@ -5002,16 +4993,9 @@ html[data-sidebar="rail"] .side-profile-row .theme-toggle { position: relative; 
   font-weight: 650;
 }
 .home-section small { font-size: 13px; color: var(--ink-muted); }
-.home .home-next {
-  margin: 40px auto 8px;
-  max-width: 36rem;
-  font-size: 15px;
-  line-height: 1.5;
-}
 @media (min-width: 700px) {
   .home-hero { padding-top: 56px; gap: 18px; }
   .home-sections { grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 64px; }
-  .home .home-next { margin-top: 52px; }
 }
 @media (min-width: 1100px) {
   .home-sections { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
@@ -5097,4 +5081,45 @@ html[data-sidebar="rail"] .side-profile-row .theme-toggle { position: relative; 
 @media (max-width: 420px) {
   .tab-bar a,
   .tab-bar button { font-size: 11px; letter-spacing: -0.04em; }
+}
+.site-now {
+  position: fixed;
+  z-index: 64;
+  left: 10px;
+  right: 108px;
+  bottom: calc(62px + env(safe-area-inset-bottom));
+  margin: 0;
+  pointer-events: none;
+  text-align: center;
+}
+.site-now p {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  color: var(--ink-muted);
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.site-now a {
+  pointer-events: auto;
+  color: inherit;
+  text-decoration: none;
+}
+.site-now a:hover { text-decoration: underline; }
+body:has(.site-now) .page-frame {
+  padding-bottom: calc(108px + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .site-now {
+    left: 248px;
+    right: 140px;
+    bottom: 12px;
+    text-align: left;
+  }
+  html[data-sidebar="rail"] .site-now { left: 84px; }
+  body:has(.site-now) .page-frame { padding-bottom: 52px; }
 }
