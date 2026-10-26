@@ -15,9 +15,15 @@ export function isChargeRoute(pathname: string): boolean {
   return path === "/charge" || path.startsWith("/charge/") || path.startsWith("/ev/");
 }
 
+export function isFoodRoute(pathname: string): boolean {
+  const path = normalizeRoute(pathname);
+  return path === "/food" || path.startsWith("/food/");
+}
+
 export function pageTitle(pathname: string): string {
   const path = normalizeRoute(pathname);
   if (isChargeRoute(path)) return "Charging stations";
+  if (isFoodRoute(path)) return "Cafés & food";
   if (path.startsWith("/jobs")) return "Tech jobs";
   if (path.startsWith("/events")) return "Tech events";
   if (path.startsWith("/learn")) return "Learn AI";
@@ -32,6 +38,7 @@ export function tabActive(pathname: string, href: string): boolean {
   const path = normalizeRoute(pathname);
   if (href === "/") return path === "/";
   if (href === "/charge") return isChargeRoute(path);
+  if (href === "/food") return isFoodRoute(path);
   return path === href || path.startsWith(`${href}/`);
 }
 

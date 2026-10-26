@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { isChargeRoute, moreActive, pageTitle, tabActive } from "../src/lib/route-chrome";
+import { isChargeRoute, isFoodRoute, moreActive, pageTitle, tabActive } from "../src/lib/route-chrome";
 
 assert.equal(pageTitle("/events"), "Tech events");
 assert.equal(pageTitle("/events/"), "Tech events");
@@ -11,6 +11,12 @@ assert.equal(tabActive("/ev/station", "/charge"), true);
 assert.equal(tabActive("/events", "/events"), true);
 assert.equal(pageTitle("/ev/station"), "Charging stations");
 assert.equal(pageTitle("/charge"), "Charging stations");
+assert.equal(pageTitle("/food"), "Cafés & food");
+assert.equal(pageTitle("/food/"), "Cafés & food");
+assert.equal(isFoodRoute("/food"), true);
+assert.equal(tabActive("/food", "/food"), true);
+assert.equal(tabActive("/food", "/charge"), false);
+assert.equal(moreActive("/food"), false);
 assert.equal(pageTitle("/"), "Nearby");
 assert.equal(tabActive("/", "/"), true);
 assert.equal(tabActive("/learn", "/learn"), true);

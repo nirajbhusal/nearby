@@ -16,6 +16,7 @@ function walk(dir, acc = []) {
 const shell = [
   "index.html",
   "charge/index.html",
+  "food/index.html",
   "jobs/index.html",
   "learn/index.html",
   "events/index.html",
@@ -37,7 +38,7 @@ for (const file of walk(join(outDir, "_next/static"))) {
   urls.add(`/nearby/${rel}`);
 }
 
-const body = `const CACHE = "nearby-shell-v4";
+const body = `const CACHE = "nearby-shell-v5";
 const PRECACHE = ${JSON.stringify([...urls], null, 2)};
 
 self.addEventListener("install", (event) => {

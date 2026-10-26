@@ -7,11 +7,12 @@ import { Peek, PeekEmpty, usePeekState } from "@/components/peek/Peek";
 import { toHref } from "@/components/SiteLink";
 import { evIndex } from "@/lib/nepal/ev";
 import { nepalEvents } from "@/lib/nepal/events";
+import { categoryLabels, cityForPlace, foodPlaces } from "@/lib/nepal/food";
 import { nepalCompanies } from "@/lib/nepal/jobs";
 import { learnPlaces } from "@/lib/nepal/learn";
 import { NOMAD_INDEX } from "@/lib/nepal/nomad-shared";
 
-type Group = "Charging stations" | "Tech jobs" | "Tech events" | "Learn AI" | "Digital nomads";
+type Group = "Charging stations" | "Cafés & food" | "Tech jobs" | "Tech events" | "Learn AI" | "Digital nomads";
 
 type Hit = { group: Group; title: string; meta: string; href: string };
 
@@ -21,20 +22,23 @@ function includes(value: string | null | undefined, needle: string): boolean {
   return (value || "").toLowerCase().includes(needle);
 }
 
-const INTENT = /^(chargers?|plugs?|fast|stations?|ev|jobs?|roles?|hiring|work|events?|meetups?|week|conference|learn|courses?|nearby|nomad|cowork(?:ing)?|cafes?|stays?)$/;
+const INTENT = /^(chargers?|plugs?|fast|stations?|ev|jobs?|roles?|hiring|work|events?|meetups?|week|conference|learn|courses?|nearby|nomad|cowork(?:ing)?|stays?|coffee|cafe|cafes|caf|thakali|food|restaurant|restaurants)$/;
 
 function searchAll(query: string, place: string): Hit[] {
   const needle = query.trim().toLowerCase();
   if (needle.length < 2) return [];
   const city = place === "Near me" ? "" : place.toLowerCase();
-  const tokens = needle.split(/[^a-z0-9+]+/).filter((token) => token.length >= 2 && token !== "near" && token !== "the");
+  const folded = needle.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const tokens = folded.split(/[^a-z0-9+]+/).filter((token) => token.length >= 2 && token !== "near" && token !== "the");
   const words = tokens.filter((token) => !INTENT.test(token));
   const charge = tokens.some((token) => /charg|plug|ccs|fast|station|^ev$/.test(token));
   const job = tokens.some((token) => /job|role|hiring|work|^ai$/.test(token));
   const event = tokens.some((token) => /event|meetup|week|conference/.test(token));
   const learn = tokens.some((token) => /learn|course|univers|bootcamp|^ai$/.test(token));
-  const nomad = tokens.some((token) => /nomad|cowork|cafe|stay|pokhara|kathmandu/.test(token));
-  const broad = !charge && !job && !event && !learn && !nomad;
+  const food = tokens.some((token) => /^(coffee|cafe|cafes|caf|thakali|food|momo|momos|restaurant|restaurants)$/.test(token));
+  const nomadCore = tokens.some((token) => /nomad|cowork|stay/.test(token));
+  const nomad = nomadCore || (!food && tokens.some((token) => token === "pokhara" || token === "kathmandu"));
+  const broad = !charge && !job && !event && !learn && !nomad && !food;
   const textHit = (blob: string) => (words.length === 0 ? true : words.some((word) => blob.includes(word)));
   const inCity = (blob: string) => !city || blob.includes(city);
   const hits: Hit[] = [];
@@ -50,6 +54,35 @@ function searchAll(query: string, place: string): Hit[] {
         href: `/ev/${station.id}`,
       });
       if (hits.length >= 4) break;
+    }
+  }
+
+  if (food || broad) {
+    const wantsCoffee = tokens.some((token) => token === "coffee" || token === "cafe" || token === "cafes" || token === "caf");
+    const wantsThakali = tokens.includes("thakali");
+    const wantsMomo = tokens.some((token) => token === "momo" || token === "momos");
+    let count = 0;
+    for (const place of foodPlaces) {
+      const labels = categoryLabels(place);
+      const blob = `${place.name} ${place.area ?? ""} ${place.town ?? ""} ${place.city} ${place.known_for ?? ""} ${place.description ?? ""} ${labels.join(" ")}`.toLowerCase();
+      if (!inCity(blob) || !textHit(blob)) continue;
+      if (wantsCoffee && !place.category.includes("coffee")) continue;
+      if (wantsThakali && !place.category.includes("thakali")) continue;
+      if (wantsMomo && !blob.includes("momo")) continue;
+      const cityId = cityForPlace(place);
+      const params = new URLSearchParams();
+      if (cityId === "pokhara") params.set("city", "pokhara");
+      if (wantsCoffee) params.set("cat", "coffee");
+      else if (wantsThakali) params.set("cat", "thakali");
+      params.set("id", place.id);
+      hits.push({
+        group: "Cafés & food",
+        title: place.name,
+        meta: [labels.join(", "), place.area, place.town].filter(Boolean).join(" · "),
+        href: `/food?${params.toString()}`,
+      });
+      count += 1;
+      if (count >= 4) break;
     }
   }
 
@@ -121,7 +154,7 @@ function searchAll(query: string, place: string): Hit[] {
   return hits;
 }
 
-const GROUPS: Group[] = ["Charging stations", "Tech jobs", "Tech events", "Learn AI", "Digital nomads"];
+const GROUPS: Group[] = ["Charging stations", "Cafés & food", "Tech jobs", "Tech events", "Learn AI", "Digital nomads"];
 
 function useWideSearch() {
   return useSyncExternalStore(
@@ -137,6 +170,7 @@ function useWideSearch() {
 
 const PROMPTS: { href: string; title: string }[] = [
   { href: "/charge?near=1&fast=1", title: "Fast chargers near me" },
+  { href: "/food?cat=coffee", title: "Coffee in Kathmandu" },
   { href: "/jobs?q=Kathmandu&category=ai-data", title: "AI jobs in Kathmandu" },
   { href: "/events?q=Kathmandu&when=week", title: "Events this week" },
   { href: "/nomad/pokhara", title: "Coworking in Pokhara" },

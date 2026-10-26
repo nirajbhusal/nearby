@@ -7,10 +7,11 @@ const line = {
 };
 
 /** Monoline drawings for Home. Strokes use currentColor so light and dark stay in ink. */
-export function HomeIllustration({ kind }: { kind: "charge" | "jobs" | "events" | "learn" | "nomad" }) {
+export function HomeIllustration({ kind }: { kind: "charge" | "food" | "jobs" | "events" | "learn" | "nomad" }) {
   return (
     <svg className="home-illu" viewBox="0 0 128 80" aria-hidden="true">
       {kind === "charge" ? <ChargeSketch /> : null}
+      {kind === "food" ? <FoodSketch /> : null}
       {kind === "jobs" ? <JobsSketch /> : null}
       {kind === "events" ? <EventsSketch /> : null}
       {kind === "learn" ? <LearnSketch /> : null}
@@ -40,6 +41,20 @@ function ChargeSketch() {
       <path d="M74 36h26c6 0 10 4 10 10v6c0 5-4 8-9 8H76c-6 0-10-3-10-8v-8c0-4 4-8 8-8z" {...line} />
       <path d="M86 36V24M100 36V24" {...line} />
       <path d="M80 48h22" {...line} />
+    </>
+  );
+}
+
+function FoodSketch() {
+  return (
+    <>
+      <path d="M16 26h24v9a9 9 0 0 1-9 9h-6a9 9 0 0 1-9-9v-9z" {...line} />
+      <path d="M40 30h7a5.5 5.5 0 0 1 0 11h-7" {...line} />
+      <path d="M22 50h16" {...line} />
+      <path d="M68 28h40" {...line} />
+      <path d="M72 28c0 18 5 26 16 26s16-8 16-26" {...line} />
+      <path d="M64 56h48" {...line} />
+      <path d="M86 36c5 2 8 7 8 12" {...line} />
     </>
   );
 }

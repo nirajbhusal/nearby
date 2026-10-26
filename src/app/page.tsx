@@ -4,6 +4,7 @@ import { DayGreeting } from "@/components/home/DayGreeting";
 import { NepalClock } from "@/components/home/NepalClock";
 import { toHref } from "@/components/SiteLink";
 import { evIndex } from "@/lib/nepal/ev";
+import { foodPlaces } from "@/lib/nepal/food";
 import { eventTiming, nepalEvents } from "@/lib/nepal/events";
 import { formatWhen } from "@/lib/nepal/format";
 import { companiesNear, jobRoleCards } from "@/lib/nepal/jobs";
@@ -14,7 +15,7 @@ import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
   "Nearby · All within reach",
-  "Charging stations, tech jobs, tech events, places to learn AI, and digital nomads.",
+  "Charging stations, cafés and food, tech jobs, tech events, places to learn AI, and digital nomads.",
   "/",
 );
 
@@ -56,6 +57,7 @@ export default function HomePage() {
   const cities = nomadCities.length;
   const sections = [
     { href: "/charge", name: "Charging stations", count: chargers, meta: noun(chargers, "charger", "chargers"), art: "charge" },
+    { href: "/food", name: "Cafés & food", count: foodPlaces.length, meta: noun(foodPlaces.length, "place", "places"), art: "food" },
     { href: "/jobs", name: "Tech jobs", count: roles, meta: noun(roles, "open role", "open roles"), art: "jobs" },
     { href: "/events", name: "Tech events", count: events, meta: noun(events, "coming up", "coming up"), art: "events" },
     { href: "/learn", name: "Learn AI", count: learn, meta: noun(learn, "place", "places"), art: "learn" },

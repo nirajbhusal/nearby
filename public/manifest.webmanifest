@@ -42,6 +42,12 @@
       "icons": [{ "src": "/nearby/icons/icon-192.png?v=eyes", "sizes": "192x192" }]
     },
     {
+      "name": "Cafés & food",
+      "short_name": "Food",
+      "url": "/nearby/food/",
+      "icons": [{ "src": "/nearby/icons/icon-192.png?v=eyes", "sizes": "192x192" }]
+    },
+    {
       "name": "Tech events",
       "short_name": "Events",
       "url": "/nearby/events/",

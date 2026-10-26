@@ -3351,7 +3351,7 @@ svg { stroke-width: 1.5; }
   bottom: 0;
   z-index: 75;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   width: auto;
   margin: 0;
   border-radius: 20px 20px 0 0;
@@ -5016,6 +5016,85 @@ html[data-sidebar="rail"] .side-profile-row .theme-toggle { position: relative; 
 @media (min-width: 1100px) {
   .home-sections { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
   .home-section { grid-column: span 2; }
-  .home-section:nth-child(4),
-  .home-section:nth-child(5) { grid-column: span 3; }
+}
+
+.food-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.food-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.food-list .food-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+}
+.food-list .station-open {
+  width: auto;
+  min-width: 0;
+  padding: 14px 8px 14px 16px;
+}
+.food-row-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 0;
+}
+.food-card-links,
+.food-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+.food-maps {
+  min-height: 32px;
+  padding: 0;
+  font-size: 13px;
+  text-align: right;
+}
+.food-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.food-attrib { margin: 6px 0 0; }
+.food-rating { margin: 8px 0 0; font-size: 14px; }
+.food-pin {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--graphite);
+  color: var(--bg);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+.food-pin.is-active {
+  background: var(--bg);
+  color: var(--graphite);
+  box-shadow: 0 0 0 2px var(--graphite);
+}
+.tab-bar a span,
+.tab-bar button span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 420px) {
+  .tab-bar a,
+  .tab-bar button { font-size: 11px; letter-spacing: -0.04em; }
 }
