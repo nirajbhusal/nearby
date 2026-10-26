@@ -6,7 +6,6 @@ import { toHref } from "@/components/SiteLink";
 import { evIndex } from "@/lib/nepal/ev";
 import { foodPlaces } from "@/lib/nepal/food";
 import { eventTiming, nepalEvents } from "@/lib/nepal/events";
-import { formatWhen } from "@/lib/nepal/format";
 import { companiesNear, jobRoleCards } from "@/lib/nepal/jobs";
 import { learnPlaces } from "@/lib/nepal/learn";
 import { nomadCities } from "@/lib/nepal/nomad";
@@ -19,35 +18,12 @@ export const metadata = pageMeta(
   "/",
 );
 
-function nextUp(): { href: string; text: string } | null {
-  const now = new Date();
-  const upcoming = nepalEvents
-    .filter((event) => event.start_date && eventTiming(event, now) === "upcoming")
-    .sort((a, b) => new Date(a.start_date ?? 0).getTime() - new Date(b.start_date ?? 0).getTime());
-  const live = upcoming.filter((event) => new Date(event.start_date ?? 0).getTime() <= now.getTime());
-  const next = live.length
-    ? live.slice().sort((a, b) => {
-        const aEnd = new Date(a.end_date || a.start_date || 0).getTime();
-        const bEnd = new Date(b.end_date || b.start_date || 0).getTime();
-        return aEnd - bEnd;
-      })[0]
-    : upcoming[0];
-  if (!next?.start_date) return null;
-  const title = next.title.length > 56 ? `${next.title.slice(0, 53)}…` : next.title;
-  const label = live.length ? "On now" : "Next up";
-  return {
-    href: toHref(`/events?id=${encodeURIComponent(next.id)}`),
-    text: `${label} · ${title} · ${formatWhen(next.start_date, next.end_date)}`,
-  };
-}
-
 function noun(count: number, one: string, many: string) {
   return count === 1 ? one : many;
 }
 
 export default function HomePage() {
   const now = new Date();
-  const upcoming = nextUp();
   const chargers = evIndex.length;
   const roles = jobRoleCards(
     companiesNear(NEPAL, { category: null, city: null, remoteOnly: false, nationwide: true }).near,
@@ -87,11 +63,6 @@ export default function HomePage() {
             </a>
           ))}
         </div>
-        {upcoming ? (
-          <p className="home-next">
-            <a href={upcoming.href}>{upcoming.text}</a>
-          </p>
-        ) : null}
       </section>
     </main>
   );

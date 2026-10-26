@@ -33,6 +33,21 @@ export function eventTiming(event: NepalEvent, now: Date | null): EventTiming {
   return ktmDay(start) < ktmDay(now) ? "past" : "upcoming";
 }
 
+/** Dated events whose start has passed and whose end has not. */
+export function eventsOnNow(now: Date): NepalEvent[] {
+  return nepalEvents
+    .filter((event) => {
+      if (!event.start_date) return false;
+      if (eventTiming(event, now) !== "upcoming") return false;
+      return new Date(event.start_date).getTime() <= now.getTime();
+    })
+    .sort((a, b) => {
+      const aStart = new Date(a.start_date ?? 0).getTime();
+      const bStart = new Date(b.start_date ?? 0).getTime();
+      return aStart - bStart || a.title.localeCompare(b.title);
+    });
+}
+
 export function eventsNear(
   origin: PlaceHit,
   options: { type: string | null; freeOnly: boolean },

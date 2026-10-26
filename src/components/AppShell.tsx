@@ -16,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import { BrandEyes } from "@/components/brand/Logo";
+import { OnNow } from "@/components/OnNow";
 import { AskDock } from "@/components/home/AskNearby";
 import { InstallBridge } from "@/components/InstallPrompt";
 import { AvatarFace } from "@/components/ProfileAvatar";
@@ -177,6 +178,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <span>More</span>
         </button>
       </nav>
+      <OnNow />
       {more ? (
         <div className="more-layer">
           <button type="button" className="more-scrim" aria-label="Close menu" onClick={() => setMore(false)} />
